@@ -19,9 +19,9 @@ async function bootstrap() {
     // credentials: true
   });
 
-
-  await app.listen(process.env.PORT || port);
-  console.log(`running and listening on port ${port}`)
+  let p = process.env.PORT || port
+  await app.listen(p);
+  console.log(`running and listening on port ${p}`)
 
 }
 bootstrap();
