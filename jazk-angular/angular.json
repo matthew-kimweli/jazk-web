@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "hello-world": {
+    "contractsystem": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -25,9 +25,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/@tabler/core/dist/css/tabler.min.css",
+              "node_modules/ngx-toastr/toastr.css"
+
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/@tabler/core/dist/js/tabler.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -35,7 +40,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -57,10 +62,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "hello-world:build:production"
+              "buildTarget": "contractsystem:build:production"
             },
             "development": {
-              "buildTarget": "hello-world:build:development"
+              "buildTarget": "contractsystem:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -68,7 +73,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "hello-world:build"
+            "buildTarget": "contractsystem:build"
           }
         },
         "test": {

@@ -1,13 +1,69 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
-  <title>Jazk</title>
+  <title>Sales Portal</title>
+  <meta name="keywords" content="LPO">
+  <meta name="author" content="JazKe">
+  <meta name="description"
+    content="Sales Portal">
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+  <meta name="viewport" content="height=device-height, 
+                      width=device-width, initial-scale=1.0, 
+                      minimum-scale=1.0, maximum-scale=1.0, 
+                      user-scalable=no, target-densitydpi=device-dpi">
+
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 </head>
-<body>
+<style>
+  :root {
+    --tblr-font-sans-serif: 'Inter';
+  }
+</style>
+
+
+<!-- other stuff ... -->
+<script>
+  function handleUnsupportedBrowsers() {
+    var appRoot = document.getElementsByTagName('app-root')[0];
+    if (appRoot && appRoot.innerHTML === '') {
+      appRoot.innerHTML = '<h1>Unsupported Browser (too old)</h1>' +
+        '<p>Please use a modern browser!</p>';
+    }
+  }
+</script>
+
+
+<body onload="handleUnsupportedBrowsers()">
+
   <app-root></app-root>
+
+  <div id="preloader">
+    <div class="page page-center">
+      <div class="container container-slim py-4">
+        <div class="text-center">
+          <div class="mb-3">
+            <a href="." class="navbar-brand navbar-brand-autodark"><img src="assets/images/jaz-logo.png" height="36"
+                alt=""></a>
+          </div>
+          <div class="text-secondary mb-3">Jazke <span style="color: chocolate;"> Sales Portal</span></div>
+          <div class="progress progress-sm">
+            <div class="progress-bar progress-bar-indeterminate"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <script src="https://checkout.flutterwave.com/v3.js"></script> -->
+
 </body>
+
 </html>

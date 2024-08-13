@@ -1,0 +1,34 @@
+<div class="card">
+  
+  <div class="card-body">
+    <div class="container-fluid">
+      
+      <div >
+        <ul class="navbar-nav pt-lg-3">
+          <li *ngFor="let item of list" class="nav-item">
+            <a class="nav-link" [routerLink]="[item.route]" routerLinkActive="router-link-active" >
+              <span class="nav-link-icon d-md-none d-lg-inline-block">
+                <div *ngIf="item.icon" [innerHTML]="item.icon | sanitizeHtml" ></div>
+              </span>
+              <span class="nav-link-title">
+                {{item.name}} <span *ngIf="item.count" class="badge bg-orange text-orange-fg ms-2 badge-pill">{{item.count}}</span>
+              </span>
+            </a>   
+            
+            
+            <a style="margin-left: 20px;" *ngFor="let child of item.children" class="nav-link" [routerLink]="[child.route]" routerLinkActive="router-link-active" >
+              <span class="nav-link-icon d-md-none d-lg-inline-block">
+                <div *ngIf="child.icon" [innerHTML]="child.icon | sanitizeHtml" ></div>
+              </span>
+              <span class="nav-link-title">
+                {{child.name}}
+              </span>
+            </a>         
+          </li>
+          
+       
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
