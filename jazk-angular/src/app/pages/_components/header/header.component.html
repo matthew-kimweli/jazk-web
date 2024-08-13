@@ -12,32 +12,8 @@
       </a>
     </h1>
     <div class="navbar-nav flex-row order-md-last">
-      <div class="nav-item  d-md-flex me-3">
-        <div class="btn-list">
-          <div class="input-icon">
-            <input name="searchtext" [(ngModel)]="searchText" (input)="fetchTranscripts($event)" type="text" class="form-control form-control-rounded" placeholder="Search…">
-            <span class="input-icon-addon">
-              <div *ngIf="searching" class="spinner-border spinner-border-sm text-secondary" role="status"></div>
-              <svg *ngIf="!searching" xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path d="M21 21l-6 -6"></path></svg>
-            </span>
-          </div>
-        </div>
-        <li *ngIf="searchText"  class="nav-item dropdown">
-          <div [class.show]="searchText" class="dropdown-menu" data-popper-placement="bottom-start" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 5px);">
-            <a *ngFor="let s of searches" class="dropdown-item" (click)="selectNote(s)" >
-              <small class="text-wrap text-lowercase">{{s.get('lpoNumber') }} <span *ngIf="s.get('folderName')" class="text-muted" style="font-size: xx-small;">- {{s.get('folderName')}}</span>      </small>
-            </a>
-            
-          </div>
-        </li>
-        
-      </div>
+      
 
-      <!-- <div class="nav-item d-sm-none me-2">
-        <span class="avatar avatar-sm ">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path d="M21 21l-6 -6"></path></svg>
-        </span>
-      </div> -->
       
       <div class="nav-item dropdown" >
         
@@ -52,7 +28,8 @@
             </svg>
           </span>
           <div class="d-none d-xl-block ps-2">
-            <div>{{auth.currentUserName}}</div>
+            <div *ngIf="!auth.currentUser">Login</div>
+            <div *ngIf="auth.currentUser">{{auth.currentUserName}}</div>
             <!-- <div class="mt-1 small text-capitalize text-green">{{auth.currentUserType}}</div> -->
           </div>
         </a>
