@@ -7,12 +7,13 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { ContractCreateComponent } from './pages/contract-create/contract-create.component';
 import { SearchComponent } from './pages/search/search.component';
+import { ProfileEditComponent } from './pages/auth/profile-edit/profile-edit.component';
 
 export const routes: Routes = [
 
     {
         path: '',
-        redirectTo: 'search',
+        redirectTo: 'home',
         pathMatch: 'full'
       },
       {
@@ -35,6 +36,10 @@ export const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+      },
+      {
+        path: 'edit-profile',
+        component: ProfileEditComponent,
       },
 
       {

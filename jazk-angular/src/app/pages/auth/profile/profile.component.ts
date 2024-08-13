@@ -5,13 +5,14 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import * as Parse from 'parse';
+import { RouterModule } from '@angular/router';
 
 declare var FlutterwaveCheckout: any;
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, HeaderComponent],
+  imports: [CommonModule, RouterModule, FormsModule, HeaderComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
@@ -29,6 +30,7 @@ export class ProfileComponent {
     { "code": "UGX", "name": "Ugandan Shilling(UGX)" },
     { "code": "RWF", "name": "Rwandan Franc" }
   ]
+  user: Parse.User<Parse.Attributes> | undefined;
 
 
   constructor(
@@ -36,6 +38,7 @@ export class ProfileComponent {
     private toastr: ToastrService,
   ) {
     this.auth.refreshUser()
+    this.user = this.auth.currentUser;
   }
 
 
