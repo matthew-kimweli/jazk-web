@@ -1,0 +1,197 @@
+<app-header></app-header>
+<div class="page-wrapper">
+    <div class="page page-center">
+        <!-- <div class="container container-tight py-4">
+            <div class="text-center mb-4">
+                <h1 class="mt-5">Get Your Motor Insurance Quote!</h1>
+            </div>
+            <div class="card card-md">
+                <div class="card-body text-center py-4 p-sm-5">
+                    <img src="assets/images/undraw_electric_car_b-7-hl.svg" alt="SVG Image" style="width: 100px; height: 100px;"/>
+                    <p class="text-secondary">Simply fill in details of your vehicle below to get your quote.</p>
+                </div>
+                <div class="hr-text hr-text-spaceless"></div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label">Motor Class</label>
+                        <select (change)="filterMakeModels($event)" [(ngModel)]="motorClass" name="motorClass" id="motorClass" class="form-control" [ngModelOptions]="{standalone: true}" class="form-select mb-0">
+                            <option value="" disabled>Select the Class of the Vehicle</option>
+                            <option *ngFor="let item of motorService.motorClasses" [value]="item.id">{{item.label}}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label">Make/Model</label>
+                        <select [(ngModel)]="makeModel" name="makeModel" id="makeModel" [ngModelOptions]="{standalone: true}" class="form-select mb-0" [disabled]="motorClass.length == 0">
+                            <option value="" disabled>Select the Make or Model of the Vehicle</option>
+                            <option *ngFor="let item of filteredMakeModels" [value]="item.name">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center mt-3">
+                <div class="col-4">
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 45%" role="progressbar" aria-valuenow="45" aria-valuemin="0"
+                            aria-valuemax="100" aria-label="45% Complete">
+                            <span class="visually-hidden">45% Complete</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="btn-list justify-content-end">
+                        <a href="#" class="btn btn-link link-secondary">
+                            Set up later
+                        </a>
+                        <a href="#" class="btn btn-primary">
+                            Continue
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div *ngIf="step === 1" class="container container-tight py-4">
+            <div class="text-center mb-4">
+                <h1 class="mt-5">Get Your Motor Insurance Quote!</h1>
+            </div>
+            <div class="card card-md">
+                <div class="card-body text-center py-4 p-sm-5">
+                    <img src="assets/images/undraw_electric_car_b-7-hl.svg" alt="SVG Image"
+                        style="width: 100px; height: 100px;" />
+                    <p class="text-secondary">Simply fill in details of your vehicle to get your quote.</p>
+                </div>
+                <div class="hr-text hr-text-spaceless"></div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label">Motor Class</label>
+                        <select [(ngModel)]="motorClass" (ngModelChange)="filterMakeModels()" class="form-select">
+                            <option value="" disabled>Select the Class of the Vehicle</option>
+                            <option *ngFor="let item of motorService.motorClasses" [value]="item.id">{{item.label}}
+                            </option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label">Make/Model</label>
+                        <select [(ngModel)]="makeModel" class="form-select" [disabled]="!motorClass">
+                            <option value="" disabled>Select the Make or Model of the Vehicle</option>
+                            <option *ngFor="let item of filteredMakeModels" [value]="item.name">{{item.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center mt-3">
+                <div class="col-4">
+                    <div class="progress">
+                        <div class="progress-bar" [style.width.%]="(step === 1) ? 50 : 100" role="progressbar"
+                            aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="50% Complete">
+                            <span class="visually-hidden">{{ (step === 1) ? '50% Complete' : '100% Complete'
+                                }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="btn-list justify-content-end">
+                        <button class="btn btn-primary" (click)="nextStep()"
+                            [disabled]="!motorClass || !makeModel">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="step === 2" class="container">
+            <div class="text-center mb-4">
+                <h1 class="mt-5">Vehicle Information</h1>
+            </div>
+            <div class="card card-lg">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label class="form-label">Year of Manufacture</label>
+                            <select title="select" [(ngModel)]="yearOfManufacture" name="yearOfManufacture"
+                                id="yearofmanufacture" class="form-select">
+                                <option value="" disabled>Year Of Manufacture</option>
+                                <option *ngFor="let item of tYears" [value]="item">{{item}}</option>
+                            </select>
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label">Value of the Vehicle</label>
+                            <input class="form-control" placeholder="Sum Insured" [formControl]="control" [imask]="mask" unmask="typed">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label class="form-label">Do you want Windscreen benefit?</label>
+                            <select title="select" [(ngModel)]="windscreen" name="windscreen"
+                                id="windscreen" class="form-select">
+                                <option value="" disabled>Windscreen Benefit</option>
+                                <option *ngFor="let item of twoType" [value]="item.id">{{item.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label">Do you want Excess Protector benefit?</label>
+                            <select title="select" [(ngModel)]="excessProtector" name="excessProtector"
+                                id="excessProtector" class="form-select">
+                                <option value="" disabled>Excess Protector Benefit</option>
+                                <option *ngFor="let item of twoType" [value]="item.id">{{item.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3" *ngIf="motorClass == 'private'">
+                            <label class="form-label">Do you want Courtesy Car benefit?</label>
+                            <select title="select" [(ngModel)]="courtesyCar" name="courtesyCar"
+                                id="courtesyCar" class="form-select">
+                                <option value="" disabled>Courtesy Car Benefit</option>
+                                <option *ngFor="let item of twoType" [value]="item.id">{{item.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col mb-3" *ngIf="motorClass == 'private'">
+                            <label class="form-label">Do you want AA Road Rescue benefit?</label>
+                            <select title="select" [(ngModel)]="aaRoadRescue" name="aaRoadRescue"
+                                id="aaRoadRescue" class="form-select">
+                                <option value="" disabled>AA Road Rescue Benefit</option>
+                                <option *ngFor="let item of twoType" [value]="item.id">{{item.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Do you want Political violence & Terrorism benefit?</label>
+                        <select title="select" [(ngModel)]="pvt" name="pvt"
+                            id="pvt" class="form-select">
+                            <option value="" disabled>Political violence & Terrorism Benefit</option>
+                            <option *ngFor="let item of twoType" [value]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                    <!-- <div class="mb-3">
+                        <label class="form-label">Do you want Loss of Use benefit?</label>
+                        <select title="select" [(ngModel)]="lossOfUse" name="lossOfUse"
+                            id="lossOfUse" class="form-select">
+                            <option value="" disabled>Loss of Use Benefit</option>
+                            <option *ngFor="let item of twoType" [value]="item.id">{{item.name}}</option>
+                        </select>
+                    </div> -->
+                    <div class="row"></div>
+                </div>
+            </div>
+            <div class="row align-items-center mt-3">
+                <div class="col-4">
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 100%" role="progressbar" aria-valuenow="100"
+                            aria-valuemin="0" aria-valuemax="100" aria-label="100% Complete">
+                            <span class="visually-hidden">100% Complete</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="btn-list justify-content-end">
+                        <button class="btn btn-secondary" (click)="previousStep()">Back</button>
+                        <button class="btn btn-primary" (click)="submit()"
+                            [disabled]="!motorClass || !makeModel">Get Quote</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<app-footer></app-footer>
