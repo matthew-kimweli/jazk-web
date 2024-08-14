@@ -8,6 +8,7 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { ContractCreateComponent } from './pages/contract-create/contract-create.component';
 import { SearchComponent } from './pages/search/search.component';
 import { ProfileEditComponent } from './pages/auth/profile-edit/profile-edit.component';
+import { MotorCalcComponent } from './pages/motor/motor-calc/motor-calc.component';
 
 export const routes: Routes = [
 
@@ -52,6 +53,9 @@ export const routes: Routes = [
         canActivate: [AuthGuardService],
         component: SearchComponent,
       },
-      
+      {
+        path: 'motor',
+        component: MotorCalcComponent,
+      },
   
 ];
