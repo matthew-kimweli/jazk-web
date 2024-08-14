@@ -32,6 +32,6 @@ export class HeaderComponent {
       Parse.User.logOut();
     }
 
-    this.router.navigate(['login']);
+    this.router.navigate(['welcome']);
   }
 }

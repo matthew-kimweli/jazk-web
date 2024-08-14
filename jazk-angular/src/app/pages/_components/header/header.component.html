@@ -35,7 +35,9 @@
         </a>
         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
           <!-- <a href="#" class="dropdown-item">Status</a> -->
-            <a *ngIf="auth.currentUser" [routerLink]="['/profile']" routerLinkActive="router-link-active"  class="dropdown-item">Profile</a>
+          <a *ngIf="auth.currentUser" [routerLink]="['/home']" routerLinkActive="router-link-active"  class="dropdown-item">My Dashboard</a>  
+          <a *ngIf="auth.currentUser" [routerLink]="['/profile']" routerLinkActive="router-link-active"  class="dropdown-item">Profile</a>
+            
             <!-- <a href="#" class="dropdown-item">Feedback</a> -->
             <!-- <div class="dropdown-divider"></div> -->
             <!-- <a href="./settings.html" class="dropdown-item">Settings</a> -->

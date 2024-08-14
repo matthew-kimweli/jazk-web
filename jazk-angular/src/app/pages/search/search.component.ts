@@ -33,7 +33,7 @@ export class SearchComponent {
   async fetch() {
     let user: any = this.auth.currentUser;
 
-    let query = new Parse.Query("JazzContract");
+    let query = new Parse.Query("JazkePolicy");
     
     this.list = await this.parseService.find(query);
   }
