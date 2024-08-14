@@ -22,6 +22,13 @@ export class MotorCalcComponent implements OnInit {
   filteredMakeModels: any[] = [];
   yearOfManufacture: any = '';
   sumInsured: any;
+  twoType = [{id: 'yes', name: 'Yes'},{id: 'no', name: 'No'}];
+  courtesyCar: any = '';
+  pvt: any = '';
+  windscreen: any = '';
+  excessProtector: any = '';
+  aaRoadRescue: any = '';
+
   control!: FormControl
 
   tYears: any = [];
