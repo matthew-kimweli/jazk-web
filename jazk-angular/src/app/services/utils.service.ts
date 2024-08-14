@@ -18,6 +18,333 @@ export class UtilsService {
   ads: any;
   currentResponse: any;
   selectedChunk: any;
+  motorData: any = {
+    "serialNo": {
+        "__zone_symbol__state": true,
+        "__zone_symbol__value": "202408140013"
+    },
+    "insured": "",
+    "intermediary": "",
+    "quotes": [
+        {
+            "vehicleType": "tankerschemical",
+            "coverType": {
+                "id": "commercial",
+                "name": "MOTOR COMMERCIAL"
+            },
+            "motorType": "commercial",
+            "trackingDevice": "yes",
+            "alarm": "yes",
+            "courtesyCar": "yes",
+            "carUseLocation": "ugandaOnly",
+            "numberOfUnits": 1,
+            "singleVehicleName": "Chemical Tanker",
+            "sumInsured": 600000,
+            "proforma": " MOTOR COMMERCIAL - Chemical Tanker",
+            "group": "Group4",
+            "numberOfVehicles": 1,
+            "motorIds": [
+                "edb22564-b561-4a62-a0f0-785a03f7d0f7"
+            ],
+            "quoteId": "9237b29e-2780-4f4f-a042-6f86f2901a21",
+            "vehicleName": "tankerschemical",
+            "vehicleModel": "Tankers Chemical",
+            "Location": "Uganda Only",
+            "basicPremiumRate": 0.075,
+            "basicPremium": 45000,
+            "selectedLocationRate": 0,
+            "selectedLocationCharge": 0,
+            "courtesyCarRate": 0.1,
+            "courtesyCarBenefit": 250000,
+            "courtesyCarCharge": 350000.00000000006,
+            "fleetDiscount": "no",
+            "fleetDiscountRate": 0,
+            "fleetDiscountCharge": 0,
+            "trackingDeviceRate": 0.15,
+            "trackingDeviceCharge": 6750,
+            "alarmRate": 0.05,
+            "alarmCharge": 2250,
+            "subTotal": 400000,
+            "trainingCharge": 2000,
+            "stickerCharge": 6000,
+            "vatCharge": 73440,
+            "stampDutyCharge": 35000,
+            "grandTotal": 516440
+        }
+    ],
+    "grandPremium": 516440,
+    "autoMobiles": [
+        {
+            "vehicleType": "tankerschemical",
+            "coverType": {
+                "id": "commercial",
+                "name": "MOTOR COMMERCIAL"
+            },
+            "motorType": "commercial",
+            "trackingDevice": "yes",
+            "alarm": "yes",
+            "courtesyCar": "yes",
+            "carUseLocation": "ugandaOnly",
+            "numberOfUnits": 1,
+            "singleVehicleName": "Chemical Tanker",
+            "sumInsured": 600000,
+            "motorId": "edb22564-b561-4a62-a0f0-785a03f7d0f7",
+            "proforma": " MOTOR COMMERCIAL - Chemical Tanker",
+            "group": "Group4",
+            "quote": {
+                "vehicleType": "tankerschemical",
+                "coverType": {
+                    "id": "commercial",
+                    "name": "MOTOR COMMERCIAL"
+                },
+                "motorType": "commercial",
+                "trackingDevice": "yes",
+                "alarm": "yes",
+                "courtesyCar": "yes",
+                "carUseLocation": "ugandaOnly",
+                "numberOfUnits": 1,
+                "singleVehicleName": "Chemical Tanker",
+                "sumInsured": 600000,
+                "proforma": " MOTOR COMMERCIAL - Chemical Tanker",
+                "group": "Group4",
+                "numberOfVehicles": 1,
+                "motorIds": [
+                    "edb22564-b561-4a62-a0f0-785a03f7d0f7"
+                ],
+                "quoteId": "9237b29e-2780-4f4f-a042-6f86f2901a21",
+                "vehicleName": "tankerschemical",
+                "vehicleModel": "Tankers Chemical",
+                "Location": "Uganda Only",
+                "basicPremiumRate": 0.075,
+                "basicPremium": 45000,
+                "selectedLocationRate": 0,
+                "selectedLocationCharge": 0,
+                "courtesyCarRate": 0.1,
+                "courtesyCarBenefit": 250000,
+                "courtesyCarCharge": 350000.00000000006,
+                "fleetDiscount": "no",
+                "fleetDiscountRate": 0,
+                "fleetDiscountCharge": 0,
+                "trackingDeviceRate": 0.15,
+                "trackingDeviceCharge": 6750,
+                "alarmRate": 0.05,
+                "alarmCharge": 2250,
+                "subTotal": 400000,
+                "trainingCharge": 2000,
+                "stickerCharge": 6000,
+                "vatCharge": 73440,
+                "stampDutyCharge": 35000,
+                "grandTotal": 516440
+            },
+            "vehicleDisabled": false,
+            "IsBankOrMFIinterested": true,
+            "vehicleMake": "ADMIRAL  SINGLE CAB",
+            "vehicleModel": "SINGLE CAB",
+            "bodyType": "PRIME MOVER",
+            "yearOfManufacture": "2012",
+            "EngineNumber": "2252",
+            "anyBankOrMFIInterested": "yes",
+            "bankOrMFI": "NCBA Bank Uganda Limited",
+            "registrationNumber": "252",
+            "chasisNumber": "252"
+        }
+    ],
+    "combinedMotorTypes": [
+        {
+            "motorType": "commercial",
+            "id": "84619a5c-fef7-4f73-9aea-648f9726aeb2",
+            "property": [
+                {
+                    "vehicleType": "tankerschemical",
+                    "coverType": {
+                        "id": "commercial",
+                        "name": "MOTOR COMMERCIAL"
+                    },
+                    "motorType": "commercial",
+                    "trackingDevice": "yes",
+                    "alarm": "yes",
+                    "courtesyCar": "yes",
+                    "carUseLocation": "ugandaOnly",
+                    "numberOfUnits": 1,
+                    "singleVehicleName": "Chemical Tanker",
+                    "sumInsured": 600000,
+                    "motorId": "edb22564-b561-4a62-a0f0-785a03f7d0f7",
+                    "proforma": " MOTOR COMMERCIAL - Chemical Tanker",
+                    "group": "Group4",
+                    "quote": {
+                        "vehicleType": "tankerschemical",
+                        "coverType": {
+                            "id": "commercial",
+                            "name": "MOTOR COMMERCIAL"
+                        },
+                        "motorType": "commercial",
+                        "trackingDevice": "yes",
+                        "alarm": "yes",
+                        "courtesyCar": "yes",
+                        "carUseLocation": "ugandaOnly",
+                        "numberOfUnits": 1,
+                        "singleVehicleName": "Chemical Tanker",
+                        "sumInsured": 600000,
+                        "proforma": " MOTOR COMMERCIAL - Chemical Tanker",
+                        "group": "Group4",
+                        "numberOfVehicles": 1,
+                        "motorIds": [
+                            "edb22564-b561-4a62-a0f0-785a03f7d0f7"
+                        ],
+                        "quoteId": "9237b29e-2780-4f4f-a042-6f86f2901a21",
+                        "vehicleName": "tankerschemical",
+                        "vehicleModel": "Tankers Chemical",
+                        "Location": "Uganda Only",
+                        "basicPremiumRate": 0.075,
+                        "basicPremium": 45000,
+                        "selectedLocationRate": 0,
+                        "selectedLocationCharge": 0,
+                        "courtesyCarRate": 0.1,
+                        "courtesyCarBenefit": 250000,
+                        "courtesyCarCharge": 350000.00000000006,
+                        "fleetDiscount": "no",
+                        "fleetDiscountRate": 0,
+                        "fleetDiscountCharge": 0,
+                        "trackingDeviceRate": 0.15,
+                        "trackingDeviceCharge": 6750,
+                        "alarmRate": 0.05,
+                        "alarmCharge": 2250,
+                        "subTotal": 400000,
+                        "trainingCharge": 2000,
+                        "stickerCharge": 6000,
+                        "vatCharge": 73440,
+                        "stampDutyCharge": 35000,
+                        "grandTotal": 516440
+                    },
+                    "vehicleDisabled": false,
+                    "IsBankOrMFIinterested": true,
+                    "vehicleMake": "ADMIRAL  SINGLE CAB",
+                    "vehicleModel": "SINGLE CAB",
+                    "bodyType": "PRIME MOVER",
+                    "yearOfManufacture": "2012",
+                    "EngineNumber": "2252",
+                    "anyBankOrMFIInterested": "yes",
+                    "bankOrMFI": "NCBA Bank Uganda Limited",
+                    "registrationNumber": "252",
+                    "chasisNumber": "252"
+                }
+            ],
+            "vehicleDetailList": [
+                {
+                    "regNo": "252",
+                    "modelBodyType": "SINGLE CAB/PRIME MOVER",
+                    "chasisNo": "252",
+                    "cc": "",
+                    "year": "2012",
+                    "seatCap": "",
+                    "estimateValue": 0
+                }
+            ]
+        }
+    ],
+    "groupedWheels": [
+        {
+            "group": "Group4",
+            "id": "ab54c87f-d196-44e7-9849-aa73cad58a9c",
+            "property": [
+                {
+                    "vehicleType": "tankerschemical",
+                    "coverType": {
+                        "id": "commercial",
+                        "name": "MOTOR COMMERCIAL"
+                    },
+                    "motorType": "commercial",
+                    "trackingDevice": "yes",
+                    "alarm": "yes",
+                    "courtesyCar": "yes",
+                    "carUseLocation": "ugandaOnly",
+                    "numberOfUnits": 1,
+                    "singleVehicleName": "Chemical Tanker",
+                    "sumInsured": 600000,
+                    "motorId": "edb22564-b561-4a62-a0f0-785a03f7d0f7",
+                    "proforma": " MOTOR COMMERCIAL - Chemical Tanker",
+                    "group": "Group4",
+                    "quote": {
+                        "vehicleType": "tankerschemical",
+                        "coverType": {
+                            "id": "commercial",
+                            "name": "MOTOR COMMERCIAL"
+                        },
+                        "motorType": "commercial",
+                        "trackingDevice": "yes",
+                        "alarm": "yes",
+                        "courtesyCar": "yes",
+                        "carUseLocation": "ugandaOnly",
+                        "numberOfUnits": 1,
+                        "singleVehicleName": "Chemical Tanker",
+                        "sumInsured": 600000,
+                        "proforma": " MOTOR COMMERCIAL - Chemical Tanker",
+                        "group": "Group4",
+                        "numberOfVehicles": 1,
+                        "motorIds": [
+                            "edb22564-b561-4a62-a0f0-785a03f7d0f7"
+                        ],
+                        "quoteId": "9237b29e-2780-4f4f-a042-6f86f2901a21",
+                        "vehicleName": "tankerschemical",
+                        "vehicleModel": "Tankers Chemical",
+                        "Location": "Uganda Only",
+                        "basicPremiumRate": 0.075,
+                        "basicPremium": 45000,
+                        "selectedLocationRate": 0,
+                        "selectedLocationCharge": 0,
+                        "courtesyCarRate": 0.1,
+                        "courtesyCarBenefit": 250000,
+                        "courtesyCarCharge": 350000.00000000006,
+                        "fleetDiscount": "no",
+                        "fleetDiscountRate": 0,
+                        "fleetDiscountCharge": 0,
+                        "trackingDeviceRate": 0.15,
+                        "trackingDeviceCharge": 6750,
+                        "alarmRate": 0.05,
+                        "alarmCharge": 2250,
+                        "subTotal": 400000,
+                        "trainingCharge": 2000,
+                        "stickerCharge": 6000,
+                        "vatCharge": 73440,
+                        "stampDutyCharge": 35000,
+                        "grandTotal": 516440
+                    },
+                    "vehicleDisabled": false,
+                    "IsBankOrMFIinterested": true,
+                    "vehicleMake": "ADMIRAL  SINGLE CAB",
+                    "vehicleModel": "SINGLE CAB",
+                    "bodyType": "PRIME MOVER",
+                    "yearOfManufacture": "2012",
+                    "EngineNumber": "2252",
+                    "anyBankOrMFIInterested": "yes",
+                    "bankOrMFI": "NCBA Bank Uganda Limited",
+                    "registrationNumber": "252",
+                    "chasisNumber": "252"
+                }
+            ],
+            "name": "MOTOR COMMERCIAL"
+        }
+    ],
+    "totalSumInsured": 600000,
+    "totalBasicPremium": 400000,
+    "totalTrainingLevy": 2000,
+    "totalNoOfUnits": 1,
+    "totalStickerFees": 6000,
+    "totalVAT": 73440,
+    "totalStampDuty": 35000,
+    "kyc": {
+        "fname": "Ahabwe",
+        "lname": "Emmanuel",
+        "age": 16,
+        "phone": "256773314578",
+        "email": "ahabweemma@gmail.com",
+        "tin": "1000165571",
+        "city": "Kampala",
+        "address": "Mbuya, Kampala"
+    },
+    "coverStartDate": "2024-08-14",
+    "coverEndDate": "2025-08-13"
+};
 
 
   constructor(

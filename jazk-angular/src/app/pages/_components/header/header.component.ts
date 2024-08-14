@@ -23,36 +23,9 @@ export class HeaderComponent {
   constructor(public auth: AuthService, private router: Router) {}
 
   goHome() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/welcome']);
   }
 
-  async fetchTranscripts(event: any) {
-    let text = event.target.value;
-    if (!text) {
-      this.searches = [];
-      return;
-    }
-    try {
-      this.searching = true;
-      let query = new Parse.Query('JazzContract');
-      // query.equalTo('userId', this.auth.currentUserId);
-      query.matches('name', text, 'i');
-      query.descending('createdAt');
-      query.limit(3);
-      this.searches = await query.find();
-      this.searching = false;
-      console.log('searches', this.searches);
-    } catch (error: any) {
-      console.error(error);
-      this.searching = false;
-    }
-  }
-
-  selectNote(lpo: Parse.Object<Parse.Attributes>) {
-    this.onSelectNote.emit(lpo);
-    this.searchText=''
-    this.router.navigate(['/lpo-preview', lpo.id])
-  }
 
   logout() {
     if (this.auth.currentUser) {

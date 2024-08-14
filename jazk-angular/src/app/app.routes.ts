@@ -12,6 +12,8 @@ import { ProfileEditComponent } from './pages/auth/profile-edit/profile-edit.com
 import { LoginPhoneComponent } from './pages/auth/login-phone/login-phone.component';
 
 import { MotorCalcComponent } from './pages/motor/motor-calc/motor-calc.component';
+import { MotorKycComponent } from './pages/motor/motor-kyc/motor-kyc.component';
+import { ViewQuoteComponent } from './pages/motor/view-quote/view-quote.component';
 
 export const routes: Routes = [
 
@@ -64,5 +66,14 @@ export const routes: Routes = [
         path: 'motor',
         component: MotorCalcComponent,
       },
+      {
+        path: 'motor-quote',
+        component: ViewQuoteComponent,
+      },
+      {
+        path: 'motor-kyc',
+        component: MotorKycComponent,
+      },
+      
   
 ];
