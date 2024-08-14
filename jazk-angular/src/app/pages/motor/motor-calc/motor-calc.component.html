@@ -58,7 +58,7 @@
                     <div class="card-body text-center py-4 p-sm-5">
                         <img src="assets/images/undraw_electric_car_b-7-hl.svg" alt="SVG Image"
                             style="width: 100px; height: 100px;" />
-                        <p class="text-secondary">Simply fill in details of your vehicle below to get your quote.</p>
+                        <p class="text-secondary">Simply fill in details of your vehicle to get your quote.</p>
                     </div>
                     <div class="hr-text hr-text-spaceless"></div>
                     <div class="card-body">
@@ -66,7 +66,8 @@
                             <label class="form-label">Motor Class</label>
                             <select [(ngModel)]="motorClass" (ngModelChange)="filterMakeModels()" class="form-select">
                                 <option value="" disabled>Select the Class of the Vehicle</option>
-                                <option *ngFor="let item of motorService.motorClasses" [value]="item.id">{{item.label}}</option>
+                                <option *ngFor="let item of motorService.motorClasses" [value]="item.id">{{item.label}}
+                                </option>
                             </select>
                         </div>
                         <div>
@@ -98,13 +99,25 @@
                 </div>
             </div>
 
-            <div *ngIf="step === 2" class="container container-tight py-4">
+            <div *ngIf="step === 2" class="container">
                 <div class="text-center mb-4">
-                    <h1 class="mt-5">Step 2: Additional Information</h1>
+                    <h1 class="mt-5">Additional Vehicle Information</h1>
                 </div>
-                <div class="card card-md">
+                <div class="card card-lg">
                     <div class="card-body">
-                        <!-- Add additional form fields for the second step here -->
+                        <div class="mb-3">
+                            <label class="form-label">Year of Manufacture</label>
+                            <select title="select" [(ngModel)]="yearOfManufacture" name="yearOfManufacture"
+                                id="yearofmanufacture" class="form-select">
+                                <option value="" disabled>Year Of Manufacture</option>
+                                <option *ngFor="let item of tYears" [value]="item">{{item}}</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Value of the Vehicle</label>
+                            <input class="form-control" placeholder="Sum Insured" [formControl]="control" [imask]="mask" unmask="typed">
+                        </div>
+                        <div class="row"></div>
                     </div>
                 </div>
                 <div class="row align-items-center mt-3">
@@ -120,7 +133,7 @@
                         <div class="btn-list justify-content-end">
                             <button class="btn btn-secondary" (click)="previousStep()">Back</button>
                             <button class="btn btn-primary" (click)="submit()"
-                                [disabled]="!motorClass || !makeModel">Submit</button>
+                                [disabled]="!motorClass || !makeModel">Get Quote</button>
                         </div>
                     </div>
                 </div>
