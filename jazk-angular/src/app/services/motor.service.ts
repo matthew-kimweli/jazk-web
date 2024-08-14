@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class MotorService {
 
-  motorClasses: any = [{id: 'private', name: 'MOTOR PRIVATE'}, {id: 'commercial', name: 'MOTOR COMMERCIAL'}];
+  motorClasses: any = [{id: 'private', name: 'MOTOR PRIVATE', label: 'Private'}, {id: 'commercial', name: 'MOTOR COMMERCIAL', label: 'Commercial'}];
   makeModels: any = [
     {name: 'Subaru, Probox, Succeed, Sienta, Noah or Voxy', class: 'private'},
     {name: 'Acura, Cadillac, Citroen, Ferrari, Lamborghini, Bentley, Maserati, MG, AlSuper cars, American Trucks, Dodge', class: 'private'},
