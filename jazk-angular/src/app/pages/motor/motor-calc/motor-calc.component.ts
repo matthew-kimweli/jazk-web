@@ -18,6 +18,7 @@ export class MotorCalcComponent implements OnInit {
 
   motorClass: any = '';
   makeModel: any = '';
+  filteredMakeModels: any[] = [];
 
   // motorClass: any = [{id: 'private', name: 'MOTOR PRIVATE'}, {id: 'commercial', name: 'MOTOR COMMERCIAL'}];
   // makeModel: any = [
@@ -38,5 +39,10 @@ export class MotorCalcComponent implements OnInit {
   constructor(public motorService : MotorService) {}
 
   ngOnInit(): void {}
+
+  filterMakeModels(event: any): void {
+    let selectedClassId = event.target.value;
+    this.filteredMakeModels = this.motorService.makeModels.filter((model: { name: any, class: any; }) => model.class === selectedClassId);
+  }
 
 }
