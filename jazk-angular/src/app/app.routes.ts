@@ -8,6 +8,7 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { ContractCreateComponent } from './pages/contract-create/contract-create.component';
 import { SearchComponent } from './pages/search/search.component';
 import { ProfileEditComponent } from './pages/auth/profile-edit/profile-edit.component';
+import { LoginPhoneComponent } from './pages/auth/login-phone/login-phone.component';
 
 export const routes: Routes = [
 
@@ -28,6 +29,10 @@ export const routes: Routes = [
       {
         path: 'login',
         component: LoginComponent,
+      },
+      {
+        path: 'login-phone',
+        component: LoginPhoneComponent,
       },
       {
         path: 'register',
