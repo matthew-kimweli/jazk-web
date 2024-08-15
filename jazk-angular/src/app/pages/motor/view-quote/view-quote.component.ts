@@ -17,12 +17,30 @@ export class ViewQuoteComponent {
     registration: 'KAA 123A'
   };
 
+
   insurance = {
     coverageType: 'Comprehensive',
     premium: 45000,
-    excess: 2.5,
-    totalCost: 45000 // Assuming no additional charges
+    totalCost: 45000,
+    limits: {
+      thirdPartyPropertyDamage: 500000,
+      bodilyInjuryPerPerson: 1000000,
+      bodilyInjuryPerAccident: 3000000
+    },
+    excesses: {
+      ownDamage: 2.5,
+      theft: 5.0,
+      windscreenDamage: 10.0
+    },
+    benefits: {
+      medicalExpenses: 100000
+    },
+    enhancements: {
+      windscreenCover: 20000,
+      lossOfUse: 2000
+    }
   };
+
 
   constructor(private router: Router){
 

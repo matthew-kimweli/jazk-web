@@ -3,45 +3,81 @@
 <div class="page-wrapper">
   <div class="page-body">
     <div class="container-xl">
-        <div class="container">
-            <div class="row">
-              <div class="col-lg-6 offset-lg-3">
-                <div class="card">
-                  <div class="card-header">
-                    <h3 class="card-title">Motor Vehicle Insurance Quotation</h3>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 offset-lg-2">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Motor Vehicle Insurance Quotation</h3>
+              </div>
+              <div class="card-body">
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <h4>Vehicle Details</h4>
+                    <p><strong>Make & Model:</strong> {{ vehicle.makeModel }}</p>
+                    <p><strong>Year of Manufacture:</strong> {{ vehicle.year }}</p>
+                    <p><strong>Registration Number:</strong> {{ vehicle.registration }}</p>
                   </div>
-                  <div class="card-body">
-                    <div class="row mb-3">
-                      <div class="col-md-6">
-                        <h4>Vehicle Details</h4>
-                        <p><strong>Make & Model:</strong> {{ vehicle.makeModel }}</p>
-                        <p><strong>Year of Manufacture:</strong> {{ vehicle.year }}</p>
-                        <p><strong>Registration Number:</strong> {{ vehicle.registration }}</p>
-                      </div>
-                      <div class="col-md-6">
-                        <h4>Insurance Details</h4>
-                        <p><strong>Coverage Type:</strong> {{ insurance.coverageType }}</p>
-                        <p><strong>Premium:</strong> KES {{ insurance.premium | number }}</p>
-                        <p><strong>Excess:</strong> {{ insurance.excess }}%</p>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <h4>Total Cost</h4>
-                        <p><strong>Annual Premium:</strong> KES {{ insurance.totalCost | number }}</p>
-                      </div>
-                    </div>
+                  <div class="col-md-6">
+                    <h4>Insurance Details</h4>
+                    <p><strong>Coverage Type:</strong> {{ insurance.coverageType }}</p>
+                    <p><strong>Premium:</strong> KES {{ insurance.premium | number }}</p>
+                    <p><strong>Total Cost:</strong> KES {{ insurance.totalCost | number }}</p>
                   </div>
-                  <div class="card-footer">
-                    <button class="btn btn-primary" (click)="purchase()">Purchase Insurance</button>
-                    &nbsp;
-                    <button class="btn btn-secondary" (click)="goBack()">Go Back</button>
+                </div>
+      
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <h4>Limits of Liabilities</h4>
+                    <ul>
+                      <li><strong>Third Party Property Damage:</strong> KES {{ insurance.limits.thirdPartyPropertyDamage | number }}</li>
+                      <li><strong>Bodily Injury per Person:</strong> KES {{ insurance.limits.bodilyInjuryPerPerson | number }}</li>
+                      <li><strong>Bodily Injury per Accident:</strong> KES {{ insurance.limits.bodilyInjuryPerAccident | number }}</li>
+                    </ul>
+                  </div>
+                  <div class="col-md-6">
+                    <h4>Excesses</h4>
+                    <ul>
+                      <li><strong>Own Damage:</strong> {{ insurance.excesses.ownDamage }}%</li>
+                      <li><strong>Theft:</strong> {{ insurance.excesses.theft }}%</li>
+                      <li><strong>Windscreen Damage:</strong> {{ insurance.excesses.windscreenDamage }}%</li>
+                    </ul>
+                  </div>
+                </div>
+      
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <h4>Summary of the Benefits</h4>
+                    <ul>
+                      <li>Comprehensive cover including accidental damage, fire, and theft</li>
+                      <li>Medical expenses cover up to KES {{ insurance.benefits.medicalExpenses | number }}</li>
+                      <li>Personal accident cover for the driver and passengers</li>
+                      <li>Emergency roadside assistance</li>
+                    </ul>
+                  </div>
+                </div>
+      
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <h4>Additional Enhancements</h4>
+                    <ul>
+                      <li>Courtesy car during repair</li>
+                      <li>Windscreen cover up to KES {{ insurance.enhancements.windscreenCover | number }}</li>
+                      <li>Loss of use cover up to KES {{ insurance.enhancements.lossOfUse | number }} per day</li>
+                    </ul>
                   </div>
                 </div>
               </div>
+              <div class="card-footer">
+                <button class="btn btn-primary" (click)="purchase()">Purchase Insurance</button>
+                &nbsp;
+                <button class="btn btn-secondary" (click)="goBack()">Go Back</button>
+              </div>
             </div>
           </div>
-          
+        </div>
+      </div>
+      
     </div>
   </div>
 </div>
