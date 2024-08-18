@@ -41,7 +41,8 @@
             <!-- <a href="#" class="dropdown-item">Feedback</a> -->
             <!-- <div class="dropdown-divider"></div> -->
             <!-- <a href="./settings.html" class="dropdown-item">Settings</a> -->
-          <a (click)="logout()" class="dropdown-item">{{this.auth.currentUser?'Logout':'Login'}}</a>
+          <a *ngIf="this.auth.currentUser" (click)="logout()" class="dropdown-item">Logout</a>
+          <a *ngIf="!this.auth.currentUser" [routerLink]="['/login']" routerLinkActive="router-link-active"  class="dropdown-item">Login</a>
         </div>
       </div>
     </div>
