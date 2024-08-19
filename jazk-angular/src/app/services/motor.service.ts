@@ -69,18 +69,19 @@ export class MotorService {
     ],
     'Tankers': [
       { ageRange: [0, 10], rate: 0.08 },
+      { ageRange: [11, 15], rate: 0 } // NO COVER
     ],
     'DrivingSchool': [
       { ageRange: [0, 10], rate: 0.055 },
       { ageRange: [11, 15], rate: 0.055 },
     ],
     'MotorCommercialInstitutional': [
-      { ageRange: [0, 10], rate: 0.035 },
-      { ageRange: [11, 15], rate: 0.035 },
+      { ageRange: [0, 10], rate: 0.035 }, // INCLUSIVE OF EXCESS PROTECTOR
+      { ageRange: [11, 15], rate: 0.035 }, // INCLUSIVE OF EXCESS PROTECTOR
     ],
     'SpecialVehiclesAgricultural': [
-      { ageRange: [0, 10], rate: 0.035 },
-      { ageRange: [11, 15], rate: 0.035 },
+      { ageRange: [0, 10], rate: 0.035 }, // INCLUSIVE OF EXCESS PROTECTOR
+      { ageRange: [11, 15], rate: 0.035 }, // INCLUSIVE OF EXCESS PROTECTOR
     ],
     'SpecialVehiclesAmbulance': [
       { ageRange: [0, 10], rate: 0.07 },
