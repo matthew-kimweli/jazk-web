@@ -17,8 +17,6 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './motor-calc.component.css'
 })
 export class MotorCalcComponent implements OnInit {
-  step = 1;
-
   motorClass: any = '';
   makeModel: any = '';
   filteredMakeModels: any[] = [];
@@ -27,7 +25,7 @@ export class MotorCalcComponent implements OnInit {
   twoType = [{id: 'yes', name: 'Yes'},{id: 'no', name: 'No'}];
   courtesyCar: any = '';
   pvt: any = '';
-  windscreen: any = '';
+  windscreen: any;
   excessProtector: any = '';
   aaRoadRescue: any = '';
 
@@ -44,7 +42,7 @@ export class MotorCalcComponent implements OnInit {
     normalizeZeros: true,
     min: 0,
   };
-data: any = {};
+  data: any = {};
 
 
   constructor(
@@ -74,15 +72,17 @@ data: any = {};
     }
   }
 
-  nextStep() {
-    if (this.motorClass && this.makeModel) {
-      this.step = 2;
-    }
-  }
-
-  previousStep() {
-    this.step = 1;
-  }
+  // resetInputs() {
+  //   this.motorClass = '';
+  //   this.makeModel = '';
+  //   this.filteredMakeModels = [];
+  //   this.yearOfManufacture = '';
+  //   this.windscreen = '';
+  //   this.sumInsured = '';
+  //   this.pvt = '';
+  //   this.excessProtector = '';
+  //   this.aaRoadRescue = '';
+  // }
 
   submit() {
     if (this.motorClass && this.makeModel) {
@@ -93,16 +93,6 @@ data: any = {};
 
 
   getQuote(){
-    if(!this.auth.currentUser){
-      if(!this.data.phone){
-        this.toastr.info('Either login or provide your phone number to proceed', 'You are not logged in')
-        return;
-      }
-      if(!this.data.email){
-        this.toastr.info('Either login or provide your email to proceed', 'You are not logged in')
-        return;
-      }
-    }
     this.router.navigate(['motor-quote'])
   }
 
