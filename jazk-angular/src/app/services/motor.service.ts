@@ -145,7 +145,7 @@ export class MotorService {
         this.motorQuotation.referToHQ = 'Yes';
       }
     } else if (motorClass === 'commercial') {
-      this.motorQuotation.motorSubclass = this.makeModels.filter((model: any) => model.class == motorClass).filter((model: any) => model.name == makeModel).motorSubclass;
+      this.motorQuotation.motorSubclass = this.makeModels.filter((model: any) => model.class == motorClass).filter((model: any) => model.label == makeModel).motorSubclass;
       const rates = this.commercialRates[makeModel];
       rate = this.getRateForCommercial(rates, vehicleAge);
       calculatedPremium = rate * sumInsured;

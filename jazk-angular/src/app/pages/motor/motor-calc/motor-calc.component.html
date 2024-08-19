@@ -1,12 +1,11 @@
 <app-header></app-header>
 <div class="page-wrapper">
+  
   <div class="page page-center">
     <div class="container container-fluid py-4">
       <div class="text-center mb-4">
         <h1 class="mt-5">Get Your Motor Insurance Quote!</h1>
-        <p class="text-secondary">
-          Simply fill in details to get your quote.
-        </p>
+        <p class="text-secondary">Simply fill in details to get your quote.</p>
       </div>
       <div class="card card-md">
         <div class="card-body row">
@@ -18,7 +17,9 @@
                 (ngModelChange)="filterMakeModels()"
                 class="form-select"
               >
-                <option value="" disabled>Select the Class of the Vehicle</option>
+                <option value="" disabled>
+                  Select the Class of the Vehicle
+                </option>
                 <option
                   *ngFor="let item of motorService.motorClasses"
                   [value]="item.id"
@@ -72,7 +73,9 @@
                 [imask]="sumInsuredMask"
                 unmask="typed"
               />
-              <small class="form-hint">Minimum Sum Insured is Kshs. 500,000.</small>
+              <small class="form-hint"
+                >Minimum Sum Insured is Kshs. 500,000.</small
+              >
             </div>
           </div>
           <div class="col-4">
@@ -82,13 +85,28 @@
               >
               <div class="my-0">
                 <label class="form-check form-check-inline">
-                  <input class="form-check-input" [(ngModel)]="pvt" name="pvt"
-                  id="pvt1" type="radio" value="yes" name="pvt-radio-yes" checked="">
+                  <input
+                    class="form-check-input"
+                    [(ngModel)]="pvt"
+                    name="pvt"
+                    id="pvt1"
+                    type="radio"
+                    value="yes"
+                    name="pvt-radio-yes"
+                    checked=""
+                  />
                   <span class="form-check-label">Yes</span>
                 </label>
                 <label class="form-check form-check-inline">
-                  <input class="form-check-input" value="no" [(ngModel)]="pvt" name="pvt"
-                  id="pvt2" type="radio" name="pvt-radio-no">
+                  <input
+                    class="form-check-input"
+                    value="no"
+                    [(ngModel)]="pvt"
+                    name="pvt"
+                    id="pvt2"
+                    type="radio"
+                    name="pvt-radio-no"
+                  />
                   <span class="form-check-label">No</span>
                 </label>
               </div>
@@ -99,19 +117,36 @@
               >
               <div class="my-0">
                 <label class="form-check form-check-inline">
-                  <input class="form-check-input" [(ngModel)]="excessProtector" name="excessProtector"
-                  id="excessProtector1" type="radio" value="yes" name="excessProtector-yes" checked="">
+                  <input
+                    class="form-check-input"
+                    [(ngModel)]="excessProtector"
+                    name="excessProtector"
+                    id="excessProtector1"
+                    type="radio"
+                    value="yes"
+                    name="excessProtector-yes"
+                    checked=""
+                  />
                   <span class="form-check-label">Yes</span>
                 </label>
                 <label class="form-check form-check-inline">
-                  <input class="form-check-input" value="no" [(ngModel)]="excessProtector" name="excessProtector"
-                  id="excessProtector2" type="radio" name="excessProtector-no">
+                  <input
+                    class="form-check-input"
+                    value="no"
+                    [(ngModel)]="excessProtector"
+                    name="excessProtector"
+                    id="excessProtector2"
+                    type="radio"
+                    name="excessProtector-no"
+                  />
                   <span class="form-check-label">No</span>
                 </label>
               </div>
             </div>
             <div class="mb-2">
-              <label class="form-label">Desired Windscreen coverage amount?</label>
+              <label class="form-label"
+                >Desired Windscreen coverage amount?</label
+              >
               <input
                 class="form-control"
                 [(ngModel)]="windscreen"
@@ -122,10 +157,15 @@
                 [imask]="mask"
                 unmask="typed"
               />
-              <small class="form-hint">Free Benefit limit for Windscreen coverage is Kshs. 50,000.</small>
+              <small class="form-hint"
+                >Free Benefit limit for Windscreen coverage is Kshs.
+                50,000.</small
+              >
             </div>
             <div class="mb-3">
-              <label class="form-label">Desired Radio Cassette coverage amount?</label>
+              <label class="form-label"
+                >Desired Radio Cassette coverage amount?</label
+              >
               <input
                 class="form-control"
                 [(ngModel)]="radioCassette"
@@ -136,7 +176,9 @@
                 [imask]="mask"
                 unmask="typed"
               />
-              <small class="form-hint">Free Benefit limit for a Radio Cassette is Kshs. 50,000.</small>
+              <small class="form-hint"
+                >Free Benefit limit for a Radio Cassette is Kshs. 50,000.</small
+              >
             </div>
           </div>
           <div class="col-4">
@@ -152,20 +194,42 @@
                 class="form-select"
               >
                 <option value="" disabled>Courtesy Car Benefit</option>
-                <option *ngFor="let item of courtesyCarOptions" [value]="item.amount">
+                <option
+                  *ngFor="let item of courtesyCarOptions"
+                  [value]="item.amount"
+                >
                   {{ item.name }}
                 </option>
               </select>
             </div>
             <div class="mb-3" *ngIf="motorClass == 'private'">
-              <label class="form-label">Do you want AA Road Rescue benefit?</label>
+              <label class="form-label"
+                >Do you want AA Road Rescue benefit?</label
+              >
               <div class="my-3">
                 <label class="form-check form-check-inline">
-                  <input class="form-check-input" [(ngModel)]="aaRoadRescue" name="aaRoadRescue" id="aaRoadRescue1" type="radio" value="yes" name="radios-inline" checked="">
+                  <input
+                    class="form-check-input"
+                    [(ngModel)]="aaRoadRescue"
+                    name="aaRoadRescue"
+                    id="aaRoadRescue1"
+                    type="radio"
+                    value="yes"
+                    name="radios-inline"
+                    checked=""
+                  />
                   <span class="form-check-label">Yes</span>
                 </label>
                 <label class="form-check form-check-inline">
-                  <input class="form-check-input" value="no" [(ngModel)]="aaRoadRescue" name="aaRoadRescue" id="aaRoadRescue2" type="radio" name="radios-inline">
+                  <input
+                    class="form-check-input"
+                    value="no"
+                    [(ngModel)]="aaRoadRescue"
+                    name="aaRoadRescue"
+                    id="aaRoadRescue2"
+                    type="radio"
+                    name="radios-inline"
+                  />
                   <span class="form-check-label">No</span>
                 </label>
               </div>
@@ -173,6 +237,16 @@
           </div>
         </div>
       </div>
+      <div
+    class="mb-3"
+    *ngIf="
+      parseService.fetching || parseService.saving || parseService.deleting
+    "
+  >
+    <div class="progress">
+      <div class="progress-bar progress-bar-indeterminate bg-green"></div>
+    </div>
+  </div>
       <div class="row align-items-center mt-3">
         <div class="col">
           <div class="btn-list justify-content-end">
@@ -180,7 +254,9 @@
               class="btn btn-primary"
               (click)="submit()"
               routerLinkActive="router-link-active"
-              [disabled]="!motorClass || !makeModel || !sumInsured || !yearOfManufacture"
+              [disabled]="
+                !motorClass || !makeModel || !sumInsured || !yearOfManufacture
+              "
             >
               Get Quote
             </button>
@@ -189,6 +265,114 @@
       </div>
     </div>
   </div>
+  
 </div>
+<a
+id="manualUnderwritingModalButton"
+  class="btn btn-outline"
+  data-bs-toggle="modal"
+  data-bs-target="#modal-manual-quote"
+  hidden
+>
+  Manual Underwriting
+</a>
 
 <!-- <app-footer></app-footer> -->
+<div
+  class="modal modal-blur"
+  id="modal-manual-quote"
+  tabindex="-1"
+  role="dialog"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Refer to Manual Underwriting</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <!-- <h2>Buy Coverage </h2> -->
+          <p>
+            Quotations for Class: Motor Commercial and Make/Model: PSV Tours can
+            only be generated manually. Please provide client details and one of
+            our staff shall reach out accordingly.
+          </p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="mb-3">
+              <label class="form-label">Client Name</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="manualClientData.name"
+                placeholder="Client Name"
+              />
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="mb-3">
+              <label class="form-label">Client Phone</label>
+              <div class="input-group">
+                <span class="input-group-text">+254</span>
+                <input
+                  class="form-control"
+                  placeholder="Enter Phone Number"
+                  [(ngModel)]="manualClientData.phone"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="mb-3">
+              <label class="form-label">Client Email</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="manualClientData.email"
+                placeholder="Client Email"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+          Cancel
+        </a>
+        <a
+          href="#"
+          (click)="submitForManualUnderwriting()"
+          class="btn btn-primary ms-auto"
+          data-bs-dismiss="modal"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 5l0 14"></path>
+            <path d="M5 12l14 0"></path>
+          </svg>
+          Submit
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

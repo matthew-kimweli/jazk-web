@@ -8,13 +8,23 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IMaskModule } from 'angular-imask';
 import { AuthService } from '../../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { ParseService } from '../../../services/parse.service';
+import * as Parse from 'parse';
 
 @Component({
   selector: 'app-motor-calc',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderComponent, FooterComponent, FormsModule, IMaskModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    HeaderComponent,
+    FooterComponent,
+    FormsModule,
+    IMaskModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './motor-calc.component.html',
-  styleUrl: './motor-calc.component.css'
+  styleUrl: './motor-calc.component.css',
 })
 export class MotorCalcComponent implements OnInit {
   motorClass: any = '';
@@ -22,7 +32,12 @@ export class MotorCalcComponent implements OnInit {
   filteredMakeModels: any[] = [];
   yearOfManufacture: any = '';
   sumInsured: any;
-  courtesyCarOptions = [{amount: 'yes', name: '30 Days'},{amount: 'no', name: '20 Days'}, {amount: 'no', name: '10 Days'}, {amount: 0, name: 'No'}];
+  courtesyCarOptions = [
+    { amount: 'yes', name: '30 Days' },
+    { amount: 'no', name: '20 Days' },
+    { amount: 'no', name: '10 Days' },
+    { amount: 0, name: 'No' },
+  ];
   courtesyCar: any = '';
   pvt: any = '';
   windscreen: any;
@@ -30,7 +45,7 @@ export class MotorCalcComponent implements OnInit {
   excessProtector: any = '';
   aaRoadRescue: any = '';
 
-  control!: FormControl
+  control!: FormControl;
 
   tYears: any = [];
 
@@ -53,12 +68,13 @@ export class MotorCalcComponent implements OnInit {
     min: 500000,
   };
   data: any = {};
-
+  manualClientData: any = {};
 
   constructor(
-    public motorService : MotorService,
+    public motorService: MotorService,
     public auth: AuthService,
     private router: Router,
+    public parseService: ParseService,
     private toastr: ToastrService
   ) {}
 
@@ -68,35 +84,75 @@ export class MotorCalcComponent implements OnInit {
   }
 
   getYears() {
-    let tyear = new Date().getFullYear()
+    let tyear = new Date().getFullYear();
     for (let index = 0; index < 15; index++) {
-      this.tYears.push(tyear--)
+      this.tYears.push(tyear--);
     }
   }
 
   filterMakeModels() {
     if (this.motorClass) {
-      this.filteredMakeModels = this.motorService.makeModels.filter((model: any) => model.class === this.motorClass);
+      this.filteredMakeModels = this.motorService.makeModels.filter(
+        (model: any) => model.class === this.motorClass
+      );
     } else {
       this.filteredMakeModels = [];
     }
   }
 
-  getQuote(){
-    this.router.navigate(['motor-quote'])
+  getQuote() {
+    this.router.navigate(['motor-quote']);
   }
 
-  submit() {
-    const basicPremium = this.motorService.calculatePremium(this.motorClass, this.makeModel, this.yearOfManufacture, this.sumInsured)
+  async submit() {
+   
 
     this.motorService.motorQuotation.motorClass = this.motorClass;
     this.motorService.motorQuotation.makeModel = this.makeModel;
     this.motorService.motorQuotation.yearOfManufacture = this.yearOfManufacture;
     this.motorService.motorQuotation.sumInsured = this.sumInsured;
+   
+    if (this.motorClass == 'commercial') {
+      if (this.makeModel == 'PSVTours') {
+        document.getElementById('manualUnderwritingModalButton')?.click();
+        return;
+      }
+    }
+   
+    const basicPremium = this.motorService.calculatePremium(
+      this.motorClass,
+      this.makeModel,
+      this.yearOfManufacture,
+      this.sumInsured
+    );
+   
     this.motorService.motorQuotation.basicPremium = basicPremium;
 
     console.log('Basic Premium: ', basicPremium);
-    this.getQuote()
+
+    let JazkeQuotation = Parse.Object.extend('JazkeQuotation');
+    let quote = new JazkeQuotation();
+    quote.set('insurance_type', 'motor');
+    let res = await this.parseService.saveSilent(
+      quote,
+      this.motorService.motorQuotation
+    );
+    if (res) {
+      this.getQuote();
+    }
   }
 
+  async submitForManualUnderwriting() {
+    let JazkeQuotation = Parse.Object.extend('JazkeManualQuotation');
+    let quote = new JazkeQuotation();
+    quote.set('insurance_type', 'motor');
+    quote.set('quotation', this.motorService.motorQuotation)
+    quote.set('client', this.manualClientData);
+    let res = await this.parseService.saveSilent(
+      quote
+    );
+    if(res){
+      this.toastr.success('Submitted', 'The provided phone number will be contacted shortly')
+    }
+  }
 }
