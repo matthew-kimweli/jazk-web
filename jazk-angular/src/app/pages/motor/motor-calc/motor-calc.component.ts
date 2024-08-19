@@ -80,14 +80,24 @@ export class MotorCalcComponent implements OnInit {
 
   ngOnInit() {
     this.control = new FormControl<number>(this.sumInsured);
-    this.getYears();
+    // this.getYears();
   }
 
-  getYears() {
+  getYears(event: any) {
+    let value = event.target.value;
     let tyear = new Date().getFullYear();
+    if (value == 'Tankers') {
+      this.tYears = [];
+      for (let index = 0; index < 10; index++) {
+        this.tYears.push(tyear--);
+      }
+      return;
+    }
+    this.tYears = [];
     for (let index = 0; index < 15; index++) {
       this.tYears.push(tyear--);
     }
+    return;
   }
 
   filterMakeModels() {
@@ -118,6 +128,13 @@ export class MotorCalcComponent implements OnInit {
         return;
       }
     }
+
+    if (this.motorClass == 'private') {
+      if (this.makeModel == 'Rare & Unique Models') {
+        document.getElementById('manualUnderwritingModalButton')?.click();
+        return;
+      }
+    }
    
     const basicPremium = this.motorService.calculatePremium(
       this.motorClass,
@@ -128,7 +145,7 @@ export class MotorCalcComponent implements OnInit {
    
     this.motorService.motorQuotation.basicPremium = basicPremium;
 
-    console.log('Basic Premium: ', basicPremium);
+    console.log('Result: ', this.motorService.motorQuotation);
 
     let JazkeQuotation = Parse.Object.extend('JazkeQuotation');
     let quote = new JazkeQuotation();

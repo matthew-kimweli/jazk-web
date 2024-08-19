@@ -8,7 +8,7 @@ export class MotorService {
   motorClasses: any = [{ id: 'private', name: 'MOTOR PRIVATE', label: 'Private' }, { id: 'commercial', name: 'MOTOR COMMERCIAL', label: 'Commercial' }];
   makeModels: any = [
     { name: 'Subaru, Probox, Succeed, Sienta, Noah or Voxy', class: 'private', label: 'SubaruProboxEtc' },
-    { name: 'Acura, Cadillac, Citroen, Ferrari, Lamborghini, Bentley, Maserati, MG, AlSuper cars, American Trucks, Dodge', class: 'private', label: 'rare' },
+    { name: 'Acura, Cadillac, Citroen, Ferrari, Lamborghini, Bentley, Maserati, MG, AlSuper cars, American Trucks, Dodge', class: 'private', label: 'Rare & Unique Models' },
     { name: 'Any Other Make or Model', class: 'private', label: 'AllOtherVehicleMakes' },
     { name: 'General Cartage', class: 'commercial', label: 'MotorCommercialGeneralCartage', motorSubclass: 'General Cartage' },
     { name: 'Own Goods', class: 'commercial', label: 'MotorCommercialOwnGoods', motorSubclass: 'Own Good' },
@@ -64,8 +64,8 @@ export class MotorService {
       { ageRange: [11, 15], rate: 0.045 },
     ],
     'PSVTours': [
-      { ageRange: [0, 10], rate: 0.055 },
-      { ageRange: [11, 15], rate: 0.055 },
+      { ageRange: [0, 10], rate: 0 },
+      { ageRange: [11, 15], rate: 0 },
     ],
     'Tankers': [
       { ageRange: [0, 10], rate: 0.08 },
@@ -146,7 +146,7 @@ export class MotorService {
         this.motorQuotation.referToHQ = 'Yes';
       }
     } else if (motorClass === 'commercial') {
-      this.motorQuotation.motorSubclass = this.makeModels.filter((model: any) => model.class == motorClass).filter((model: any) => model.label == makeModel).motorSubclass;
+      this.motorQuotation.motorSubclass = this.makeModels.find((model: any) => model.class === motorClass && model.label === makeModel).motorSubclass;
       const rates = this.commercialRates[makeModel];
       rate = this.getRateForCommercial(rates, vehicleAge);
       calculatedPremium = rate * sumInsured;
@@ -177,4 +177,14 @@ export class MotorService {
     }
     return 0; // Default if no rate found
   }
+
+  getModelByLabel(label: string): any {
+    return this.makeModels.find((model: any) => model.label === label);
+  }
+
+  getModelPropertyByLabel<T>(label: string, property: keyof any): T | undefined {
+    const model = this.getModelByLabel(label);
+    return model ? model[property] : undefined;
+  }
+  
 }
