@@ -1,0 +1,138 @@
+<!-- Hero Section - Home Page -->
+<app-header></app-header>
+<div class="page-wrapper">
+  <div
+    class="mb-3"
+    *ngIf="
+      parseService.fetching || parseService.saving || parseService.deleting
+    "
+  >
+    <div class="progress">
+      <div class="progress-bar progress-bar-indeterminate bg-green"></div>
+    </div>
+  </div>
+
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <!-- Page pre-title -->
+          <div class="page-pretitle">Search</div>
+          <h2 class="page-title">Policies</h2>
+        </div>
+        <!-- Page title actions -->
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="container-xl">
+      <div class="">
+        <div class="row justify-content-center">
+          <div class="col-2">
+            <app-side-menu></app-side-menu>
+          </div>
+          <div class="col-lg-10">
+            <div class="container">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="">
+                      <table class="table table-vcenter card-table">
+                        <thead>
+                          <tr>
+                            <th>No.</th>
+                            <th>Type</th>
+                            <th>Customer</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Value</th>
+                            <th>Status</th>
+                            <th class="w-1"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of list">
+                            <td class="text-primary">
+                              {{ item.get("contractId") }}
+                            </td>
+                            <td>
+                              {{ item.get("name") }}
+                            </td>
+                            <td>
+                              {{ item.get("vendor") }}
+                            </td>
+                            <td class="text-secondary">
+                              {{ item.get("startDate") | date }}
+                            </td>
+                            <td class="text-secondary">
+                              <strong style="color: orange">{{
+                                item.get("endDate") | date
+                              }}</strong>
+                            </td>
+                            
+                            <td class="text-secondary">
+                              <strong style="color: green">{{
+                                item.get("value") | number
+                              }}</strong>
+                              <small
+                                ><strong>
+                                  {{ item.get("currency") }}</strong
+                                ></small
+                              >
+                            </td>
+                            
+                            <td class="text-secondary">
+                              <span class="status status-red">
+                                {{ item.get("status") || 'Pending' }}
+                              </span>
+                            </td>
+                            <td class="text-end">
+                              <span class="dropdown">
+                                <button
+                                  class="btn dropdown-toggle align-text-top"
+                                  data-bs-boundary="viewport"
+                                  data-bs-toggle="dropdown"
+                                >
+                                  Actions
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                  <a
+                                    [routerLink]="['/lpo-detail', item.id]"
+                                    routerLinkActive="router-link-active"
+                                    class="dropdown-item text-green"
+                                  >
+                                    View
+                                  </a>
+
+                                  <!-- <a [hidden]="item.get('status') == 'Completed'" *ngIf="auth.isAdmin"
+                                    (click)="deleteItem(item)"
+                                    class="dropdown-item text-red"
+                                  >
+                                    Delete
+                                  </a> -->
+                                </div>
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <div class="card card-md" *ngIf="list?.length == 0">
+                        <div class="card-body">
+                          <p class="text-secondary mb-4">Nothing found</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

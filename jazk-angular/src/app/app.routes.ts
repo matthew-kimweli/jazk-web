@@ -5,7 +5,6 @@ import { RegisterComponent } from './pages/auth/register/register.component';
 import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
-import { ContractCreateComponent } from './pages/contract-create/contract-create.component';
 import { SearchComponent } from './pages/search/search.component';
 import { ProfileEditComponent } from './pages/auth/profile-edit/profile-edit.component';
 
@@ -14,6 +13,7 @@ import { LoginPhoneComponent } from './pages/auth/login-phone/login-phone.compon
 import { MotorCalcComponent } from './pages/motor/motor-calc/motor-calc.component';
 import { MotorKycComponent } from './pages/motor/motor-kyc/motor-kyc.component';
 import { ViewQuoteComponent } from './pages/motor/view-quote/view-quote.component';
+import { QuotationSalesListComponent } from './pages/agent/quotation-sales-list/quotation-sales-list.component';
 
 export const routes: Routes = [
 
@@ -52,15 +52,19 @@ export const routes: Routes = [
         component: ProfileEditComponent,
       },
 
-      {
-        path: 'new-contract',
-        canActivate: [AuthGuardService],
-        component: ContractCreateComponent,
-      },
        {
         path: 'search',
         canActivate: [AuthGuardService],
         component: SearchComponent,
+      },
+      {
+        path: 'list/:insurance',
+        canActivate: [AuthGuardService],
+        component: QuotationSalesListComponent,
+      },
+      {
+        path: 'motor-kyc',
+        component: MotorKycComponent,
       },
       {
         path: 'motor',
