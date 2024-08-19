@@ -43,6 +43,15 @@ export class MotorCalcComponent implements OnInit {
     normalizeZeros: true,
     min: 0,
   };
+  sumInsuredMask = {
+    mask: Number,
+    scale: 0,
+    signed: true,
+    thousandsSeparator: ',',
+    padFractionalZeros: true,
+    normalizeZeros: true,
+    min: 500000,
+  };
   data: any = {};
 
 
@@ -74,10 +83,8 @@ export class MotorCalcComponent implements OnInit {
   }
 
   submit() {
-    if (this.motorClass && this.makeModel) {
-      // Handle form submission
-      console.log('Form submitted with', { motorClass: this.motorClass, makeModel: this.makeModel });
-    }
+    console.log('Basic Premium: ', this.motorService.calculatePremium(this.motorClass, this.makeModel, this.yearOfManufacture, this.sumInsured));
+
   }
 
 

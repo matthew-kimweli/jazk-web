@@ -5,21 +5,146 @@ import { Injectable } from '@angular/core';
 })
 export class MotorService {
 
-  motorClasses: any = [{id: 'private', name: 'MOTOR PRIVATE', label: 'Private'}, {id: 'commercial', name: 'MOTOR COMMERCIAL', label: 'Commercial'}];
+  motorClasses: any = [{ id: 'private', name: 'MOTOR PRIVATE', label: 'Private' }, { id: 'commercial', name: 'MOTOR COMMERCIAL', label: 'Commercial' }];
   makeModels: any = [
-    {name: 'Subaru, Probox, Succeed, Sienta, Noah or Voxy', class: 'private'},
-    {name: 'Acura, Cadillac, Citroen, Ferrari, Lamborghini, Bentley, Maserati, MG, AlSuper cars, American Trucks, Dodge', class: 'private'},
-    {name: 'Any Other Make or Model', class: 'private'},
-    {name: 'General Cartage', class: 'commercial'},
-    {name: 'Own Goods', class: 'commercial'},
-    {name: 'PSV Tours (ChauffeurDriven) - Corporates Only', class: 'commercial'},
-    {name: 'Tankers - Carrying flammable Liquid', class: 'commercial'},
-    {name: 'Driving School Vehicles', class: 'commercial'},
-    {name: 'School Buses/Vans Staff, Buses/Vans, Church Buses/Vans', class: 'commercial'},
-    {name: 'Agricultural & Forestry Vehicles, Tracktors, Harvesters, Cranes, Forklift, Rollers, Excavators', class: 'commercial'},
-    {name: 'Ambulance', class: 'commercial'},
-    {name: 'Fire Fighters', class: 'commercial'}
+    { name: 'Subaru, Probox, Succeed, Sienta, Noah or Voxy', class: 'private', label: 'SubaruProboxEtc' },
+    { name: 'Acura, Cadillac, Citroen, Ferrari, Lamborghini, Bentley, Maserati, MG, AlSuper cars, American Trucks, Dodge', class: 'private', label: 'rare' },
+    { name: 'Any Other Make or Model', class: 'private', label: 'AllOtherVehicleMakes' },
+    { name: 'General Cartage', class: 'commercial', label: 'MotorCommercialGeneralCartage' },
+    { name: 'Own Goods', class: 'commercial', label: 'MotorCommercialOwnGoods' },
+    { name: 'PSV Tours (ChauffeurDriven) - Corporates Only', class: 'commercial', label: 'PSVTours' },
+    { name: 'Tankers - Carrying flammable Liquid', class: 'commercial', label: 'Tankers' },
+    { name: 'Driving School Vehicles', class: 'commercial', label: 'DrivingSchool' },
+    { name: 'School Buses/Vans Staff, Buses/Vans, Church Buses/Vans', class: 'commercial', label: 'MotorCommercialInstitutional' },
+    { name: 'Agricultural & Forestry Vehicles, Tracktors, Harvesters, Cranes, Forklift, Rollers, Excavators', class: 'commercial', label: 'SpecialVehiclesAgricultural' },
+    { name: 'Ambulance', class: 'commercial', label: 'SpecialVehiclesAmbulance' },
+    { name: 'Fire Fighters', class: 'commercial', label: 'SpecialVehiclesFireFighters' }
   ];
 
+  // Data structures for premium calculation
+  private standardAutoRates = {
+    'AllOtherVehicleMakes': {
+      upTo15Years: [
+        { range: [500000, 1000000], rate: 0.06 },
+        { range: [1000001, 1500000], rate: 0.05 },
+        { range: [1500001, 2500000], rate: 0.04 },
+        { range: [2500001, 15000000], rate: 0.04 } // To be used in Premier Auto suggestion
+      ],
+      minimumPremium: 37500 // Minimum premium for AllOtherVehicleMakes
+    },
+    'SubaruProboxEtc': {
+      upTo10Years: [
+        { range: [500000, 1000000], rate: 0.075 },
+        { range: [1000001, 1500000], rate: 0.0725 },
+        { range: [1500001, 2500000], rate: 0.07 },
+      ],
+      minimumPremium: 37500 // Minimum premium for Subaru/Probox/etc.
+    },
+  };
+
+  private commercialRates: any = {
+    'MotorCommercialOwnGoods': [
+      { ageRange: [0, 10], rate: 0.04 },
+      { ageRange: [11, 15], rate: 0.04 },
+    ],
+    'MotorCommercialGeneralCartage': [
+      { ageRange: [0, 10], rate: 0.045 },
+      { ageRange: [11, 15], rate: 0.045 },
+    ],
+    'PSVTours': [
+      { ageRange: [0, 10], rate: 0.055 },
+      { ageRange: [11, 15], rate: 0.055 },
+    ],
+    'Tankers': [
+      { ageRange: [0, 10], rate: 0.08 },
+    ],
+    'DrivingSchool': [
+      { ageRange: [0, 10], rate: 0.055 },
+      { ageRange: [11, 15], rate: 0.055 },
+    ],
+    'MotorCommercialInstitutional': [
+      { ageRange: [0, 10], rate: 0.035 },
+      { ageRange: [11, 15], rate: 0.035 },
+    ],
+    'SpecialVehiclesAgricultural': [
+      { ageRange: [0, 10], rate: 0.035 },
+      { ageRange: [11, 15], rate: 0.035 },
+    ],
+    'SpecialVehiclesAmbulance': [
+      { ageRange: [0, 10], rate: 0.07 },
+      { ageRange: [11, 15], rate: 0.07 },
+    ],
+    'SpecialVehiclesFireFighters': [
+      { ageRange: [0, 10], rate: 0.08 },
+      { ageRange: [11, 15], rate: 0.08 },
+    ],
+  };
+
+  // Minimum premiums for commercial vehicles
+  private minimumPremiums: any = {
+    'MotorCommercialOwnGoods': 50000,
+    'MotorCommercialGeneralCartage': 100000,
+    'PSVTours': 50000,
+    'Tankers': 50000,
+    'DrivingSchool': 50000,
+    'MotorCommercialInstitutional': 50000,
+    'SpecialVehiclesAgricultural': 100000,
+    'SpecialVehiclesAmbulance': 50000,
+    'SpecialVehiclesFireFighters': 50000,
+  };
+
   constructor() { }
+
+  // Method to calculate the premium
+  calculatePremium(motorClass: string, makeModel: string, yearOfManufacture: number, sumInsured: number): number {
+    const currentYear = new Date().getFullYear();
+    const vehicleAge = currentYear - yearOfManufacture;
+    let rate = 0;
+    let calculatedPremium = 0;
+    let minimumPremium = 0;
+
+    if (motorClass === 'private') {
+      if (makeModel === 'AllOtherVehicleMakes') {
+        if (vehicleAge <= 15) {
+          rate = this.getRate(this.standardAutoRates.AllOtherVehicleMakes.upTo15Years, sumInsured);
+          calculatedPremium = rate * sumInsured;
+          minimumPremium = this.standardAutoRates.AllOtherVehicleMakes.minimumPremium;
+        }
+      } else if (makeModel === 'SubaruProboxEtc') {
+        if (vehicleAge <= 10) {
+          rate = this.getRate(this.standardAutoRates.SubaruProboxEtc.upTo10Years, sumInsured);
+          calculatedPremium = rate * sumInsured;
+          minimumPremium = this.standardAutoRates.SubaruProboxEtc.minimumPremium;
+        }
+      }
+    } else if (motorClass === 'commercial') {
+      const rates = this.commercialRates[makeModel];
+      rate = this.getRateForCommercial(rates, vehicleAge);
+      calculatedPremium = rate * sumInsured;
+      minimumPremium = this.minimumPremiums[makeModel];
+    }
+
+    // Ensure the calculated premium is not less than the minimum premium
+    return Math.max(calculatedPremium, minimumPremium);
+  }
+
+  // Helper method to get rate based on sum insured for private vehicles
+  private getRate(rates: any[], sumInsured: number): number {
+    for (const rateObj of rates) {
+      if (sumInsured >= rateObj.range[0] && sumInsured <= rateObj.range[1]) {
+        return rateObj.rate;
+      }
+    }
+    return 0; // Default if no rate found
+  }
+
+  // Helper method to get rate based on vehicle age for commercial vehicles
+  private getRateForCommercial(rates: any[], vehicleAge: number): number {
+    for (const rateObj of rates) {
+      if (vehicleAge >= rateObj.ageRange[0] && vehicleAge <= rateObj.ageRange[1]) {
+        return rateObj.rate;
+      }
+    }
+    return 0; // Default if no rate found
+  }
 }

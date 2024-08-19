@@ -39,7 +39,7 @@
                 </option>
                 <option
                   *ngFor="let item of filteredMakeModels"
-                  [value]="item.name"
+                  [value]="item.label"
                 >
                   {{ item.name }}
                 </option>
@@ -69,9 +69,10 @@
                 id="sumInsured"
                 placeholder="Sum Insured"
                 [formControl]="control"
-                [imask]="mask"
+                [imask]="sumInsuredMask"
                 unmask="typed"
               />
+              <small class="form-hint">Minimum Sum Insured is Kshs. 500,000.</small>
             </div>
           </div>
           <div class="col-4">
@@ -79,7 +80,7 @@
               <label class="form-label"
                 >Do you want Political violence & Terrorism benefit?</label
               >
-              <div class="my-3">
+              <div class="my-0">
                 <label class="form-check form-check-inline">
                   <input class="form-check-input" [(ngModel)]="pvt" name="pvt"
                   id="pvt1" type="radio" value="yes" name="radios-inline" checked="">
@@ -96,7 +97,7 @@
               <label class="form-label"
                 >Do you want Own Damage Excess Protector benefit?</label
               >
-              <div class="my-3">
+              <div class="my-0">
                 <label class="form-check form-check-inline">
                   <input class="form-check-input" [(ngModel)]="excessProtector" name="excessProtector"
                   id="excessProtector1" type="radio" value="yes" name="radios-inline" checked="">
@@ -109,7 +110,7 @@
                 </label>
               </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
               <label class="form-label">Desired Windscreen coverage amount?</label>
               <input
                 class="form-control"
@@ -121,6 +122,7 @@
                 [imask]="mask"
                 unmask="typed"
               />
+              <small class="form-hint">Free Benefit limit for Windscreen coverage is Kshs. 50,000.</small>
             </div>
             <div class="mb-3">
               <label class="form-label">Desired Radio Cassette coverage amount?</label>
@@ -134,6 +136,7 @@
                 [imask]="mask"
                 unmask="typed"
               />
+              <small class="form-hint">Free Benefit limit for a Radio Cassette is Kshs. 50,000.</small>
             </div>
           </div>
           <div class="col-4">
@@ -175,9 +178,9 @@
           <div class="btn-list justify-content-end">
             <button
               class="btn btn-primary"
-              (click)="getQuote()"
+              (click)="submit()"
               routerLinkActive="router-link-active"
-              [disabled]="!motorClass || !makeModel || !sumInsured || !yearOfManufacture || !pvt || !windscreen"
+              [disabled]="!motorClass || !makeModel || !sumInsured || !yearOfManufacture"
             >
               Get Quote
             </button>
