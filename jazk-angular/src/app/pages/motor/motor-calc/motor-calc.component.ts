@@ -90,7 +90,7 @@ export class MotorCalcComponent implements OnInit {
     const basicPremium = this.motorService.calculatePremium(this.motorClass, this.makeModel, this.yearOfManufacture, this.sumInsured)
 
     this.motorService.motorQuotation.motorClass = this.motorClass;
-    this.motorService.motorQuotation.makeMode = this.makeModel;
+    this.motorService.motorQuotation.makeModel = this.makeModel;
     this.motorService.motorQuotation.yearOfManufacture = this.yearOfManufacture;
     this.motorService.motorQuotation.sumInsured = this.sumInsured;
     this.motorService.motorQuotation.basicPremium = basicPremium;

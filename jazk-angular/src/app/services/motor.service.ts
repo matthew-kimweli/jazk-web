@@ -109,8 +109,8 @@ export class MotorService {
 
   // Method to calculate the premium
   calculatePremium(motorClass: string, makeModel: string, yearOfManufacture: number, sumInsured: number): number {
-   console.log('makemodel', makeModel)
-   this.motorQuotation.makeModel = makeModel
+  //  console.log('makemodel', makeModel)
+  //  this.motorQuotation.makeModel = makeModel
     const currentYear = new Date().getFullYear();
     const vehicleAge = currentYear - yearOfManufacture;
     let rate = 0;
