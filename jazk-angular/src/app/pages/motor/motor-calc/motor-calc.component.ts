@@ -22,10 +22,11 @@ export class MotorCalcComponent implements OnInit {
   filteredMakeModels: any[] = [];
   yearOfManufacture: any = '';
   sumInsured: any;
-  twoType = [{id: 'yes', name: 'Yes'},{id: 'no', name: 'No'}];
+  courtesyCarOptions = [{amount: 'yes', name: '30 Days'},{amount: 'no', name: '20 Days'}, {amount: 'no', name: '10 Days'}, {amount: 0, name: 'No'}];
   courtesyCar: any = '';
   pvt: any = '';
   windscreen: any;
+  radioCassette: any;
   excessProtector: any = '';
   aaRoadRescue: any = '';
 
@@ -71,18 +72,6 @@ export class MotorCalcComponent implements OnInit {
       this.filteredMakeModels = [];
     }
   }
-
-  // resetInputs() {
-  //   this.motorClass = '';
-  //   this.makeModel = '';
-  //   this.filteredMakeModels = [];
-  //   this.yearOfManufacture = '';
-  //   this.windscreen = '';
-  //   this.sumInsured = '';
-  //   this.pvt = '';
-  //   this.excessProtector = '';
-  //   this.aaRoadRescue = '';
-  // }
 
   submit() {
     if (this.motorClass && this.makeModel) {
