@@ -3,6 +3,7 @@ import { HeaderComponent } from '../../_components/header/header.component';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MotorService } from '../../../services/motor.service';
 
 @Component({
   selector: 'app-view-quote',
@@ -12,11 +13,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './view-quote.component.css',
 })
 export class ViewQuoteComponent {
-  vehicle = {
-    makeModel: 'Toyota Corolla',
-    year: 2019,
-    registration: 'KAA 123A',
-  };
 
   insurance = {
     coverageType: 'Comprehensive',
@@ -42,7 +38,10 @@ export class ViewQuoteComponent {
   };
 emailQuoteDetails: any = {};
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    public motorService : MotorService,
+  ) {}
 
   purchase() {
     this.router.navigate(['motor-kyc']);

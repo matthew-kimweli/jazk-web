@@ -10,16 +10,29 @@ export class MotorService {
     { name: 'Subaru, Probox, Succeed, Sienta, Noah or Voxy', class: 'private', label: 'SubaruProboxEtc' },
     { name: 'Acura, Cadillac, Citroen, Ferrari, Lamborghini, Bentley, Maserati, MG, AlSuper cars, American Trucks, Dodge', class: 'private', label: 'rare' },
     { name: 'Any Other Make or Model', class: 'private', label: 'AllOtherVehicleMakes' },
-    { name: 'General Cartage', class: 'commercial', label: 'MotorCommercialGeneralCartage' },
-    { name: 'Own Goods', class: 'commercial', label: 'MotorCommercialOwnGoods' },
-    { name: 'PSV Tours (ChauffeurDriven) - Corporates Only', class: 'commercial', label: 'PSVTours' },
-    { name: 'Tankers - Carrying flammable Liquid', class: 'commercial', label: 'Tankers' },
-    { name: 'Driving School Vehicles', class: 'commercial', label: 'DrivingSchool' },
-    { name: 'School Buses/Vans Staff, Buses/Vans, Church Buses/Vans', class: 'commercial', label: 'MotorCommercialInstitutional' },
-    { name: 'Agricultural & Forestry Vehicles, Tracktors, Harvesters, Cranes, Forklift, Rollers, Excavators', class: 'commercial', label: 'SpecialVehiclesAgricultural' },
-    { name: 'Ambulance', class: 'commercial', label: 'SpecialVehiclesAmbulance' },
-    { name: 'Fire Fighters', class: 'commercial', label: 'SpecialVehiclesFireFighters' }
+    { name: 'General Cartage', class: 'commercial', label: 'MotorCommercialGeneralCartage', motorSubclass: 'General Cartage' },
+    { name: 'Own Goods', class: 'commercial', label: 'MotorCommercialOwnGoods', motorSubclass: 'Own Good' },
+    { name: 'PSV Tours (ChauffeurDriven) - Corporates Only', class: 'commercial', label: 'PSVTours', motorSubclass: 'TSV Chauffeur Driven (Vehicle must be registered in the name of the TSV company)' },
+    { name: 'Tankers - Carrying flammable Liquid', class: 'commercial', label: 'Tankers', motorSubclass: 'Tankers - Carrying Flammable products' },
+    { name: 'Driving School Vehicles', class: 'commercial', label: 'DrivingSchool', motorSubclass: 'Driving School (Vehicles must be registered in the name of the Driving school)' },
+    { name: 'School Buses/Vans Staff, Buses/Vans, Church Buses/Vans', class: 'commercial', label: 'MotorCommercialInstitutional', motorSubclass: 'Institutions (Vehicle must be registered in the name of the Institution)' },
+    { name: 'Agricultural & Forestry Vehicles, Tracktors, Harvesters, Cranes, Forklift, Rollers, Excavators', class: 'commercial', label: 'SpecialVehiclesAgricultural', motorSubclass: 'Special vehicle - Agricultural & Forest vehicles (Tractors, Harvestors, Cranes, Excavators, etc)' },
+    { name: 'Ambulance', class: 'commercial', label: 'SpecialVehiclesAmbulance', motorSubclass: 'Special vehicle - Ambulance' },
+    { name: 'Fire Fighters', class: 'commercial', label: 'SpecialVehiclesFireFighters', motorSubclass: 'Special vehicle - Fire Engine' }
   ];
+
+  motorQuotation: any = {
+    motorClass: '',
+    motorSubclass: '',
+    makeModel: '',
+    referToHQ: 'No',
+    yearOfManufacture: 0,
+    vehicleAge: 0,
+    sumInsured: 0,
+    basicPremium: 0,
+    netPremium: 0,
+    grossPremium: 0
+  };
 
   // Data structures for premium calculation
   private standardAutoRates = {
@@ -28,7 +41,6 @@ export class MotorService {
         { range: [500000, 1000000], rate: 0.06 },
         { range: [1000001, 1500000], rate: 0.05 },
         { range: [1500001, 2500000], rate: 0.04 },
-        { range: [2500001, 15000000], rate: 0.04 } // To be used in Premier Auto suggestion
       ],
       minimumPremium: 37500 // Minimum premium for AllOtherVehicleMakes
     },
@@ -103,7 +115,8 @@ export class MotorService {
     let calculatedPremium = 0;
     let minimumPremium = 0;
 
-    if (motorClass === 'private') {
+    if (motorClass === 'private' && sumInsured <= 2500000) {
+      this.motorQuotation.motorSubclass = 'Standard Auto'
       if (makeModel === 'AllOtherVehicleMakes') {
         if (vehicleAge <= 15) {
           rate = this.getRate(this.standardAutoRates.AllOtherVehicleMakes.upTo15Years, sumInsured);
@@ -117,7 +130,20 @@ export class MotorService {
           minimumPremium = this.standardAutoRates.SubaruProboxEtc.minimumPremium;
         }
       }
+    } else if (motorClass === 'private' && sumInsured >= 2500001) {
+      this.motorQuotation.motorSubclass = 'Premier Auto'
+      if (sumInsured <= 5000000) {
+        rate = 0.0325
+        calculatedPremium = rate * sumInsured;
+        minimumPremium = 37500
+      } else if (sumInsured >= 5000001) {
+        rate = 0.03
+        calculatedPremium = rate * sumInsured;
+        minimumPremium = 37500
+        this.motorQuotation.referToHQ = 'Yes';
+      }
     } else if (motorClass === 'commercial') {
+      this.motorQuotation.motorSubclass = this.makeModels.filter((model: any) => model.class == motorClass).filter((model: any) => model.name == makeModel).motorSubclass;
       const rates = this.commercialRates[makeModel];
       rate = this.getRateForCommercial(rates, vehicleAge);
       calculatedPremium = rate * sumInsured;
@@ -125,6 +151,7 @@ export class MotorService {
     }
 
     // Ensure the calculated premium is not less than the minimum premium
+    this.motorQuotation.vehicleAge = vehicleAge;
     return Math.max(calculatedPremium, minimumPremium);
   }
 

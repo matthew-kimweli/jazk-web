@@ -69,7 +69,7 @@ export class MotorCalcComponent implements OnInit {
 
   getYears() {
     let tyear = new Date().getFullYear()
-    for (let index = 0; index < 100; index++) {
+    for (let index = 0; index < 15; index++) {
       this.tYears.push(tyear--)
     }
   }
@@ -82,14 +82,21 @@ export class MotorCalcComponent implements OnInit {
     }
   }
 
-  submit() {
-    console.log('Basic Premium: ', this.motorService.calculatePremium(this.motorClass, this.makeModel, this.yearOfManufacture, this.sumInsured));
-
-  }
-
-
   getQuote(){
     this.router.navigate(['motor-quote'])
+  }
+
+  submit() {
+    const basicPremium = this.motorService.calculatePremium(this.motorClass, this.makeModel, this.yearOfManufacture, this.sumInsured)
+
+    this.motorService.motorQuotation.motorClass = this.motorClass;
+    this.motorService.motorQuotation.makeMode = this.makeModel;
+    this.motorService.motorQuotation.yearOfManufacture = this.yearOfManufacture;
+    this.motorService.motorQuotation.sumInsured = this.sumInsured;
+    this.motorService.motorQuotation.basicPremium = basicPremium;
+
+    console.log('Basic Premium: ', basicPremium);
+    this.getQuote()
   }
 
 }
