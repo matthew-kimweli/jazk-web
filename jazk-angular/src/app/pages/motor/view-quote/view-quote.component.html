@@ -24,14 +24,14 @@
                       <strong>Vehicle Age:</strong> {{ motorService.motorQuotation.vehicleAge }}
                     </p>
                     <p>
-                      <strong>Vehicle Value:</strong> Kshs.{{ motorService.motorQuotation.sumInsured }}
+                      <strong>Vehicle Value:</strong> Kshs.{{ motorService.motorQuotation.sumInsured | number }}
                     </p>
                   </div>
                   <div class="col-md-6">
                     <h4>Insurance Details</h4>
                     <p>
                       <strong>Motor Class:</strong>
-                      {{ motorService.motorQuotation.motorClass }} - {{ motorService.motorQuotation.motorSubclass }}
+                      {{ motorService.motorQuotation.motorClass | titlecase }} - {{ motorService.motorQuotation.motorSubclass }}
                     </p>
                     <p>
                       <strong>Basic Premium:</strong> Kshs.{{ motorService.motorQuotation.basicPremium | number }}
