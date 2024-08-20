@@ -40,9 +40,11 @@ export class MotorCalcComponent implements OnInit {
   ];
   courtesyCar: any = '';
   pvt: any = '';
+  pvtBenefit: any = 0;
   windscreen: any;
   radioCassette: any;
   excessProtector: any = '';
+  excessProtectorBenefit: any;
   aaRoadRescue: any = '';
 
   control!: FormControl;
@@ -80,7 +82,6 @@ export class MotorCalcComponent implements OnInit {
 
   ngOnInit() {
     this.control = new FormControl<number>(this.sumInsured);
-    // this.getYears();
   }
 
   getYears(event: any) {
@@ -109,6 +110,15 @@ export class MotorCalcComponent implements OnInit {
       this.filteredMakeModels = [];
     }
   }
+
+  onVehicleValueChange(event: any) {
+    let value = event.target.value;
+    if (value > 1500000 && this.motorClass == 'private' || this.makeModel == 'MotorCommercialOwnGoods') {
+      this.excessProtectorBenefit = 'Inclusive'
+    }
+  }
+
+
 
   getQuote() {
     this.router.navigate(['motor-quote']);
@@ -142,8 +152,15 @@ export class MotorCalcComponent implements OnInit {
       this.yearOfManufacture,
       this.sumInsured
     );
+
+    this.pvtBenefit = this.motorService.getPVT(this.pvt, this.sumInsured)
+    if (this.excessProtector.length != 0) {
+      this.excessProtectorBenefit = this.motorService.getExcessProtector(this.excessProtector, this.sumInsured, this.motorClass, this.makeModel)
+    }
    
     this.motorService.motorQuotation.basicPremium = basicPremium;
+    this.motorService.motorQuotation.pvtBenefit = this.pvtBenefit
+    this.motorService.motorQuotation.excessProtectorBenefit = this.excessProtectorBenefit
 
     console.log('Result: ', this.motorService.motorQuotation);
 

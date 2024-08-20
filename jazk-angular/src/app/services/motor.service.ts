@@ -30,6 +30,8 @@ export class MotorService {
     vehicleAge: 0,
     sumInsured: 0,
     basicPremium: 0,
+    pvtBenefit: 0,
+    excessProtectorBenefit: 0,
     netPremium: 0,
     grossPremium: 0
   };
@@ -185,6 +187,18 @@ export class MotorService {
   getModelPropertyByLabel<T>(label: string, property: keyof any): T | undefined {
     const model = this.getModelByLabel(label);
     return model ? model[property] : undefined;
+  }
+
+  getPVT(pvtInterest: any, vehicleValue: any) {
+    return pvtInterest == 'yes' ? Math.max(0.0025*vehicleValue, 3000) : 0
+  }
+
+  getExcessProtector(excessProtectorInterest: any, vehicleValue: any, motorClass: any, label: any) {
+    if (motorClass == 'private') {
+      return excessProtectorInterest == 'yes' ? Math.max(0.0025*vehicleValue, 3000) : 0
+    } else if (label == 'MotorCommercialGeneralCartage') {
+      return excessProtectorInterest == 'yes' ? Math.max(0.005*vehicleValue, 5000) : 0
+    } else return '';
   }
   
 }
