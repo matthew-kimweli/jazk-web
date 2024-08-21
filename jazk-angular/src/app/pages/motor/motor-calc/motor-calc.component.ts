@@ -184,6 +184,8 @@ export class MotorCalcComponent implements OnInit {
       this.motorService.getWindOrRadio(this.windscreen, this.sumInsured);
     this.motorService.motorQuotation.radioCassetteBenefit =
       this.motorService.getWindOrRadio(this.radioCassette, this.sumInsured);
+    
+    this.motorService.calculatePremiums();
 
     console.log('Result: ', this.motorService.motorQuotation);
 

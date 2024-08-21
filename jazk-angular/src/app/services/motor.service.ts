@@ -39,6 +39,8 @@ export class MotorService {
     windScreenBenefit: 0,
     radioCassetteBenefit: 0,
     netPremium: 0,
+    levies: 0,
+    stampDuty: 40,
     grossPremium: 0
   };
 
@@ -214,5 +216,35 @@ export class MotorService {
   getWindOrRadio(benefit: any, vehicleValue: any) {
     return vehicleValue <= 2500000 ? (benefit > 50000 ? 0.1*(benefit - 50000) : 0) : (benefit > 100000 ? 0.1*(benefit - 100000) : 0)
   }
+
+  calculatePremiums() {
+    // Start with basicPremium as the initial value of netPremium
+    this.motorQuotation.netPremium = this.motorQuotation.basicPremium;
+  
+    for (const key in this.motorQuotation) {
+      if (key.endsWith('Benefit')  && key !== 'aaRoadRescueBenefit') {
+        let benefitValue = this.motorQuotation[key];
+  
+        // Check if the key is 'excessProtectorBenefit' and its value is 'Inclusive'
+        if (key === 'excessProtectorBenefit' && benefitValue === 'Inclusive') {
+          benefitValue = 0;
+        }
+  
+        // Add the benefit value to netPremium
+        this.motorQuotation.netPremium += benefitValue;
+      }
+    }
+
+    this.motorQuotation.levies = 0.0045 * this.motorQuotation.netPremium
+  
+    // Calculate grossPremium as the sum of netPremium, levies, and stampDuty
+    this.motorQuotation.grossPremium =
+      this.motorQuotation.netPremium +
+      this.motorQuotation.levies +
+      this.motorQuotation.stampDuty +
+      this.motorQuotation.aaRoadRescueBenefit;
+  }
+  
+
   
 }
