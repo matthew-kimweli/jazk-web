@@ -15,15 +15,7 @@
               </span>
             </a>   
             
-            
-            <a style="margin-left: 20px;" *ngFor="let child of item.children" class="nav-link" [routerLink]="[child.route]" routerLinkActive="router-link-active" >
-              <span class="nav-link-icon d-md-none d-lg-inline-block">
-                <div *ngIf="child.icon" [innerHTML]="child.icon | sanitizeHtml" ></div>
-              </span>
-              <span class="nav-link-title">
-                {{child.name}}
-              </span>
-            </a>         
+                  
           </li>
           
        

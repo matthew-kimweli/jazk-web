@@ -1,6 +1,6 @@
 import { Component, Input, input } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ActivatedRoute, RouterModule } from "@angular/router";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import * as Parse from 'parse';
 import { HeaderComponent } from "../../_components/header/header.component";
@@ -26,6 +26,7 @@ export class QuotationSalesListComponent {
     public parseService: ParseService,
     private toastr: ToastrService,
     public auth: AuthService,
+    private router: Router,
     private activatedRoute: ActivatedRoute
   ) {}
 
@@ -36,13 +37,13 @@ export class QuotationSalesListComponent {
       
       if (id) {
         this.insuranceType = id
-        this.fetchSale(id);
-        this.fetchQuotation(id);
+        this.fetchSales(id);
+        this.fetchQuotations(id);
       }
     });
   }
 
-  async fetchSale(id:any) {
+  async fetchSales(id:any) {
     let user: any = this.auth.currentUser;
 
     let query = new Parse.Query("JazkeSale");
@@ -53,7 +54,7 @@ export class QuotationSalesListComponent {
     console.log('sales', this.sales)
   }
 
-  async fetchQuotation(id:any) {
+  async fetchQuotations(id:any) {
     let user: any = this.auth.currentUser;
 
     let query = new Parse.Query("JazkeQuotation");
@@ -62,6 +63,16 @@ export class QuotationSalesListComponent {
     
     this.quotations = await this.parseService.find(query);
     console.log('quotes', this.quotations)
+  }
+
+  gotoNewQuotation(){
+    if(this.insuranceType == 'motor-private'){
+      this.router.navigate(['/motor'])
+    } else if(this.insuranceType == 'motor-commercial'){
+      this.router.navigate(['/motor'])
+    } else {
+      this.router.navigate(['/welcome'])
+    }
   }
 
   // async deleteItem(mine: any) {

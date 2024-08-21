@@ -78,6 +78,7 @@ export class ViewQuoteComponent {
     if(this.clientForm.valid){
       let quoteDB = this.motorService.motorQuotation.quoteDB;
       quoteDB.set('actionType', this.actionType)
+      quoteDB.set('client', this.clientForm.value)
       this.toastr.success('Please wait', 'Submitting...')
       let saved = await this.parseService.saveSilent(quoteDB)
       if(saved){

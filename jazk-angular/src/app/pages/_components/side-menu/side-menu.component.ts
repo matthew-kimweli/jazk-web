@@ -129,9 +129,10 @@ export class SideMenuComponent implements OnInit {
     console.log('role', role)
     this.list = []
     for (const p of list) {
-      if(p.roles.includes(role)){
-        this.list.push(p)
-      }
+      // if(p.roles.includes(role)){
+        
+      // }
+      this.list.push(p)
     }
 
     this.fetchInbox()

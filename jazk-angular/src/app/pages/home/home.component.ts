@@ -10,6 +10,7 @@ import { AuthService } from "../../services/auth.service";
 import { DataService } from "../../services/data.service";
 import { ToastrService } from "ngx-toastr";
 import { SideMenuComponent } from "../_components/side-menu/side-menu.component";
+import { ParseService } from "../../services/parse.service";
 
 @Component({
   selector: "app-home",
@@ -31,68 +32,46 @@ export class HomeComponent {
   form: FormGroup | any;
   fetching: boolean = false;
   count: number = 0;
-  list: any = [];
   today: string | number | Date = new Date();
   saving: any = false;
   deleting: any = false;
-  supplierCount: any = 0;
-  totalOrderCount: any = 0;
-  totalApproved = 0
-  totalRejected = 0
-  totalInProcess: number = 0;
-totalSuppliers: number = 0;
+  sales: any;
+  quotations: any;
+  quotationCount: number = 0;
+  salesCount: number = 0;
+  grossPremiumSold = 0
+  commissionEarned = 0
+  list: any;
 
   constructor(
     private auth: AuthService,
     private toastr: ToastrService,
-    public dataService: DataService
+    public dataService: DataService,
+    public parseService: ParseService,
   ) {}
 
   ngOnInit(): void {
-    this.fetchList();
     this.fetchStats()
+
+    this.fetchQuotations()
+    this.fetchSales()
   }
 
   ngOnDestroy(): void {}
 
-  async fetchList() {
-    try {
-      this.fetching = true;
-      let query = new Parse.Query("JazzLPO");
-      query.equalTo("userId", this.auth.currentUserId);
-      this.count = await query.count();
-
-      this.fetching = false;
-    } catch (error: any) {
-      console.error(error);
-      this.fetching = false;
-    }
-  }
 
   async fetchStats() {
     try {
       
-      let query = new Parse.Query("JazzLPO");
-      // query.equalTo("userId", this.auth.currentUserId);
-      this.totalOrderCount = await query.count();
+      let query = new Parse.Query("JazkeQuotation");
+      query.equalTo("user_id", this.auth.currentUserId);
+      this.quotationCount = await query.count();
 
-      let query2 = new Parse.Query("JazzLPO");
-      query.equalTo("status", 'Completed');
-      this.totalApproved = await query2.count();
+      let query2 = new Parse.Query("JazkeSale");
+      // query.equalTo("status", 'Completed');
+      query.equalTo("user_id", this.auth.currentUserId);
+      this.salesCount = await query2.count();
 
-      // let query3 = new Parse.Query("JazzLPO");
-      // query.equalTo("status", 'Rejected');
-      // this.totalRejected = await query3.count();
-
-      let query3 = new Parse.Query("JazzLPOSupplier");
-      // query.equalTo("status", 'Rejected');
-      this.totalSuppliers = await query3.count();
-
-      let query4 = new Parse.Query("JazzLPO");
-      // query4.notEqualTo("status", 'Approved');
-      // query4.notEqualTo("status", 'Rejected');
-      query4.equalTo("status", 'Pending');
-      this.totalInProcess = await query4.count();
 
       
     } catch (error: any) {
@@ -111,4 +90,25 @@ totalSuppliers: number = 0;
     if (index != -1) {
     }
   }
+
+  async fetchSales() {
+    let user: any = this.auth.currentUser;
+
+    let query = new Parse.Query("JazkeSale");
+    query.equalTo('user_id', user.id)
+    
+    this.sales = await this.parseService.find(query);
+    console.log('sales', this.sales)
+  }
+
+  async fetchQuotations() {
+    let user: any = this.auth.currentUser;
+
+    let query = new Parse.Query("JazkeQuotation");
+    query.equalTo('user_id', user.id)
+    
+    this.quotations = await this.parseService.find(query);
+    console.log('quotes', this.quotations)
+  }
+
 }
