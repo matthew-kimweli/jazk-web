@@ -1,77 +1,284 @@
+<div
+  class="mb-3 mt-3"
+  *ngIf="parseService.fetching || parseService.saving || parseService.deleting"
+>
+  <div class="progress">
+    <div class="progress-bar progress-bar-indeterminate bg-green"></div>
+  </div>
+</div>
 
-<div class="container mt-5 mb-5">
-    <div class="text-center mb-4">
-      <h1 class="text-primary">Standard Motor Calculator - Unlocked</h1>
-    </div>
-  
-    <div class="row p-3 pb-0 mb-0">
-      <p class="mb-0 p-0 col-md-3 fw-bold">Client Name:</p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-5 mb-0 px-1 text-left fw-bold custom-bg"><span>JOSEPH MWAURA</span></p><p class="col-md-3 mb-0 p-0"></p>
-      <p class="mb-2 p-0 col-md-3 fw-bold">Vehicle Reg. Number:</p><p class="col-md-1 mb-2 p-0"></p><p class="col-md-5 mb-2 px-1 text-left fw-bold custom-bg"><span>KCL 993D</span></p><p class="col-md-3 mb-2 p-0"></p>
-      <p class="mb-0 p-0 col-md-4 text-uppercase border-bottom-1 fw-bold">Rating Factors</p><p class="col-md-3 mb-0 p-0 border-bottom-1"></p><p class="col-md-3 mb-0 p-0 text-left border-bottom-1 fw-bold"><span>RATE APPLICABLE</span></p><p class="col-md-2 mb-0 p-0 fw-bold text-uppercase border-bottom-1 text-center">Premium</p>
-      <p class="mt-2 mb-0 p-0 col-md-3 fw-bold fst-italic text-center">Sum Insured:</p><p class="col-md-1 mt-2 mb-0 p-0"></p><p class="col-md-3 mt-2 mb-0 p-0 text-end custom-bg fw-bold fst-italic"><span>KCL 993D</span></p><p class="col-md-5 mb-0 mt-2 p-0"></p>
-      <p class="mb-0 p-0 col-md-3 fw-bold fst-italic text-center">Make/Model:</p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-6 mb-0 p-0 text-start custom-bg fw-bold fst-italic"><span>KCL 993D</span></p><p class="col-md-2 mb-0 p-0"></p>
-      <p class="mb-0 p-0 col-md-3 fw-bold fst-italic text-start">Year of Manufacture:</p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-3 mb-0 p-0 text-end custom-bg fw-bold fst-italic"><span>KCL 993D</span></p><p class="col-md-5 mb-0 p-0"></p>
-      <p class="mb-2 p-0 col-md-3 fw-bold fst-italic text-center">Vehicle Age:</p><p class="col-md-1 mb-2 p-0"></p><p class="col-md-3 mb-2 p-0 text-end custom-bg fw-bold fst-italic"><span>KCL 993D</span></p><p class="col-md-5 mb-2 p-0"></p>
-      <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p><p class="col-md-3 mb-0 p-0 text-start fw-bold"><span>Basic Premium:</span></p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-2 mb-0 p-0 px-3 text-end fw-bold custom-bg-grey">60,000</p>
-    </div>
-    <div class="row p-3 pt-0 pb-2 mt-0 mb-0">
-        <p class="mb-0 p-0 col-md-4 text-uppercase border-bottom-1 fw-bold">Additional Benefits - Optional</p><p class="col-md-3 mb-0 p-0 border-bottom-1"></p><p class="col-md-3 mb-0 p-0 text-left fw-bold"><span></span></p><p class="col-md-2 mb-0 p-0 fw-bold text-uppercase text-center"></p>
-    </div>
-    <ul class="dotted-list mt-0 mb-0">
-        <li class="row pe-0"><p class="mb-0 p-0 col-md-5 fw-bold fst-italic text-start">Own Damage Excess Protector:</p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-1 mb-0 p-0 text-start custom-bg fw-bold fst-italic"><span>No</span></p><p class="col-md-2 mb-0 me-5 p-0"></p><p class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey">60,000</p></li>
-        <li class="row pe-0"><p class="mb-0 p-0 col-md-5 fw-bold fst-italic text-start">Terrorism, Sabotage & Political Risks:</p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-1 mb-0 p-0 text-start custom-bg fw-bold fst-italic"><span>Yes</span></p><p class="col-md-2 mb-0 me-5 p-0"></p><p class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey">60,000</p></li>
-        <li class="row pe-0"><p class="mb-0 p-0 col-md-5 fw-bold fst-italic text-start">Loss of Use:</p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-1 mb-0 p-0 text-start custom-bg fw-bold fst-italic"><span>Yes</span></p><p class="col-md-2 mb-0 me-5 p-0"></p><p class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey">60,000</p></li>
-        <li class="row pe-0"><p class="mb-0 p-0 col-md-5 fw-bold fst-italic text-start">Additional Wind screen limit (Above 50k):</p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-1 mb-0 p-0 text-start custom-bg fw-bold fst-italic"><span>Yes</span></p><p class="col-md-2 mb-0 me-5 p-0"></p><p class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey">60,000</p></li>
-        <li class="row pe-0"><p class="mb-0 p-0 col-md-5 fw-bold fst-italic text-start">Additional Radio Cassette limit (Above 50k):</p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-1 mb-0 p-0 text-start custom-bg fw-bold fst-italic"><span>Yes</span></p><p class="col-md-2 mb-0 me-5 p-0"></p><p class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey">60,000</p></li>
-        <li class="row pe-0"><p class="mb-0 p-0 col-md-5 fw-bold fst-italic text-start">AA Road Rescue:</p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-1 mb-0 p-0 text-start custom-bg fw-bold fst-italic"><span>Yes</span></p><p class="col-md-2 mb-0 me-5 p-0"></p><p class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey">60,000</p></li>
+<div
+  class="container mt-5 mb-5"
+  *ngIf="motorService.motorQuotation && motorService.motorQuotation.makeModel"
+>
+  <div class="text-center mb-4">
+    <h1 class="text-primary">Standard Motor Calculator - Unlocked</h1>
+  </div>
+
+  <div class="row p-3 pb-0 mb-0">
+    <p class="mb-0 p-0 col-md-3 fw-bold">Client Name:</p>
+    <p class="col-md-1 mb-0 p-0"></p>
+    <p class="col-md-5 mb-0 px-1 text-left fw-bold custom-bg">
+      <span>JOSEPH MWAURA</span>
+    </p>
+    <p class="col-md-3 mb-0 p-0"></p>
+    <p class="mb-2 p-0 col-md-3 fw-bold">Vehicle Reg. Number:</p>
+    <p class="col-md-1 mb-2 p-0"></p>
+    <p class="col-md-5 mb-2 px-1 text-left fw-bold custom-bg">
+      <span>KCL 993D</span>
+    </p>
+    <p class="col-md-3 mb-2 p-0"></p>
+    <p class="mb-0 p-0 col-md-4 text-uppercase border-bottom-1 fw-bold">
+      Rating Factors
+    </p>
+    <p class="col-md-3 mb-0 p-0 border-bottom-1"></p>
+    <p class="col-md-3 mb-0 p-0 text-left border-bottom-1 fw-bold">
+      <span>RATE APPLICABLE</span>
+    </p>
+    <p
+      class="col-md-2 mb-0 p-0 fw-bold text-uppercase border-bottom-1 text-center"
+    >
+      Premium
+    </p>
+    <p class="mt-2 mb-0 p-0 col-md-3 fw-bold fst-italic text-center">
+      Sum Insured:
+    </p>
+    <p class="col-md-1 mt-2 mb-0 p-0"></p>
+    <p class="col-md-3 mt-2 mb-0 p-0 text-end custom-bg fw-bold fst-italic">
+      <span>KCL 993D</span>
+    </p>
+    <p class="col-md-5 mb-0 mt-2 p-0"></p>
+    <p class="mb-0 p-0 col-md-3 fw-bold fst-italic text-center">Make/Model:</p>
+    <p class="col-md-1 mb-0 p-0"></p>
+    <p class="col-md-6 mb-0 p-0 text-start custom-bg fw-bold fst-italic">
+      <span>KCL 993D</span>
+    </p>
+    <p class="col-md-2 mb-0 p-0"></p>
+    <p class="mb-0 p-0 col-md-3 fw-bold fst-italic text-start">
+      Year of Manufacture:
+    </p>
+    <p class="col-md-1 mb-0 p-0"></p>
+    <p class="col-md-3 mb-0 p-0 text-end custom-bg fw-bold fst-italic">
+      <span>KCL 993D</span>
+    </p>
+    <p class="col-md-5 mb-0 p-0"></p>
+    <p class="mb-2 p-0 col-md-3 fw-bold fst-italic text-center">Vehicle Age:</p>
+    <p class="col-md-1 mb-2 p-0"></p>
+    <p class="col-md-3 mb-2 p-0 text-end custom-bg fw-bold fst-italic">
+      <span>KCL 993D</span>
+    </p>
+    <p class="col-md-5 mb-2 p-0"></p>
+    <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p>
+    <p class="col-md-3 mb-0 p-0 text-start fw-bold">
+      <span>Basic Premium:</span>
+    </p>
+    <p class="col-md-1 mb-0 p-0"></p>
+    <p class="col-md-2 mb-0 p-0 px-3 text-end fw-bold custom-bg-grey">60,000</p>
+  </div>
+  <div class="row p-3 pt-0 pb-2 mt-0 mb-0">
+    <p class="mb-0 p-0 col-md-4 text-uppercase border-bottom-1 fw-bold">
+      Additional Benefits - Optional
+    </p>
+    <p class="col-md-3 mb-0 p-0 border-bottom-1"></p>
+    <p class="col-md-3 mb-0 p-0 text-left fw-bold"><span></span></p>
+    <p class="col-md-2 mb-0 p-0 fw-bold text-uppercase text-center"></p>
+  </div>
+  <ul class="dotted-list mt-0 mb-0">
+    <li class="row pe-0">
+      <p class="mb-0 p-0 col-md-5 fw-bold fst-italic text-start">
+        Own Damage Excess Protector:
+      </p>
+      <p class="col-md-1 mb-0 p-0"></p>
+      <p class="col-md-1 mb-0 p-0 text-start custom-bg fw-bold fst-italic">
+        <span>No</span>
+      </p>
+      <p class="col-md-2 mb-0 me-5 p-0"></p>
+      <p class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey">
+        60,000
+      </p>
+    </li>
+    <li class="row pe-0">
+      <p class="mb-0 p-0 col-md-5 fw-bold fst-italic text-start">
+        Terrorism, Sabotage & Political Risks:
+      </p>
+      <p class="col-md-1 mb-0 p-0"></p>
+      <p class="col-md-1 mb-0 p-0 text-start custom-bg fw-bold fst-italic">
+        <span>Yes</span>
+      </p>
+      <p class="col-md-2 mb-0 me-5 p-0"></p>
+      <p class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey">
+        60,000
+      </p>
+    </li>
+    <li class="row pe-0">
+      <p class="mb-0 p-0 col-md-5 fw-bold fst-italic text-start">
+        Loss of Use:
+      </p>
+      <p class="col-md-1 mb-0 p-0"></p>
+      <p class="col-md-1 mb-0 p-0 text-start custom-bg fw-bold fst-italic">
+        <span>Yes</span>
+      </p>
+      <p class="col-md-2 mb-0 me-5 p-0"></p>
+      <p class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey">
+        60,000
+      </p>
+    </li>
+    <li class="row pe-0">
+      <p class="mb-0 p-0 col-md-5 fw-bold fst-italic text-start">
+        Additional Wind screen limit (Above 50k):
+      </p>
+      <p class="col-md-1 mb-0 p-0"></p>
+      <p class="col-md-1 mb-0 p-0 text-start custom-bg fw-bold fst-italic">
+        <span>Yes</span>
+      </p>
+      <p class="col-md-2 mb-0 me-5 p-0"></p>
+      <p class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey">
+        60,000
+      </p>
+    </li>
+    <li class="row pe-0">
+      <p class="mb-0 p-0 col-md-5 fw-bold fst-italic text-start">
+        Additional Radio Cassette limit (Above 50k):
+      </p>
+      <p class="col-md-1 mb-0 p-0"></p>
+      <p class="col-md-1 mb-0 p-0 text-start custom-bg fw-bold fst-italic">
+        <span>Yes</span>
+      </p>
+      <p class="col-md-2 mb-0 me-5 p-0"></p>
+      <p class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey">
+        60,000
+      </p>
+    </li>
+    <li class="row pe-0">
+      <p class="mb-0 p-0 col-md-5 fw-bold fst-italic text-start">
+        AA Road Rescue:
+      </p>
+      <p class="col-md-1 mb-0 p-0"></p>
+      <p class="col-md-1 mb-0 p-0 text-start custom-bg fw-bold fst-italic">
+        <span>Yes</span>
+      </p>
+      <p class="col-md-2 mb-0 me-5 p-0"></p>
+      <p class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey">
+        60,000
+      </p>
+    </li>
+  </ul>
+  <div class="row p-3 pt-2 mt-0 mb-0">
+    <p class="mb-0 p-0 col-md-2 fw-bold fst-italic text-center"></p>
+    <p class="col-md-7 mb-0 p-0 text-end fw-bold">
+      <span>JAZ-Assist (Road Rescue, Ambulance & Security Response):</span>
+    </p>
+    <p class="col-md-1 mb-0 p-0"></p>
+    <p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bold">60,000</p>
+    <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p>
+    <p class="col-md-3 mb-0 p-0 text-end fw-bold"><span>Net Premium:</span></p>
+    <p class="col-md-1 mb-0 p-0"></p>
+    <p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bold">60,000</p>
+    <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p>
+    <p class="col-md-3 mb-0 p-0 text-end fw-bold"><span>Levies:</span></p>
+    <p class="col-md-1 mb-0 p-0"></p>
+    <p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bold">60,000</p>
+    <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p>
+    <p class="col-md-3 mb-0 p-0 text-end fw-bold"><span>Stamp Duty:</span></p>
+    <p class="col-md-1 mb-0 p-0"></p>
+    <p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bold">60,000</p>
+    <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p>
+    <p class="col-md-3 mb-0 p-0 text-end fw-bold">
+      <span>Gross Premium:</span>
+    </p>
+    <p class="col-md-1 mb-0 p-0"></p>
+    <p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bold custom-bg">
+      60,000
+    </p>
+  </div>
+  <div class="row p-3 pt-0 pb-2 mt-0 mb-0">
+    <p class="mb-2 p-0 col-md-4 text-uppercase border-bottom-1 fw-bold">
+      Benefits
+    </p>
+    <p class="col-md-3 mb-2 p-0 border-bottom-1"></p>
+    <p class="col-md-3 mb-2 p-0 text-left fw-bold border-bottom-1">
+      <span></span>
+    </p>
+    <p
+      class="col-md-2 mb-2 p-0 fw-bold text-uppercase text-center border-bottom-1"
+    >
+      Limit of Liability
+    </p>
+    <p class="mb-0 p-0 col-md-3 m-0" style="border: 1px solid red">
+      Windscreen & Window Glass
+    </p>
+    <p class="col-md-7 mb-0 p-0">
+      ................................................................................................................
+    </p>
+    <p class="col-md-2 mb-0 p-0 text-center">Kshs. 50,000</p>
+  </div>
+  <div class="p-3 mb-4">
+    <ul class="list-unstyled mb-3">
+      <li class="mb-1">Windscreen & Window Glass: Kshs. 50,000</li>
+      <li class="mb-1">Entertainment Unit: Kshs. 50,000</li>
+      <li class="mb-1">Repair Authority: Kshs. 50,000</li>
+      <li class="mb-1">Towing & Recovery Expenses: Kshs. 50,000</li>
+      <li class="mb-1">Emergency Medical Expenses: Kshs. 50,000</li>
+      <li class="mb-1">Third Party Property Damage: Kshs. 5,000,000</li>
+      <li class="mb-1">
+        Third Party Bodily Injuries: Kshs. 3,000,000 per person, Kshs.
+        20,000,000 per event
+      </li>
+      <li class="mb-1">
+        Passenger Legal Liability: Kshs. 3,000,000 per person, Kshs. 20,000,000
+        per event
+      </li>
+      <li class="mb-1">
+        Geographical/Territorial Area: COMESA countries (Subject to Yellow card
+        Procedures)
+      </li>
     </ul>
-    <div class="row p-3 pt-2 mt-0 mb-0">
-        <p class="mb-0 p-0 col-md-2 fw-bold fst-italic text-center"></p><p class="col-md-7 mb-0 p-0 text-end fw-bold"><span>JAZ-Assist (Road Rescue, Ambulance & Security Response):</span></p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bold">60,000</p>
-        <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p><p class="col-md-3 mb-0 p-0 text-end fw-bold"><span>Net Premium:</span></p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bold">60,000</p>
-        <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p><p class="col-md-3 mb-0 p-0 text-end fw-bold"><span>Levies:</span></p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bold">60,000</p>
-        <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p><p class="col-md-3 mb-0 p-0 text-end fw-bold"><span>Stamp Duty:</span></p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bold">60,000</p>
-        <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p><p class="col-md-3 mb-0 p-0 text-end fw-bold"><span>Gross Premium:</span></p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bold custom-bg">60,000</p>
-    </div>
-    <div class="row p-3 pt-0 pb-2 mt-0 mb-0">
-        <p class="mb-2 p-0 col-md-4 text-uppercase border-bottom-1 fw-bold">Benefits</p><p class="col-md-3 mb-2 p-0 border-bottom-1"></p><p class="col-md-3 mb-2 p-0 text-left fw-bold border-bottom-1"><span></span></p><p class="col-md-2 mb-2 p-0 fw-bold text-uppercase text-center border-bottom-1">Limit of Liability</p>
-        <p class="mb-0 p-0 col-md-3 m-0" style="border: 1px solid red;">Windscreen & Window Glass</p><p class="col-md-7 mb-0 p-0">................................................................................................................</p><p class="col-md-2 mb-0 p-0 text-center">Kshs. 50,000</p>
-    </div>
-    <div class=" p-3 mb-4">
-      <ul class="list-unstyled mb-3">
-        <li class="mb-1">Windscreen & Window Glass: Kshs. 50,000</li>
-        <li class="mb-1">Entertainment Unit: Kshs. 50,000</li>
-        <li class="mb-1">Repair Authority: Kshs. 50,000</li>
-        <li class="mb-1">Towing & Recovery Expenses: Kshs. 50,000</li>
-        <li class="mb-1">Emergency Medical Expenses: Kshs. 50,000</li>
-        <li class="mb-1">Third Party Property Damage: Kshs. 5,000,000</li>
-        <li class="mb-1">Third Party Bodily Injuries: Kshs. 3,000,000 per person, Kshs. 20,000,000 per event</li>
-        <li class="mb-1">Passenger Legal Liability: Kshs. 3,000,000 per person, Kshs. 20,000,000 per event</li>
-        <li class="mb-1">Geographical/Territorial Area: COMESA countries (Subject to Yellow card Procedures)</li>
-      </ul>
-    </div>
-  
-    <div class=" p-3 mb-4">
-      <h5 class="text-uppercase text-primary">Applicable Excesses</h5>
-      <ul class="list-unstyled mb-3">
-        <li class="mb-1">Own Damage/Partial Theft: 2.5% of Sum Insured, minimum Kshs. 15,000.00 & maximum Kshs. 100,000.00</li>
-        <li class="mb-1">Partial Theft: 2.5% of Sum Insured, minimum Kshs. 15,000.00 & maximum Kshs. 100,000.00</li>
-        <li class="mb-1">Theft with Anti-Theft Devices: 10% of Sum Insured, minimum Kshs. 20,000.00</li>
-        <li class="mb-1">Theft without Anti-Theft Devices: 20% of Sum Insured, minimum Kshs. 20,000.00</li>
-        <li class="mb-1">Theft with Tracking Device: 2.5% of Sum Insured, minimum Kshs. 20,000.00</li>
-        <li class="mb-1">Third Party Bodily Injury: Nil</li>
-        <li class="mb-1">Third Party Property Damage: Kshs. 7,500.00</li>
-        <li class="mb-1">New & Young Drivers: Kshs. 5,000.00 additional (Below 1 Year Experience/ Under 23 Years Old)</li>
-      </ul>
-    </div>
-  
-    <div class=" p-3 mb-5">
-      <p>Please note this is a quotation Only and is not an automatic confirmation of cover. Kindly revert within 14 days from the date of quotation. Acceptance of the terms of cover is deemed to occur when the premium is paid in full or through an agreed premium financing arrangement.</p>
-      <p class="mb-1">Done By: Allan Otieno</p>
-      <p class="mb-1">Date: 19/08/2024</p>
-    </div>
+  </div>
+
+  <div class="p-3 mb-4">
+    <h5 class="text-uppercase text-primary">Applicable Excesses</h5>
+    <ul class="list-unstyled mb-3">
+      <li class="mb-1">
+        Own Damage/Partial Theft: 2.5% of Sum Insured, minimum Kshs. 15,000.00 &
+        maximum Kshs. 100,000.00
+      </li>
+      <li class="mb-1">
+        Partial Theft: 2.5% of Sum Insured, minimum Kshs. 15,000.00 & maximum
+        Kshs. 100,000.00
+      </li>
+      <li class="mb-1">
+        Theft with Anti-Theft Devices: 10% of Sum Insured, minimum Kshs.
+        20,000.00
+      </li>
+      <li class="mb-1">
+        Theft without Anti-Theft Devices: 20% of Sum Insured, minimum Kshs.
+        20,000.00
+      </li>
+      <li class="mb-1">
+        Theft with Tracking Device: 2.5% of Sum Insured, minimum Kshs. 20,000.00
+      </li>
+      <li class="mb-1">Third Party Bodily Injury: Nil</li>
+      <li class="mb-1">Third Party Property Damage: Kshs. 7,500.00</li>
+      <li class="mb-1">
+        New & Young Drivers: Kshs. 5,000.00 additional (Below 1 Year Experience/
+        Under 23 Years Old)
+      </li>
+    </ul>
+  </div>
+
+  <div class="p-3 mb-5">
+    <p>
+      Please note this is a quotation Only and is not an automatic confirmation
+      of cover. Kindly revert within 14 days from the date of quotation.
+      Acceptance of the terms of cover is deemed to occur when the premium is
+      paid in full or through an agreed premium financing arrangement.
+    </p>
+    <p class="mb-1">Done By: Allan Otieno</p>
+    <p class="mb-1">Date: 19/08/2024</p>
+  </div>
 </div>
 <div class="container text-left mt-5">
-    <small class="font-italic">Classified as Confidential Recipient Only</small>
+  <small class="font-italic">Classified as Confidential Recipient Only</small>
 </div>
 
 <!-- <div class="page-wrapper">

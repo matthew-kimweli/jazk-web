@@ -5,11 +5,12 @@ import { ToastrService } from 'ngx-toastr';
 import { MotorService } from '../../../services/motor.service';
 import { ParseService } from '../../../services/parse.service';
 import * as Parse from 'parse';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-view-quote-subdetails',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './view-quote-subdetails.component.html',
   styleUrl: './view-quote-subdetails.component.css'
 })

@@ -1,10 +1,14 @@
 <app-header></app-header>
 
 <div class="page-wrapper">
-  
   <div class="page-body">
     <div class="container-xl">
-      <div class="container" *ngIf="motorService.motorQuotation && motorService.motorQuotation.makeModel">
+      <div
+        class="container"
+        *ngIf="
+          motorService.motorQuotation && motorService.motorQuotation.makeModel
+        "
+      >
         <div class="row">
           <div class="col-lg-8 offset-lg-2">
             <div class="card">
@@ -205,15 +209,15 @@
         </div>
       </div>
       <div
-    class="mb-3 mt-3"
-    *ngIf="
-      parseService.fetching || parseService.saving || parseService.deleting
-    "
-  >
-    <div class="progress">
-      <div class="progress-bar progress-bar-indeterminate bg-green"></div>
-    </div>
-  </div>
+        class="mb-3 mt-3"
+        *ngIf="
+          parseService.fetching || parseService.saving || parseService.deleting
+        "
+      >
+        <div class="progress">
+          <div class="progress-bar progress-bar-indeterminate bg-green"></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -253,8 +257,13 @@
                   placeholder="Client Name"
                 />
               </div>
-              <div *ngIf="clientName.invalid && parseService.submitting" class="alert alert-danger">
-                <div *ngIf="clientName.errors?.['required']">Name is required.</div>
+              <div
+                *ngIf="clientName.invalid && parseService.submitting"
+                class="alert alert-danger"
+              >
+                <div *ngIf="clientName.errors?.['required']">
+                  Name is required.
+                </div>
               </div>
             </div>
             <div class="col-lg-8">
@@ -270,8 +279,13 @@
                   />
                 </div>
               </div>
-              <div *ngIf="clientPhone.invalid && parseService.submitting" class="alert alert-danger">
-                <div *ngIf="clientPhone.errors?.['required']">Phone is required.</div>
+              <div
+                *ngIf="clientPhone.invalid && parseService.submitting"
+                class="alert alert-danger"
+              >
+                <div *ngIf="clientPhone.errors?.['required']">
+                  Phone is required.
+                </div>
               </div>
             </div>
             <div class="col-lg-8">
@@ -285,8 +299,13 @@
                   placeholder="Client Email"
                 />
               </div>
-              <div *ngIf="clientEmail.invalid && parseService.submitting" class="alert alert-danger">
-                <div *ngIf="clientEmail.errors?.['required']">Email is required.</div>
+              <div
+                *ngIf="clientEmail.invalid && parseService.submitting"
+                class="alert alert-danger"
+              >
+                <div *ngIf="clientEmail.errors?.['required']">
+                  Email is required.
+                </div>
               </div>
             </div>
           </div>
