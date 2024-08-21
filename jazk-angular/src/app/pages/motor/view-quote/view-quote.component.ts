@@ -91,6 +91,10 @@ export class ViewQuoteComponent {
       }
     }
   }
+  downloadQuote() {
+    this.router.navigate(['motor-view-quote']);
+  }
+  emailQuote() {}
 
   goBack() {
     history.back();

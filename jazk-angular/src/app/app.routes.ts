@@ -14,6 +14,7 @@ import { MotorCalcComponent } from './pages/motor/motor-calc/motor-calc.componen
 import { MotorKycComponent } from './pages/motor/motor-kyc/motor-kyc.component';
 import { ViewQuoteComponent } from './pages/motor/view-quote/view-quote.component';
 import { QuotationSalesListComponent } from './pages/agent/quotation-sales-list/quotation-sales-list.component';
+import { ViewQuoteSubdetailsComponent } from './pages/motor/view-quote-subdetails/view-quote-subdetails.component';
 
 export const routes: Routes = [
 
@@ -73,6 +74,10 @@ export const routes: Routes = [
       {
         path: 'motor-quote',
         component: ViewQuoteComponent,
+      },
+      {
+        path: 'motor-view-quote',
+        component: ViewQuoteSubdetailsComponent,
       },
       {
         path: 'motor-kyc',
