@@ -84,6 +84,10 @@ export const routes: Routes = [
         component: ViewQuoteSubdetailsComponent,
       },
       {
+        path: 'motor-view-quote/:id',
+        component: ViewQuoteSubdetailsComponent,
+      },
+      {
         path: 'motor-kyc',
         component: MotorKycComponent,
       },

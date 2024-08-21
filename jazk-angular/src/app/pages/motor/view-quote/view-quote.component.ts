@@ -118,6 +118,9 @@ export class ViewQuoteComponent implements OnInit {
         } else {
           this.toastr.success('Downloaded');
         }
+        this.router.navigate(['/motor-view-quote', saved.id])
+      } else {
+        this.toastr.error('Unable to Submit', 'Please try again');
       }
     }
   }

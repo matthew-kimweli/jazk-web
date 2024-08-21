@@ -34,8 +34,8 @@
   function handleUnsupportedBrowsers() {
     var appRoot = document.getElementsByTagName('app-root')[0];
     if (appRoot && appRoot.innerHTML === '') {
-      appRoot.innerHTML = '<h1>Unsupported Browser (too old)</h1>' +
-        '<p>Please use a modern browser!</p>';
+      appRoot.innerHTML = '<h1>Unable to connect. Check your internet connection</h1>' +
+        '<p>Please check your internet connection!</p>';
     }
   }
 </script>
