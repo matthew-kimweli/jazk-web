@@ -238,11 +238,11 @@ export class MotorService {
     this.motorQuotation.levies = 0.0045 * this.motorQuotation.netPremium
   
     // Calculate grossPremium as the sum of netPremium, levies, and stampDuty
-    this.motorQuotation.grossPremium =
+    this.motorQuotation.grossPremium = Math.round(
       this.motorQuotation.netPremium +
       this.motorQuotation.levies +
       this.motorQuotation.stampDuty +
-      this.motorQuotation.aaRoadRescueBenefit;
+      this.motorQuotation.aaRoadRescueBenefit);
   }
   
 
