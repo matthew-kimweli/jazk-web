@@ -76,6 +76,10 @@ export const routes: Routes = [
         component: ViewQuoteComponent,
       },
       {
+        path: 'motor-quote/:id',
+        component: ViewQuoteComponent,
+      },
+      {
         path: 'motor-view-quote',
         component: ViewQuoteSubdetailsComponent,
       },

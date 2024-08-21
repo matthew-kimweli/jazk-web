@@ -15,6 +15,7 @@ export class DataService {
   uploading: boolean = false;
   uploadProgress: string = '0%';
   tags: any;
+  recent: any = {};
 
   constructor(
     public httpClient: HttpClient

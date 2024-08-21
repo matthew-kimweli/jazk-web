@@ -204,6 +204,7 @@ export class MotorCalcComponent implements OnInit {
     }
 
     quote.set('whatIsInsured', `${this.motorService.motorQuotation.makeModel} ${this.motorService.motorQuotation.yearOfManufacture}`)
+    quote.set('quoteData', {...this.motorService.motorQuotation})
 
     this.motorService.motorQuotation.quoteDB = quote
     this.getQuote();

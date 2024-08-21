@@ -29,16 +29,11 @@
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-printer"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-plus"
               >
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path
-                  d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"
-                />
-                <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
-                <path
-                  d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z"
-                />
+                <path d="M12 5l0 14" />
+                <path d="M5 12l14 0" />
               </svg>
               New Quotation
             </a>
@@ -108,24 +103,27 @@
                     aria-selected="true"
                     role="tab"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="icon me-2"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
-                      <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-                      <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-                    </svg>
-                    Quotations
+                  <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icons-tabler-outline icon-tabler-squares"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M8 10a2 2 0 0 1 2 -2h9a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-9a2 2 0 0 1 -2 -2z"
+                  />
+                  <path
+                    d="M16 8v-3a2 2 0 0 0 -2 -2h-9a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h3"
+                  />
+                </svg>
+                    <strong>Your Quotations</strong>
                   </a>
                 </li>
 
@@ -138,24 +136,30 @@
                     tabindex="-1"
                     role="tab"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="icon me-2"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M12 6m-8 0a8 3 0 1 0 16 0a8 3 0 1 0 -16 0" />
-                      <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
-                      <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
-                    </svg>
-                    Sales
+                  <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="icon"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                          d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"
+                        />
+                        <path
+                          d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"
+                        />
+                        <path d="M9 17v-5" />
+                        <path d="M12 17v-1" />
+                        <path d="M15 17v-3" />
+                      </svg>
+                    <strong>Your Sales</strong>
                   </a>
                 </li>
               </ul>
@@ -180,14 +184,14 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let item of quotations; let i=index">
+                          <tr *ngFor="let item of quotations; let i = index">
                             <td class="text-primary">
-                              {{ i+1 }}
+                              {{ i + 1 }}
                             </td>
                             <td>
                               {{ item.get("createdAt") | date }}
                             </td>
-                            
+
                             <td class="text-secondary">
                               {{ item.get("client").name }}
                             </td>
@@ -208,6 +212,7 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end">
                                   <a
+                                    [routerLink]="['/motor-quote', item.id]"
                                     routerLinkActive="router-link-active"
                                     class="dropdown-item text-green"
                                   >
@@ -258,14 +263,14 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let item of sales; let i=index">
+                          <tr *ngFor="let item of sales; let i = index">
                             <td class="text-primary">
-                              {{ i+1 }}
+                              {{ i + 1 }}
                             </td>
                             <td>
                               {{ item.get("createdAt") | date }}
                             </td>
-                            
+
                             <td class="text-secondary">
                               {{ item.get("client").name }}
                             </td>
@@ -275,10 +280,10 @@
                               }}</strong>
                             </td>
                             <td class="text-success">
-                              {{ item.get("premium") || '---' }}
+                              {{ item.get("premium") || "---" }}
                             </td>
                             <td class="text-azure">
-                              {{ item.get("paymentStatus") || 'Not Paid' }}
+                              {{ item.get("paymentStatus") || "Not Paid" }}
                             </td>
 
                             <td class="text-end">

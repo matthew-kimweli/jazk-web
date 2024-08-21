@@ -51,7 +51,8 @@ export class HomeComponent {
   ) {}
 
   ngOnInit(): void {
-    this.fetchStats()
+    this.fetchSalesCount()
+    this.fetchQuoteCount()
 
     this.fetchQuotations()
     this.fetchSales()
@@ -60,20 +61,30 @@ export class HomeComponent {
   ngOnDestroy(): void {}
 
 
-  async fetchStats() {
+  async fetchQuoteCount() {
     try {
-      
+      this.quotationCount = this.dataService.recent.quotationCount
       let query = new Parse.Query("JazkeQuotation");
       query.equalTo("user_id", this.auth.currentUserId);
       this.quotationCount = await query.count();
 
+      this.dataService.recent.quotationCount = this.quotationCount
+      
+    } catch (error: any) {
+      console.error(error);
+      this.fetching = false;
+    }
+  }
+
+  async fetchSalesCount() {
+    try {
+      
+      this.salesCount = this.dataService.recent.salesCount
       let query2 = new Parse.Query("JazkeSale");
-      // query.equalTo("status", 'Completed');
-      query.equalTo("user_id", this.auth.currentUserId);
+      query2.equalTo("user_id", this.auth.currentUserId);
       this.salesCount = await query2.count();
 
-
-      
+      this.dataService.recent.salesCount = this.salesCount
     } catch (error: any) {
       console.error(error);
       this.fetching = false;
@@ -92,6 +103,9 @@ export class HomeComponent {
   }
 
   async fetchSales() {
+
+    this.sales = this.dataService.recent.sales
+
     let user: any = this.auth.currentUser;
 
     let query = new Parse.Query("JazkeSale");
@@ -99,9 +113,12 @@ export class HomeComponent {
     
     this.sales = await this.parseService.find(query);
     console.log('sales', this.sales)
+    this.dataService.recent.sales = this.sales
   }
 
   async fetchQuotations() {
+    this.quotations = this.dataService.recent.quotations
+
     let user: any = this.auth.currentUser;
 
     let query = new Parse.Query("JazkeQuotation");
@@ -109,6 +126,7 @@ export class HomeComponent {
     
     this.quotations = await this.parseService.find(query);
     console.log('quotes', this.quotations)
+    this.dataService.recent.quotations = this.quotations
   }
 
 }

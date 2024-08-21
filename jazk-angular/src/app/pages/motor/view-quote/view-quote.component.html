@@ -1,9 +1,10 @@
 <app-header></app-header>
 
 <div class="page-wrapper">
+  
   <div class="page-body">
     <div class="container-xl">
-      <div class="container">
+      <div class="container" *ngIf="motorService.motorQuotation && motorService.motorQuotation.makeModel">
         <div class="row">
           <div class="col-lg-8 offset-lg-2">
             <div class="card">
@@ -203,6 +204,16 @@
           </div>
         </div>
       </div>
+      <div
+    class="mb-3 mt-3"
+    *ngIf="
+      parseService.fetching || parseService.saving || parseService.deleting
+    "
+  >
+    <div class="progress">
+      <div class="progress-bar progress-bar-indeterminate bg-green"></div>
+    </div>
+  </div>
     </div>
   </div>
 </div>

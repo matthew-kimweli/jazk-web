@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../_components/header/header.component';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
@@ -12,6 +12,7 @@ import {
 import { MotorService } from '../../../services/motor.service';
 import { ParseService } from '../../../services/parse.service';
 import { ToastrService } from 'ngx-toastr';
+import * as Parse from 'parse';
 
 @Component({
   selector: 'app-view-quote',
@@ -26,7 +27,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './view-quote.component.html',
   styleUrl: './view-quote.component.css',
 })
-export class ViewQuoteComponent {
+export class ViewQuoteComponent implements OnInit {
   insurance = {
     coverageType: 'Comprehensive',
     premium: 45000,
@@ -49,6 +50,7 @@ export class ViewQuoteComponent {
       lossOfUse: 2000,
     },
   };
+ 
   emailQuoteDetails: any = {};
   actionType: any;
   clientForm!: FormGroup;
@@ -59,6 +61,7 @@ export class ViewQuoteComponent {
     public parseService: ParseService,
     public motorService: MotorService,
     public toastr: ToastrService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.clientForm = this.fb.group({
       name: ['', Validators.required],
@@ -67,27 +70,54 @@ export class ViewQuoteComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe((parameter) => {
+      let id = parameter['id'];
+
+      if (id) {
+        this.fetchQuotation(id);
+      }
+    });
+  }
+
+  async fetchQuotation(id: any) {
+    try {
+      this.parseService.fetching = true;
+      let query = new Parse.Query('JazkeQuotation');
+      let quote = await query.get(id);
+      console.log('quote', quote);
+      if(quote){
+        this.motorService.motorQuotation = quote.get('quoteData')
+      }
+      this.parseService.fetching = false;
+    } catch (error) {
+      console.error(error);
+      this.parseService.fetching = true;
+    }
+  }
+
   purchase() {
     this.router.navigate(['motor-kyc']);
   }
 
+  async onSubmitEmailDownload() {
+    console.log(this.clientForm.value);
 
-  async onSubmitEmailDownload(){
-    console.log(this.clientForm.value)
-
-    if(this.clientForm.valid){
+    if (this.clientForm.valid) {
       let quoteDB = this.motorService.motorQuotation.quoteDB;
-      quoteDB.set('actionType', this.actionType)
-      quoteDB.set('client', this.clientForm.value)
-      this.toastr.success('Please wait', 'Submitting...')
-      let saved = await this.parseService.saveSilent(quoteDB)
-      if(saved){
-        if(this.actionType == 'Email'){
-          this.toastr.success('Submitted', `Quotation has been sent to the client's email`)
+      quoteDB.set('actionType', this.actionType);
+      quoteDB.set('client', this.clientForm.value);
+      this.toastr.success('Please wait', 'Submitting...');
+      let saved = await this.parseService.saveSilent(quoteDB);
+      if (saved) {
+        if (this.actionType == 'Email') {
+          this.toastr.success(
+            'Submitted',
+            `Quotation has been sent to the client's email`
+          );
         } else {
-          this.toastr.success('Downloaded')
+          this.toastr.success('Downloaded');
         }
-        
       }
     }
   }
@@ -100,15 +130,13 @@ export class ViewQuoteComponent {
     history.back();
   }
 
-
   get clientName() {
-    return this.clientForm!.get('name')!
+    return this.clientForm!.get('name')!;
   }
   get clientPhone() {
-    return this.clientForm!.get('phone')!
+    return this.clientForm!.get('phone')!;
   }
   get clientEmail() {
-    return this.clientForm!.get('email')!
+    return this.clientForm!.get('email')!;
   }
-  
 }

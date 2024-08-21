@@ -1,4 +1,4 @@
-import { Component, Input, input } from "@angular/core";
+import { Component, Input, input, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
@@ -17,7 +17,7 @@ import { SideMenuComponent } from "../../_components/side-menu/side-menu.compone
   templateUrl: './quotation-sales-list.component.html',
   styleUrl: './quotation-sales-list.component.css'
 })
-export class QuotationSalesListComponent {
+export class QuotationSalesListComponent implements OnInit {
   insuranceType: any = '';
   sales: Parse.Object<Parse.Attributes>[] | undefined;
   quotations: Parse.Object<Parse.Attributes>[] | undefined;
