@@ -21,6 +21,8 @@ export class MotorService {
     { name: 'Fire Fighters', class: 'commercial', label: 'SpecialVehiclesFireFighters', motorSubclass: 'Special vehicle - Fire Engine' }
   ];
 
+  lossOfUseBenefit : any = [{time: '30 Days', benefit: 13500}, {time: '20 Days', benefit: 9000}, {time: '10 Days', benefit: 4500}]
+
   motorQuotation: any = {
     motorClass: '',
     motorSubclass: '',
@@ -32,6 +34,10 @@ export class MotorService {
     basicPremium: 0,
     pvtBenefit: 0,
     excessProtectorBenefit: 0,
+    courtesyCarBenefit: 0,
+    aaRoadRescueBenefit: 0,
+    windScreenBenefit: 0,
+    radioCassetteBenefit: 0,
     netPremium: 0,
     grossPremium: 0
   };
@@ -199,6 +205,14 @@ export class MotorService {
     } else if (label == 'MotorCommercialGeneralCartage') {
       return excessProtectorInterest == 'yes' ? Math.max(0.005*vehicleValue, 5000) : 0
     } else return '';
+  }
+
+  getAAR(aarInterest: any) {
+    return aarInterest == 'yes' ? 5000 : 0
+  }
+
+  getWindOrRadio(benefit: any, vehicleValue: any) {
+    return vehicleValue <= 2500000 ? (benefit > 50000 ? 0.1*(benefit - 50000) : 0) : (benefit > 100000 ? 0.1*(benefit - 100000) : 0)
   }
   
 }

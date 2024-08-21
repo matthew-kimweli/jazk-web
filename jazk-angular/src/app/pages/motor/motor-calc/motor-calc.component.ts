@@ -32,12 +32,6 @@ export class MotorCalcComponent implements OnInit {
   filteredMakeModels: any[] = [];
   yearOfManufacture: any = '';
   sumInsured: any;
-  courtesyCarOptions = [
-    { amount: 'yes', name: '30 Days' },
-    { amount: 'no', name: '20 Days' },
-    { amount: 'no', name: '10 Days' },
-    { amount: 0, name: 'No' },
-  ];
   courtesyCar: any = '';
   pvt: any = '';
   pvtBenefit: any = 0;
@@ -46,8 +40,11 @@ export class MotorCalcComponent implements OnInit {
   excessProtector: any = '';
   excessProtectorBenefit: any;
   aaRoadRescue: any = '';
+  aaRoadRescueBenefit: any = 0;
 
   control!: FormControl;
+  windscreenControl!: FormControl;
+  radioControl!: FormControl;
 
   tYears: any = [];
 
@@ -82,6 +79,8 @@ export class MotorCalcComponent implements OnInit {
 
   ngOnInit() {
     this.control = new FormControl<number>(this.sumInsured);
+    this.windscreenControl = new FormControl<number>(this.windscreen);
+    this.radioControl = new FormControl<number>(this.radioCassette);
   }
 
   getYears(event: any) {
@@ -115,7 +114,13 @@ export class MotorCalcComponent implements OnInit {
     let value = event.target.value;
     if (value > 1500000 && this.motorClass == 'private' || this.makeModel == 'MotorCommercialOwnGoods') {
       this.excessProtectorBenefit = 'Inclusive'
+    } else if (typeof(this.excessProtectorBenefit) == 'number') {
+      this.excessProtector = '';
+      this.excessProtectorBenefit = 'Inclusive'
+    } else {
+      this.excessProtector = '';
     }
+
   }
 
 
@@ -154,13 +159,23 @@ export class MotorCalcComponent implements OnInit {
     );
 
     this.pvtBenefit = this.motorService.getPVT(this.pvt, this.sumInsured)
+
     if (this.excessProtector.length != 0) {
       this.excessProtectorBenefit = this.motorService.getExcessProtector(this.excessProtector, this.sumInsured, this.motorClass, this.makeModel)
+    }
+
+    if (this.aaRoadRescue.length != 0) {
+      this.aaRoadRescueBenefit = this.motorService.getAAR(this.aaRoadRescue)
     }
    
     this.motorService.motorQuotation.basicPremium = basicPremium;
     this.motorService.motorQuotation.pvtBenefit = this.pvtBenefit
     this.motorService.motorQuotation.excessProtectorBenefit = this.excessProtectorBenefit
+    this.motorService.motorQuotation.courtesyCarBenefit = Number(this.courtesyCar);
+    this.motorService.motorQuotation.aaRoadRescueBenefit = this.aaRoadRescueBenefit
+    this.motorService.motorQuotation.windScreenBenefit = this.motorService.getWindOrRadio(this.windscreen, this.sumInsured)
+    this.motorService.motorQuotation.radioCassetteBenefit = this.motorService.getWindOrRadio(this.radioCassette, this.sumInsured)
+
 
     console.log('Result: ', this.motorService.motorQuotation);
 

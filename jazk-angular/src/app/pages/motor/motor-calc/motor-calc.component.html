@@ -114,7 +114,7 @@
                 </label>
               </div>
             </div>
-            <div class="mb-3" *ngIf="sumInsured > 1500000 && this.motorClass == 'private' || makeModel == 'MotorCommercialOwnGoods'">
+            <div class="mb-3" *ngIf="sumInsured <= 1500000 && this.motorClass == 'private' || makeModel == 'MotorCommercialGeneralCartage'">
               <label class="form-label"
                 >Do you want Own Damage Excess Protector benefit?</label
               >
@@ -146,7 +146,7 @@
                 </label>
               </div>
             </div>
-            <div class="mb-2">
+            <div class="mb-2" *ngIf="sumInsured != undefined">
               <label class="form-label"
                 >Desired Windscreen coverage amount?</label
               >
@@ -156,16 +156,16 @@
                 name="windscreen"
                 id="windscreen"
                 placeholder="Windscreen coverage amount"
-                [formControl]="control"
+                [formControl]="windscreenControl"
                 [imask]="mask"
                 unmask="typed"
               />
               <small class="form-hint"
                 >Free Benefit limit for Windscreen coverage is Kshs.
-                50,000.</small
+                {{ (sumInsured <= 2500000 ? 50000  : 100000) | number }}.</small
               >
             </div>
-            <div class="mb-3">
+            <div class="mb-3" *ngIf="sumInsured != undefined">
               <label class="form-label"
                 >Desired Radio Cassette coverage amount?</label
               >
@@ -175,12 +175,12 @@
                 name="radioCassette"
                 id="radioCassette"
                 placeholder="Radio Cassette coverage amount"
-                [formControl]="control"
+                [formControl]="radioControl"
                 [imask]="mask"
                 unmask="typed"
               />
               <small class="form-hint"
-                >Free Benefit limit for a Radio Cassette is Kshs. 50,000.</small
+                >Free Benefit limit for a Radio Cassette is Kshs. {{ (sumInsured <= 2500000 ? 50000 : 100000) | number }}.</small
               >
             </div>
           </div>
@@ -196,12 +196,12 @@
                 id="courtesyCar"
                 class="form-select"
               >
-                <option value="" disabled>Courtesy Car Benefit</option>
+                <option value="" disabled>Loss of Use Benefit</option>
                 <option
-                  *ngFor="let item of courtesyCarOptions"
-                  [value]="item.amount"
+                  *ngFor="let item of motorService.lossOfUseBenefit"
+                  [value]="item.benefit"
                 >
-                  {{ item.name }}
+                  {{ item.time }}
                 </option>
               </select>
             </div>
