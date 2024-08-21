@@ -1,0 +1,22 @@
+.container {
+  max-width: 900px;
+  background-color: #fff;
+}
+
+.footer-border {
+  border: 2px solid black;
+}
+
+p {
+  line-height: 1.6;
+}
+
+.border-bottom-1 {
+  border-bottom: 1px solid black;
+}
+
+.custom-bg {
+  background-color: #003781;
+  color: white;
+}
+
