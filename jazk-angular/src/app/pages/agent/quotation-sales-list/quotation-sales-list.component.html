@@ -1,8 +1,83 @@
-<!-- Hero Section - Home Page -->
-<app-header></app-header>
+
 <div class="page-wrapper">
+  <app-header></app-header>
+  <!-- Page header -->
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <!-- Page pre-title -->
+          <div class="page-pretitle">Search</div>
+          <h2 class="page-title text-capitalize">{{insuranceType}}</h2>
+        </div>
+
+        <div class="col-auto ms-auto d-print-none">
+          <div class="btn-list">
+            <a
+              href="#"
+              class="btn btn-primary d-none d-sm-inline-block"
+              data-bs-toggle="modal"
+              data-bs-target="#modal-report"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-printer"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path
+                  d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"
+                />
+                <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
+                <path
+                  d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z"
+                />
+              </svg>
+              New Quotation
+            </a>
+            <a
+              href="#"
+              class="btn btn-primary d-sm-none btn-icon"
+              data-bs-toggle="modal"
+              data-bs-target="#modal-report"
+              aria-label="Create new report"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-printer"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path
+                  d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"
+                />
+                <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
+                <path
+                  d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div
-    class="mb-3"
+    class="mb-3 mt-3"
     *ngIf="
       parseService.fetching || parseService.saving || parseService.deleting
     "
@@ -11,123 +86,277 @@
       <div class="progress-bar progress-bar-indeterminate bg-green"></div>
     </div>
   </div>
-
-  <div class="page-header d-print-none">
-    <div class="container-xl">
-      <div class="row g-2 align-items-center">
-        <div class="col">
-          <!-- Page pre-title -->
-          <div class="page-pretitle">Search</div>
-          <h2 class="page-title">Policies</h2>
-        </div>
-        <!-- Page title actions -->
-        
-      </div>
-    </div>
-  </div>
-
   <div class="page-body">
     <div class="container-xl">
-      <div class="">
-        <div class="row justify-content-center">
-          <div class="col-2">
-            <app-side-menu></app-side-menu>
-          </div>
-          <div class="col-lg-10">
-            <div class="container">
-              <div class="row">
-                <div class="col-12">
-                  <div class="card">
-                    <div class="">
-                      <table class="table table-vcenter card-table">
-                        <thead>
-                          <tr>
-                            <th>No.</th>
-                            <th>Type</th>
-                            <th>Customer</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Value</th>
-                            <th>Status</th>
-                            <th class="w-1"></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of list">
-                            <td class="text-primary">
-                              {{ item.get("contractId") }}
-                            </td>
-                            <td>
-                              {{ item.get("name") }}
-                            </td>
-                            <td>
-                              {{ item.get("vendor") }}
-                            </td>
-                            <td class="text-secondary">
-                              {{ item.get("startDate") | date }}
-                            </td>
-                            <td class="text-secondary">
-                              <strong style="color: orange">{{
-                                item.get("endDate") | date
-                              }}</strong>
-                            </td>
-                            
-                            <td class="text-secondary">
-                              <strong style="color: green">{{
-                                item.get("value") | number
-                              }}</strong>
-                              <small
-                                ><strong>
-                                  {{ item.get("currency") }}</strong
-                                ></small
+      <div class="row row-deck row-cards">
+        <div class="col-sm-12 col-lg-3">
+          <app-side-menu></app-side-menu>
+        </div>
+        <div class="col-sm-12 col-lg-9">
+          <div class="card">
+            <div class="card-header">
+              <ul
+                class="nav nav-tabs card-header-tabs"
+                data-bs-toggle="tabs"
+                role="tablist"
+              >
+                <li class="nav-item" role="presentation">
+                  <a
+                    href="#tabs-quotations"
+                    class="nav-link active"
+                    data-bs-toggle="tab"
+                    aria-selected="true"
+                    role="tab"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="icon me-2"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+                      <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                      <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+                    </svg>
+                    Quotations
+                  </a>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                  <a
+                    href="#tabs-sales"
+                    class="nav-link"
+                    data-bs-toggle="tab"
+                    aria-selected="false"
+                    tabindex="-1"
+                    role="tab"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="icon me-2"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M12 6m-8 0a8 3 0 1 0 16 0a8 3 0 1 0 -16 0" />
+                      <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
+                      <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
+                    </svg>
+                    Sales
+                  </a>
+                </li>
+
+              </ul>
+            </div>
+            <div class="card-body">
+              <div class="tab-content">
+                <div
+                  class="tab-pane active show"
+                  id="tabs-quotations"
+                  role="tabpanel"
+                >
+
+                <div class="card">
+                  <div class="">
+                    <table class="table table-vcenter card-table">
+                      <thead>
+                        <tr>
+                          <th>No.</th>
+                          <th>Type</th>
+                          <th>Customer</th>
+                          <th>Start Date</th>
+                          <th>End Date</th>
+                          <th>Value</th>
+                          <th>Status</th>
+                          <th class="w-1"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of quotations">
+                          <td class="text-primary">
+                            {{ item.get("contractId") }}
+                          </td>
+                          <td>
+                            {{ item.get("name") }}
+                          </td>
+                          <td>
+                            {{ item.get("vendor") }}
+                          </td>
+                          <td class="text-secondary">
+                            {{ item.get("startDate") | date }}
+                          </td>
+                          <td class="text-secondary">
+                            <strong style="color: orange">{{
+                              item.get("endDate") | date
+                            }}</strong>
+                          </td>
+                          
+                          <td class="text-secondary">
+                            <strong style="color: green">{{
+                              item.get("value") | number
+                            }}</strong>
+                            <small
+                              ><strong>
+                                {{ item.get("currency") }}</strong
+                              ></small
+                            >
+                          </td>
+                          
+                          <td class="text-secondary">
+                            <span class="status status-red">
+                              {{ item.get("status") || 'Pending' }}
+                            </span>
+                          </td>
+                          <td class="text-end">
+                            <span class="dropdown">
+                              <button
+                                class="btn dropdown-toggle align-text-top"
+                                data-bs-boundary="viewport"
+                                data-bs-toggle="dropdown"
                               >
-                            </td>
-                            
-                            <td class="text-secondary">
-                              <span class="status status-red">
-                                {{ item.get("status") || 'Pending' }}
-                              </span>
-                            </td>
-                            <td class="text-end">
-                              <span class="dropdown">
-                                <button
-                                  class="btn dropdown-toggle align-text-top"
-                                  data-bs-boundary="viewport"
-                                  data-bs-toggle="dropdown"
+                                Actions
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-end">
+                                <a
+                                  [routerLink]="['/lpo-detail', item.id]"
+                                  routerLinkActive="router-link-active"
+                                  class="dropdown-item text-green"
                                 >
-                                  Actions
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                  <a
-                                    [routerLink]="['/lpo-detail', item.id]"
-                                    routerLinkActive="router-link-active"
-                                    class="dropdown-item text-green"
-                                  >
-                                    View
-                                  </a>
+                                  View
+                                </a>
 
-                                  <!-- <a [hidden]="item.get('status') == 'Completed'" *ngIf="auth.isAdmin"
-                                    (click)="deleteItem(item)"
-                                    class="dropdown-item text-red"
-                                  >
-                                    Delete
-                                  </a> -->
-                                </div>
-                              </span>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                                <!-- <a [hidden]="item.get('status') == 'Completed'" *ngIf="auth.isAdmin"
+                                  (click)="deleteItem(item)"
+                                  class="dropdown-item text-red"
+                                >
+                                  Delete
+                                </a> -->
+                              </div>
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
 
-                      <div class="card card-md" *ngIf="list?.length == 0">
-                        <div class="card-body">
-                          <p class="text-secondary mb-4">Nothing found</p>
-                        </div>
+                    <div class="card card-md" *ngIf="quotations?.length == 0">
+                      <div class="card-body">
+                        <p class="text-secondary mb-4">Nothing found</p>
                       </div>
                     </div>
                   </div>
                 </div>
+                  
+                </div>
+
+                <div class="tab-pane" id="tabs-sales" role="tabpanel">
+                  
+                <div class="card">
+                  <div class="">
+                    <table class="table table-vcenter card-table">
+                      <thead>
+                        <tr>
+                          <th>No.</th>
+                          <th>Type</th>
+                          <th>Customer</th>
+                          <th>Start Date</th>
+                          <th>End Date</th>
+                          <th>Value</th>
+                          <th>Status</th>
+                          <th class="w-1"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of sales">
+                          <td class="text-primary">
+                            {{ item.get("contractId") }}
+                          </td>
+                          <td>
+                            {{ item.get("name") }}
+                          </td>
+                          <td>
+                            {{ item.get("vendor") }}
+                          </td>
+                          <td class="text-secondary">
+                            {{ item.get("startDate") | date }}
+                          </td>
+                          <td class="text-secondary">
+                            <strong style="color: orange">{{
+                              item.get("endDate") | date
+                            }}</strong>
+                          </td>
+                          
+                          <td class="text-secondary">
+                            <strong style="color: green">{{
+                              item.get("value") | number
+                            }}</strong>
+                            <small
+                              ><strong>
+                                {{ item.get("currency") }}</strong
+                              ></small
+                            >
+                          </td>
+                          
+                          <td class="text-secondary">
+                            <span class="status status-red">
+                              {{ item.get("status") || 'Pending' }}
+                            </span>
+                          </td>
+                          <td class="text-end">
+                            <span class="dropdown">
+                              <button
+                                class="btn dropdown-toggle align-text-top"
+                                data-bs-boundary="viewport"
+                                data-bs-toggle="dropdown"
+                              >
+                                Actions
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-end">
+                                <a
+                                  [routerLink]="['/lpo-detail', item.id]"
+                                  routerLinkActive="router-link-active"
+                                  class="dropdown-item text-green"
+                                >
+                                  View
+                                </a>
+
+                                <!-- <a [hidden]="item.get('status') == 'Completed'" *ngIf="auth.isAdmin"
+                                  (click)="deleteItem(item)"
+                                  class="dropdown-item text-red"
+                                >
+                                  Delete
+                                </a> -->
+                              </div>
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <div class="card card-md" *ngIf="sales?.length == 0">
+                      <div class="card-body">
+                        <p class="text-secondary mb-4">Nothing found</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                  
+                </div>
+
               </div>
+              
             </div>
           </div>
         </div>
@@ -135,4 +364,3 @@
     </div>
   </div>
 </div>
-

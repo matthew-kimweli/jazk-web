@@ -112,31 +112,29 @@ export class MotorCalcComponent implements OnInit {
 
   onVehicleValueChange(event: any) {
     let value = event.target.value;
-    if (value > 1500000 && this.motorClass == 'private' || this.makeModel == 'MotorCommercialOwnGoods') {
-      this.excessProtectorBenefit = 'Inclusive'
-    } else if (typeof(this.excessProtectorBenefit) == 'number') {
+    if (
+      (value > 1500000 && this.motorClass == 'private') ||
+      this.makeModel == 'MotorCommercialOwnGoods'
+    ) {
+      this.excessProtectorBenefit = 'Inclusive';
+    } else if (typeof this.excessProtectorBenefit == 'number') {
       this.excessProtector = '';
-      this.excessProtectorBenefit = 'Inclusive'
+      this.excessProtectorBenefit = 'Inclusive';
     } else {
       this.excessProtector = '';
     }
-
   }
-
-
 
   getQuote() {
     this.router.navigate(['motor-quote']);
   }
 
   async submit() {
-   
-
     this.motorService.motorQuotation.motorClass = this.motorClass;
     this.motorService.motorQuotation.makeModel = this.makeModel;
     this.motorService.motorQuotation.yearOfManufacture = this.yearOfManufacture;
     this.motorService.motorQuotation.sumInsured = this.sumInsured;
-   
+
     if (this.motorClass == 'commercial') {
       if (this.makeModel == 'PSVTours') {
         document.getElementById('manualUnderwritingModalButton')?.click();
@@ -150,7 +148,7 @@ export class MotorCalcComponent implements OnInit {
         return;
       }
     }
-   
+
     const basicPremium = this.motorService.calculatePremium(
       this.motorClass,
       this.makeModel,
@@ -158,50 +156,79 @@ export class MotorCalcComponent implements OnInit {
       this.sumInsured
     );
 
-    this.pvtBenefit = this.motorService.getPVT(this.pvt, this.sumInsured)
+    this.pvtBenefit = this.motorService.getPVT(this.pvt, this.sumInsured);
 
     if (this.excessProtector.length != 0) {
-      this.excessProtectorBenefit = this.motorService.getExcessProtector(this.excessProtector, this.sumInsured, this.motorClass, this.makeModel)
+      this.excessProtectorBenefit = this.motorService.getExcessProtector(
+        this.excessProtector,
+        this.sumInsured,
+        this.motorClass,
+        this.makeModel
+      );
     }
 
     if (this.aaRoadRescue.length != 0) {
-      this.aaRoadRescueBenefit = this.motorService.getAAR(this.aaRoadRescue)
+      this.aaRoadRescueBenefit = this.motorService.getAAR(this.aaRoadRescue);
     }
-   
-    this.motorService.motorQuotation.basicPremium = basicPremium;
-    this.motorService.motorQuotation.pvtBenefit = this.pvtBenefit
-    this.motorService.motorQuotation.excessProtectorBenefit = this.excessProtectorBenefit
-    this.motorService.motorQuotation.courtesyCarBenefit = Number(this.courtesyCar);
-    this.motorService.motorQuotation.aaRoadRescueBenefit = this.aaRoadRescueBenefit
-    this.motorService.motorQuotation.windScreenBenefit = this.motorService.getWindOrRadio(this.windscreen, this.sumInsured)
-    this.motorService.motorQuotation.radioCassetteBenefit = this.motorService.getWindOrRadio(this.radioCassette, this.sumInsured)
 
+    this.motorService.motorQuotation.basicPremium = basicPremium;
+    this.motorService.motorQuotation.pvtBenefit = this.pvtBenefit;
+    this.motorService.motorQuotation.excessProtectorBenefit =
+      this.excessProtectorBenefit;
+    this.motorService.motorQuotation.courtesyCarBenefit = Number(
+      this.courtesyCar
+    );
+    this.motorService.motorQuotation.aaRoadRescueBenefit =
+      this.aaRoadRescueBenefit;
+    this.motorService.motorQuotation.windScreenBenefit =
+      this.motorService.getWindOrRadio(this.windscreen, this.sumInsured);
+    this.motorService.motorQuotation.radioCassetteBenefit =
+      this.motorService.getWindOrRadio(this.radioCassette, this.sumInsured);
 
     console.log('Result: ', this.motorService.motorQuotation);
 
     let JazkeQuotation = Parse.Object.extend('JazkeQuotation');
     let quote = new JazkeQuotation();
+
     quote.set('insurance_type', 'motor');
-    let res = await this.parseService.saveSilent(
-      quote,
-      this.motorService.motorQuotation
-    );
-    if (res) {
-      this.getQuote();
+
+    if (this.motorClass == 'private') {
+      quote.set('insurance_type', 'motor-private');
+    } else if (this.motorClass == 'commercial') {
+      quote.set('insurance_type', 'motor-commercial');
     }
+
+    let user = this.auth.currentUser;
+    if (user) {
+      quote.set('user_id', user?.id);
+    }
+
+    quote.set('whatIsInsured', `${this.motorService.motorQuotation.makeModel} ${this.motorService.motorQuotation.yearOfManufacture}`)
+
+    this.motorService.motorQuotation.quoteDB = quote
+    this.getQuote();
+
+    // let res = await this.parseService.saveSilent(
+    //   quote,
+    //   this.motorService.motorQuotation
+    // );
+    // if (res) {
+    //   this.getQuote();
+    // }
   }
 
   async submitForManualUnderwriting() {
     let JazkeQuotation = Parse.Object.extend('JazkeManualQuotation');
     let quote = new JazkeQuotation();
     quote.set('insurance_type', 'motor');
-    quote.set('quotation', this.motorService.motorQuotation)
+    quote.set('quotation', this.motorService.motorQuotation);
     quote.set('client', this.manualClientData);
-    let res = await this.parseService.saveSilent(
-      quote
-    );
-    if(res){
-      this.toastr.success('Submitted', 'The provided phone number will be contacted shortly')
+    let res = await this.parseService.saveSilent(quote);
+    if (res) {
+      this.toastr.success(
+        'Submitted',
+        'The provided phone number will be contacted shortly'
+      );
     }
   }
 }
