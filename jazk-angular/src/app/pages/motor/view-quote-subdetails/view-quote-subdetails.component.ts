@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './view-quote-subdetails.component.css'
 })
 export class ViewQuoteSubdetailsComponent {
+  quote: any;
 
   constructor(
     private router: Router,
@@ -45,6 +46,7 @@ export class ViewQuoteSubdetailsComponent {
       console.log('quote', quote);
       if(quote){
         this.motorService.motorQuotation = quote.get('quoteData')
+        this.quote = quote.attributes
       }
       this.parseService.fetching = false;
     } catch (error) {
