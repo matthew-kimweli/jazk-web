@@ -29,6 +29,7 @@ import * as Parse from 'parse';
 export class MotorCalcComponent implements OnInit {
   motorClass: any = '';
   makeModel: any = '';
+  numberPlate: any = '';
   filteredMakeModels: any[] = [];
   yearOfManufacture: any = '';
   sumInsured: any;
@@ -132,6 +133,7 @@ export class MotorCalcComponent implements OnInit {
   async submit() {
     this.motorService.motorQuotation.motorClass = this.motorClass;
     this.motorService.motorQuotation.makeModel = this.makeModel;
+    this.motorService.motorQuotation.numberPlate = this.numberPlate;
     this.motorService.motorQuotation.yearOfManufacture = this.yearOfManufacture;
     this.motorService.motorQuotation.sumInsured = this.sumInsured;
 

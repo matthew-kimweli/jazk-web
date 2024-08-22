@@ -94,6 +94,7 @@ export class MotorService {
     motorClass: '',
     motorSubclass: '',
     makeModel: '',
+    numberPlate: '',
     referToHQ: 'No',
     yearOfManufacture: 0,
     vehicleAge: 0,

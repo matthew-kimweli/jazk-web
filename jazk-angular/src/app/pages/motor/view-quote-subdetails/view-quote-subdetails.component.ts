@@ -38,6 +38,10 @@ export class ViewQuoteSubdetailsComponent {
     });
   }
 
+  roundNumber(value: number): number {
+    return Math.round(value);
+  }
+
   async fetchQuotation(id: any) {
     try {
       this.parseService.fetching = true;
