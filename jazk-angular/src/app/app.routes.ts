@@ -15,82 +15,86 @@ import { MotorKycComponent } from './pages/motor/motor-kyc/motor-kyc.component';
 import { ViewQuoteComponent } from './pages/motor/view-quote/view-quote.component';
 import { QuotationSalesListComponent } from './pages/agent/quotation-sales-list/quotation-sales-list.component';
 import { ViewQuoteSubdetailsComponent } from './pages/motor/view-quote-subdetails/view-quote-subdetails.component';
+import { GenerateReportComponent } from './pages/reports/generate-report/generate-report.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'welcome',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'welcome',
+    component: WelcomeComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'login-phone',
+    component: LoginPhoneComponent,
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+  },
+  {
+    path: 'edit-profile',
+    component: ProfileEditComponent,
+  },
 
-    {
-        path: '',
-        redirectTo: 'welcome',
-        pathMatch: 'full'
-      },
-      {
-        path: 'home',
-        component: HomeComponent,
-        canActivate: [AuthGuardService]
-      },
-      {
-        path: 'welcome',
-        component: WelcomeComponent,
-      },
-      {
-        path: 'login',
-        component: LoginComponent,
-      },
-      {
-        path: 'login-phone',
-        component: LoginPhoneComponent,
-      },
-      {
-        path: 'register',
-        component: RegisterComponent,
-      },
-      {
-        path: 'profile',
-        component: ProfileComponent,
-      },
-      {
-        path: 'edit-profile',
-        component: ProfileEditComponent,
-      },
+  {
+    path: 'search',
+    canActivate: [AuthGuardService],
+    component: SearchComponent,
+  },
+  {
+    path: 'reports',
+    canActivate: [AuthGuardService],
+    component: GenerateReportComponent,
+  },
+  {
+    path: 'list/:insurance',
+    canActivate: [AuthGuardService],
+    component: QuotationSalesListComponent,
+  },
 
-       {
-        path: 'search',
-        canActivate: [AuthGuardService],
-        component: SearchComponent,
-      },
-      {
-        path: 'list/:insurance',
-        canActivate: [AuthGuardService],
-        component: QuotationSalesListComponent,
-      },
-      {
-        path: 'motor-kyc',
-        component: MotorKycComponent,
-      },
-      {
-        path: 'motor',
-        component: MotorCalcComponent,
-      },
-      {
-        path: 'motor-quote',
-        component: ViewQuoteComponent,
-      },
-      {
-        path: 'motor-quote/:id',
-        component: ViewQuoteComponent,
-      },
-      {
-        path: 'motor-view-quote',
-        component: ViewQuoteSubdetailsComponent,
-      },
-      {
-        path: 'motor-view-quote/:id',
-        component: ViewQuoteSubdetailsComponent,
-      },
-      {
-        path: 'motor-kyc',
-        component: MotorKycComponent,
-      },
-      
-  
+  {
+    path: 'motor-kyc',
+    component: MotorKycComponent,
+  },
+  {
+    path: 'motor',
+    component: MotorCalcComponent,
+  },
+  {
+    path: 'motor-quote',
+    component: ViewQuoteComponent,
+  },
+  {
+    path: 'motor-quote/:id',
+    component: ViewQuoteComponent,
+  },
+  {
+    path: 'motor-view-quote',
+    component: ViewQuoteSubdetailsComponent,
+  },
+  {
+    path: 'motor-view-quote/:id',
+    component: ViewQuoteSubdetailsComponent,
+  },
+  {
+    path: 'motor-kyc',
+    component: MotorKycComponent,
+  },
 ];

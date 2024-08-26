@@ -237,7 +237,7 @@
                             <th>Client</th>
                             <th>What is Insured</th>
                             <th>Premium</th>
-                            <th>Payment Status</th>
+                            <th>Premium outstanding</th>
                             <th class="w-1"></th>
                           </tr>
                         </thead>
@@ -262,7 +262,7 @@
                               {{ item.get("premium") || "---" }}
                             </td>
                             <td class="text-azure">
-                              {{ item.get("paymentStatus") || "Not Paid" }}
+                              {{ item.get("outstandingPremium") || "---" }}
                             </td>
 
                             <td class="text-end">
