@@ -67,6 +67,7 @@ export class ViewQuoteComponent implements OnInit {
       name: ['', Validators.required],
       phone: ['', Validators.required],
       email: ['', Validators.required],
+      registrationNumber: ['', Validators.required],
     });
   }
 
@@ -142,4 +143,9 @@ export class ViewQuoteComponent implements OnInit {
   get clientEmail() {
     return this.clientForm!.get('email')!;
   }
+  get registrationNumber() {
+    return this.clientForm!.get('registrationNumber')!;
+  }
+
+  
 }

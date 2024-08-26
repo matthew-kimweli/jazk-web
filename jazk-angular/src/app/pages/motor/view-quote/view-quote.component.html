@@ -308,6 +308,26 @@
                 </div>
               </div>
             </div>
+            <div class="col-lg-8">
+              <div class="mb-3">
+                <label class="form-label">Vehicle Registration Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="registrationNumber"
+                  [(ngModel)]="emailQuoteDetails.registrationNumber"
+                  placeholder="Registration Number"
+                />
+              </div>
+              <div
+                *ngIf="registrationNumber.invalid && parseService.submitting"
+                class="alert alert-danger"
+              >
+                <div *ngIf="registrationNumber.errors?.['required']">
+                  Registration Number is required.
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
