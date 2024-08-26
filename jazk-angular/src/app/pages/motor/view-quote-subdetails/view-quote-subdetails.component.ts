@@ -6,6 +6,7 @@ import { MotorService } from '../../../services/motor.service';
 import { ParseService } from '../../../services/parse.service';
 import * as Parse from 'parse';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-view-quote-subdetails',
@@ -15,12 +16,15 @@ import { CommonModule } from '@angular/common';
   styleUrl: './view-quote-subdetails.component.css'
 })
 export class ViewQuoteSubdetailsComponent {
+  quote: any;
+  currentDate: Date = new Date();
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     public parseService: ParseService,
     public motorService: MotorService,
+    public authService: AuthService,
     public toastr: ToastrService,
     private activatedRoute: ActivatedRoute
   ) {
@@ -37,6 +41,10 @@ export class ViewQuoteSubdetailsComponent {
     });
   }
 
+  roundNumber(value: number): number {
+    return Math.round(value);
+  }
+
   async fetchQuotation(id: any) {
     try {
       this.parseService.fetching = true;
@@ -45,6 +53,7 @@ export class ViewQuoteSubdetailsComponent {
       console.log('quote', quote);
       if(quote){
         this.motorService.motorQuotation = quote.get('quoteData')
+        this.quote = quote.attributes
       }
       this.parseService.fetching = false;
     } catch (error) {

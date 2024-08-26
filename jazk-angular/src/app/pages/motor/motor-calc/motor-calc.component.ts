@@ -29,6 +29,7 @@ import * as Parse from 'parse';
 export class MotorCalcComponent implements OnInit {
   motorClass: any = '';
   makeModel: any = '';
+  numberPlate: any = '';
   filteredMakeModels: any[] = [];
   yearOfManufacture: any = '';
   sumInsured: any;
@@ -132,6 +133,7 @@ export class MotorCalcComponent implements OnInit {
   async submit() {
     this.motorService.motorQuotation.motorClass = this.motorClass;
     this.motorService.motorQuotation.makeModel = this.makeModel;
+    this.motorService.motorQuotation.numberPlate = this.numberPlate;
     this.motorService.motorQuotation.yearOfManufacture = this.yearOfManufacture;
     this.motorService.motorQuotation.sumInsured = this.sumInsured;
 
@@ -173,17 +175,17 @@ export class MotorCalcComponent implements OnInit {
 
     this.motorService.motorQuotation.basicPremium = basicPremium;
     this.motorService.motorQuotation.pvtBenefit = this.pvtBenefit;
-    this.motorService.motorQuotation.excessProtectorBenefit =
-      this.excessProtectorBenefit;
-    this.motorService.motorQuotation.courtesyCarBenefit = Number(
-      this.courtesyCar
-    );
-    this.motorService.motorQuotation.aaRoadRescueBenefit =
-      this.aaRoadRescueBenefit;
-    this.motorService.motorQuotation.windScreenBenefit =
-      this.motorService.getWindOrRadio(this.windscreen, this.sumInsured);
-    this.motorService.motorQuotation.radioCassetteBenefit =
-      this.motorService.getWindOrRadio(this.radioCassette, this.sumInsured);
+    this.motorService.motorQuotation.pvtInterest = this.pvt;
+    this.motorService.motorQuotation.excessProtectorBenefit = this.excessProtectorBenefit;
+    this.motorService.motorQuotation.excessProtectorInterest = this.excessProtector;
+    this.motorService.motorQuotation.courtesyCarBenefit = Number(this.courtesyCar);
+    this.motorService.motorQuotation.courtesyCarInterest = this.motorService.getTimeForBenefit(Number(this.courtesyCar))
+    this.motorService.motorQuotation.aaRoadRescueBenefit = this.aaRoadRescueBenefit;
+    this.motorService.motorQuotation.aaRoadRescueInterest = this.aaRoadRescue
+    this.motorService.motorQuotation.windScreenBenefit = this.motorService.getWindOrRadio(this.windscreen, this.sumInsured);
+    this.motorService.motorQuotation.windScreenExtraBenefit = this.sumInsured >= 2500000 ? (this.windscreen > 100000 ? (this.windscreen - 100000) : 0) : (this.windscreen > 50000 ? (this.windscreen - 50000) : 0);
+    this.motorService.motorQuotation.radioCassetteBenefit = this.motorService.getWindOrRadio(this.radioCassette, this.sumInsured);
+    this.motorService.motorQuotation.radioCassetteExtraBenefit = this.sumInsured >= 2500000 ? (this.radioCassette > 100000 ? (this.radioCassette - 100000) : 0) : (this.radioCassette > 50000 ? (this.radioCassette - 50000) : 0);
     
     this.motorService.calculatePremiums();
 

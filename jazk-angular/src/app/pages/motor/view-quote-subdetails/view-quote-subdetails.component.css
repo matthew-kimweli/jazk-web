@@ -1,18 +1,70 @@
 .container {
   max-width: 900px;
   background-color: #fff;
+  font-family: 'customCalibri', sans-serif;
+  font-weight: 700;
+}
+
+.fw-lightered {
+  font-weight: 100 !important;
 }
 
 .footer-border {
   border: 2px solid black;
 }
 
+.footer-bg-color {
+  background-color: rgba(229, 219, 255, 1);
+}
+
 p {
-  line-height: 1.6;
+  line-height: 1.5;
+}
+
+.custom-text {
+  line-height: 1.2;
 }
 
 .border-bottom-1 {
   border-bottom: 1px solid black;
+}
+
+.footer-border-top {
+  border-top: 2px solid #003781;
+}
+
+.footer-border-bottom {
+  border-bottom: 2px solid #003781;
+}
+
+.text-custom-blue {
+  color: #003781;
+}
+
+.header-border-x {
+  border-left: 2px solid #003781;
+  border-right: 2px solid #003781;
+}
+
+.footer-border-x {
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}
+
+.footer-border-x1 {
+  border-left: 2px solid black;
+}
+
+.footer-border-x2 {
+  border-right: 2px solid black;
+}
+
+.footer-border-y1 {
+  border-bottom: 2px solid black;
+}
+
+.footer-border-y2 {
+  border-top: 2px solid black;
 }
 
 .custom-bg {

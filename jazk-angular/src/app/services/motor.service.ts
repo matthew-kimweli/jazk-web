@@ -94,17 +94,24 @@ export class MotorService {
     motorClass: '',
     motorSubclass: '',
     makeModel: '',
+    numberPlate: '',
     referToHQ: 'No',
     yearOfManufacture: 0,
     vehicleAge: 0,
     sumInsured: 0,
     basicPremium: 0,
     pvtBenefit: 0,
+    pvtInterest: '',
     excessProtectorBenefit: 0,
+    excessProtectorInterest: '',
     courtesyCarBenefit: 0,
+    courtesyCarInterest: '',
     aaRoadRescueBenefit: 0,
+    aaRoadRescueInterest: '',
     windScreenBenefit: 0,
+    windScreenExtraBenefit: 0,
     radioCassetteBenefit: 0,
+    radioCassetteExtraBenefit: 0,
     netPremium: 0,
     levies: 0,
     stampDuty: 40,
@@ -304,6 +311,11 @@ export class MotorService {
         ? Math.max(0.005 * vehicleValue, 5000)
         : 0;
     } else return '';
+  }
+
+  getTimeForBenefit(benefitValue: any) {
+    const benefit = this.lossOfUseBenefit.find((item: any) => item.benefit === benefitValue);
+    return benefit.time;
   }
 
   getAAR(aarInterest: any) {
