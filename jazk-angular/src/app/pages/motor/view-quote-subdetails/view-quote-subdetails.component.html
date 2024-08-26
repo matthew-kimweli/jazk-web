@@ -1,86 +1,564 @@
-<div
-  class="mb-3 mt-3"
-  *ngIf="parseService.fetching || parseService.saving || parseService.deleting"
->
-  <div class="progress">
-    <div class="progress-bar progress-bar-indeterminate bg-green"></div>
+<div class="page-wrapper">
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <!-- Page pre-title -->
+          <div class="page-pretitle">Document</div>
+          <h2 class="page-title text-capitalize">Quotation</h2>
+        </div>
+
+        <div class="col-auto ms-auto d-print-none">
+          <div class="btn-list">
+            <button
+              onclick="javascript:window.print();"
+              class="btn btn-primary d-none d-sm-inline-block"
+            >
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-printer"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" /><path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" /><path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z" /></svg>
+              Print / Download
+            </button>
+            <a
+              href="#"
+              class="btn btn-primary d-sm-none btn-icon"
+              data-bs-toggle="modal"
+              data-bs-target="#modal-report"
+              aria-label="Create new report"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-printer"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path
+                  d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"
+                />
+                <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
+                <path
+                  d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-<ng-container *ngIf="quote?.insurance_type == 'motor-private'">
+
+  <div
+    class="mb-3 mt-3"
+    *ngIf="
+      parseService.fetching || parseService.saving || parseService.deleting
+    "
+  >
+    <div class="progress">
+      <div class="progress-bar progress-bar-indeterminate bg-green"></div>
+    </div>
+  </div>
+  <ng-container *ngIf="quote?.insurance_type == 'motor-private'">
     <div class="container mt-5 mb-5">
-        <div class="row mb-0">
-            <div class="col-md-4 p-3 m-0" id="logo">
-                <img src="assets/images/jaz-logo.png" height="37px" width="200px" alt="Jubilee Allianz" />
-            </div>
-            <div class="col-md-7 p-0 m-0 header-border-x footer-border-top footer-border-bottom">
-                <h2 class="text-center m-0 p-2 custom-text">STANDARD AUTO</h2>
-                <p class="text-center text-custom-blue m-0 p-0 fst-italic custom-text fw-lighter">(Including Road Rescue, Emergency Security and Ambulance Response)</p>
-            </div>
+      <div class="row mb-0">
+        <div class="col-md-4 p-3 m-0" id="logo">
+          <img
+            src="assets/images/jaz-logo.png"
+            height="37px"
+            width="200px"
+            alt="Jubilee Allianz"
+          />
         </div>
-      
-        <div class="row p-3 pb-0 mb-0">
-          <p class="mb-0 p-0 col-md-3 fw-bold">Client Name:</p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-5 mb-0 px-1 text-left fw-bolder custom-bg"><span>{{ quote.client.name | uppercase }}</span></p><p class="col-md-3 mb-0 p-0"></p>
-          <p class="mb-2 p-0 col-md-3 fw-bold">Vehicle Reg. Number:</p><p class="col-md-1 mb-2 p-0"></p><p class="col-md-5 mb-2 px-1 text-left fw-bolder custom-bg"><span>{{ quote.quoteData.numberPlate | uppercase }}</span></p><p class="col-md-3 mb-2 p-0"></p>
-          <p class="mb-0 p-0 col-md-4 text-uppercase border-bottom-1 fw-bold">Rating Factors</p><p class="col-md-3 mb-0 p-0 border-bottom-1"></p><p class="col-md-3 mb-0 p-0 text-left border-bottom-1 fw-bolder"><span>RATE APPLICABLE</span></p><p class="col-md-2 mb-0 p-0 fw-bold text-uppercase border-bottom-1 text-center">Premium</p>
-          <p class="mt-2 mb-0 p-0 col-md-3 fw-bold fst-italic text-center">Sum Insured:</p><p class="col-md-1 mt-2 mb-0 p-0"></p><p class="col-md-3 mt-2 mb-0 p-0 text-end custom-bg fw-bolder fst-italic px-2"><span>{{ quote.quoteData.sumInsured | number}}</span></p><p class="col-md-5 mb-0 mt-2 p-0"></p>
-          <p class="mb-0 p-0 col-md-3 fw-bold fst-italic text-center">Make/Model:</p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-6 mb-0 p-0 text-start custom-bg fw-bolder fst-italic px-2"><span>{{ motorService.getModelPropertyByLabel(quote.quoteData.makeModel, 'name') }}</span></p><p class="col-md-2 mb-0 p-0"></p>
-          <p class="mb-0 p-0 col-md-3 fw-bold fst-italic text-start">Year of Manufacture:</p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-3 mb-0 p-0 text-end custom-bg fw-bolder fst-italic px-2"><span>{{ quote.quoteData.yearOfManufacture }}</span></p><p class="col-md-5 mb-0 p-0"></p>
-          <p class="mb-2 p-0 col-md-3 fw-bold fst-italic text-center">Vehicle Age:</p><p class="col-md-1 mb-2 p-0"></p><p class="col-md-3 mb-2 p-0 text-end custom-bg fw-bolder fst-italic px-2"><span>{{ quote.quoteData.vehicleAge }}</span></p><p class="col-md-5 mb-2 p-0"></p>
-          <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p><p class="col-md-3 mb-0 p-0 text-start fw-bold"><span>Basic Premium:</span></p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-2 mb-0 p-0 px-3 text-end fw-bold custom-bg-grey">{{ quote.quoteData.basicPremium | number}}</p>
+        <div
+          class="col-md-7 p-0 m-0 header-border-x footer-border-top footer-border-bottom"
+        >
+          <h2 class="text-center m-0 p-2 custom-text">STANDARD AUTO</h2>
+          <p
+            class="text-center text-custom-blue m-0 p-0 fst-italic custom-text fw-lighter"
+          >
+            (Including Road Rescue, Emergency Security and Ambulance Response)
+          </p>
         </div>
-        <div class="row p-3 pt-0 pb-2 mt-0 mb-0">
-            <p class="mb-0 p-0 col-md-4 text-uppercase border-bottom-1 fw-bold">Additional Benefits - Optional</p><p class="col-md-3 mb-0 p-0 border-bottom-1"></p><p class="col-md-3 mb-0 p-0 text-left fw-bold"><span></span></p><p class="col-md-2 mb-0 p-0 fw-bold text-uppercase text-center"></p>
-        </div>
-        <ul class="dotted-list mt-0 mb-0">
-            <li class="row pe-0"><p class="mb-0 p-0 col-md-5 fst-italic  text-start fw-lighter">Own Damage Excess Protector:</p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-1 mb-0 p-0 text-start custom-bg fw-lighter fst-italic px-2"><span>{{ motorService.motorQuotation.excessProtectorInterest | titlecase }}</span></p><p class="col-md-2 mb-0 me-5 p-0"></p><p class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey">{{ quote.quoteData.excessProtectorBenefit == 'Inclusive' ? quote.quoteData.excessProtectorBenefit : (quote.quoteData.excessProtectorBenefit | number) }}</p></li>
-            <li class="row pe-0"><p class="mb-0 p-0 col-md-5 fst-italic  text-start fw-lighter">Terrorism, Sabotage & Political Risks:</p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-1 mb-0 p-0 text-start custom-bg fw-lighter fst-italic px-2"><span>{{ motorService.motorQuotation.pvtInterest | titlecase }}</span></p><p class="col-md-2 mb-0 me-5 p-0"></p><p class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey">{{ quote.quoteData.pvtBenefit | number }}</p></li>
-            <li class="row pe-0"><p class="mb-0 p-0 col-md-5 fst-italic  text-start fw-lighter">Loss of Use:</p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-1 mb-0 p-0 text-start custom-bg fw-lighter fst-italic px-2"><span>{{ motorService.motorQuotation.courtesyCarInterest | titlecase }}</span></p><p class="col-md-2 mb-0 me-5 p-0"></p><p class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey">{{ quote.quoteData.courtesyCarBenefit | number }}</p></li>
-            <li class="row pe-0"><p class="mb-0 p-0 col-md-5 fst-italic  text-start fw-lighter">Additional Wind screen limit (Above {{ quote.quoteData.sumInsured <= 2500000 ? '50k'  : '100k' }}):</p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-1 mb-0 p-0 text-start custom-bg fw-lighter fst-italic px-2"><span>{{ quote.quoteData.windScreenBenefit == 0 ? 'No' : 'Yes' }}</span></p><p class="col-md-2 mb-0 me-5 p-0 text-center">{{ motorService.motorQuotation.windScreenExtraBenefit == 0 ? '' : (motorService.motorQuotation.windScreenExtraBenefit | number) }}</p><p class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey">{{ quote.quoteData.windScreenBenefit | number }}</p></li>
-            <li class="row pe-0"><p class="mb-0 p-0 col-md-5 fst-italic  text-start fw-lighter">Additional Radio Cassette limit (Above {{ quote.quoteData.sumInsured <= 2500000 ? '50k'  : '100k' }}):</p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-1 mb-0 p-0 text-start custom-bg fw-lighter fst-italic px-2"><span>{{ quote.quoteData.radioCassetteBenefit == 0 ? 'No' : 'Yes' }}</span></p><p class="col-md-2 mb-0 me-5 p-0 text-center">{{ motorService.motorQuotation.radioCassetteExtraBenefit == 0 ? '' : (motorService.motorQuotation.radioCassetteExtraBenefit | number) }}</p><p class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey">{{ quote.quoteData.radioCassetteBenefit | number }}</p></li>
-            <li class="row pe-0"><p class="mb-0 p-0 col-md-5 fst-italic  text-start fw-lighter">AA Road Rescue:</p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-1 mb-0 p-0 text-start custom-bg fw-lighter fst-italic px-2"><span>{{ motorService.motorQuotation.aaRoadRescueInterest | titlecase }}</span></p><p class="col-md-2 mb-0 me-5 p-0"></p><p class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey">{{ quote.quoteData.aaRoadRescueBenefit | number }}</p></li>
-        </ul>
-        <div class="row p-3 pt-2 mt-0 mb-0">
-            <p class="mb-0 p-0 col-md-2 fw-bold fst-italic text-center"></p><p class="col-md-7 mb-0 p-0 text-end fw-bold fst-italic"><span>JAZ-Assist (Road Rescue, Ambulance & Security Response)</span></p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bold">Inclusive</p>
-            <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p><p class="col-md-3 mb-0 p-0 text-end fw-bold fst-italic"><span>Net Premium</span></p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bold">{{ quote.quoteData.netPremium | number }}</p>
-            <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p><p class="col-md-3 mb-0 p-0 text-end fw-bold fst-italic"><span>Levies</span></p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bold">{{ roundNumber(quote.quoteData.levies) | number }}</p>
-            <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p><p class="col-md-3 mb-0 p-0 text-end fw-bold fst-italic"><span>Stamp Duty</span></p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bold">{{ quote.quoteData.stampDuty | number }}</p>
-            <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p><p class="col-md-3 mb-0 p-0 text-end fw-bold fst-italic"><span>Gross Premium</span></p><p class="col-md-1 mb-0 p-0"></p><p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bolder custom-bg">{{ quote.quoteData.grossPremium | number }}</p>
-        </div>
-        <div class="row p-3 pt-0 pb-2 mt-0 mb-0">
-            <p class="mb-2 p-0 col-md-4 text-uppercase border-bottom-1 fw-bold">Benefits</p><p class="col-md-3 mb-2 p-0 border-bottom-1"></p><p class="col-md-3 mb-2 p-0 text-left fw-bold border-bottom-1"><span></span></p><p class="col-md-2 mb-2 p-0 fw-bold text-uppercase text-center border-bottom-1">Limit of Liability</p>
-            <p class="mb-0 p-0 col-md-12 m-0 fst-italic  fw-lighter">Windscreen & Window Glass................................................................................................................................................<span class="fst-italic">Kshs. 50,000</span></p>
-            <p class="mb-0 p-0 col-md-12 m-0 fst-italic  fw-lighter">Entertainment Unit.................................................................................................................................................................<span class="fst-italic">Kshs. 50,000</span></p>
-            <p class="mb-0 p-0 col-md-12 m-0 fst-italic  fw-lighter">Repair Authority.....................................................................................................................................................................<span class="fst-italic">Kshs. 50,000</span></p>
-            <p class="mb-0 p-0 col-md-12 m-0 fst-italic  fw-lighter">Towing & Recovery Expenses...............................................................................................................................................<span class="fst-italic">Kshs. 50,000</span></p>
-            <p class="mb-0 p-0 col-md-12 m-0 fst-italic  fw-lighter">Emergency Medical Expenses..............................................................................................................................................<span class="fst-italic">Kshs. 50,000</span></p>
-            <p class="mb-0 p-0 col-md-12 m-0 fst-italic  fw-lighter">Third Party Property Damage..........................................................................................................................................<span class="fst-italic">Kshs. 5,000,000</span></p>
-            <p class="mb-0 p-0 col-md-12 m-0 fst-italic  fw-lighter">Third Party Bodily Injuries............................................................................................................................<span class="fst-italic">Kshs. 3,000,000 per person</span></p>
-            <p class="mb-0 p-0 col-md-9 m-0"></p><p class="mb-0 p-0 col-md-3 m-0 text-center fst-italic fw-lighter">Kshs. 20,000,000 per event</p>
-            <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">Passenger Legal Liability.............................................................................................................................<span class="fst-italic">Kshs. 3,000,000 per person</span></p>
-            <p class="mb-0 p-0 col-md-9 m-0 fst-italic  fw-lighter"></p><p class="mb-0 p-0 col-md-3 m-0 text-center fst-italic fw-lighter">Kshs. 20,000,000 per event</p>
-            <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">Geographical/Territorial Area - COMESA countries (Subject to Yellow card Procedures)</p>
-        </div>
-        <div class="row p-3 pt-0 pb-2 mt-0 mb-0">
-            <p class="mb-2 p-0 col-md-4 text-uppercase border-bottom-1 fw-bold">Applicable Excesses</p><p class="col-md-3 mb-2 p-0 border-bottom-1"></p><p class="col-md-3 mb-2 p-0 text-left fw-bold border-bottom-1"><span></span></p><p class="col-md-2 mb-2 p-0 fw-bold text-uppercase text-center border-bottom-1"></p>
-            <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">Own Damage/Partial Theft.......................................<span class="fst-italic">2.5% of Sum Insured, minimum Kshs. 15,000.00 & maximum Kshs. 100,000.00</span></p>
-            <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">Partial Theft..............................................................<span class="fst-italic">2.5% of Sum Insured, minimum Kshs. 15,000.00 & maximum Kshs. 100,000.00</span></p>
-            <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">Theft with Anti-Theft Devices.....................................................................................<span class="fst-italic">10% of Sum Insured, minimum Kshs. 20,000.00</span></p>
-            <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">Theft without Anti-Theft Devices...............................................................................<span class="fst-italic">20% of Sum Insured, minimum Kshs. 20,000.00</span></p>
-            <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">Theft with Tracking Device.......................................................................................<span class="fst-italic">2.5% of Sum Insured, minimum Kshs. 20,000.00</span></p>
-            <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">Third Party Bodily Injury.......................................................................................................................................................................<span class="fst-italic">Nil</span></p>
-            <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">Third Party Property Damage...........................................................................................................................................<span class="fst-italic">Kshs. 7,500.00</span></p>
-            <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">New & Young Drivers......................................................<span class="fst-italic">Kshs. 5,000.00 additional (Below 1 Year Experience/ Under 23 Years Old)</span></p>
-        </div>
-        <div class="row p-3 pt-0 pb-0 mt-0 mb-0">
-            <p class="mb-2 p-0 col-md-4 fw-bold fst-italic">Done By: {{ authService.currentUserName == '' ? 'Direct' : (authService.currentUserName | titlecase) }}</p><p class="col-md-4 mb-2 p-0"></p><p class="col-md-2 mb-2 p-0 text-left fw-bold fst-italic"><span>{{ currentDate | date:'dd/MM/yyyy' }}</span></p><p class="col-md-2 mb-2 p-0 fw-bold text-center"></p>
-        </div>
-        <div class="row p-3 pt-0 pb-0 mt-0 mb-5">
-            <p class="mb-0 p-0 col-md-1 m-0 footer-border-y1 footer-border-y2 footer-border-x1"></p><p class="mb-0 p-0 col-md-10 m-0 footer-border-y1 footer-border-y2 fw-bold">Terms subject to change after vehicle valuation based on our Motor Rating Guidelines</p><p class="mb-0 p-0 col-md-1 m-0 footer-border-x2 footer-border-y2 footer-border-y1"></p>
-            <p class="mb-0 p-0 px-1 col-md-12 m-0 footer-border-x footer-border-bottom footer-bg-color text-center">Please note this is a quotation Only and is not an automatic confirmation of cover. Terms subject to change after valuation as per our Motor Rating Guidelines. Please advise preferred premium payment option. This quotation is an invitation to offer and does not constitute an offer and is valid for 30 Days. This invitation is Subject to Jubilee Insurance Standard Policy Wordings.</p>
-            <p class="mb-0 p-0 px-1 col-md-12 m-0 footer-border-x footer-border-top footer-border-y1 footer-bg-color text-center">“All premiums should be paid by bank transfer in the name of The Jubilee Allianz General Insurance Company Account nos. Diamond Trust Bank of Kenya -A/c No.0541506001 (Nairobi - Nation Centre Branch), or through MPESA pay bill no. 7146151 at the Jubilee Head office any of the Branch offices. No payment should be made in the name of the agent. The Jubilee General Insurance Limited accepts no liability for losses arising from payments made through agents or through any other means other than those set out above.”</p>
-        </div>
+      </div>
+
+      <div class="row p-3 pb-0 mb-0">
+        <p class="mb-0 p-0 col-md-3 fw-bold">Client Name:</p>
+        <p class="col-md-1 mb-0 p-0"></p>
+        <p class="col-md-5 mb-0 px-1 text-left fw-bolder custom-bg">
+          <span>{{ quote.client.name | uppercase }}</span>
+        </p>
+        <p class="col-md-3 mb-0 p-0"></p>
+        <p class="mb-2 p-0 col-md-3 fw-bold">Vehicle Reg. Number:</p>
+        <p class="col-md-1 mb-2 p-0"></p>
+        <p class="col-md-5 mb-2 px-1 text-left fw-bolder custom-bg">
+          <span>{{ quote.quoteData.numberPlate | uppercase }}</span>
+        </p>
+        <p class="col-md-3 mb-2 p-0"></p>
+        <p class="mb-0 p-0 col-md-4 text-uppercase border-bottom-1 fw-bold">
+          Rating Factors
+        </p>
+        <p class="col-md-3 mb-0 p-0 border-bottom-1"></p>
+        <p class="col-md-3 mb-0 p-0 text-left border-bottom-1 fw-bolder">
+          <span>RATE APPLICABLE</span>
+        </p>
+        <p
+          class="col-md-2 mb-0 p-0 fw-bold text-uppercase border-bottom-1 text-center"
+        >
+          Premium
+        </p>
+        <p class="mt-2 mb-0 p-0 col-md-3 fw-bold fst-italic text-center">
+          Sum Insured:
+        </p>
+        <p class="col-md-1 mt-2 mb-0 p-0"></p>
+        <p
+          class="col-md-3 mt-2 mb-0 p-0 text-end custom-bg fw-bolder fst-italic px-2"
+        >
+          <span>{{ quote.quoteData.sumInsured | number }}</span>
+        </p>
+        <p class="col-md-5 mb-0 mt-2 p-0"></p>
+        <p class="mb-0 p-0 col-md-3 fw-bold fst-italic text-center">
+          Make/Model:
+        </p>
+        <p class="col-md-1 mb-0 p-0"></p>
+        <p
+          class="col-md-6 mb-0 p-0 text-start custom-bg fw-bolder fst-italic px-2"
+        >
+          <span>{{
+            motorService.getModelPropertyByLabel(
+              quote.quoteData.makeModel,
+              "name"
+            )
+          }}</span>
+        </p>
+        <p class="col-md-2 mb-0 p-0"></p>
+        <p class="mb-0 p-0 col-md-3 fw-bold fst-italic text-start">
+          Year of Manufacture:
+        </p>
+        <p class="col-md-1 mb-0 p-0"></p>
+        <p
+          class="col-md-3 mb-0 p-0 text-end custom-bg fw-bolder fst-italic px-2"
+        >
+          <span>{{ quote.quoteData.yearOfManufacture }}</span>
+        </p>
+        <p class="col-md-5 mb-0 p-0"></p>
+        <p class="mb-2 p-0 col-md-3 fw-bold fst-italic text-center">
+          Vehicle Age:
+        </p>
+        <p class="col-md-1 mb-2 p-0"></p>
+        <p
+          class="col-md-3 mb-2 p-0 text-end custom-bg fw-bolder fst-italic px-2"
+        >
+          <span>{{ quote.quoteData.vehicleAge }}</span>
+        </p>
+        <p class="col-md-5 mb-2 p-0"></p>
+        <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p>
+        <p class="col-md-3 mb-0 p-0 text-start fw-bold">
+          <span>Basic Premium:</span>
+        </p>
+        <p class="col-md-1 mb-0 p-0"></p>
+        <p class="col-md-2 mb-0 p-0 px-3 text-end fw-bold custom-bg-grey">
+          {{ quote.quoteData.basicPremium | number }}
+        </p>
+      </div>
+      <div class="row p-3 pt-0 pb-2 mt-0 mb-0">
+        <p class="mb-0 p-0 col-md-4 text-uppercase border-bottom-1 fw-bold">
+          Additional Benefits - Optional
+        </p>
+        <p class="col-md-3 mb-0 p-0 border-bottom-1"></p>
+        <p class="col-md-3 mb-0 p-0 text-left fw-bold"><span></span></p>
+        <p class="col-md-2 mb-0 p-0 fw-bold text-uppercase text-center"></p>
+      </div>
+      <ul class="dotted-list mt-0 mb-0">
+        <li class="row pe-0">
+          <p class="mb-0 p-0 col-md-5 fst-italic text-start fw-lighter">
+            Own Damage Excess Protector:
+          </p>
+          <p class="col-md-1 mb-0 p-0"></p>
+          <p
+            class="col-md-1 mb-0 p-0 text-start custom-bg fw-lighter fst-italic px-2"
+          >
+            <span>{{
+              motorService.motorQuotation.excessProtectorInterest | titlecase
+            }}</span>
+          </p>
+          <p class="col-md-2 mb-0 me-5 p-0"></p>
+          <p
+            class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey"
+          >
+            {{
+              quote.quoteData.excessProtectorBenefit == "Inclusive"
+                ? quote.quoteData.excessProtectorBenefit
+                : (quote.quoteData.excessProtectorBenefit | number)
+            }}
+          </p>
+        </li>
+        <li class="row pe-0">
+          <p class="mb-0 p-0 col-md-5 fst-italic text-start fw-lighter">
+            Terrorism, Sabotage & Political Risks:
+          </p>
+          <p class="col-md-1 mb-0 p-0"></p>
+          <p
+            class="col-md-1 mb-0 p-0 text-start custom-bg fw-lighter fst-italic px-2"
+          >
+            <span>{{
+              motorService.motorQuotation.pvtInterest | titlecase
+            }}</span>
+          </p>
+          <p class="col-md-2 mb-0 me-5 p-0"></p>
+          <p
+            class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey"
+          >
+            {{ quote.quoteData.pvtBenefit | number }}
+          </p>
+        </li>
+        <li class="row pe-0">
+          <p class="mb-0 p-0 col-md-5 fst-italic text-start fw-lighter">
+            Loss of Use:
+          </p>
+          <p class="col-md-1 mb-0 p-0"></p>
+          <p
+            class="col-md-1 mb-0 p-0 text-start custom-bg fw-lighter fst-italic px-2"
+          >
+            <span>{{
+              motorService.motorQuotation.courtesyCarInterest | titlecase
+            }}</span>
+          </p>
+          <p class="col-md-2 mb-0 me-5 p-0"></p>
+          <p
+            class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey"
+          >
+            {{ quote.quoteData.courtesyCarBenefit | number }}
+          </p>
+        </li>
+        <li class="row pe-0">
+          <p class="mb-0 p-0 col-md-5 fst-italic text-start fw-lighter">
+            Additional Wind screen limit (Above
+            {{ quote.quoteData.sumInsured <= 2500000 ? "50k" : "100k" }}):
+          </p>
+          <p class="col-md-1 mb-0 p-0"></p>
+          <p
+            class="col-md-1 mb-0 p-0 text-start custom-bg fw-lighter fst-italic px-2"
+          >
+            <span>{{
+              quote.quoteData.windScreenBenefit == 0 ? "No" : "Yes"
+            }}</span>
+          </p>
+          <p class="col-md-2 mb-0 me-5 p-0 text-center">
+            {{
+              motorService.motorQuotation.windScreenExtraBenefit == 0
+                ? ""
+                : (motorService.motorQuotation.windScreenExtraBenefit | number)
+            }}
+          </p>
+          <p
+            class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey"
+          >
+            {{ quote.quoteData.windScreenBenefit | number }}
+          </p>
+        </li>
+        <li class="row pe-0">
+          <p class="mb-0 p-0 col-md-5 fst-italic text-start fw-lighter">
+            Additional Radio Cassette limit (Above
+            {{ quote.quoteData.sumInsured <= 2500000 ? "50k" : "100k" }}):
+          </p>
+          <p class="col-md-1 mb-0 p-0"></p>
+          <p
+            class="col-md-1 mb-0 p-0 text-start custom-bg fw-lighter fst-italic px-2"
+          >
+            <span>{{
+              quote.quoteData.radioCassetteBenefit == 0 ? "No" : "Yes"
+            }}</span>
+          </p>
+          <p class="col-md-2 mb-0 me-5 p-0 text-center">
+            {{
+              motorService.motorQuotation.radioCassetteExtraBenefit == 0
+                ? ""
+                : (motorService.motorQuotation.radioCassetteExtraBenefit
+                  | number)
+            }}
+          </p>
+          <p
+            class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey"
+          >
+            {{ quote.quoteData.radioCassetteBenefit | number }}
+          </p>
+        </li>
+        <li class="row pe-0">
+          <p class="mb-0 p-0 col-md-5 fst-italic text-start fw-lighter">
+            AA Road Rescue:
+          </p>
+          <p class="col-md-1 mb-0 p-0"></p>
+          <p
+            class="col-md-1 mb-0 p-0 text-start custom-bg fw-lighter fst-italic px-2"
+          >
+            <span>{{
+              motorService.motorQuotation.aaRoadRescueInterest | titlecase
+            }}</span>
+          </p>
+          <p class="col-md-2 mb-0 me-5 p-0"></p>
+          <p
+            class="col-md-2 ms-4 mb-0 p-0 pe-3 text-end fw-bold custom-bg-grey"
+          >
+            {{ quote.quoteData.aaRoadRescueBenefit | number }}
+          </p>
+        </li>
+      </ul>
+      <div class="row p-3 pt-2 mt-0 mb-0">
+        <p class="mb-0 p-0 col-md-2 fw-bold fst-italic text-center"></p>
+        <p class="col-md-7 mb-0 p-0 text-end fw-bold fst-italic">
+          <span>JAZ-Assist (Road Rescue, Ambulance & Security Response)</span>
+        </p>
+        <p class="col-md-1 mb-0 p-0"></p>
+        <p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bold">
+          Inclusive
+        </p>
+        <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p>
+        <p class="col-md-3 mb-0 p-0 text-end fw-bold fst-italic">
+          <span>Net Premium</span>
+        </p>
+        <p class="col-md-1 mb-0 p-0"></p>
+        <p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bold">
+          {{ quote.quoteData.netPremium | number }}
+        </p>
+        <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p>
+        <p class="col-md-3 mb-0 p-0 text-end fw-bold fst-italic">
+          <span>Levies</span>
+        </p>
+        <p class="col-md-1 mb-0 p-0"></p>
+        <p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bold">
+          {{ roundNumber(quote.quoteData.levies) | number }}
+        </p>
+        <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p>
+        <p class="col-md-3 mb-0 p-0 text-end fw-bold fst-italic">
+          <span>Stamp Duty</span>
+        </p>
+        <p class="col-md-1 mb-0 p-0"></p>
+        <p class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bold">
+          {{ quote.quoteData.stampDuty | number }}
+        </p>
+        <p class="mb-0 p-0 col-md-6 fw-bold fst-italic text-center"></p>
+        <p class="col-md-3 mb-0 p-0 text-end fw-bold fst-italic">
+          <span>Gross Premium</span>
+        </p>
+        <p class="col-md-1 mb-0 p-0"></p>
+        <p
+          class="col-md-2 mb-0 p-0 fst-italic px-3 text-end fw-bolder custom-bg"
+        >
+          {{ quote.quoteData.grossPremium | number }}
+        </p>
+      </div>
+      <div class="row p-3 pt-0 pb-2 mt-0 mb-0">
+        <p class="mb-2 p-0 col-md-4 text-uppercase border-bottom-1 fw-bold">
+          Benefits
+        </p>
+        <p class="col-md-3 mb-2 p-0 border-bottom-1"></p>
+        <p class="col-md-3 mb-2 p-0 text-left fw-bold border-bottom-1">
+          <span></span>
+        </p>
+        <p
+          class="col-md-2 mb-2 p-0 fw-bold text-uppercase text-center border-bottom-1"
+        >
+          Limit of Liability
+        </p>
+        <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">
+          Windscreen & Window
+          Glass................................................................................................................................................<span
+            class="fst-italic"
+            >Kshs. 50,000</span
+          >
+        </p>
+        <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">
+          Entertainment
+          Unit.................................................................................................................................................................<span
+            class="fst-italic"
+            >Kshs. 50,000</span
+          >
+        </p>
+        <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">
+          Repair
+          Authority.....................................................................................................................................................................<span
+            class="fst-italic"
+            >Kshs. 50,000</span
+          >
+        </p>
+        <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">
+          Towing & Recovery
+          Expenses...............................................................................................................................................<span
+            class="fst-italic"
+            >Kshs. 50,000</span
+          >
+        </p>
+        <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">
+          Emergency Medical
+          Expenses..............................................................................................................................................<span
+            class="fst-italic"
+            >Kshs. 50,000</span
+          >
+        </p>
+        <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">
+          Third Party Property
+          Damage..........................................................................................................................................<span
+            class="fst-italic"
+            >Kshs. 5,000,000</span
+          >
+        </p>
+        <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">
+          Third Party Bodily
+          Injuries............................................................................................................................<span
+            class="fst-italic"
+            >Kshs. 3,000,000 per person</span
+          >
+        </p>
+        <p class="mb-0 p-0 col-md-9 m-0"></p>
+        <p class="mb-0 p-0 col-md-3 m-0 text-center fst-italic fw-lighter">
+          Kshs. 20,000,000 per event
+        </p>
+        <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">
+          Passenger Legal
+          Liability.............................................................................................................................<span
+            class="fst-italic"
+            >Kshs. 3,000,000 per person</span
+          >
+        </p>
+        <p class="mb-0 p-0 col-md-9 m-0 fst-italic fw-lighter"></p>
+        <p class="mb-0 p-0 col-md-3 m-0 text-center fst-italic fw-lighter">
+          Kshs. 20,000,000 per event
+        </p>
+        <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">
+          Geographical/Territorial Area - COMESA countries (Subject to Yellow
+          card Procedures)
+        </p>
+      </div>
+      <div class="row p-3 pt-0 pb-2 mt-0 mb-0">
+        <p class="mb-2 p-0 col-md-4 text-uppercase border-bottom-1 fw-bold">
+          Applicable Excesses
+        </p>
+        <p class="col-md-3 mb-2 p-0 border-bottom-1"></p>
+        <p class="col-md-3 mb-2 p-0 text-left fw-bold border-bottom-1">
+          <span></span>
+        </p>
+        <p
+          class="col-md-2 mb-2 p-0 fw-bold text-uppercase text-center border-bottom-1"
+        ></p>
+        <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">
+          Own Damage/Partial Theft.......................................<span
+            class="fst-italic"
+            >2.5% of Sum Insured, minimum Kshs. 15,000.00 & maximum Kshs.
+            100,000.00</span
+          >
+        </p>
+        <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">
+          Partial
+          Theft..............................................................<span
+            class="fst-italic"
+            >2.5% of Sum Insured, minimum Kshs. 15,000.00 & maximum Kshs.
+            100,000.00</span
+          >
+        </p>
+        <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">
+          Theft with Anti-Theft
+          Devices.....................................................................................<span
+            class="fst-italic"
+            >10% of Sum Insured, minimum Kshs. 20,000.00</span
+          >
+        </p>
+        <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">
+          Theft without Anti-Theft
+          Devices...............................................................................<span
+            class="fst-italic"
+            >20% of Sum Insured, minimum Kshs. 20,000.00</span
+          >
+        </p>
+        <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">
+          Theft with Tracking
+          Device.......................................................................................<span
+            class="fst-italic"
+            >2.5% of Sum Insured, minimum Kshs. 20,000.00</span
+          >
+        </p>
+        <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">
+          Third Party Bodily
+          Injury.......................................................................................................................................................................<span
+            class="fst-italic"
+            >Nil</span
+          >
+        </p>
+        <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">
+          Third Party Property
+          Damage...........................................................................................................................................<span
+            class="fst-italic"
+            >Kshs. 7,500.00</span
+          >
+        </p>
+        <p class="mb-0 p-0 col-md-12 m-0 fst-italic fw-lighter">
+          New & Young
+          Drivers......................................................<span
+            class="fst-italic"
+            >Kshs. 5,000.00 additional (Below 1 Year Experience/ Under 23 Years
+            Old)</span
+          >
+        </p>
+      </div>
+      <div class="row p-3 pt-0 pb-0 mt-0 mb-0">
+        <p class="mb-2 p-0 col-md-4 fw-bold fst-italic">
+          Done By:
+          {{
+            authService.currentUserName == ""
+              ? "Direct"
+              : (authService.currentUserName | titlecase)
+          }}
+        </p>
+        <p class="col-md-4 mb-2 p-0"></p>
+        <p class="col-md-2 mb-2 p-0 text-left fw-bold fst-italic">
+          <span>{{ currentDate | date : "dd/MM/yyyy" }}</span>
+        </p>
+        <p class="col-md-2 mb-2 p-0 fw-bold text-center"></p>
+      </div>
+      <div class="row p-3 pt-0 pb-0 mt-0 mb-5">
+        <p
+          class="mb-0 p-0 col-md-1 m-0 footer-border-y1 footer-border-y2 footer-border-x1"
+        ></p>
+        <p
+          class="mb-0 p-0 col-md-10 m-0 footer-border-y1 footer-border-y2 fw-bold"
+        >
+          Terms subject to change after vehicle valuation based on our Motor
+          Rating Guidelines
+        </p>
+        <p
+          class="mb-0 p-0 col-md-1 m-0 footer-border-x2 footer-border-y2 footer-border-y1"
+        ></p>
+        <p
+          class="mb-0 p-0 px-1 col-md-12 m-0 footer-border-x footer-border-bottom footer-bg-color text-center"
+        >
+          Please note this is a quotation Only and is not an automatic
+          confirmation of cover. Terms subject to change after valuation as per
+          our Motor Rating Guidelines. Please advise preferred premium payment
+          option. This quotation is an invitation to offer and does not
+          constitute an offer and is valid for 30 Days. This invitation is
+          Subject to Jubilee Insurance Standard Policy Wordings.
+        </p>
+        <p
+          class="mb-0 p-0 px-1 col-md-12 m-0 footer-border-x footer-border-top footer-border-y1 footer-bg-color text-center"
+        >
+          “All premiums should be paid by bank transfer in the name of The
+          Jubilee Allianz General Insurance Company Account nos. Diamond Trust
+          Bank of Kenya -A/c No.0541506001 (Nairobi - Nation Centre Branch), or
+          through MPESA pay bill no. 7146151 at the Jubilee Head office any of
+          the Branch offices. No payment should be made in the name of the
+          agent. The Jubilee General Insurance Limited accepts no liability for
+          losses arising from payments made through agents or through any other
+          means other than those set out above.”
+        </p>
+      </div>
     </div>
     <div class="container text-left mt-5">
-        <small class="font-italic">Classified as Confidential Recipient Only</small>
+      <small class="font-italic"
+        >Classified as Confidential Recipient Only</small
+      >
     </div>
-</ng-container>
+  </ng-container>
+</div>
