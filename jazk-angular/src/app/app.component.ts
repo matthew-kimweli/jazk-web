@@ -13,7 +13,7 @@ import { AuthService } from './services/auth.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'LPO MANAGER';
+  title = 'JAZKE';
 
   constructor(public auth: AuthService,
     private toastr: ToastrService,) {
