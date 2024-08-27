@@ -38,9 +38,9 @@ async function bootstrap() {
   var appId = process.env.APP_ID || 'debunkbot'
   var appName = 'JAZKE'
   // In a node.js environment
-  Parse.initialize(appId, clientKey, masterKey);
-  //javascriptKey is required only if you have it on server.
-  (Parse as any).serverURL = serverURL;
+  // Parse.initialize(appId, clientKey, masterKey);
+  // //javascriptKey is required only if you have it on server.
+  // (Parse as any).serverURL = serverURL;
 
 
 
@@ -50,65 +50,65 @@ async function bootstrap() {
 
 
 
-  // var api = new ParseServer({
-  //   databaseURI: databaseUri,
-  //   // cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
-  //   appId: appId,
-  //   masterKey: masterKey, //Add your master key here. Keep it secret!
-  //   serverURL: serverURL,  // Don't forget to change to https if needed
-  //   javascriptKey: javascriptKey,
-  //   restAPIKey: restAPIKey,
-  //   clientKey: clientKey,
-  //   maxUploadSize: "500mb",
-  //   masterKeyIps: ['0.0.0.0/0', '::1', '::ffff:127.0.0.1'],//['0.0.0.0/0', '::1']
+  var api = new ParseServer({
+    databaseURI: databaseUri,
+    // cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
+    appId: appId,
+    masterKey: masterKey, //Add your master key here. Keep it secret!
+    serverURL: serverURL,  // Don't forget to change to https if needed
+    javascriptKey: javascriptKey,
+    restAPIKey: restAPIKey,
+    clientKey: clientKey,
+    maxUploadSize: "500mb",
+    masterKeyIps: ['0.0.0.0/0', '::1', '::ffff:127.0.0.1'],//['0.0.0.0/0', '::1']
 
 
-  //   fileUpload: {
-  //     enableForPublic: true,
-  //     enableForAnonymousUser: true,
-  //     enableForAuthenticatedUser: true,
-  //   },
+    fileUpload: {
+      enableForPublic: true,
+      enableForAnonymousUser: true,
+      enableForAuthenticatedUser: true,
+    },
 
-  //   filesAdapter: {
-  //     module: "parse-server-fs-adapter",
-  //     options: {
-  //       filesSubDirectory: "/uploads" // Specify the subdirectory where files will be saved
-  //     }
-  //   },
+    filesAdapter: {
+      module: "parse-server-fs-adapter",
+      options: {
+        filesSubDirectory: "/uploads" // Specify the subdirectory where files will be saved
+      }
+    },
 
-  //   liveQuery: {
-  //     classNames: ['JazkeSale', 'JazkeQuotation', 'JubileeSettings'] // List of classes to support for query subscriptions
-  //   },
-  //   // Your apps name. This will appear in the subject and body of the emails that are sent.
-  //   appName: appName,
+    liveQuery: {
+      classNames: ['JazkeSale', 'JazkeQuotation', 'JubileeSettings'] // List of classes to support for query subscriptions
+    },
+    // Your apps name. This will appear in the subject and body of the emails that are sent.
+    appName: appName,
 
-  //   emailAdapter: {
-  //     // module: "parse-server-generic-email-adapter",
-  //     // options: {
-  //     //   service: "Gmail", // Could be anything like yahoo, hotmail, etc, Full list - see below 
-  //     //   email: "app.debunkbot@gmail.com",
-  //     //   password: "?dPtHW7vz_dLP9v"
-  //     // }
-  //     module: "parse-server-generic-email-adapter",
-  //     options: {
-  //       service: "gmail", // Could be anything like yahoo, hotmail, etc, Full list - see below 
-  //       email: "congounlocked@gmail.com",
-  //       password: "qywswupsbdqsntuw"
-  //     },
-  //   },
-  //   publicServerURL: publicServerURL,
+    emailAdapter: {
+      // module: "parse-server-generic-email-adapter",
+      // options: {
+      //   service: "Gmail", // Could be anything like yahoo, hotmail, etc, Full list - see below 
+      //   email: "app.debunkbot@gmail.com",
+      //   password: "?dPtHW7vz_dLP9v"
+      // }
+      module: "parse-server-generic-email-adapter",
+      options: {
+        service: "gmail", // Could be anything like yahoo, hotmail, etc, Full list - see below 
+        email: "congounlocked@gmail.com",
+        password: "qywswupsbdqsntuw"
+      },
+    },
+    publicServerURL: publicServerURL,
 
-  //   // Enable email verification
-  //   verifyUserEmails: false,
+    // Enable email verification
+    verifyUserEmails: false,
 
-  //   emailVerifyTokenValidityDuration: 2 * 60 * 60, // in seconds (2 hours = 7200 seconds)
+    emailVerifyTokenValidityDuration: 2 * 60 * 60, // in seconds (2 hours = 7200 seconds)
 
-  //   preventLoginWithUnverifiedEmail: false, // defaults to false
+    preventLoginWithUnverifiedEmail: false, // defaults to false
 
-  // });
+  });
 
-  // await api.start()
-  // console.log('starting parse')
+  await api.start()
+  console.log('starting parse')
 
   // // Ensure the 'logs' directory exists
   // const logsDirectory = path.join(__dirname, '../logs'); // Assuming 'logs' is in the parent directory
