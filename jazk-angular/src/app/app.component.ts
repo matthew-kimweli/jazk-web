@@ -17,10 +17,11 @@ export class AppComponent {
 
   constructor(public auth: AuthService,
     private toastr: ToastrService,) {
-      let serverURL2 = `https://jubilee.plot411.com/parse`;
+      // let serverURL2 = `https://jubilee.plot411.com/parse`;
+      let serverURL2 = `https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/parse`;
       var keyApplicationId = 'debunkbot';
       var keyParseServerKey = 'debunkbot12@!!';
-      var keyLiveQueryUrl = 'ws://jubilee.plot411.com/';
+      var keyLiveQueryUrl = 'ws://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/';
 
 
     (Parse as any).serverURL = serverURL2;
