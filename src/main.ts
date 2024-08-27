@@ -36,9 +36,9 @@ async function bootstrap() {
   var appId = process.env.APP_ID || 'debunkbot'
   var appName = 'JAZKE'
   // In a node.js environment
-  Parse.initialize(appId, clientKey, masterKey);
-  //javascriptKey is required only if you have it on server.
-  (Parse as any).serverURL = serverURL;
+  // Parse.initialize(appId, clientKey, masterKey);
+  // //javascriptKey is required only if you have it on server.
+  // (Parse as any).serverURL = serverURL;
 
 
 
