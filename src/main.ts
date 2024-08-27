@@ -207,7 +207,7 @@ async function bootstrap() {
 
 
   await app.listen(process.env.PORT || port);
-  // cleanup()
+
 
 
   // This will enable the Live Query real-time server
