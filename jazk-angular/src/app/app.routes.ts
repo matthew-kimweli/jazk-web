@@ -15,7 +15,7 @@ import { MotorKycComponent } from './pages/motor/motor-kyc/motor-kyc.component';
 import { ViewQuoteComponent } from './pages/motor/view-quote/view-quote.component';
 import { QuotationSalesListComponent } from './pages/agent/quotation-sales-list/quotation-sales-list.component';
 import { ViewQuoteSubdetailsComponent } from './pages/motor/view-quote-subdetails/view-quote-subdetails.component';
-import { GenerateReportComponent } from './pages/reports/generate-report/generate-report.component';
+import { GenerateReportComponent } from './pages/report_list/generate-report/generate-report.component';
 
 export const routes: Routes = [
   {
