@@ -1,0 +1,268 @@
+<app-header></app-header>
+<div class="page-wrapper">
+  <div
+    class="mb-3"
+    *ngIf="
+      parseService.fetching || parseService.saving || parseService.deleting
+    "
+  >
+    <div class="progress">
+      <div class="progress-bar progress-bar-indeterminate bg-green"></div>
+    </div>
+  </div>
+
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <!-- Page pre-title -->
+          <div class="page-pretitle">Table</div>
+          <h2 class="page-title">Reports</h2>
+        </div>
+        <!-- Page title actions -->
+        <div class="col-auto ms-auto d-print-none">
+          <!-- <div class="btn-list">
+            <button
+              class="btn btn-primary d-none d-sm-inline-block"
+            >
+              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-report"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h5.697" /><path d="M18 14v4h4" /><path d="M18 11v-4a2 2 0 0 0 -2 -2h-2" /><path d="M8 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" /><path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M8 11h4" /><path d="M8 15h3" /></svg>
+              Generate Report
+            </button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page Inputs Section -->
+  <div class="page-body">
+    <div class="container-xl">
+      <div class="">
+        <div class="row justify-content-center">
+          <div class="col-3">
+            <app-side-menu></app-side-menu>
+          </div>
+          <div class="col-lg-9">
+            <div class="card">
+              <div class="card-body">
+                <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+                  <div class="row">
+                    <div class="col-4 mb-3">
+                      <label class="form-label" for="supplierId"
+                        >Cover Type:</label
+                      >
+                      <select
+                        class="form-select"
+                        id="coverType"
+                        formControlName="coverType"
+                      >
+                        <option value="">Select</option>
+                        <option [value]="s" *ngFor="let s of coverTypes">
+                          {{ s }}
+                        </option>
+                      </select>
+                      <div
+                        *ngIf="
+                          reportForm.get('coverType')!.invalid &&
+                          reportForm.get('coverType')!.touched
+                        "
+                      >
+                        Cover type is required
+                      </div>
+                    </div>
+
+                    <div class="col-4 mb-3">
+                      <label class="form-label" for="department"
+                        >Category:</label
+                      >
+                      <select
+                        class="form-select"
+                        id="category"
+                        formControlName="category"
+                      >
+                        <option value="">Select</option>
+                        <option [value]="d" *ngFor="let d of categories">
+                          {{ d }}
+                        </option>
+                      </select>
+                      <div
+                        *ngIf="
+                          reportForm.get('category')!.invalid &&
+                          reportForm.get('category')!.touched
+                        "
+                      >
+                        Category is required
+                      </div>
+                    </div>
+
+                    <div class="col-4 mb-3">
+                      <label class="form-label" for="createdBy"
+                        >Created by:</label
+                      >
+                      <select
+                        class="form-select"
+                        [(ngModel)]="data.createdBy"
+                        id="createdBy"
+                        formControlName="createdBy"
+                      >
+                        <option value="">Select</option>
+                        <option [value]="u.id" *ngFor="let u of users">
+                          {{ u.get("name") }}
+                        </option>
+                      </select>
+                      <div
+                        *ngIf="
+                          reportForm.get('createdBy')!.invalid &&
+                          reportForm.get('createdBy')!.touched
+                        "
+                      >
+                        Created By is required
+                      </div>
+                    </div>
+
+                    <div class="col-3 mb-3">
+                      <label class="form-label" for="startDate"
+                        >Start Date:</label
+                      >
+                      <input
+                        class="form-control"
+                        id="startDate"
+                        type="date"
+                        formControlName="startDate"
+                      />
+                      <div
+                        *ngIf="
+                          reportForm.get('startDate')!.invalid &&
+                          reportForm.get('startDate')!.touched
+                        "
+                      >
+                        Start Date is required
+                      </div>
+                    </div>
+                    <div class="col-3 mb-3">
+                      <label class="form-label" for="endDate">End Date:</label>
+                      <input
+                        class="form-control"
+                        id="endDate"
+                        type="date"
+                        formControlName="endDate"
+                      />
+                      <div
+                        *ngIf="
+                          reportForm.get('endDate')!.invalid &&
+                          reportForm.get('endDate')!.touched
+                        "
+                      >
+                        End Date is required
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="btn-list">
+                    <button
+                      type="submit"
+                      class="btn btn-primary d-none d-sm-inline-block ms-auto"
+                    >
+                      Generate Report
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- Page Report body -->
+            <div class="page-body mt-5">
+              <div class="container-xl">
+                <div class="card">
+                  <div class="">
+                    <table class="table table-vcenter card-table">
+                      <thead>
+                        <tr>
+                          <th>No.</th>
+                          <th>Date</th>
+                          <th>Client</th>
+                          <th>What is Insured</th>
+                          <th>Premium</th>
+                          <!-- <th>Payment Status</th> -->
+                          <th class="w-1"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of list; let i = index">
+                          <td class="text-primary">
+                            {{ i + 1 }}
+                          </td>
+                          <td>
+                            {{ item.get("createdAt") | date }}
+                          </td>
+
+                          <td class="text-secondary">
+                            {{ item.get("client").name }}
+                          </td>
+                          <td class="text-secondary">
+                            <strong style="color: orange">{{
+                              item.get("whatIsInsured")
+                            }}</strong>
+                          </td>
+                          <td class="text-success">
+                            {{ item.get("premium") || "---" }}
+                          </td>
+                          <!-- <td class="text-azure">
+                            {{ item.get("paymentStatus") || "Not Paid" }}
+                          </td> -->
+
+                          <td class="text-end">
+                            <span class="dropdown">
+                              <button
+                                class="btn dropdown-toggle align-text-top"
+                                data-bs-boundary="viewport"
+                                data-bs-toggle="dropdown"
+                              >
+                                Actions
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-end">
+                                <a
+                                  routerLinkActive="router-link-active"
+                                  class="dropdown-item text-green"
+                                >
+                                  View
+                                </a>
+                                <a
+                                  routerLinkActive="router-link-active"
+                                  class="dropdown-item text-green"
+                                >
+                                  Sale
+                                </a>
+
+                                <!-- <a [hidden]="item.get('status') == 'Completed'" *ngIf="auth.isAdmin"
+                                (click)="deleteItem(item)"
+                                class="dropdown-item text-red"
+                              >
+                                Delete
+                              </a> -->
+                              </div>
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="card card-md" *ngIf="list?.length == 0">
+                      <div class="card-body">
+                        <p class="text-secondary mb-4">Nothing found</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="btn-list mt-1" *ngIf="list && list.length">
+                  <button
+                    class="btn btn-primary d-none d-sm-inline-block ms-auto"
+                  >
+                    Download
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
