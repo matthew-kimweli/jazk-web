@@ -8,8 +8,10 @@ import * as Parse from 'parse/node';
 // const path = require('path');
 
 
-var ParseServer = require('parse-server').ParseServer;
-var ParseDashboard = require('parse-dashboard');
+// var ParseServer = require('parse-server').ParseServer;
+// var ParseDashboard = require('parse-dashboard');
+import { ParseServer } from 'parse-server';
+import ParseDashboard from 'parse-dashboard';
 
 const port = 3012
 
