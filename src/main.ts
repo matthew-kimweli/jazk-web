@@ -177,7 +177,7 @@ async function bootstrap() {
 
 
 
-  // make the Parse Dashboard available at /dashboard
+  // make the Parse Dashboard available at /dashboard/
   app.use('/dashboard', dashboard);
 
   app.enableCors();
