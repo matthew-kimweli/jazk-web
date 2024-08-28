@@ -21,7 +21,7 @@ export class AppComponent {
       let serverURL2 = `https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/parse`;
       var keyApplicationId = 'debunkbot';
       var keyParseServerKey = 'debunkbot12@!!';
-      var keyLiveQueryUrl = 'ws://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/';
+      var keyLiveQueryUrl = 'wss://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/';
 
 
     (Parse as any).serverURL = serverURL2;
