@@ -137,15 +137,17 @@ async function bootstrap() {
   //     '', { stream: logStream })
   // );
 
+  app.enableCors();
 
-  app.enableCors({
-    // preflightContinue: false,
-    // methods: "*",
-    // optionsSuccessStatus: 200,
-    // allowedHeaders: "*",
-    origin: "*",
-    // credentials: true
-  });
+
+  // app.enableCors({
+  //   // preflightContinue: false,
+  //   // methods: "*",
+  //   // optionsSuccessStatus: 200,
+  //   // allowedHeaders: "*",
+  //   origin: "*",
+  //   // credentials: true
+  // });
 
 
   // Serve the Parse API on the /parse URL prefix
