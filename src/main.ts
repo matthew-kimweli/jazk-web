@@ -30,7 +30,7 @@ async function bootstrap() {
   // var serverURL = process.env.SERVER_URL || 'https://debunk.plot411.com/parse'
 
   var serverURL = `http://127.0.0.1:${port}/parse`;
-  var publicServerURL = serverURL//'https://jazke.plot411.com/parse' 
+  var publicServerURL = 'https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/parse' 
   databaseUri = 'postgres://postgres:postgres@157.230.47.71:5432/jazke'
 
 
