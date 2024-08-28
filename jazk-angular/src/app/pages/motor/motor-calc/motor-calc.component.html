@@ -146,7 +146,7 @@
                 </label>
               </div>
             </div>
-            <div class="mb-2" *ngIf="sumInsured != undefined">
+            <div class="mb-2" *ngIf="sumInsured != undefined && motorClass == 'private'">
               <label class="form-label"
                 >Desired Windscreen coverage amount?</label
               >
@@ -165,7 +165,7 @@
                 {{ (sumInsured <= 2500000 ? 50000  : 100000) | number }}.</small
               >
             </div>
-            <div class="mb-3" *ngIf="sumInsured != undefined">
+            <div class="mb-3" *ngIf="sumInsured != undefined && motorClass == 'private'">
               <label class="form-label"
                 >Desired Radio Cassette coverage amount?</label
               >
@@ -236,6 +236,26 @@
                   <span class="form-check-label">No</span>
                 </label>
               </div>
+            </div>
+            <div class="mb-3" *ngIf="motorClass == 'commercial'">
+              <label class="form-label"
+                >Passenger Legal Liability Coverage</label
+              >
+              <select
+                title="select"
+                [(ngModel)]="passengerLegalLiability"
+                name="passengerLegalLiability"
+                id="passengerLegalLiability"
+                class="form-select"
+              >
+                <option value="" disabled>Number of Passengers</option>
+                <option
+                  *ngFor="let item of motorService.passengerLegalLiabiltyObject"
+                  [value]="item.benefit"
+                >
+                  {{ item.passengers }}
+                </option>
+              </select>
             </div>
           </div>
         </div>

@@ -90,6 +90,12 @@ export class MotorService {
     { time: '10 Days', benefit: 4500 },
   ];
 
+  passengerLegalLiabiltyObject: any = [
+    { passengers: 'None', benefit: 0},
+    { passengers: '1 Passenger', benefit: 500},
+    { passengers: '2 Passengers', benefit: 1000},
+  ]
+
   motorQuotation: any = {
     motorClass: '',
     motorSubclass: '',
@@ -112,6 +118,8 @@ export class MotorService {
     windScreenExtraBenefit: 0,
     radioCassetteBenefit: 0,
     radioCassetteExtraBenefit: 0,
+    passengerLegalLiabilityBenefit: 0,
+    noOfPassengers: '',
     netPremium: 0,
     levies: 0,
     stampDuty: 40,
@@ -292,8 +300,8 @@ export class MotorService {
     return model ? model[property] : undefined;
   }
 
-  getPVT(pvtInterest: any, vehicleValue: any) {
-    return pvtInterest == 'yes' ? Math.max(0.0025 * vehicleValue, 3000) : 0;
+  getPVT(pvtInterest: any, vehicleValue: any, motoClass: any) {
+    return motoClass == 'private' ? (pvtInterest == 'yes' ? Math.max(0.0025 * vehicleValue, 3000) : 0) : (pvtInterest == 'yes' ? Math.max(0.0045 * vehicleValue, 3000) : 0);
   }
 
   getExcessProtector(
@@ -316,6 +324,11 @@ export class MotorService {
   getTimeForBenefit(benefitValue: any) {
     const benefit = this.lossOfUseBenefit.find((item: any) => item.benefit === benefitValue);
     return benefit.time;
+  }
+
+  getPassengerNo(benefitValue: any) {
+    const benefit = this.passengerLegalLiabiltyObject.find((item: any) => item.benefit === benefitValue);
+    return benefit.passengerS;
   }
 
   getAAR(aarInterest: any) {
