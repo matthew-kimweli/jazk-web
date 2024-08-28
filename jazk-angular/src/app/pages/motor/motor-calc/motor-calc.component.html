@@ -198,7 +198,7 @@
               >
                 <option value="" disabled>Loss of Use Benefit</option>
                 <option
-                  *ngFor="let item of motorService.lossOfUseBenefit"
+                  *ngFor="let item of filteredBenefits"
                   [value]="item.benefit"
                 >
                   {{ item.time }}

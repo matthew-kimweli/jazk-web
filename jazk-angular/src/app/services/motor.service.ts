@@ -34,7 +34,7 @@ export class MotorService {
       name: 'Own Goods',
       class: 'commercial',
       label: 'MotorCommercialOwnGoods',
-      motorSubclass: 'Own Good',
+      motorSubclass: 'Own Goods',
     },
     {
       name: 'PSV Tours (ChauffeurDriven) - Corporates Only',
@@ -85,9 +85,12 @@ export class MotorService {
   ];
 
   lossOfUseBenefit: any = [
-    { time: '30 Days', benefit: 13500 },
-    { time: '20 Days', benefit: 9000 },
-    { time: '10 Days', benefit: 4500 },
+    { time: '30 Days', benefit: 13500, motorSubclass: 'Standard Auto' },
+    { time: '20 Days', benefit: 9000, motorSubclass: 'Standard Auto' },
+    { time: '10 Days', benefit: 4500, motorSubclass: 'Standard Auto' },
+    { time: '30 Days', benefit: 22500, motorSubclass: 'Premier Auto' },
+    { time: '20 Days', benefit: 15000, motorSubclass: 'Premier Auto' },
+    { time: '10 Days', benefit: 7500, motorSubclass: 'Premier Auto' },
   ];
 
   passengerLegalLiabiltyObject: any = [

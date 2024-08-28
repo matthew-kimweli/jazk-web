@@ -70,6 +70,7 @@ export class MotorCalcComponent implements OnInit {
   };
   data: any = {};
   manualClientData: any = {};
+  filteredBenefits: any[] = [];
 
   constructor(
     public motorService: MotorService,
@@ -84,6 +85,15 @@ export class MotorCalcComponent implements OnInit {
     this.control = new FormControl<number>(this.sumInsured);
     this.windscreenControl = new FormControl<number>(this.windscreen);
     this.radioControl = new FormControl<number>(this.radioCassette);
+    this.filterBenefits();
+  }
+
+  filterBenefits() {
+    if (this.sumInsured > 2500000) {
+      this.filteredBenefits = this.motorService.lossOfUseBenefit.filter((item: any) => item.motorSubclass === 'Premier Auto');
+    } else {
+      this.filteredBenefits = this.motorService.lossOfUseBenefit.filter((item: any) => item.motorSubclass === 'Standard Auto');
+    }
   }
 
   getYears(event: any) {
@@ -116,6 +126,8 @@ export class MotorCalcComponent implements OnInit {
   onVehicleValueChange(event: any) {
     console.log('CHECK 2', this.excessProtector)
     let value = event.target.value;
+    this.sumInsured = value;
+    this.filterBenefits();
     console.log('Value Check', value)
     if ((value > 1500000 && this.motorClass == 'private') || this.makeModel == 'MotorCommercialOwnGoods') {
       this.excessProtectorBenefit = 'Inclusive';

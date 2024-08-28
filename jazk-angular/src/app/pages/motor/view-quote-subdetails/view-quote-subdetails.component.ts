@@ -61,4 +61,19 @@ export class ViewQuoteSubdetailsComponent {
       this.parseService.fetching = true;
     }
   }
+
+  calculateCourtesyCarValue(): number | string {
+    const benefit = this.quote.quoteData.courtesyCarInterest;
+
+    switch (benefit) {
+      case '30 Days':
+        return 5000 * 30;
+      case '20 Days':
+        return 5000 * 20;
+      case '10 Days':
+        return 5000 * 10;
+      default:
+        return '';
+    }
+  }
 }
