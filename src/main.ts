@@ -137,7 +137,7 @@ async function bootstrap() {
   //     '', { stream: logStream })
   // );
 
-  app.enableCors();
+  
 
 
   // app.enableCors({
@@ -179,6 +179,8 @@ async function bootstrap() {
 
   // make the Parse Dashboard available at /dashboard
   app.use('/dashboard', dashboard);
+
+  app.enableCors();
 
 
   await app.listen(process.env.PORT || port);
