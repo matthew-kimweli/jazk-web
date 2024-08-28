@@ -60,7 +60,7 @@ async function bootstrap() {
     restAPIKey: restAPIKey,
     clientKey: clientKey,
     maxUploadSize: "500mb",
-    // masterKeyIps: ['0.0.0.0/0', '::1', '::ffff:127.0.0.1'],//['0.0.0.0/0', '::1']
+    masterKeyIps: ["0.0.0.0/0", "::/0"],
 
 
     fileUpload: {
