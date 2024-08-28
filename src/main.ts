@@ -8,10 +8,10 @@ import * as Parse from 'parse/node';
 // const path = require('path');
 
 
-// var ParseServer = require('parse-server').ParseServer;
-// var ParseDashboard = require('parse-dashboard');
-import { ParseServer } from 'parse-server';
-import ParseDashboard from 'parse-dashboard';
+var ParseServer = require('parse-server').ParseServer;
+var ParseDashboard = require('parse-dashboard');
+// import { ParseServer } from 'parse-server';
+// import ParseDashboard from 'parse-dashboard';
 
 const port = 3012
 
@@ -38,9 +38,9 @@ async function bootstrap() {
   var appId = process.env.APP_ID || 'debunkbot'
   var appName = 'JAZKE'
   // In a node.js environment
-  // Parse.initialize(appId, clientKey, masterKey);
-  // //javascriptKey is required only if you have it on server.
-  // (Parse as any).serverURL = serverURL;
+  Parse.initialize(appId, clientKey, masterKey);
+  //javascriptKey is required only if you have it on server.
+  (Parse as any).serverURL = serverURL;
 
 
 
@@ -149,40 +149,40 @@ async function bootstrap() {
 
 
   // Serve the Parse API on the /parse URL prefix
-  // app.use('/parse', api.app);
+  app.use('/parse', api.app);
 
 
   //parse dashboard
-  // var dashboardOptions = { allowInsecureHTTP: true };
-  // var trustProxy = true;
-  // var dashboard = new ParseDashboard({
-  //   "apps": [
-  //     {
-  //       "serverURL": publicServerURL,
-  //       "appId": appId,
-  //       "masterKey": masterKey,
-  //       "appName": appName
-  //     }
-  //   ],
-  //   "users": [
-  //     {
-  //       "user": "admin",
-  //       "pass": "qywswupsbdqsntuw"
-  //     }
-  //   ],
-  //   "trustProxy": 1
-  // }, dashboardOptions);
+  var dashboardOptions = { allowInsecureHTTP: true };
+  var trustProxy = true;
+  var dashboard = new ParseDashboard({
+    "apps": [
+      {
+        "serverURL": publicServerURL,
+        "appId": appId,
+        "masterKey": masterKey,
+        "appName": appName
+      }
+    ],
+    "users": [
+      {
+        "user": "admin",
+        "pass": "qywswupsbdqsntuw"
+      }
+    ],
+    "trustProxy": 1
+  }, dashboardOptions);
 
 
 
   // make the Parse Dashboard available at /dashboard
-  // app.use('/dashboard', dashboard);
+  app.use('/dashboard', dashboard);
 
 
   await app.listen(process.env.PORT || port);
 
   // This will enable the Live Query real-time server
-  // ParseServer.createLiveQueryServer(app.getHttpServer());
+  ParseServer.createLiveQueryServer(app.getHttpServer());
 
 }
 bootstrap();
