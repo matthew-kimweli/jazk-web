@@ -57,13 +57,14 @@ export class ViewQuoteSubdetailsComponent {
 
         let client = quote.get('client');
         if (client) {
-          if (!client.emailSent) {
-            this.sendEmailQuotation(client);
+          this.sendEmailQuotation(client);
+          // if (!client.emailSent) {
+          //   this.sendEmailQuotation(client);
 
-            client.emailSent = true;
-            quote.set('client', client);
-            quote.save();
-          }
+          //   client.emailSent = true;
+          //   quote.set('client', client);
+          //   quote.save();
+          // }
         }
       }
       this.parseService.fetching = false;
@@ -90,7 +91,7 @@ export class ViewQuoteSubdetailsComponent {
 
   sendEmailQuotation(client: any) {
     const invoiceElement = document.getElementById('policyquote');
-
+    console.log('invocie element', invoiceElement)
     if (invoiceElement) {
       // Get the full HTML document including the <head> and <body> to retain styles
       const fullHtml = `
@@ -139,8 +140,10 @@ ${invoiceElement.outerHTML}
 
 </html>`;
 
+console.log('Sending email', client)
+
       this.dataService.httpClient
-        .post('emailquote', { invoiceHtml: fullHtml, client: client })
+        .post('https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/emailquote', { invoiceHtml: fullHtml, client: client })
         .subscribe(
           (response) => {
             console.log('PDF generation and email were successful');
