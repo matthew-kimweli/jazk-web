@@ -10,6 +10,7 @@
       <div class="card card-md">
         <div class="card-body row">
           <div class="col-lg-4">
+            <label class="form-label fw-bolder text-center text-decoration-underline mb-5">Premium Calculation</label>
             <div class="mb-3">
               <label class="form-label">Motor Class</label>
               <select
@@ -82,11 +83,12 @@
             </div>
           </div>
           <div class="col-lg-4">
+            <label class="form-label fw-bolder text-center text-decoration-underline mb-5">Additional Benefits</label>
             <div class="mb-3">
-              <label class="form-label"
+              <label class="form-label text-center"
                 >Do you want Political violence & Terrorism benefit?</label
               >
-              <div class="my-0">
+              <div class="my-0 mt-3 text-center">
                 <label class="form-check form-check-inline">
                   <input
                     class="form-check-input"
@@ -115,10 +117,10 @@
               </div>
             </div>
             <div class="mb-3" *ngIf="sumInsured <= 1500000 && this.motorClass == 'private' || makeModel == 'MotorCommercialGeneralCartage'">
-              <label class="form-label"
+              <label class="form-label text-center"
                 >Do you want Own Damage Excess Protector benefit?</label
               >
-              <div class="my-0">
+              <div class="my-0 mt-3 text-center">
                 <label class="form-check form-check-inline">
                   <input
                     class="form-check-input"
@@ -146,70 +148,11 @@
                 </label>
               </div>
             </div>
-            <div class="mb-2" *ngIf="sumInsured != undefined && motorClass == 'private'">
-              <label class="form-label"
-                >Desired Windscreen coverage amount?</label
-              >
-              <input
-                class="form-control"
-                [(ngModel)]="windscreen"
-                name="windscreen"
-                id="windscreen"
-                placeholder="Windscreen coverage amount"
-                [formControl]="windscreenControl"
-                [imask]="mask"
-                unmask="typed"
-              />
-              <small class="form-hint"
-                >Free Benefit limit for Windscreen coverage is Kshs.
-                {{ (sumInsured <= 2500000 ? 50000  : 100000) | number }}.</small
-              >
-            </div>
-            <div class="mb-3" *ngIf="sumInsured != undefined && motorClass == 'private'">
-              <label class="form-label"
-                >Desired Radio Cassette coverage amount?</label
-              >
-              <input
-                class="form-control"
-                [(ngModel)]="radioCassette"
-                name="radioCassette"
-                id="radioCassette"
-                placeholder="Radio Cassette coverage amount"
-                [formControl]="radioControl"
-                [imask]="mask"
-                unmask="typed"
-              />
-              <small class="form-hint"
-                >Free Benefit limit for a Radio Cassette is Kshs. {{ (sumInsured <= 2500000 ? 50000 : 100000) | number }}.</small
-              >
-            </div>
-          </div>
-          <div class="col-lg-4">
             <div class="mb-3" *ngIf="motorClass == 'private'">
-              <label class="form-label"
-                >Do you want Courtesy Car benefit?</label
-              >
-              <select
-                title="select"
-                [(ngModel)]="courtesyCar"
-                name="courtesyCar"
-                id="courtesyCar"
-                class="form-select"
-              >
-                <option value="" disabled>Loss of Use Benefit</option>
-                <option
-                  *ngFor="let item of filteredBenefits"
-                  [value]="item.benefit"
-                >
-                  {{ item.time }}
-                </option>
-              </select>
-            </div>
-            <div class="mb-3" *ngIf="motorClass == 'private'">
-              <label class="form-label"
+              <label class="form-label text-center"
                 >Do you want AA Road Rescue benefit?</label
               >
-              <div class="my-3">
+              <div class="my-3 text-center">
                 <label class="form-check form-check-inline">
                   <input
                     class="form-check-input"
@@ -237,8 +180,28 @@
                 </label>
               </div>
             </div>
+            <div class="mb-3" *ngIf="motorClass == 'private'">
+              <label class="form-label text-center"
+                >Do you want Courtesy Car benefit?</label
+              >
+              <select
+                title="select"
+                [(ngModel)]="courtesyCar"
+                name="courtesyCar"
+                id="courtesyCar"
+                class="form-select"
+              >
+                <option value="" disabled class="text-center">Loss of Use Benefit</option>
+                <option
+                  *ngFor="let item of filteredBenefits"
+                  [value]="item.benefit"
+                >
+                  {{ item.time }}
+                </option>
+              </select>
+            </div>
             <div class="mb-3" *ngIf="motorClass == 'commercial'">
-              <label class="form-label"
+              <label class="form-label text-center"
                 >Passenger Legal Liability Coverage</label
               >
               <select
@@ -248,7 +211,7 @@
                 id="passengerLegalLiability"
                 class="form-select"
               >
-                <option value="" disabled>Number of Passengers</option>
+                <option value="" disabled class="text-center">Number of Passengers</option>
                 <option
                   *ngFor="let item of motorService.passengerLegalLiabiltyObject"
                   [value]="item.benefit"
@@ -257,6 +220,47 @@
                 </option>
               </select>
             </div>
+            <div class="mb-3" *ngIf="sumInsured != undefined && motorClass == 'private'">
+              <label class="form-label text-center"
+                >Desired Windscreen coverage amount?</label
+              >
+              <input
+                class="form-control text-center"
+                [(ngModel)]="windscreen"
+                name="windscreen"
+                id="windscreen"
+                placeholder="Windscreen coverage amount"
+                [formControl]="windscreenControl"
+                [imask]="mask"
+                unmask="typed"
+              />
+              <small class="form-hint text-center"
+                >Free Benefit limit for Windscreen coverage is Kshs.
+                {{ (sumInsured <= 2500000 ? 50000  : 100000) | number }}.</small
+              >
+            </div>
+            <div class="mb-3" *ngIf="sumInsured != undefined && motorClass == 'private'">
+              <label class="form-label text-center"
+                >Desired Radio Cassette coverage amount?</label
+              >
+              <input
+                class="form-control text-center"
+                [(ngModel)]="radioCassette"
+                name="radioCassette"
+                id="radioCassette"
+                placeholder="Radio Cassette coverage amount"
+                [formControl]="radioControl"
+                [imask]="mask"
+                unmask="typed"
+              />
+              <small class="form-hint text-center"
+                >Free Benefit limit for a Radio Cassette is Kshs. {{ (sumInsured <= 2500000 ? 50000 : 100000) | number }}.</small
+              >
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <label class="form-label fw-bolder text-center text-decoration-underline mb-5">Calculated Premium</label>
+            <p class="fw-bold text-center d-flex align-items-center justify-content-center">Kshs. {{ displayedGrossPremium == 0 ? (displayedBasicPremium | number) : (displayedGrossPremium | number) }}</p>
           </div>
         </div>
       </div>

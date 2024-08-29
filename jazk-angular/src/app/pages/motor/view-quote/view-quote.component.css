@@ -15,4 +15,13 @@
   p, ul {
     margin-bottom: 10px;
   }
+
+  .custom-bg {
+    background-color: #003781;
+    color: white;
+  }
+
+  .custom-bg-grey {
+    background-color: #f3f5f7; /* A grey shade between light and secondary */
+  }
   

@@ -353,13 +353,15 @@ export class MotorService {
     this.motorQuotation.netPremium = this.motorQuotation.basicPremium;
 
     for (const key in this.motorQuotation) {
-      if (key.endsWith('Benefit') && key !== 'aaRoadRescueBenefit') {
+      if (key.endsWith('Benefit') && key !== 'aaRoadRescueBenefit' && !key.endsWith('ExtraBenefit')) {
         let benefitValue = this.motorQuotation[key];
 
         // Check if the key is 'excessProtectorBenefit' and its value is 'Inclusive'
         if (key === 'excessProtectorBenefit' && benefitValue === 'Inclusive') {
           benefitValue = 0;
         }
+
+        console.log(key + ' -> ' + benefitValue + ' : ' + typeof benefitValue)
 
         // Add the benefit value to netPremium
         this.motorQuotation.netPremium += benefitValue || 0;
