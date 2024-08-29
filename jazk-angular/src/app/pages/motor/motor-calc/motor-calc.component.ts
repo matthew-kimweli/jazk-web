@@ -83,7 +83,6 @@ export class MotorCalcComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('CHECK 1', this.excessProtector)
     this.control = new FormControl<number>(this.sumInsured);
     this.windscreenControl = new FormControl<number>(this.windscreen);
     this.radioControl = new FormControl<number>(this.radioCassette);
@@ -126,21 +125,15 @@ export class MotorCalcComponent implements OnInit {
   }
 
   onVehicleValueChange(event: any) {
-    console.log('CHECK 2', this.excessProtector)
     let value = this.sumInsured//event.target.value;
-    this.sumInsured = value;
     this.filterBenefits();
-    console.log('Value Check', value)
     if ((value > 1500000 && this.motorClass == 'private') || this.makeModel == 'MotorCommercialOwnGoods') {
       this.excessProtectorBenefit = 'Inclusive';
-      console.log('Yes')
     } else if (typeof this.excessProtectorBenefit == 'number') {
       this.excessProtector = '';
       this.excessProtectorBenefit = 'Inclusive';
-      console.log('CHECK 3', this.excessProtector)
     } else {
       this.excessProtector = '';
-      console.log('CHECK 4', this.excessProtector)
     }
     if (this.motorClass && this.makeModel && this.yearOfManufacture && this.sumInsured) {
       this.calculate()
