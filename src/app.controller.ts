@@ -1,15 +1,48 @@
-import { Controller, Get, Req } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, Post, Req, Res } from "@nestjs/common";
+import { AppService } from "./app.service";
+const puppeteer = require("puppeteer");
+const fs = require("fs");
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) { }
+  constructor(private readonly appService: AppService) {}
 
-  @Get('health')
+  @Get("health")
   getHealth(@Req() req): any {
     const originHost = req.headers.host;
 
-    return 'health'
+    return "health";
+  }
 
+  @Post("emailquote")
+  async sendQuotation(@Req() req, @Res() res): Promise<any> {
+    const body = req.body;
+    let invoiceHtml = body.invoiceHtml;
+    let client = body.client;
+
+    try {
+      // Launch Puppeteer
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+
+      // Set HTML content
+      await page.setContent(invoiceHtml);
+
+      // Generate PDF
+      const pdfBuffer = await page.pdf({ format: "A4" });
+
+      await browser.close();
+
+      // Save the PDF to the filesystem (optional)
+      // fs.writeFileSync("quote.pdf", pdfBuffer);
+
+      // Send the PDF as an email attachment
+      await this.appService.sendEmailWithAttachment(pdfBuffer, client);
+
+      res.status(200).send("Invoice PDF generated and emailed successfully");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Error generating PDF");
+    }
   }
 }

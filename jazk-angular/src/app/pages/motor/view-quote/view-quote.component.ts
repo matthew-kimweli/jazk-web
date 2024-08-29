@@ -147,5 +147,8 @@ export class ViewQuoteComponent implements OnInit {
     return this.clientForm!.get('registrationNumber')!;
   }
 
+
+  
+
   
 }
