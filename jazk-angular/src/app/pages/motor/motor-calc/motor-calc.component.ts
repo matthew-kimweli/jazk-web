@@ -173,23 +173,23 @@ export class MotorCalcComponent implements OnInit {
       this.aaRoadRescueBenefit = this.motorService.getAAR(this.aaRoadRescue);
     }
 
-    this.motorService.motorQuotation.basicPremium = basicPremium;
-    this.motorService.motorQuotation.pvtBenefit = this.pvtBenefit;
-    this.motorService.motorQuotation.pvtInterest = this.pvt;
-    this.motorService.motorQuotation.excessProtectorBenefit = this.excessProtectorBenefit;
-    this.motorService.motorQuotation.excessProtectorInterest = this.excessProtector;
-    this.motorService.motorQuotation.courtesyCarBenefit = this.courtesyCar.length == 0 ? 0 : Number(this.courtesyCar);
-    this.motorService.motorQuotation.courtesyCarInterest = this.courtesyCar.length == 0 ? '' : this.motorService.getTimeForBenefit(Number(this.courtesyCar))
-    this.motorService.motorQuotation.aaRoadRescueBenefit = this.aaRoadRescueBenefit;
-    this.motorService.motorQuotation.aaRoadRescueInterest = this.aaRoadRescue;
-    this.motorService.motorQuotation.windScreenBenefit = this.motorService.getWindOrRadio(this.windscreen, this.sumInsured);
-    this.motorService.motorQuotation.windScreenExtraBenefit = this.sumInsured >= 2500000 ? (this.windscreen > 100000 ? (this.windscreen - 100000) : 0) : (this.windscreen > 50000 ? (this.windscreen - 50000) : 0);
-    this.motorService.motorQuotation.radioCassetteBenefit = this.motorService.getWindOrRadio(this.radioCassette, this.sumInsured);
-    this.motorService.motorQuotation.radioCassetteExtraBenefit = this.sumInsured >= 2500000 ? (this.radioCassette > 100000 ? (this.radioCassette - 100000) : 0) : (this.radioCassette > 50000 ? (this.radioCassette - 50000) : 0);
-    this.motorService.motorQuotation.passengerLegalLiabilityBenefit = this.passengerLegalLiability;
-    this.motorService.motorQuotation.noOfPassengers = this.motorService.getPassengerNo(Number(this.passengerLegalLiability));
+    // this.motorService.motorQuotation.basicPremium = basicPremium;
+    // this.motorService.motorQuotation.pvtBenefit = this.pvtBenefit;
+    // this.motorService.motorQuotation.pvtInterest = this.pvt;
+    // this.motorService.motorQuotation.excessProtectorBenefit = this.excessProtectorBenefit;
+    // this.motorService.motorQuotation.excessProtectorInterest = this.excessProtector;
+    // this.motorService.motorQuotation.courtesyCarBenefit = this.courtesyCar.length == 0 ? 0 : Number(this.courtesyCar);
+    // this.motorService.motorQuotation.courtesyCarInterest = this.courtesyCar.length == 0 ? '' : this.motorService.getTimeForBenefit(Number(this.courtesyCar))
+    // this.motorService.motorQuotation.aaRoadRescueBenefit = this.aaRoadRescueBenefit;
+    // this.motorService.motorQuotation.aaRoadRescueInterest = this.aaRoadRescue;
+    // this.motorService.motorQuotation.windScreenBenefit = this.motorService.getWindOrRadio(this.windscreen, this.sumInsured);
+    // this.motorService.motorQuotation.windScreenExtraBenefit = this.sumInsured >= 2500000 ? (this.windscreen > 100000 ? (this.windscreen - 100000) : 0) : (this.windscreen > 50000 ? (this.windscreen - 50000) : 0);
+    // this.motorService.motorQuotation.radioCassetteBenefit = this.motorService.getWindOrRadio(this.radioCassette, this.sumInsured);
+    // this.motorService.motorQuotation.radioCassetteExtraBenefit = this.sumInsured >= 2500000 ? (this.radioCassette > 100000 ? (this.radioCassette - 100000) : 0) : (this.radioCassette > 50000 ? (this.radioCassette - 50000) : 0);
+    // this.motorService.motorQuotation.passengerLegalLiabilityBenefit = this.passengerLegalLiability;
+    // this.motorService.motorQuotation.noOfPassengers = this.motorService.getPassengerNo(Number(this.passengerLegalLiability));
     
-    this.motorService.calculatePremiums();
+    // this.motorService.calculatePremiums();
   }
 
   async submit() {
@@ -248,7 +248,7 @@ export class MotorCalcComponent implements OnInit {
     this.motorService.motorQuotation.windScreenExtraBenefit = this.sumInsured >= 2500000 ? (this.windscreen > 100000 ? (this.windscreen - 100000) : 0) : (this.windscreen > 50000 ? (this.windscreen - 50000) : 0);
     this.motorService.motorQuotation.radioCassetteBenefit = this.motorService.getWindOrRadio(this.radioCassette, this.sumInsured);
     this.motorService.motorQuotation.radioCassetteExtraBenefit = this.sumInsured >= 2500000 ? (this.radioCassette > 100000 ? (this.radioCassette - 100000) : 0) : (this.radioCassette > 50000 ? (this.radioCassette - 50000) : 0);
-    this.motorService.motorQuotation.passengerLegalLiabilityBenefit = this.passengerLegalLiability;
+    this.motorService.motorQuotation.passengerLegalLiabilityBenefit = Number(this.passengerLegalLiability);
     this.motorService.motorQuotation.noOfPassengers = this.motorService.getPassengerNo(Number(this.passengerLegalLiability));
     
     this.motorService.calculatePremiums();

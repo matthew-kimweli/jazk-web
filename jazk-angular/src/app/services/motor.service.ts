@@ -361,6 +361,8 @@ export class MotorService {
           benefitValue = 0;
         }
 
+        console.log(key + ' -> ' + benefitValue + ' : ' + typeof benefitValue)
+
         // Add the benefit value to netPremium
         this.motorQuotation.netPremium += benefitValue || 0;
       }
