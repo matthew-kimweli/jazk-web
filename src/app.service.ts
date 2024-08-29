@@ -34,6 +34,13 @@ export class AppService {
     };
 
     // Send email
-    await transporter.sendMail(mailOptions);
+    try {
+        console.log('sending email')
+        let sent = await transporter.sendMail(mailOptions);
+        console.log('sent email', sent)
+        return sent
+    } catch (error) {
+        console.error(error)
+    }
 }
 }

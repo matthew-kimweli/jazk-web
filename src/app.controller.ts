@@ -19,19 +19,24 @@ export class AppController {
     const body = req.body;
     let invoiceHtml = body.invoiceHtml;
     let client = body.client;
+    console.log('emailing quote')
 
     try {
       // Launch Puppeteer
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
+      console.log('emailing 1')
 
       // Set HTML content
       await page.setContent(invoiceHtml);
+      console.log('emailing 2')
 
       // Generate PDF
       const pdfBuffer = await page.pdf({ format: "A4" });
+      console.log('emailing 3')
 
       await browser.close();
+      console.log('emailing 4')
 
       // Save the PDF to the filesystem (optional)
       // fs.writeFileSync("quote.pdf", pdfBuffer);
