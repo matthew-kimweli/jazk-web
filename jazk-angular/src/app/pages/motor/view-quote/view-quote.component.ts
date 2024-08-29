@@ -54,6 +54,7 @@ export class ViewQuoteComponent implements OnInit {
   emailQuoteDetails: any = {};
   actionType: any;
   clientForm!: FormGroup;
+  quote: any;
 
   constructor(
     private router: Router,
@@ -89,6 +90,7 @@ export class ViewQuoteComponent implements OnInit {
       console.log('quote', quote);
       if(quote){
         this.motorService.motorQuotation = quote.get('quoteData')
+        this.quote = quote.attributes
       }
       this.parseService.fetching = false;
     } catch (error) {
