@@ -362,7 +362,7 @@ export class MotorService {
         }
 
         // Add the benefit value to netPremium
-        this.motorQuotation.netPremium += benefitValue;
+        this.motorQuotation.netPremium += benefitValue || 0;
       }
     }
 

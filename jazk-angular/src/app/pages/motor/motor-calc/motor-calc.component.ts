@@ -125,7 +125,7 @@ export class MotorCalcComponent implements OnInit {
 
   onVehicleValueChange(event: any) {
     console.log('CHECK 2', this.excessProtector)
-    let value = event.target.value;
+    let value = this.sumInsured//event.target.value;
     this.sumInsured = value;
     this.filterBenefits();
     console.log('Value Check', value)
