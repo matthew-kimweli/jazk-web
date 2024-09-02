@@ -64,7 +64,7 @@
                     </p>
                     <p class="row px-1" *ngIf="motorService.motorQuotation.excessProtectorBenefit != 0">
                       <span class="m-0 p-0 col-md-7 col-sm-6 col-6"><strong>Own Damage Excess Protector:</strong></span>
-                      <span class="m-0 p-0 col-md-5 col-sm-6 col-6 fw-bold">Kshs.{{ motorService.motorQuotation.excessProtectorBenefit| number }}</span>
+                      <span class="m-0 p-0 col-md-5 col-sm-6 col-6 fw-bold">{{ motorService.motorQuotation.excessProtectorBenefit == 'Inclusive' ? (motorService.motorQuotation.excessProtectorBenefit | titlecase) : 'Kshs.'+(motorService.motorQuotation.excessProtectorBenefit | number) }}</span>
                     </p>
                     <p class="row px-1" *ngIf="motorService.motorQuotation.passengerLegalLiabilityBenefit != 0">
                       <span class="m-0 p-0 col-md-7 col-sm-6 col-6"><strong>Passenger Legal Liability:</strong></span>
