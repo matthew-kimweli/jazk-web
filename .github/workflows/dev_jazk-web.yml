@@ -24,7 +24,7 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install
-          npm install puppeteer
+          npx puppeteer browsers install chrome
           npm install -g @angular/cli
           npm run build-and-start --if-present
           npm run test --if-present
