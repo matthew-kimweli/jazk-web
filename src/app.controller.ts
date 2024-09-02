@@ -23,7 +23,10 @@ export class AppController {
 
     try {
       // Launch Puppeteer
-      const browser = await puppeteer.launch();
+      const browser = await puppeteer.launch({
+        executablePath: '/home/runner/.cache/puppeteer/chrome/linux-128.0.6613.86/chrome-linux64/chrome',
+        headless: true, // change to true if you want headless mode
+      });
       const page = await browser.newPage();
       console.log('emailing 1')
 
