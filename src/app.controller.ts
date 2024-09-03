@@ -24,8 +24,9 @@ export class AppController {
     try {
       // Launch Puppeteer
       const browser = await puppeteer.launch({
-        executablePath: '/home/runner/.cache/puppeteer/chrome/linux-128.0.6613.86/chrome-linux64/chrome',
-        headless: true, // change to true if you want headless mode
+        headless: true,
+        executablePath: '/usr/bin/google-chrome', // Path to Chrome binary
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
       });
       const page = await browser.newPage();
       console.log('emailing 1')
