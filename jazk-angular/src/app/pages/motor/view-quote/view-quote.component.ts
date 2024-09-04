@@ -50,7 +50,7 @@ export class ViewQuoteComponent implements OnInit {
       lossOfUse: 2000,
     },
   };
- 
+
   emailQuoteDetails: any = {};
   actionType: any;
   clientForm!: FormGroup;
@@ -88,9 +88,9 @@ export class ViewQuoteComponent implements OnInit {
       let query = new Parse.Query('JazkeQuotation');
       let quote = await query.get(id);
       console.log('quote', quote);
-      if(quote){
-        this.motorService.motorQuotation = quote.get('quoteData')
-        this.quote = quote.attributes
+      if (quote) {
+        this.motorService.motorQuotation = quote.get('quoteData');
+        this.quote = quote.attributes;
       }
       this.parseService.fetching = false;
     } catch (error) {
@@ -107,7 +107,7 @@ export class ViewQuoteComponent implements OnInit {
     console.log(this.clientForm.value);
 
     if (this.clientForm.valid) {
-      let quoteDB:any = this.motorService.motorQuotation.quoteDB;
+      let quoteDB: any = this.motorService.motorQuotation.quoteDB;
       quoteDB.set('actionType', this.actionType);
       quoteDB.set('client', this.clientForm.value);
       this.toastr.success('Please wait', 'Submitting...');
@@ -121,7 +121,7 @@ export class ViewQuoteComponent implements OnInit {
         } else {
           this.toastr.success('Downloaded');
         }
-        this.router.navigate(['/motor-view-quote', saved.id])
+        this.router.navigate(['/motor-view-quote', saved.id]);
       } else {
         this.toastr.error('Unable to Submit', 'Please try again');
       }
@@ -148,9 +148,4 @@ export class ViewQuoteComponent implements OnInit {
   get registrationNumber() {
     return this.clientForm!.get('registrationNumber')!;
   }
-
-
-  
-
-  
 }
