@@ -4,7 +4,8 @@ import { Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from '../../_components/header/header.component';
 import { FooterComponent } from '../../_components/footer/footer.component';
 import { MotorService } from '../../../services/motor.service';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule, FormBuilder,
+  FormGroup, Validators } from '@angular/forms';
 import { IMaskModule } from 'angular-imask';
 import vehicleData from '../../../_helpers/vehicleMake.json';
 import { v4 as uuidv4 } from 'uuid';
@@ -88,13 +89,25 @@ export class MotorCalcComponent implements OnInit {
   selectedVehicleMake: any;
   motorId: any;
 
+  emailQuoteDetails: any = {};
+  actionType: any;
+  clientForm!: FormGroup;
+
   constructor(
     public motorService: MotorService,
     public auth: AuthService,
     private router: Router,
+    private fb: FormBuilder,
     public parseService: ParseService,
     private toastr: ToastrService
-  ) {}
+  ) {
+    this.clientForm = this.fb.group({
+      name: ['', Validators.required],
+      phone: ['', Validators.required],
+      email: ['', Validators.required],
+      registrationNumber: ['', Validators.required],
+    });
+  }
 
   ngOnInit() {
     this.motorService.motorQuotation.motorId = uuidv4()
@@ -169,9 +182,6 @@ export class MotorCalcComponent implements OnInit {
     }
   }
 
-  getQuote() {
-    this.router.navigate(['motor-quote']);
-  }
 
   calculate() {
 
@@ -271,8 +281,6 @@ export class MotorCalcComponent implements OnInit {
     quote.set('quoteData', {...this.motorService.motorQuotation})
 
     this.motorService.motorQuotation.quoteDB = quote
-    this.getQuote();
-
     // let res = await this.parseService.saveSilent(
     //   quote,
     //   this.motorService.motorQuotation
@@ -295,5 +303,58 @@ export class MotorCalcComponent implements OnInit {
         'The provided phone number will be contacted shortly'
       );
     }
+  }
+
+  purchase() {
+    this.submit()
+    this.router.navigate(['motor-kyc']);
+  }
+
+  async onSubmitEmailDownload() {
+    this.submit()
+    console.log(this.clientForm.value);
+
+    if (this.clientForm.valid) {
+      let quoteDB = this.motorService.motorQuotation.quoteDB;
+      quoteDB.set('actionType', this.actionType);
+      quoteDB.set('client', this.clientForm.value);
+      this.toastr.success('Please wait', 'Submitting...');
+      let saved = await this.parseService.saveSilent(quoteDB);
+      if (saved) {
+        if (this.actionType == 'Email') {
+          this.toastr.success(
+            'Submitted',
+            `Quotation has been sent to the client's email`
+          );
+        } else {
+          this.toastr.success('Downloaded');
+        }
+        this.router.navigate(['/motor-view-quote', saved.id])
+      } else {
+        this.toastr.error('Unable to Submit', 'Please try again');
+      }
+    }
+  }
+  downloadQuote() {
+    this.submit()
+    this.router.navigate(['motor-view-quote']);
+  }
+  emailQuote() {}
+
+  goBack() {
+    history.back();
+  }
+
+  get clientName() {
+    return this.clientForm!.get('name')!;
+  }
+  get clientPhone() {
+    return this.clientForm!.get('phone')!;
+  }
+  get clientEmail() {
+    return this.clientForm!.get('email')!;
+  }
+  get registrationNumber() {
+    return this.clientForm!.get('registrationNumber')!;
   }
 }
