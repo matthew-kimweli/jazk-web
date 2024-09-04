@@ -100,9 +100,12 @@ export class MotorService {
   ]
 
   motorQuotation: any = {
+    motorId: '',
     motorClass: '',
     motorSubclass: '',
     makeModel: '',
+    vehicleMake: '',
+    vehicleModel: '',
     numberPlate: '',
     referToHQ: 'No',
     yearOfManufacture: 0,

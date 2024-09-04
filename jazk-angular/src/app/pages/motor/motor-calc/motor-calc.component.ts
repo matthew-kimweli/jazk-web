@@ -6,6 +6,8 @@ import { FooterComponent } from '../../_components/footer/footer.component';
 import { MotorService } from '../../../services/motor.service';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IMaskModule } from 'angular-imask';
+import vehicleData from '../../../_helpers/vehicleMake.json';
+import { v4 as uuidv4 } from 'uuid';
 import { AuthService } from '../../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ParseService } from '../../../services/parse.service';
@@ -74,6 +76,18 @@ export class MotorCalcComponent implements OnInit {
   manualClientData: any = {};
   filteredBenefits: any[] = [];
 
+  vehicleMakes: any = Object.keys(vehicleData);
+  vehicleModels: any = vehicleData;
+
+  vehicleMake: any = '';
+  modelOfVehicle: any = '';
+  vehicleModel: any = '';
+
+  vehicleMakeNotSelected = true;
+  selectedVehicle: any;
+  selectedVehicleMake: any;
+  motorId: any;
+
   constructor(
     public motorService: MotorService,
     public auth: AuthService,
@@ -83,6 +97,8 @@ export class MotorCalcComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.motorService.motorQuotation.motorId = uuidv4()
+    this.motorService.motorQuotation.vehicleDisabled = true;
     this.control = new FormControl<number>(this.sumInsured);
     this.windscreenControl = new FormControl<number>(this.windscreen);
     this.radioControl = new FormControl<number>(this.radioCassette);
@@ -94,6 +110,17 @@ export class MotorCalcComponent implements OnInit {
       this.filteredBenefits = this.motorService.lossOfUseBenefit.filter((item: any) => item.motorSubclass === 'Premier Auto');
     } else {
       this.filteredBenefits = this.motorService.lossOfUseBenefit.filter((item: any) => item.motorSubclass === 'Standard Auto');
+    }
+  }
+
+  onVehicleMakeChanged(event: any, id: any) {
+    if (event.target.value) {
+      this.selectedVehicleMake = id;
+      //@ts-ignore
+      if (this.motorService.motorQuotation.motorId === id) {
+        this.motorService.motorQuotation.vehicleDisabled = false;
+      }
+      // this.vehicleMakeNotSelected = false;
     }
   }
 
@@ -134,6 +161,7 @@ export class MotorCalcComponent implements OnInit {
       this.excessProtectorBenefit = 'Inclusive';
     } else {
       this.excessProtector = '';
+      this.excessProtectorBenefit = 0;
     }
     if (this.motorClass && this.makeModel && this.yearOfManufacture && this.sumInsured) {
       this.calculate()
@@ -147,54 +175,12 @@ export class MotorCalcComponent implements OnInit {
 
   calculate() {
 
-    const basicPremium = this.motorService.calculatePremium(
-      this.motorClass,
-      this.makeModel,
-      this.yearOfManufacture,
-      this.sumInsured
-    );
+    console.log('Excess ->', this.motorService.motorQuotation.excessProtectorBenefit)
 
-    console.log('calculated basic', basicPremium)
-
-    this.displayedBasicPremium = basicPremium
-
-    this.pvtBenefit = this.motorService.getPVT(this.pvt, this.sumInsured, this.motorClass);
-
-    if (this.excessProtector.length != 0) {
-      this.excessProtectorBenefit = this.motorService.getExcessProtector(
-        this.excessProtector,
-        this.sumInsured,
-        this.motorClass,
-        this.makeModel
-      );
-    }
-
-    if (this.aaRoadRescue.length != 0) {
-      this.aaRoadRescueBenefit = this.motorService.getAAR(this.aaRoadRescue);
-    }
-
-    // this.motorService.motorQuotation.basicPremium = basicPremium;
-    // this.motorService.motorQuotation.pvtBenefit = this.pvtBenefit;
-    // this.motorService.motorQuotation.pvtInterest = this.pvt;
-    // this.motorService.motorQuotation.excessProtectorBenefit = this.excessProtectorBenefit;
-    // this.motorService.motorQuotation.excessProtectorInterest = this.excessProtector;
-    // this.motorService.motorQuotation.courtesyCarBenefit = this.courtesyCar.length == 0 ? 0 : Number(this.courtesyCar);
-    // this.motorService.motorQuotation.courtesyCarInterest = this.courtesyCar.length == 0 ? '' : this.motorService.getTimeForBenefit(Number(this.courtesyCar))
-    // this.motorService.motorQuotation.aaRoadRescueBenefit = this.aaRoadRescueBenefit;
-    // this.motorService.motorQuotation.aaRoadRescueInterest = this.aaRoadRescue;
-    // this.motorService.motorQuotation.windScreenBenefit = this.motorService.getWindOrRadio(this.windscreen, this.sumInsured);
-    // this.motorService.motorQuotation.windScreenExtraBenefit = this.sumInsured >= 2500000 ? (this.windscreen > 100000 ? (this.windscreen - 100000) : 0) : (this.windscreen > 50000 ? (this.windscreen - 50000) : 0);
-    // this.motorService.motorQuotation.radioCassetteBenefit = this.motorService.getWindOrRadio(this.radioCassette, this.sumInsured);
-    // this.motorService.motorQuotation.radioCassetteExtraBenefit = this.sumInsured >= 2500000 ? (this.radioCassette > 100000 ? (this.radioCassette - 100000) : 0) : (this.radioCassette > 50000 ? (this.radioCassette - 50000) : 0);
-    // this.motorService.motorQuotation.passengerLegalLiabilityBenefit = this.passengerLegalLiability;
-    // this.motorService.motorQuotation.noOfPassengers = this.motorService.getPassengerNo(Number(this.passengerLegalLiability));
-    
-    // this.motorService.calculatePremiums();
-  }
-
-  async submit() {
     this.motorService.motorQuotation.motorClass = this.motorClass;
     this.motorService.motorQuotation.makeModel = this.makeModel;
+    this.motorService.motorQuotation.vehicleMake = this.vehicleMake;
+    this.motorService.motorQuotation.vehicleModel = this.vehicleModel;
     this.motorService.motorQuotation.numberPlate = this.numberPlate;
     this.motorService.motorQuotation.yearOfManufacture = this.yearOfManufacture;
     this.motorService.motorQuotation.sumInsured = this.sumInsured;
@@ -208,6 +194,13 @@ export class MotorCalcComponent implements OnInit {
 
     if (this.motorClass == 'private') {
       if (this.makeModel == 'Rare & Unique Models') {
+        document.getElementById('manualUnderwritingModalButton')?.click();
+        return;
+      }
+    }
+
+    if (this.motorClass == 'commercial') {
+      if (this.makeModel == 'Tankers') {
         document.getElementById('manualUnderwritingModalButton')?.click();
         return;
       }
@@ -252,6 +245,9 @@ export class MotorCalcComponent implements OnInit {
     this.motorService.motorQuotation.noOfPassengers = this.motorService.getPassengerNo(Number(this.passengerLegalLiability));
     
     this.motorService.calculatePremiums();
+  }
+
+  async submit() {
 
     console.log('Result: ', this.motorService.motorQuotation);
 

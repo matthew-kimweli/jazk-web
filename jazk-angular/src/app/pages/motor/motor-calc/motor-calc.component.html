@@ -48,6 +48,42 @@
                 </option>
               </select>
             </div>
+            <!-- <div class="mb-3">
+              <label class="form-label">Vehicle Make</label>
+              <select
+                title="select"
+                [(ngModel)]="vehicleMake"
+                [disabled]="!motorClass"
+                name="vehicleMake"
+                id="vehicleMake"
+                (change)="onVehicleMakeChanged($event, motorService.motorQuotation.motorId)"
+                class="form-select"
+              >
+                <option value="" disabled>Select the Make of the Vehicle</option>
+                <option *ngFor="let item of vehicleMakes" [value]="item">
+                  {{ item }}
+                </option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Vehicle Model</label>
+              <select
+                title="select"
+                [disabled]="motorService.motorQuotation.vehicleDisabled"
+                [(ngModel)]="vehicleModel"
+                name="vehicleModel"
+                id="vehiclemodel"
+                class="form-select"
+              >
+                <option value="" disabled>Select the Model of the Vehicle</option>
+                <option
+                  *ngFor="let item of vehicleModels[vehicleMake]"
+                  [value]="item"
+                >
+                  {{ item }}
+                </option>
+              </select>
+            </div> -->
             <div class="mb-3">
               <label class="form-label">Year of Manufacture</label>
               <select
@@ -69,7 +105,7 @@
               <input
                 class="form-control"
                 [(ngModel)]="sumInsured"
-                (change) = "onVehicleValueChange($event)"
+                (change) ="onVehicleValueChange($event)"
                 name="sumInsured"
                 id="sumInsured"
                 placeholder="Sum Insured"
@@ -82,7 +118,7 @@
               >
             </div>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-4" *ngIf="makeModel != 'PSVTours' && makeModel != 'Tankers' && makeModel != 'Rare & Unique Models'">
             <label class="form-label fw-bolder text-center text-decoration-underline mb-5">Additional Benefits</label>
             <div class="mb-3">
               <label class="form-label text-center"
@@ -93,6 +129,7 @@
                   <input
                     class="form-check-input"
                     [(ngModel)]="pvt"
+                    (change)="calculate()"
                     name="pvt"
                     id="pvt1"
                     type="radio"
@@ -107,6 +144,7 @@
                     class="form-check-input"
                     value="no"
                     [(ngModel)]="pvt"
+                    (change)="calculate()"
                     name="pvt"
                     id="pvt2"
                     type="radio"
@@ -125,6 +163,7 @@
                   <input
                     class="form-check-input"
                     [(ngModel)]="excessProtector"
+                    (change)="calculate()"
                     name="excessProtector"
                     id="excessProtector1"
                     type="radio"
@@ -139,6 +178,7 @@
                     class="form-check-input"
                     value="no"
                     [(ngModel)]="excessProtector"
+                    (change)="calculate()"
                     name="excessProtector"
                     id="excessProtector2"
                     type="radio"
@@ -150,13 +190,14 @@
             </div>
             <div class="mb-3" *ngIf="motorClass == 'private'">
               <label class="form-label text-center"
-                >Do you want AA Road Rescue benefit?</label
+                >Do you want Road Rescue benefit?</label
               >
               <div class="my-3 text-center">
                 <label class="form-check form-check-inline">
                   <input
                     class="form-check-input"
                     [(ngModel)]="aaRoadRescue"
+                    (change)="calculate()"
                     name="aaRoadRescue"
                     id="aaRoadRescue1"
                     type="radio"
@@ -171,6 +212,7 @@
                     class="form-check-input"
                     value="no"
                     [(ngModel)]="aaRoadRescue"
+                    (change)="calculate()"
                     name="aaRoadRescue"
                     id="aaRoadRescue2"
                     type="radio"
@@ -187,6 +229,7 @@
               <select
                 title="select"
                 [(ngModel)]="courtesyCar"
+                (change)="calculate()"
                 name="courtesyCar"
                 id="courtesyCar"
                 class="form-select"
@@ -207,6 +250,7 @@
               <select
                 title="select"
                 [(ngModel)]="passengerLegalLiability"
+                (change)="calculate()"
                 name="passengerLegalLiability"
                 id="passengerLegalLiability"
                 class="form-select"
@@ -222,11 +266,12 @@
             </div>
             <div class="mb-3" *ngIf="sumInsured != undefined && motorClass == 'private'">
               <label class="form-label text-center"
-                >Desired Windscreen coverage amount?</label
+                >Additional Windscreen coverage amount?</label
               >
               <input
                 class="form-control text-center"
                 [(ngModel)]="windscreen"
+                (change)="calculate()"
                 name="windscreen"
                 id="windscreen"
                 placeholder="Windscreen coverage amount"
@@ -241,11 +286,12 @@
             </div>
             <div class="mb-3" *ngIf="sumInsured != undefined && motorClass == 'private'">
               <label class="form-label text-center"
-                >Desired Radio Cassette coverage amount?</label
+                >Additional Radio Cassette coverage amount?</label
               >
               <input
                 class="form-control text-center"
                 [(ngModel)]="radioCassette"
+                (change)="calculate()"
                 name="radioCassette"
                 id="radioCassette"
                 placeholder="Radio Cassette coverage amount"
@@ -258,9 +304,61 @@
               >
             </div>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-4 text-left px-5" *ngIf="makeModel != 'PSVTours' && makeModel != 'Tankers' && makeModel != 'Rare & Unique Models'">
             <label class="form-label fw-bolder text-center text-decoration-underline mb-5">Calculated Premium</label>
-            <p class="fw-bold text-center d-flex align-items-center justify-content-center">Kshs. {{ displayedGrossPremium == 0 ? (displayedBasicPremium | number) : (displayedGrossPremium | number) }}</p>
+            <p class="row">
+              <span class="m-0 p-0 col-md-7 col-sm-6 col-6"><strong>Basic Premium:</strong></span>
+              <span class="m-0 p-0 col-md-5 col-sm-6 col-6 fw-bold custom-bg-grey">Kshs.{{ motorService.motorQuotation.basicPremium | number }}</span>
+            </p>
+            <p class="row" *ngIf="motorService.motorQuotation.pvtBenefit != 0">
+              <span class="m-0 p-0 col-md-7 col-sm-6 col-6"><strong>Political Violence Terrorism:</strong></span>
+              <span class="m-0 p-0 col-md-5 col-sm-6 col-6 fw-bold">Kshs.{{ motorService.motorQuotation.pvtBenefit | number }}</span>
+            </p>
+            <p class="row" *ngIf="motorService.motorQuotation.excessProtectorBenefit || motorService.motorQuotation.excessProtectorBenefit != 0">
+              <span class="m-0 p-0 col-md-7 col-sm-6 col-6"><strong>Own Damage Excess Protector:</strong></span>
+              <span class="m-0 p-0 col-md-5 col-sm-6 col-6 fw-bold">{{ motorService.motorQuotation.excessProtectorBenefit == 'Inclusive' ? (motorService.motorQuotation.excessProtectorBenefit | titlecase) : 'Kshs.'+(motorService.motorQuotation.excessProtectorBenefit | number) }}</span>
+            </p>
+            <p class="row" *ngIf="motorService.motorQuotation.passengerLegalLiabilityBenefit != 0">
+              <span class="m-0 p-0 col-md-7 col-sm-6 col-6"><strong>Passenger Legal Liability:</strong></span>
+              <span class="m-0 p-0 col-md-5 col-sm-6 col-6 fw-bold">Kshs.{{ motorService.motorQuotation.passengerLegalLiabilityBenefit | number }}</span>
+            </p>
+            <p class="row" *ngIf="motorService.motorQuotation.courtesyCarBenefit != 0">
+              <span class="m-0 p-0 col-md-7 col-sm-6 col-6"><strong>Loss of Use:</strong></span>
+              <span class="m-0 p-0 col-md-5 col-sm-6 col-6 fw-bold">Kshs.{{ motorService.motorQuotation.courtesyCarBenefit | number }}</span>
+            </p>
+            <p class="row" *ngIf="motorService.motorQuotation.windScreenBenefit != 0">
+              <span class="m-0 p-0 col-md-7 col-sm-6 col-6"><strong>Additional Wind screen limit (Above {{ motorService.motorQuotation.sumInsured <= 2500000 ? '50k'  : '100k' }}):</strong></span>
+              <span class="m-0 p-0 col-md-5 col-sm-6 col-6 fw-bold">Kshs.{{ motorService.motorQuotation.windScreenBenefit | number }}</span>
+            </p>
+            <p class="row" *ngIf="motorService.motorQuotation.radioCassetteBenefit != 0">
+              <span class="m-0 p-0 col-md-7 col-sm-6 col-6"><strong>Additional Radio Cassette limit (Above {{ motorService.motorQuotation.sumInsured <= 2500000 ? '50k'  : '100k' }}):</strong></span>
+              <span class="m-0 p-0 col-md-5 col-sm-6 col-6 fw-bold">Kshs.{{ motorService.motorQuotation.radioCassetteBenefit | number }}</span>
+            </p>
+            <label class="form-label fw-bolder text-center text-decoration-underline mb-5">Gross Premium</label>
+            <p class="row">
+              <span class="m-0 p-0 col-md-7 col-sm-6 col-6"><strong>JAZ-Assist:</strong></span>
+              <span class="m-0 p-0 col-md-5 col-sm-6 col-6 fw-bold">Inclusive</span>
+            </p>
+            <p class="row">
+              <span class="m-0 p-0 col-md-7 col-sm-6 col-6"><strong>Net Premium:</strong></span>
+              <span class="m-0 p-0 col-md-5 col-sm-6 col-6 fw-bold custom-bg-grey">Kshs.{{ motorService.motorQuotation.netPremium | number }}</span>
+            </p>
+            <p class="row" *ngIf="motorService.motorQuotation.aaRoadRescueBenefit != 0">
+              <span class="m-0 p-0 col-md-7 col-sm-6 col-6"><strong>AA Road Rescue:</strong></span>
+              <span class="m-0 p-0 col-md-5 col-sm-6 col-6 fw-bold">Kshs.{{ motorService.motorQuotation.aaRoadRescueBenefit | number }}</span>
+            </p>
+            <p class="row">
+              <span class="m-0 p-0 col-md-7 col-sm-6 col-6"><strong>Levies:</strong></span>
+              <span class="m-0 p-0 col-md-5 col-sm-6 col-6 fw-bold"> Kshs. {{ motorService.motorQuotation.levies | number }}</span>
+            </p>
+            <p class="row">
+              <span class="m-0 p-0 col-md-7 col-sm-6 col-6"><strong>Stamp Duty:</strong></span>
+              <span class="m-0 p-0 col-md-5 col-sm-6 col-6 fw-bold"> Kshs. {{ motorService.motorQuotation.stampDuty | number }}</span>
+            </p>
+            <p class="row">
+              <span class="m-0 p-0 col-md-7 col-sm-6 col-6"><strong>Gross Premium:</strong></span>
+              <span class="m-0 p-0 col-md-5 col-sm-6 col-6 fw-bold custom-bg"> Kshs. {{ motorService.motorQuotation.grossPremium | number }}</span>
+            </p>
           </div>
         </div>
       </div>
@@ -268,7 +366,7 @@
     class="mb-3"
     *ngIf="
       parseService.fetching || parseService.saving || parseService.deleting
-    "
+   "
   >
     <div class="progress">
       <div class="progress-bar progress-bar-indeterminate bg-green"></div>
@@ -283,7 +381,7 @@
               routerLinkActive="router-link-active"
               [disabled]="
                 !motorClass || !makeModel || !sumInsured || !yearOfManufacture
-              "
+             "
             >
               Get Quote
             </button>
