@@ -26,10 +26,17 @@ export class AppController {
     try {
       // Launch Puppeteer
 
-      const browser = await puppeteer.launch({
-        headless: true,
-        executablePath: "./google-chrome",//path.join(__dirname, "../google-chrome"), // Path to the Chrome binary
-        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      // const browser = await puppeteer.launch({
+      //   headless: true,
+      //   executablePath: "./google-chrome", //path.join(__dirname, "../google-chrome"), // Path to the Chrome binary
+      //   args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      // });
+
+
+      // Connecting to browserless
+      const browser = await puppeteer.connect({
+        browserWSEndpoint:
+          "https://production-sfo.browserless.io/?token=GOES_HERE",
       });
 
       const page = await browser.newPage();
@@ -55,7 +62,7 @@ export class AppController {
       res.status(200).send("Invoice PDF generated and emailed successfully");
     } catch (error) {
       console.error(error);
-      res.status(500).send("Error generating PDF: "+String(error).toString());
+      res.status(500).send("Error generating PDF: " + String(error).toString());
     }
   }
 }
