@@ -626,7 +626,8 @@
             <div class="mb-3">
               <label class="form-label">Select Payment Method</label>
               <select [(ngModel)]="paymentData.method" class="form-select">
-                <option value="mm" selected="">Mobile Money</option>
+                <option value="" disabled>Select</option>
+                <option value="mm" >Mobile Money</option>
                 <option value="card">Card</option>
               </select>
             </div>
@@ -636,7 +637,6 @@
                 <span class="input-group-text">+254</span>
                 <input
                   class="form-control"
-                  formControlName="mmNumber"
                   placeholder="Enter Phone Number"
                   [(ngModel)]="paymentData.mmNumber"
                 />

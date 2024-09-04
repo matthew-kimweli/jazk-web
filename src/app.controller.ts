@@ -59,10 +59,12 @@ export class AppController {
       // Send the PDF as an email attachment
       await this.appService.sendEmailWithAttachment(pdfBuffer, client);
 
-      res.status(200).send("Invoice PDF generated and emailed successfully");
+      res.status(200).send({text: "Invoice PDF generated and emailed successfully"});
     } catch (error) {
       console.error(error);
       res.status(500).send("Error generating PDF: " + String(error).toString());
     }
   }
+
+
 }

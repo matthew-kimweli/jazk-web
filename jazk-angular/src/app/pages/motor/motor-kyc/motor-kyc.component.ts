@@ -127,7 +127,7 @@ export class MotorKycComponent {
   termsUrl: any =
     'https://www.beanafrica.com/Allianz/ug/PolicyDocs/Private%20Motor%20Insurance%20Policy.pdf';
   quote: any;
-  paymentData: any = {};
+  paymentData: any = {method:''};
 
   constructor(
     public utilsService: UtilsService,
@@ -206,9 +206,10 @@ export class MotorKycComponent {
       let query = new Parse.Query('JazkeQuotation');
       let quote = await query.get(id);
       console.log('quote', quote);
+      this.quote = quote;
       if (quote) {
         this.motorService.motorQuotation = quote.get('quoteData');
-        this.quote = quote.attributes;
+        
       }
       this.parseService.fetching = false;
     } catch (error) {
@@ -648,37 +649,14 @@ export class MotorKycComponent {
 
       this.parseService.fetching = true;
 
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', 'Bearer ZY6L7FPnoAmI8slDf6ljzlPPzyS1');
+      let res = await Parse.Cloud.run('paympesa', {})
 
-      let response = await fetch(
-        'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest',
-        {
-          method: 'POST',
-          headers,
-          body: JSON.stringify({
-            BusinessShortCode: 174379,
-            Password:
-              'MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQwOTA0MTUyODQ4',
-            Timestamp: '20240904152848',
-            TransactionType: 'CustomerPayBillOnline',
-            Amount: 1,
-            PartyA: this.paymentData.mmNumber, //254708374149,
-            PartyB: 174379,
-            PhoneNumber: this.paymentData.mmNumber, //254708374149,
-            CallBackURL:
-              'https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/paymentreceived',
-            AccountReference: 'JubileeAllianz',
-            TransactionDesc: 'Payment of Motor Insurance',
-          }),
-        }
-      );
-
+      let text = res;
+    
+      console.log('mm response', text);
+      
       this.parseService.fetching = false;
 
-      let text = response.text();
-      console.log('mm response', text);
 
       // {
       //   "MerchantRequestID": "7071-4170-a0e4-8345632bad442222021",
