@@ -382,4 +382,39 @@ export class MotorService {
       Number(this.motorQuotation.aaRoadRescueBenefit);
     this.motorQuotation.grossPremium = Math.round(gross);
   }
+
+  resetQuotation() {
+    this.motorQuotation = {
+      motorId: '',
+      motorClass: '',
+      motorSubclass: '',
+      makeModel: '',
+      vehicleMake: '',
+      vehicleModel: '',
+      numberPlate: '',
+      referToHQ: 'No',
+      yearOfManufacture: 0,
+      vehicleAge: 0,
+      sumInsured: 0,
+      basicPremium: 0,
+      pvtBenefit: 0,
+      pvtInterest: '',
+      excessProtectorBenefit: 0,
+      excessProtectorInterest: '',
+      courtesyCarBenefit: 0,
+      courtesyCarInterest: '',
+      aaRoadRescueBenefit: 0,
+      aaRoadRescueInterest: '',
+      windScreenBenefit: 0,
+      windScreenExtraBenefit: 0,
+      radioCassetteBenefit: 0,
+      radioCassetteExtraBenefit: 0,
+      passengerLegalLiabilityBenefit: 0,
+      noOfPassengers: '',
+      netPremium: 0,
+      levies: 0,
+      stampDuty: 40,
+      grossPremium: 0,
+    };
+  }
 }

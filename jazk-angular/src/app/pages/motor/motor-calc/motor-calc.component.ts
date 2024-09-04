@@ -110,6 +110,8 @@ export class MotorCalcComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.motorService.resetQuotation();
+    
     this.motorService.motorQuotation.motorId = uuidv4()
     this.motorService.motorQuotation.vehicleDisabled = true;
     this.control = new FormControl<number>(this.sumInsured);
