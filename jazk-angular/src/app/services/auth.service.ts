@@ -37,6 +37,14 @@ export class AuthService {
     return ''
   }
 
+  get currentLoginUserName() {
+    if(this.currentUser){
+      return this.currentUser.get('username')
+    }
+    return ''
+  }
+
+
   get currentUserType() {
     if(this.currentUser){
       return this.currentUser.get('userType')

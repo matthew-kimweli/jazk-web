@@ -11,7 +11,7 @@
       <div class="progress-bar progress-bar-indeterminate bg-green"></div>
     </div>
   </div>
-  
+
   <div class="page-body">
     <div class="container-xl">
       <!-- ======= Hero Section ======= -->
@@ -76,7 +76,9 @@
               </div>
 
               <div class="col-md-4 form-group">
-                <label class="form-label" for="phone"><small>Phone</small></label>
+                <label class="form-label" for="phone"
+                  ><small>Phone</small></label
+                >
                 <input
                   [(ngModel)]="pphone"
                   type="tel"
@@ -89,7 +91,9 @@
               </div>
 
               <div class="col-md-4 form-group">
-                <label class="form-label" for="email"><small>Email</small></label>
+                <label class="form-label" for="email"
+                  ><small>Email</small></label
+                >
                 <input
                   [(ngModel)]="pemail"
                   type="email"
@@ -118,7 +122,9 @@
               </div>
 
               <div class="col-md-4 form-group">
-                <label class="form-label" for="address"><small>Postal Address</small></label>
+                <label class="form-label" for="address"
+                  ><small>Postal Address</small></label
+                >
                 <input
                   [(ngModel)]="pAddress"
                   type="text"
@@ -154,7 +160,9 @@
               <div class="col-md-2 form-group"></div>
 
               <div class="col-md-4 form-group">
-                <label class="form-label" for="coverenddate"><small>Cover End Date</small></label>
+                <label class="form-label" for="coverenddate"
+                  ><small>Cover End Date</small></label
+                >
                 <input
                   onkeydown="event.preventDefault()"
                   id="coverenddate"
@@ -198,7 +206,9 @@
                 <div class="validate"></div>
               </div>
               <div class="col-md-3 form-group mt-3">
-                <label class="form-label" for="vehiclemodel"><small>Vehicle Model</small></label>
+                <label class="form-label" for="vehiclemodel"
+                  ><small>Vehicle Model</small></label
+                >
                 <select
                   title="select"
                   [disabled]="vehicle.vehicleDisabled"
@@ -219,7 +229,9 @@
                 <div class="validate"></div>
               </div>
               <div class="col-md-3 form-group mt-3">
-                <label class="form-label" for="bodytype"><small>Vehicle Body Type</small></label>
+                <label class="form-label" for="bodytype"
+                  ><small>Vehicle Body Type</small></label
+                >
                 <select
                   title="select"
                   [(ngModel)]="vehicle.bodyType"
@@ -374,7 +386,8 @@
                     name="flexRadioDefaultownership"
                     id="flexRadioDefaultownership"
                   />
-                  <label class="form-label"
+                  <label
+                    class="form-label"
                     class="form-check-label"
                     for="flexRadioDefaultownership"
                   >
@@ -406,7 +419,8 @@
                     name="flexRadioDefaultOwneshipVehicle"
                     id="flexRadioDefaultOwneshipVehicle"
                   />
-                  <label class="form-label"
+                  <label
+                    class="form-label"
                     class="form-check-label"
                     for="flexRadioDefaultOwneshipVehicle"
                   >
@@ -441,7 +455,11 @@
                     id="inlineCheckbox1"
                     value="option1"
                   />
-                  <label class="form-label" class="form-check-label" for="inlineCheckbox1">
+                  <label
+                    class="form-label"
+                    class="form-check-label"
+                    for="inlineCheckbox1"
+                  >
                     I confirm I have read, understood and accept the
                     <a [href]="termsUrl" target="_blank">Terms and Conditions</a
                     >. I accept your
@@ -503,7 +521,11 @@
                     name="flexRadioDefault4"
                     id="flexRadioDefault4"
                   />
-                  <label class="form-label" class="form-check-label" for="flexRadioDefault4">
+                  <label
+                    class="form-label"
+                    class="form-check-label"
+                    for="flexRadioDefault4"
+                  >
                     I declare that the statements and particulars filled and
                     submitted through this platform are complete, correct and
                     true to the best of my knowledge and belief and that no
@@ -603,10 +625,22 @@
           <div class="col-lg-8">
             <div class="mb-3">
               <label class="form-label">Select Payment Method</label>
-              <select class="form-select">
+              <select [(ngModel)]="paymentData.method" class="form-select">
                 <option value="mm" selected="">Mobile Money</option>
                 <option value="card">Card</option>
               </select>
+            </div>
+            <div class="mb-3" *ngIf="paymentData.method == 'mm'">
+              <label class="form-label">Mobile Money Number</label>
+              <div class="input-group">
+                <span class="input-group-text">+254</span>
+                <input
+                  class="form-control"
+                  formControlName="mmNumber"
+                  placeholder="Enter Phone Number"
+                  [(ngModel)]="paymentData.mmNumber"
+                />
+              </div>
             </div>
           </div>
         </div>

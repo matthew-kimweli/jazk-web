@@ -99,7 +99,7 @@ export class MotorService {
     { passengers: '2 Passengers', benefit: 1000},
   ]
 
-  motorQuotation: any = {
+  motorQuotation = {
     motorId: '',
     motorClass: '',
     motorSubclass: '',
@@ -114,7 +114,7 @@ export class MotorService {
     basicPremium: 0,
     pvtBenefit: 0,
     pvtInterest: '',
-    excessProtectorBenefit: 0,
+    excessProtectorBenefit: undefined,
     excessProtectorInterest: '',
     courtesyCarBenefit: 0,
     courtesyCarInterest: '',
@@ -126,6 +126,8 @@ export class MotorService {
     radioCassetteExtraBenefit: 0,
     passengerLegalLiabilityBenefit: 0,
     noOfPassengers: '',
+    vehicleDisabled: false,
+    quoteDB: undefined,
     netPremium: 0,
     levies: 0,
     stampDuty: 40,
@@ -357,6 +359,7 @@ export class MotorService {
 
     for (const key in this.motorQuotation) {
       if (key.endsWith('Benefit') && key !== 'aaRoadRescueBenefit' && !key.endsWith('ExtraBenefit')) {
+       //@ts-ignore
         let benefitValue = this.motorQuotation[key];
 
         // Check if the key is 'excessProtectorBenefit' and its value is 'Inclusive'
@@ -399,7 +402,7 @@ export class MotorService {
       basicPremium: 0,
       pvtBenefit: 0,
       pvtInterest: '',
-      excessProtectorBenefit: 0,
+      excessProtectorBenefit: undefined,
       excessProtectorInterest: '',
       courtesyCarBenefit: 0,
       courtesyCarInterest: '',
@@ -411,6 +414,8 @@ export class MotorService {
       radioCassetteExtraBenefit: 0,
       passengerLegalLiabilityBenefit: 0,
       noOfPassengers: '',
+      vehicleDisabled: false,
+      quoteDB: undefined,
       netPremium: 0,
       levies: 0,
       stampDuty: 40,

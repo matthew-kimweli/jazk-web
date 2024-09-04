@@ -107,7 +107,7 @@ export class ViewQuoteComponent implements OnInit {
     console.log(this.clientForm.value);
 
     if (this.clientForm.valid) {
-      let quoteDB = this.motorService.motorQuotation.quoteDB;
+      let quoteDB:any = this.motorService.motorQuotation.quoteDB;
       quoteDB.set('actionType', this.actionType);
       quoteDB.set('client', this.clientForm.value);
       this.toastr.success('Please wait', 'Submitting...');
