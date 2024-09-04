@@ -28,7 +28,7 @@ export class AppController {
 
       const browser = await puppeteer.launch({
         headless: true,
-        executablePath: path.join(__dirname, "../google-chrome"), // Path to the Chrome binary
+        executablePath: "./google-chrome",//path.join(__dirname, "../google-chrome"), // Path to the Chrome binary
         args: ["--no-sandbox", "--disable-setuid-sandbox"],
       });
 
