@@ -36,7 +36,7 @@ export class AppController {
       // Connecting to browserless
       const browser = await puppeteer.connect({
         browserWSEndpoint:
-          "https://production-sfo.browserless.io/?token=GOES_HERE",
+          "https://production-sfo.browserless.io/?token=QmuE8WkTVYM8xc2da8679cf58e5ec565146f438cfd",
       });
 
       const page = await browser.newPage();
