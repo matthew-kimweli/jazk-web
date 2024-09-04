@@ -122,9 +122,20 @@ export class ViewQuoteSubdetailsComponent {
 
 </head>
 <style>
+
+@font-face {
+    font-family: 'customCalibri';
+    src: url('assets/fonts/AAAAAF-Helvetica-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+
   :root {
     --tblr-font-sans-serif: 'Inter';
   }
+
+
     .container {
   max-width: 900px;
   background-color: #fff;
@@ -280,14 +291,21 @@ p {
 
 
 <body >
+
+<div class="page-wrapper">
+  <div class="page-body">
+    <div class="container-xl">
 ${invoiceElement.outerHTML}
 
+</div>
+</div>
+</div>
 </body>
 
 </html>`;
 
       console.log('Sending email', client);
-      console.log('html', fullHtml)
+      console.log('html', fullHtml);
 
       this.dataService.httpClient
         .post(

@@ -1,942 +1,207 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en" data-critters-container>
-  <head>
-    <meta charset="utf-8" />
-    <title>Sales Portal</title>
-    <meta name="keywords" content="sales" />
-    <meta name="author" content="JazKe" />
-    <meta name="description" content="Sales Portal" />
-    <base href="/" />
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-    <meta
-      name="viewport"
-      content="height=device-height, 
+
+<head>
+  <meta charset="utf-8">
+  <title>Sales Portal</title>
+  <meta name="keywords" content="sales">
+  <meta name="author" content="JazKe">
+  <meta name="description" content="Sales Portal">
+  <base href="/">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+  <meta name="viewport" content="height=device-height, 
                       width=device-width, initial-scale=1.0, 
                       minimum-scale=1.0, maximum-scale=1.0, 
-                      user-scalable=no, target-densitydpi=device-dpi"
-    />
+                      user-scalable=no, target-densitydpi=device-dpi">
 
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <style>
-    :root {
-      --tblr-font-sans-serif: "Inter";
-    }
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+</head>
+<style>
+
+@font-face {
+    font-family: 'customCalibri';
+    src: url('assets/fonts/AAAAAF-Helvetica-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+
+  :root {
+    --tblr-font-sans-serif: 'Inter';
+  }
+
+
     .container {
-      max-width: 900px;
-      background-color: #fff;
-      font-family: "customCalibri", sans-serif;
-      /* font-weight: 500; */
-    }
+  max-width: 900px;
+  background-color: #fff;
+  font-family: 'customCalibri', sans-serif;
+  /* font-weight: 500; */
+}
 
-    .fw-lightered {
-      font-weight: 100 !important;
-    }
+.fw-lightered {
+  font-weight: 100 !important;
+}
 
-    .body-border {
-      border: 1.5px solid black;
-    }
+.body-border {
+  border: 1.5px solid black;
+}
 
-    .h-20px {
-      height: 20px;
-    }
+.h-20px {
+  height: 20px;
+}
 
-    .h-10px {
-      height: 10px;
-    }
+.h-10px {
+  height: 10px;
+}
 
-    .body-border-1 {
-      border-left: 1.5px solid black;
-    }
+.body-border-1 {
+  border-left: 1.5px solid black;
+}
 
-    .body-border-2 {
-      border-top: 1.5px solid black;
-    }
+.body-border-2 {
+  border-top: 1.5px solid black;
+}
 
-    .body-border-3 {
-      border-right: 1.5px solid black;
-    }
+.body-border-3 {
+  border-right: 1.5px solid black;
+}
 
-    .body-border-4 {
-      border-bottom: 1.5px solid black;
-    }
+.body-border-4 {
+  border-bottom: 1.5px solid black;
+}
 
-    .footer-border {
-      border: 2px solid black;
-    }
+.footer-border {
+  border: 2px solid black;
+}
 
-    .footer-bg-color {
-      background-color: rgba(229, 219, 255, 1);
-    }
+.footer-bg-color {
+  background-color: rgba(229, 219, 255, 1);
+}
 
-    .footer-bg-color-1 {
-      background-color: #d4eaea;
-    }
+.footer-bg-color-1 {
+  background-color: #d4eaea;
+}
 
-    .header-bg-color {
-      background-color: rgba(255, 249, 224, 1);
-    }
+.header-bg-color {
+  background-color: rgba(255, 249, 224, 1);
+}
 
-    .no-background {
-      background-color: transparent;
-    }
+.no-background {
+  background-color: transparent;
+}
 
-    p {
-      line-height: 1.5;
-    }
+p {
+  line-height: 1.5;
+}
 
-    .custom-text {
-      line-height: 1.2;
-    }
+.custom-text {
+  line-height: 1.2;
+}
 
-    .border-bottom-1 {
-      border-bottom: 1.5px solid black;
-    }
+.border-bottom-1 {
+  border-bottom: 1.5px solid black;
+}
 
-    .footer-border-top {
-      border-top: 2px solid #003781;
-    }
+.footer-border-top {
+  border-top: 2px solid #003781;
+}
 
-    .footer-border-top-1 {
-      border-top: 1.5px solid #003781;
-    }
+.footer-border-top-1 {
+  border-top: 1.5px solid #003781;
+}
 
-    .header-border-top-1 {
-      border-bottom: 1.5px solid #003781;
-    }
+.header-border-top-1 {
+  border-bottom: 1.5px solid #003781;
+}
 
-    .footer-border-bottom {
-      border-bottom: 2px solid #003781;
-    }
+.footer-border-bottom {
+  border-bottom: 2px solid #003781;
+}
 
-    .text-custom-blue {
-      color: #003781;
-    }
+.text-custom-blue {
+  color: #003781;
+}
 
-    .header-border-x {
-      border-left: 2px solid #003781;
-      border-right: 2px solid #003781;
-    }
+.header-border-x {
+  border-left: 2px solid #003781;
+  border-right: 2px solid #003781;
+}
 
-    .header-border-x-1 {
-      border-left: 1.5px solid #003781;
-      border-right: 1.5px solid #003781;
-    }
+.header-border-x-1 {
+  border-left: 1.5px solid #003781;
+  border-right: 1.5px solid #003781;
+}
 
-    .footer-border-x {
-      border-left: 2px solid black;
-      border-right: 2px solid black;
-    }
+.footer-border-x {
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}
 
-    .footer-border-x1 {
-      border-left: 2px solid black;
-    }
+.footer-border-x1 {
+  border-left: 2px solid black;
+}
 
-    .footer-border-x2 {
-      border-right: 2px solid black;
-    }
+.footer-border-x2 {
+  border-right: 2px solid black;
+}
 
-    .footer-border-y1 {
-      border-bottom: 2px solid black;
-    }
+.footer-border-y1 {
+  border-bottom: 2px solid black;
+}
 
-    .footer-border-y2 {
-      border-top: 2px solid black;
-    }
+.footer-border-y2 {
+  border-top: 2px solid black;
+}
 
-    .custom-bg {
-      background-color: #003781;
-      color: white;
-    }
+.custom-bg {
+  background-color: #003781;
+  color: white;
+}
 
-    .custom-bg-grey {
-      background-color: #f3f5f7; /* A grey shade between light and secondary */
-    }
+.custom-bg-grey {
+  background-color: #f3f5f7; /* A grey shade between light and secondary */
+}
 
-    .dotted-list {
-      list-style-type: none;
-    }
-    .dotted-list li {
-      position: relative;
-      padding-left: 10px;
-    }
+.dotted-list {
+  list-style-type: none;
+}
+.dotted-list li {
+  position: relative;
+  padding-left: 10px;
+}
 
-    .dotted-list li:before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0.6em;
-      width: 4px;
-      height: 4px;
-      background-color: black;
-      border-radius: 50%;
-    }
-  </style>
+.dotted-list li:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 4px;
+  height: 4px;
+  background-color: black;
+  border-radius: 50%;
+}
 
-  <body>
-    <div
-      _ngcontent-ng-c986794635=""
-      id="policyquote"
-      class="container mt-5 mb-5"
-    >
-      <div _ngcontent-ng-c986794635="" class="row mb-0">
-        <div _ngcontent-ng-c986794635="" id="logo" class="col-md-4 p-3 m-0">
-          <img
-            _ngcontent-ng-c986794635=""
-            src="assets/images/jaz-logo.png"
-            height="37px"
-            width="200px"
-            alt="Jubilee Allianz"
-          />
-        </div>
-        <div
-          _ngcontent-ng-c986794635=""
-          class="col-md-8 p-2 m-0 mb-1 footer-border-top-1 header-border-x-1 header-border-top-1"
-        >
-          <h2
-            _ngcontent-ng-c986794635=""
-            class="text-center m-0 p-2 custom-text fw-light"
-          >
-            MOTOR COMMERCIAL
-          </h2>
-          <h2
-            _ngcontent-ng-c986794635=""
-            class="text-center m-0 p-0 custom-text fw-light"
-          >
-            OWN GOODS
-          </h2>
-          <p
-            _ngcontent-ng-c986794635=""
-            class="text-center text-custom-blue m-0 p-0 fst-italic custom-text fw-lighter"
-          >
-            (Including Road Rescue, Emergency Security and Medical Response)
-          </p>
-        </div>
-      </div>
-      <div _ngcontent-ng-c986794635="" class="row p-0 pb-0 mb-0">
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 col-md-12 body-border custom-bg h-20px text-center fw-bold"
-        >
-          QUOTATION NEW BUSINESS
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 text-end"
-        >
-          Date:
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 text-left body-border-3 body-border-4 text-end"
-        >
-          <span _ngcontent-ng-c986794635="">04 Sep 2024</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4"
-        ></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4"
-        >
-          <span _ngcontent-ng-c986794635=""></span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 text-end"
-        >
-          Full Names:
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 text-left body-border-3 body-border-4 text-end"
-        >
-          <span _ngcontent-ng-c986794635="">AHABWE EMMANUEL</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 text-end"
-        >
-          Make &amp; Model:
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 text-end"
-        >
-          <span _ngcontent-ng-c986794635="">Own Goods</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 text-end"
-        >
-          Vehicle Registration:
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 text-left body-border-3 body-border-4 text-end"
-        >
-          <span _ngcontent-ng-c986794635="">UBV 6343</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 text-end"
-        >
-          Year of Manufacture:
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 text-end"
-        >
-          <span _ngcontent-ng-c986794635="">2015</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 text-end"
-        >
-          Vehicle Value:
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 text-left body-border-3 body-border-4 text-end"
-        >
-          <span _ngcontent-ng-c986794635="">1,600,000</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 text-end"
-        >
-          Vehicle Age:
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 text-end"
-        >
-          <span _ngcontent-ng-c986794635="">9</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 col-md-12 body-border-1 body-border-3 body-border-4 h-10px"
-        ></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 p-1 col-md-9 body-border-1 body-border-4 text-center"
-        >
-          Basic Premium (Inclusive of Excess Protector):
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-1 col-md-3 body-border-1 body-border-3 body-border-4 text-end"
-        >
-          64,000
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="m-0 p-0 px-1 col-md-12 body-border-1 body-border-4 body-border-3 custom-bg text-start"
-        >
-          ADDITIONAL BENEFITS
-        </p>
-      </div>
-      <div _ngcontent-ng-c986794635="" class="row p-0 pb-0 mb-0">
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-4 body-border-1 body-border-4 fst-italic"
-        ></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-2 mb-0 p-0 px-1 body-border-1 body-border-4 body-border-3 text-end fst-italic"
-        >
-          <span _ngcontent-ng-c986794635="">Required</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-4 text-center"
-        ></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-4 body-border-1 body-border-3 text-end"
-        >
-          Premium
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-4 body-border-1 body-border-4 fst-italic text-start"
-        >
-          Political violence &amp; Terrorism
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-2 mb-0 p-0 px-1 body-border-1 body-border-4 text-end fst-italic"
-        >
-          <span _ngcontent-ng-c986794635="">Yes</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-1 body-border-4"
-        ></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-1 body-border-3 body-border-4 text-end"
-        >
-          7,200
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-4 body-border-1 fst-italic text-start"
-        >
-          Passenger Legal Liability
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-2 mb-0 p-0 text-end body-border-1 fst-italic"
-        >
-          <span _ngcontent-ng-c986794635=""></span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 body-border-1 text-center"
-        >
-          Kshs.500 pp
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-1 body-border-3 text-end"
-        ></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 col-md-12 body-border-1 body-border-2 body-border-3 h-10px"
-        ></p>
-      </div>
-      <div _ngcontent-ng-c986794635="" class="row p-0 pb-0 mb-0">
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 col-md-2 body-border-1 body-border-2 fw-bold fst-italic text-center"
-        ></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-7 mb-0 p-0 px-1 body-border-2 body-border-3 text-end fst-italic"
-        >
-          <span _ngcontent-ng-c986794635=""
-            >JAZ-Assist (Road Rescue, Ambulance &amp; Security Response)</span
-          >
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-1 mb-0 p-0 px-1 body-border-2"
-        ></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-2 mb-0 p-0 px-1 body-border-2 body-border-3 text-end"
-        >
-          Inclusive
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 col-md-6 body-border-1 fw-bold fst-italic text-center"
-        ></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 text-end fst-italic body-border-3"
-        >
-          <span _ngcontent-ng-c986794635="">Gross Premium</span>
-        </p>
-        <p _ngcontent-ng-c986794635="" class="col-md-1 mb-0 p-0"></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-2 mb-0 p-0 px-1 body-border-3 text-end"
-        >
-          71,700
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 col-md-6 body-border-1 fw-bold fst-italic text-center"
-        ></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 text-end fst-italic body-border-3"
-        >
-          <span _ngcontent-ng-c986794635="">Levies</span>
-        </p>
-        <p _ngcontent-ng-c986794635="" class="col-md-1 mb-0 p-0"></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-2 mb-0 p-0 px-1 body-border-3 text-end"
-        >
-          323
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 col-md-6 body-border-1 fw-bold fst-italic text-center"
-        ></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 text-end fst-italic body-border-3"
-        >
-          <span _ngcontent-ng-c986794635="">Stamp Duty</span>
-        </p>
-        <p _ngcontent-ng-c986794635="" class="col-md-1 mb-0 p-0"></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-2 mb-0 p-0 px-1 body-border-3 text-end"
-        >
-          40
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 col-md-6 body-border-1 fw-bold fst-italic text-center"
-        ></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 text-end fw-bold custom-bg body-border-3"
-        >
-          <span _ngcontent-ng-c986794635="">Total Premium</span>
-        </p>
-        <p _ngcontent-ng-c986794635="" class="col-md-1 mb-0 p-0 custom-bg"></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-2 mb-0 p-0 px-1 body-border-3 text-end fw-bolder custom-bg"
-        >
-          72,063
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 col-md-12 body-border h-10px"
-        ></p>
-      </div>
-      <div _ngcontent-ng-c986794635="" class="row p-0 pb-0 mb-0">
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 custom-bg"
-        >
-          BENEFITS
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 text-left body-border-3 body-border-4 text-end custom-bg"
-        >
-          <span _ngcontent-ng-c986794635="">LIMITS</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-6 mb-0 p-0 px-1 body-border-3 body-border-4 text-left custom-bg"
-        >
-          <span _ngcontent-ng-c986794635="">EXCESS</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          Windscreen &amp; Window Glass
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"
-        >
-          <span _ngcontent-ng-c986794635="">Kshs. 50,000</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          Own Damage/Partial Theft
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 text-end body-border-3 body-border-4 fst-italic fw-lighter"
-        >
-          <span _ngcontent-ng-c986794635=""
-            >Own Damage &amp; Partial Theft -5% of Sum Insured, minimum Shs
-            30,000/-</span
-          >
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          Entertainment Unit
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"
-        >
-          <span _ngcontent-ng-c986794635="">Kshs. 50,000</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          Theft with Anti-Theft Devices
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 text-end body-border-3 body-border-4 fst-italic fw-lighter"
-        >
-          <span _ngcontent-ng-c986794635=""
-            >10% of Sum Insured, minimum Kshs. 30,000.00</span
-          >
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          Repair Authority
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"
-        >
-          <span _ngcontent-ng-c986794635="">Kshs. 50,000</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          Theft without Anti-Theft Devices
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 text-end body-border-3 body-border-4 fst-italic fw-lighter"
-        >
-          <span _ngcontent-ng-c986794635=""
-            >20% of Sum Insured, minimum Kshs. 30,000.00</span
-          >
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          Towing &amp; Recovery Expenses
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"
-        >
-          <span _ngcontent-ng-c986794635="">Kshs. 50,000</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          Theft with Tracking Device
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 text-end body-border-3 body-border-4 fst-italic fw-lighter"
-        >
-          <span _ngcontent-ng-c986794635=""
-            >2.5% of Sum Insured, minimum Kshs. 30,000.00</span
-          >
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          Emergency Medical Expenses
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"
-        >
-          <span _ngcontent-ng-c986794635="">Kshs. 50,000</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          Third Party Bodily Injury
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 text-end body-border-3 body-border-4 fst-italic fw-lighter"
-        >
-          <span _ngcontent-ng-c986794635="">Nil</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          Third Party Property Damage
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"
-        >
-          <span _ngcontent-ng-c986794635="">Kshs. 5,000,000</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          Third Party Property Damage
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 text-end body-border-3 body-border-4 fst-italic fw-lighter"
-        >
-          <span _ngcontent-ng-c986794635="">Kshs. 10,000.00</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 d-flex align-items-end"
-        >
-          Third Party Bodily Injuries
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"
-        >
-          <span _ngcontent-ng-c986794635="">Kshs. 3,000,000 per person</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          New &amp; Young Drivers
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 p-0 px-1 text-end body-border-3 body-border-4 fst-italic fw-lighter"
-        >
-          <span _ngcontent-ng-c986794635=""
-            >Kshs. 10,000.00 additional (Below 2 Year Experience/ Under 25 Years
-            Old)</span
-          >
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center"
-        ></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"
-        >
-          <span _ngcontent-ng-c986794635="">Kshs. 20,000,000 per event</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-6 mb-0 p-0 px-1 text-end body-border-3"
-        >
-          <span _ngcontent-ng-c986794635=""></span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 d-flex align-items-end"
-        >
-          Passenger Legal Liability
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"
-        >
-          <span _ngcontent-ng-c986794635="">Kshs. 3,000,000 per person</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-6 mb-0 p-0 px-1 text-end body-border-3"
-        >
-          <span _ngcontent-ng-c986794635=""></span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center"
-        ></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"
-        >
-          <span _ngcontent-ng-c986794635="">Kshs. 20,000,000 per event</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-6 mb-0 p-0 px-1 text-end body-border-3"
-        >
-          <span _ngcontent-ng-c986794635=""></span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          Excess Protector (Own damage/ Partial Theft)
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"
-        >
-          <span _ngcontent-ng-c986794635="">Inclusive</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-6 mb-0 p-0 px-1 text-end body-border-3"
-        >
-          <span _ngcontent-ng-c986794635=""></span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          Political Violence and Terrorism
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"
-        >
-          <span _ngcontent-ng-c986794635="">Excluded</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-6 mb-0 p-0 px-1 text-end body-border-3"
-        >
-          <span _ngcontent-ng-c986794635=""></span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          Maximum Age for above rate to apply
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"
-        >
-          <span _ngcontent-ng-c986794635="">15 Years</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-6 mb-0 p-0 px-1 text-end body-border-3"
-        >
-          <span _ngcontent-ng-c986794635=""></span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          Minimum Sum Insured after valuation
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"
-        >
-          <span _ngcontent-ng-c986794635="">Ksh. 500,000</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-6 mb-0 p-0 px-1 text-end body-border-3"
-        >
-          <span _ngcontent-ng-c986794635=""></span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          Riot Strike &amp;Civil Commotion
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"
-        >
-          <span _ngcontent-ng-c986794635="">Inclusive</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-6 mb-0 p-0 px-1 text-end body-border-3"
-        >
-          <span _ngcontent-ng-c986794635=""></span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          Geographical Area
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"
-        >
-          <span _ngcontent-ng-c986794635="">Kenya</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-6 mb-0 p-0 px-1 text-end body-border-3"
-        >
-          <span _ngcontent-ng-c986794635=""></span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center"
-        >
-          No blame No Excess
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-3 mb-0 px-1 body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center justify-content-end"
-        >
-          <span _ngcontent-ng-c986794635="">Inclusive</span>
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-6 mb-0 p-0 px-1 text-end body-border-3 body-border-4"
-        >
-          <span _ngcontent-ng-c986794635=""></span>
-        </p>
-      </div>
-      <div _ngcontent-ng-c986794635="" class="row p-0 pb-0 mt-0 mb-0">
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 py-2 col-md-4 body-border-1 d-flex align-items-center fw-bold"
-        >
-          Done By: &nbsp;Admin
-        </p>
-        <p _ngcontent-ng-c986794635="" class="col-md-4 mb-0 p-0 py-2"></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="col-md-4 mb-0 p-0 py-2 text-left body-border-3 d-flex align-items-center fw-bold"
-        >
-          <span _ngcontent-ng-c986794635=""
-            >Date: &nbsp;Wednesday, 04 September 2024</span
-          >
-        </p>
-      </div>
-      <div _ngcontent-ng-c986794635="" class="row p-0 pb-0 mt-0 mb-5">
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-12 m-0 body-border text-center header-bg-color"
-        >
-          Please note this is a quotation Only and is not an automatic
-          confirmation of cover. Terms subject to change after valuation as per
-          our Motor Rating Guidelines. Please advise preferred premium payment
-          option. This quotation is an invitation to offer and does not
-          constitute an offer and is valid for 30 Days. This invitation is
-          Subject to Jubilee Allianz General Insurance Standard Policy Wordings.
-        </p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 col-md-12 body-border-1 body-border-3 h-10px"
-        ></p>
-        <p
-          _ngcontent-ng-c986794635=""
-          class="mb-0 p-0 px-1 col-md-12 m-0 body-border text-center header-bg-color"
-        >
-          “All premiums should be paid by bank transfer in the name of Jubilee
-          Allianz General Insurance (K) Ltd Account nos. Diamond Trust Bank of
-          Kenya -A/c No.0541506001 (Nairobi - Nation Centre Branch), or through
-          MPESA pay bill no. 7146151&nbsp;at the Jubilee Head office any of the
-          Branch offices. No payment should be made in the name of the agent.
-          Jubilee Allianz General Insurance (K) Ltd accepts no liability for
-          losses arising from payments made through agents or through any other
-          means other than those set out above.”
-        </p>
-      </div>
-    </div>
-  </body>
+
+</style>
+
+
+<body >
+
+<div class="page-wrapper">
+  <div class="page-body">
+    <div class="container-xl">
+<div _ngcontent-ng-c2580688565="" id="policyquote" class="container mt-5 mb-5"><div _ngcontent-ng-c2580688565="" class="row mb-0"><div _ngcontent-ng-c2580688565="" id="logo" class="col-md-4 p-3 m-0"><img _ngcontent-ng-c2580688565="" src="https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/assets/images/jaz-logo.png" height="37px" width="200px" alt="Jubilee Allianz"></div><div _ngcontent-ng-c2580688565="" class="col-md-8 p-2 m-0 mb-1 footer-border-top-1 header-border-x-1 header-border-top-1"><h2 _ngcontent-ng-c2580688565="" class="text-center m-0 p-2 custom-text fw-light">MOTOR COMMERCIAL</h2><h2 _ngcontent-ng-c2580688565="" class="text-center m-0 p-0 custom-text fw-light">OWN GOODS</h2><p _ngcontent-ng-c2580688565="" class="text-center text-custom-blue m-0 p-0 fst-italic custom-text fw-lighter">(Including Road Rescue, Emergency Security and Medical Response)</p></div></div><div _ngcontent-ng-c2580688565="" class="row p-0 pb-0 mb-0"><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 col-md-12 body-border custom-bg h-20px text-center fw-bold">QUOTATION NEW BUSINESS</p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 text-end">Date:</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 text-left body-border-3 body-border-4 text-end"><span _ngcontent-ng-c2580688565="">04 Sep 2024</span></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4"></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4"><span _ngcontent-ng-c2580688565=""></span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 text-end">Full Names:</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 text-left body-border-3 body-border-4 text-end"><span _ngcontent-ng-c2580688565="">AHABWE EMMANUEL</span></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 text-end">Make &amp; Model:</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 text-end"><span _ngcontent-ng-c2580688565="">Own Goods</span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 text-end">Vehicle Registration:</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 text-left body-border-3 body-border-4 text-end"><span _ngcontent-ng-c2580688565="">UBV 6343</span></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 text-end">Year of Manufacture:</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 text-end"><span _ngcontent-ng-c2580688565="">2015</span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 text-end">Vehicle Value:</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 text-left body-border-3 body-border-4 text-end"><span _ngcontent-ng-c2580688565="">1,600,000</span></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 text-end">Vehicle Age:</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 text-end"><span _ngcontent-ng-c2580688565="">9</span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 col-md-12 body-border-1 body-border-3 body-border-4 h-10px"></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 p-1 col-md-9 body-border-1 body-border-4 text-center">Basic Premium (Inclusive of Excess Protector):</p><p _ngcontent-ng-c2580688565="" class="mb-0 p-1 col-md-3 body-border-1 body-border-3 body-border-4 text-end">64,000</p><p _ngcontent-ng-c2580688565="" class="m-0 p-0 px-1 col-md-12 body-border-1 body-border-4 body-border-3 custom-bg text-start">ADDITIONAL BENEFITS</p></div><div _ngcontent-ng-c2580688565="" class="row p-0 pb-0 mb-0"><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-4 body-border-1 body-border-4 fst-italic"></p><p _ngcontent-ng-c2580688565="" class="col-md-2 mb-0 p-0 px-1 body-border-1 body-border-4 body-border-3 text-end fst-italic"><span _ngcontent-ng-c2580688565="">Required</span></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-4 text-center"></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-4 body-border-1 body-border-3 text-end">Premium</p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-4 body-border-1 body-border-4 fst-italic text-start">Political violence &amp; Terrorism</p><p _ngcontent-ng-c2580688565="" class="col-md-2 mb-0 p-0 px-1 body-border-1 body-border-4 text-end fst-italic"><span _ngcontent-ng-c2580688565="">Yes</span></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-1 body-border-4"></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-1 body-border-3 body-border-4 text-end">7,200</p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-4 body-border-1 fst-italic text-start">Passenger Legal Liability</p><p _ngcontent-ng-c2580688565="" class="col-md-2 mb-0 p-0 text-end body-border-1 fst-italic"><span _ngcontent-ng-c2580688565=""></span></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 body-border-1 text-center">Kshs.500 pp</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-1 body-border-3 text-end"></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 col-md-12 body-border-1 body-border-2 body-border-3 h-10px"></p></div><div _ngcontent-ng-c2580688565="" class="row p-0 pb-0 mb-0"><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 col-md-2 body-border-1 body-border-2 fw-bold fst-italic text-center"></p><p _ngcontent-ng-c2580688565="" class="col-md-7 mb-0 p-0 px-1 body-border-2 body-border-3 text-end fst-italic"><span _ngcontent-ng-c2580688565="">JAZ-Assist (Road Rescue, Ambulance &amp; Security Response)</span></p><p _ngcontent-ng-c2580688565="" class="col-md-1 mb-0 p-0 px-1 body-border-2"></p><p _ngcontent-ng-c2580688565="" class="col-md-2 mb-0 p-0 px-1 body-border-2 body-border-3 text-end">Inclusive</p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 col-md-6 body-border-1 fw-bold fst-italic text-center"></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 text-end fst-italic body-border-3"><span _ngcontent-ng-c2580688565="">Gross Premium</span></p><p _ngcontent-ng-c2580688565="" class="col-md-1 mb-0 p-0"></p><p _ngcontent-ng-c2580688565="" class="col-md-2 mb-0 p-0 px-1 body-border-3 text-end">71,700</p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 col-md-6 body-border-1 fw-bold fst-italic text-center"></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 text-end fst-italic body-border-3"><span _ngcontent-ng-c2580688565="">Levies</span></p><p _ngcontent-ng-c2580688565="" class="col-md-1 mb-0 p-0"></p><p _ngcontent-ng-c2580688565="" class="col-md-2 mb-0 p-0 px-1 body-border-3 text-end">323</p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 col-md-6 body-border-1 fw-bold fst-italic text-center"></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 text-end fst-italic body-border-3"><span _ngcontent-ng-c2580688565="">Stamp Duty</span></p><p _ngcontent-ng-c2580688565="" class="col-md-1 mb-0 p-0"></p><p _ngcontent-ng-c2580688565="" class="col-md-2 mb-0 p-0 px-1 body-border-3 text-end">40</p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 col-md-6 body-border-1 fw-bold fst-italic text-center"></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 text-end fw-bold custom-bg body-border-3"><span _ngcontent-ng-c2580688565="">Total Premium</span></p><p _ngcontent-ng-c2580688565="" class="col-md-1 mb-0 p-0 custom-bg"></p><p _ngcontent-ng-c2580688565="" class="col-md-2 mb-0 p-0 px-1 body-border-3 text-end fw-bolder custom-bg">72,063</p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 col-md-12 body-border h-10px"></p></div><div _ngcontent-ng-c2580688565="" class="row p-0 pb-0 mb-0"><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 custom-bg">BENEFITS</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 text-left body-border-3 body-border-4 text-end custom-bg"><span _ngcontent-ng-c2580688565="">LIMITS</span></p><p _ngcontent-ng-c2580688565="" class="col-md-6 mb-0 p-0 px-1 body-border-3 body-border-4 text-left custom-bg"><span _ngcontent-ng-c2580688565="">EXCESS</span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center">Windscreen &amp; Window Glass</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"><span _ngcontent-ng-c2580688565="">Kshs. 50,000</span></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 d-flex align-items-center">Own Damage/Partial Theft</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 text-end body-border-3 body-border-4 fst-italic fw-lighter"><span _ngcontent-ng-c2580688565="">Own Damage &amp; Partial Theft -5% of Sum Insured, minimum Shs 30,000/-</span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center">Entertainment Unit</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"><span _ngcontent-ng-c2580688565="">Kshs. 50,000</span></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 d-flex align-items-center">Theft with Anti-Theft Devices</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 text-end body-border-3 body-border-4 fst-italic fw-lighter"><span _ngcontent-ng-c2580688565="">10% of Sum Insured, minimum Kshs. 30,000.00</span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center">Repair Authority</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"><span _ngcontent-ng-c2580688565="">Kshs. 50,000</span></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 d-flex align-items-center">Theft without Anti-Theft Devices</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 text-end body-border-3 body-border-4 fst-italic fw-lighter"><span _ngcontent-ng-c2580688565="">20% of Sum Insured, minimum Kshs. 30,000.00</span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center">Towing &amp; Recovery Expenses</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"><span _ngcontent-ng-c2580688565="">Kshs. 50,000</span></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 d-flex align-items-center">Theft with Tracking Device</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 text-end body-border-3 body-border-4 fst-italic fw-lighter"><span _ngcontent-ng-c2580688565="">2.5% of Sum Insured, minimum Kshs. 30,000.00</span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center">Emergency Medical Expenses</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"><span _ngcontent-ng-c2580688565="">Kshs. 50,000</span></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 d-flex align-items-center">Third Party Bodily Injury</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 text-end body-border-3 body-border-4 fst-italic fw-lighter"><span _ngcontent-ng-c2580688565="">Nil</span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center">Third Party Property Damage</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"><span _ngcontent-ng-c2580688565="">Kshs. 5,000,000</span></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 d-flex align-items-center">Third Party Property Damage</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 text-end body-border-3 body-border-4 fst-italic fw-lighter"><span _ngcontent-ng-c2580688565="">Kshs. 10,000.00</span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 d-flex align-items-end">Third Party Bodily Injuries</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"><span _ngcontent-ng-c2580688565="">Kshs. 3,000,000 per person</span></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 body-border-3 body-border-4 d-flex align-items-center">New &amp; Young Drivers</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 p-0 px-1 text-end body-border-3 body-border-4 fst-italic fw-lighter"><span _ngcontent-ng-c2580688565="">Kshs. 10,000.00 additional (Below 2 Year Experience/ Under 25 Years Old)</span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center"></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"><span _ngcontent-ng-c2580688565="">Kshs. 20,000,000 per event</span></p><p _ngcontent-ng-c2580688565="" class="col-md-6 mb-0 p-0 px-1 text-end body-border-3"><span _ngcontent-ng-c2580688565=""></span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 d-flex align-items-end">Passenger Legal Liability</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"><span _ngcontent-ng-c2580688565="">Kshs. 3,000,000 per person</span></p><p _ngcontent-ng-c2580688565="" class="col-md-6 mb-0 p-0 px-1 text-end body-border-3"><span _ngcontent-ng-c2580688565=""></span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center"></p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"><span _ngcontent-ng-c2580688565="">Kshs. 20,000,000 per event</span></p><p _ngcontent-ng-c2580688565="" class="col-md-6 mb-0 p-0 px-1 text-end body-border-3"><span _ngcontent-ng-c2580688565=""></span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center">Excess Protector (Own damage/ Partial Theft)</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"><span _ngcontent-ng-c2580688565="">Inclusive</span></p><p _ngcontent-ng-c2580688565="" class="col-md-6 mb-0 p-0 px-1 text-end body-border-3"><span _ngcontent-ng-c2580688565=""></span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center">Political Violence and Terrorism</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"><span _ngcontent-ng-c2580688565="">Excluded</span></p><p _ngcontent-ng-c2580688565="" class="col-md-6 mb-0 p-0 px-1 text-end body-border-3"><span _ngcontent-ng-c2580688565=""></span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center">Maximum Age for above rate to apply</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"><span _ngcontent-ng-c2580688565="">15 Years</span></p><p _ngcontent-ng-c2580688565="" class="col-md-6 mb-0 p-0 px-1 text-end body-border-3"><span _ngcontent-ng-c2580688565=""></span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center">Minimum Sum Insured after valuation</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"><span _ngcontent-ng-c2580688565="">Ksh. 500,000</span></p><p _ngcontent-ng-c2580688565="" class="col-md-6 mb-0 p-0 px-1 text-end body-border-3"><span _ngcontent-ng-c2580688565=""></span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center">Riot Strike &amp;Civil Commotion</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"><span _ngcontent-ng-c2580688565="">Inclusive</span></p><p _ngcontent-ng-c2580688565="" class="col-md-6 mb-0 p-0 px-1 text-end body-border-3"><span _ngcontent-ng-c2580688565=""></span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center">Geographical Area</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 justify-content-end body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center"><span _ngcontent-ng-c2580688565="">Kenya</span></p><p _ngcontent-ng-c2580688565="" class="col-md-6 mb-0 p-0 px-1 text-end body-border-3"><span _ngcontent-ng-c2580688565=""></span></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-3 body-border-1 body-border-3 body-border-4 d-flex align-items-center">No blame No Excess</p><p _ngcontent-ng-c2580688565="" class="col-md-3 mb-0 px-1 body-border-3 body-border-4 fst-italic fw-lighter d-flex align-items-center justify-content-end"><span _ngcontent-ng-c2580688565="">Inclusive</span></p><p _ngcontent-ng-c2580688565="" class="col-md-6 mb-0 p-0 px-1 text-end body-border-3 body-border-4"><span _ngcontent-ng-c2580688565=""></span></p></div><div _ngcontent-ng-c2580688565="" class="row p-0 pb-0 mt-0 mb-0"><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 py-2 col-md-4 body-border-1 d-flex align-items-center fw-bold">Done By: &nbsp;Admin</p><p _ngcontent-ng-c2580688565="" class="col-md-4 mb-0 p-0 py-2"></p><p _ngcontent-ng-c2580688565="" class="col-md-4 mb-0 p-0 py-2 text-left body-border-3 d-flex align-items-center fw-bold"><span _ngcontent-ng-c2580688565="">Date: &nbsp;Wednesday, 04 September 2024</span></p></div><div _ngcontent-ng-c2580688565="" class="row p-0 pb-0 mt-0 mb-5"><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-12 m-0 body-border text-center header-bg-color">Please note this is a quotation Only and is not an automatic confirmation of cover. Terms subject to change after valuation as per our Motor Rating Guidelines. Please advise preferred premium payment option. This quotation is an invitation to offer and does not constitute an offer and is valid for 30 Days. This invitation is Subject to Jubilee Allianz General Insurance Standard Policy Wordings.</p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 col-md-12 body-border-1 body-border-3 h-10px"></p><p _ngcontent-ng-c2580688565="" class="mb-0 p-0 px-1 col-md-12 m-0 body-border text-center header-bg-color">“All premiums should be paid by bank transfer in the name of Jubilee Allianz General Insurance (K) Ltd Account nos. Diamond Trust Bank of Kenya -A/c No.0541506001 (Nairobi - Nation Centre Branch), or through MPESA pay bill no. 7146151&nbsp;at the Jubilee Head office any of the Branch offices. No payment should be made in the name of the agent. Jubilee Allianz General Insurance (K) Ltd accepts no liability for losses arising from payments made through agents or through any other means other than those set out above.”</p></div></div>
+
+</div>
+</div>
+</div>
+</body>
+
 </html>

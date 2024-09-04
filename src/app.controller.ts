@@ -47,7 +47,8 @@ export class AppController {
       console.log("emailing 2");
 
       // Generate PDF
-      const pdfBuffer = await page.pdf({ format: "A4" });
+      const pdfBuffer = await page.pdf({ format: "A4", printBackground: true
+      });
       console.log("emailing 3");
 
       await browser.close();
