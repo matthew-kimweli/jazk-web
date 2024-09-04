@@ -649,12 +649,14 @@ export class MotorKycComponent {
 
       this.parseService.fetching = true;
 
-      let res = await Parse.Cloud.run('paympesa', {})
+      let res = await Parse.Cloud.run('paympesa', {
+        'phone': this.paymentData.mmNumber
+      })
 
       let text = res;
     
       console.log('mm response', text);
-      
+
       this.parseService.fetching = false;
 
 

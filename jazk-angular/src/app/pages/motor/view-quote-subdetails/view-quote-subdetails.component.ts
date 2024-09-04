@@ -287,6 +287,7 @@ ${invoiceElement.outerHTML}
 </html>`;
 
       console.log('Sending email', client);
+      console.log('html', fullHtml)
 
       this.dataService.httpClient
         .post(
