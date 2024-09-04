@@ -3,6 +3,8 @@ import { AppService } from "./app.service";
 const puppeteer = require("puppeteer");
 const fs = require("fs");
 
+const path = require("path");
+
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -19,28 +21,30 @@ export class AppController {
     const body = req.body;
     let invoiceHtml = body.invoiceHtml;
     let client = body.client;
-    console.log('emailing quote')
+    console.log("emailing quote");
 
     try {
       // Launch Puppeteer
+
       const browser = await puppeteer.launch({
         headless: true,
-        executablePath: '/usr/bin/google-chrome', // Path to Chrome binary
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
+        executablePath: path.join(__dirname, "google-chrome"), // Path to the Chrome binary
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
       });
+
       const page = await browser.newPage();
-      console.log('emailing 1')
+      console.log("emailing 1");
 
       // Set HTML content
       await page.setContent(invoiceHtml);
-      console.log('emailing 2')
+      console.log("emailing 2");
 
       // Generate PDF
       const pdfBuffer = await page.pdf({ format: "A4" });
-      console.log('emailing 3')
+      console.log("emailing 3");
 
       await browser.close();
-      console.log('emailing 4')
+      console.log("emailing 4");
 
       // Save the PDF to the filesystem (optional)
       // fs.writeFileSync("quote.pdf", pdfBuffer);

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { UtilsService } from '../../../services/utils.service';
 import { ToastrService } from 'ngx-toastr';
@@ -9,6 +9,8 @@ import vehicleData from '../../../_helpers/vehicleMake.json';
 import bodyTypeData from '../../../_helpers/bodyType.json';
 import { HeaderComponent } from '../../_components/header/header.component';
 import * as Parse from "parse";
+import { ParseService } from '../../../services/parse.service';
+import { MotorService } from '../../../services/motor.service';
 
 
 declare var FlutterwaveCheckout: any;
@@ -116,13 +118,17 @@ export class MotorKycComponent {
   maxCoverDate: any;
 
   termsUrl: any = 'https://www.beanafrica.com/Allianz/ug/PolicyDocs/Private%20Motor%20Insurance%20Policy.pdf';
+  quote?: Parse.Attributes;
 
 
   constructor(
     public utilsService: UtilsService,
     public authService: AuthService,
+    public parseService: ParseService,
+    public motorService: MotorService,
     private router: Router,
     private toastr: ToastrService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.getToday()
   }
@@ -147,6 +153,15 @@ export class MotorKycComponent {
   }
 
   ngOnInit(): void {
+
+    this.activatedRoute.params.subscribe((parameter) => {
+      let id = parameter['id'];
+
+      if (id) {
+        this.fetchQuotation(id);
+      }
+    });
+
     console.log(this.utilsService.motorData)
     let data = this.utilsService.motorData
     if (!data) {
@@ -177,6 +192,23 @@ export class MotorKycComponent {
 
     this.vehicles = this.utilsService.motorData.autoMobiles;
     this.getYears();
+  }
+
+  async fetchQuotation(id: any) {
+    try {
+      this.parseService.fetching = true;
+      let query = new Parse.Query('JazkeQuotation');
+      let quote = await query.get(id);
+      console.log('quote', quote);
+      if(quote){
+        this.motorService.motorQuotation = quote.get('quoteData')
+        this.quote = quote.attributes
+      }
+      this.parseService.fetching = false;
+    } catch (error) {
+      console.error(error);
+      this.parseService.fetching = true;
+    }
   }
 
   emailIsValid(): boolean {

@@ -74,6 +74,10 @@ export const routes: Routes = [
     component: MotorKycComponent,
   },
   {
+    path: 'motor-kyc/:id',
+    component: MotorKycComponent,
+  },
+  {
     path: 'motor',
     component: MotorCalcComponent,
   },

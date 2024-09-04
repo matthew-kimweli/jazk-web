@@ -1,6 +1,17 @@
 <app-header></app-header>
 
 <div class="page-wrapper">
+  <div
+    class="mb-3"
+    *ngIf="
+      parseService.fetching || parseService.saving || parseService.deleting
+    "
+  >
+    <div class="progress">
+      <div class="progress-bar progress-bar-indeterminate bg-green"></div>
+    </div>
+  </div>
+  
   <div class="page-body">
     <div class="container-xl">
       <!-- ======= Hero Section ======= -->

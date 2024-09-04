@@ -27,8 +27,8 @@
               <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
             </svg>
           </span>
-          <div class="d-none d-xl-block ps-2">
-            <div *ngIf="!auth.currentUser">Login</div>
+          <div class="d-none d-xl-block ps-2 ">
+            <div class="btn btn-primary btn-outline"  [routerLink]="['/login']" routerLinkActive="router-link-active" *ngIf="!auth.currentUser">Login Here</div>
             <div *ngIf="auth.currentUser">{{auth.currentUserName}}</div>
             <!-- <div class="mt-1 small text-capitalize text-green">{{auth.currentUserType}}</div> -->
           </div>
