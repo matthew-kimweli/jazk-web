@@ -55,7 +55,7 @@ export class AppController {
       res.status(200).send("Invoice PDF generated and emailed successfully");
     } catch (error) {
       console.error(error);
-      res.status(500).send("Error generating PDF");
+      res.status(500).send("Error generating PDF: "+String(error).toString());
     }
   }
 }
