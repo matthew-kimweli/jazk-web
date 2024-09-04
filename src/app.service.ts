@@ -75,7 +75,7 @@ export class AppService {
               PartyA: 254708374149,
               PartyB: 174379,
               PhoneNumber: 254708374149,
-              CallBackURL: "https://mydomain.com/path",
+              CallBackURL: "https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/receivepayment",
               AccountReference: "CompanyXLTD",
               TransactionDesc: "Payment of X",
             })

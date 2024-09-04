@@ -66,5 +66,20 @@ export class AppController {
     }
   }
 
+  @Post("receivepayment")
+  async receivepayment(@Req() req, @Res() res): Promise<any> {
+    const body = req.body;
+    console.log("payment notfication", body);
+    let Payment = Parse.Object.extend('JazkePaymentNotification')
+    let p = new Payment()
+    try {
+      await p.save(body)
+      console.log("payment saved");
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  
 
 }
