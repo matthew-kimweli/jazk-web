@@ -569,22 +569,31 @@
           <div class="php-email-form">
             <div class="text-center">
               <button
-                class="btn btn-outline"
+                class="btn btn-primary"
                 data-bs-toggle="modal"
                 data-bs-target="#modal-make-payment"
-                type="submit"
+                [disabled]="parseService.fetching"
               >
                 Make Payment
               </button>
             </div>
           </div>
+
+          <div
+            class="mb-3"
+            *ngIf="
+              parseService.fetching ||
+              parseService.saving ||
+              parseService.deleting
+            "
+          >
+            <div class="progress">
+              <div
+                class="progress-bar progress-bar-indeterminate bg-green"
+              ></div>
+            </div>
+          </div>
         </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
         <br />
         <br />
         <br />
@@ -627,10 +636,56 @@
               <label class="form-label">Select Payment Method</label>
               <select [(ngModel)]="paymentData.method" class="form-select">
                 <option value="" disabled>Select</option>
-                <option value="mm" >Mobile Money</option>
+                <option value="mm">Mobile Money</option>
                 <option value="card">Card</option>
               </select>
             </div>
+            <div class="mb-3">
+              <label class="form-label">Payment Installments</label>
+              <select
+                (change)="createInstallments($event)"
+                [(ngModel)]="paymentData.installment_type"
+                class="form-select"
+              >
+                <option value="" disabled>Select</option>
+                <option value="1">1 Installment</option>
+                <option value="2">2 Installments</option>
+                <option value="3">3 Installments</option>
+              </select>
+            </div>
+
+            <div
+              class="mb-3"
+              *ngIf="
+                paymentData.installment_type == '2' ||
+                paymentData.installment_type == '3'
+              "
+            >
+              <table class="table table-vcenter card-table">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of installments; let i = index">
+                    <td class="text-primary">
+                      {{ i + 1 }}
+                    </td>
+                    <td>
+                      {{ item.date | date }}
+                    </td>
+
+                    <td class="text-secondary">
+                      KES {{ item.amount | number }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
             <div class="mb-3" *ngIf="paymentData.method == 'mm'">
               <label class="form-label">Mobile Money Number</label>
               <div class="input-group">

@@ -16,6 +16,7 @@ import { ViewQuoteComponent } from './pages/motor/view-quote/view-quote.componen
 import { QuotationSalesListComponent } from './pages/agent/quotation-sales-list/quotation-sales-list.component';
 import { ViewQuoteSubdetailsComponent } from './pages/motor/view-quote-subdetails/view-quote-subdetails.component';
 import { GenerateReportComponent } from './pages/report_list/generate-report/generate-report.component';
+import { MotorPaymentSuccessComponent } from './pages/motor/motor-payment-success/motor-payment-success.component';
 
 export const routes: Routes = [
   {
@@ -101,4 +102,10 @@ export const routes: Routes = [
     path: 'motor-kyc',
     component: MotorKycComponent,
   },
+  {
+    path: 'motor-payment-success',
+    component: MotorPaymentSuccessComponent,
+  },
+
+  
 ];

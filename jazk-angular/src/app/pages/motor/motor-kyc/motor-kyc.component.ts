@@ -127,7 +127,8 @@ export class MotorKycComponent {
   termsUrl: any =
     'https://www.beanafrica.com/Allianz/ug/PolicyDocs/Private%20Motor%20Insurance%20Policy.pdf';
   quote: any;
-  paymentData: any = {method:''};
+  paymentData: any = { method: '', installment_type:'1' };
+  installments: any = [];
 
   constructor(
     public utilsService: UtilsService,
@@ -209,7 +210,6 @@ export class MotorKycComponent {
       this.quote = quote;
       if (quote) {
         this.motorService.motorQuotation = quote.get('quoteData');
-        
       }
       this.parseService.fetching = false;
     } catch (error) {
@@ -320,6 +320,30 @@ export class MotorKycComponent {
         'Please note we only insure vehicles for commercial use whose age is not more than 25 years from the year of manufacture.'
       );
     }
+  }
+
+  createInstallments(event:any){
+    let now = new Date()
+    let secondMonth = new Date(new Date().setMonth(now.getMonth()+1))
+    let thirdMonth = new Date(new Date().setMonth(now.getMonth()+2))
+    let data = this.motorService.motorQuotation;
+      let amount = data.grossPremium;
+
+    if(this.paymentData.installment_type == '2'){
+      let partAmount = amount/2
+      this.installments = []
+      this.installments.push({date:now, amount: partAmount})
+      this.installments.push({date:secondMonth, amount: partAmount})
+    } else if(this.paymentData.installment_type == '3'){
+      let partAmount = amount/3
+      this.installments = []
+      this.installments.push({date:now, amount: partAmount})
+      this.installments.push({date:secondMonth, amount: partAmount})
+      this.installments.push({date:thirdMonth, amount: partAmount})
+    } else {
+      this.installments = []
+    }
+
   }
 
   buyNow() {
@@ -624,6 +648,10 @@ export class MotorKycComponent {
       payment.set('type', 'flutterwave');
       payment.set('amount', amount);
       payment.set('txRef', txRef);
+      payment.set('quotation_id', this.quote.id);
+      payment.set('installments', this.installments)
+      payment.set('installment_type', this.paymentData.installment_type)
+
       if (client) {
         payment.set('client', client);
         payment.set('client_email', client.email);
@@ -646,18 +674,28 @@ export class MotorKycComponent {
         payment.set('loggedInUser', this.authService.currentUser.toJSON());
         payment.set('userId', this.authService.currentUser.id);
       }
+      await payment.save();
 
       this.parseService.fetching = true;
 
       let res = await Parse.Cloud.run('paympesa', {
-        'phone': this.paymentData.mmNumber
-      })
-      let json = JSON.parse(res)
-      let merchantRequestID = json['MerchantRequestID']
-      console.log('mm response', merchantRequestID);
+        phone: this.paymentData.mmNumber,
+        sale_id: payment.id,
+      });
+      console.log('response', res);
+      let json = JSON.parse(res);
+
+      console.log('mm response', json);
+
+      let ResponseDescription = json['ResponseDescription'];
+      let CheckoutRequestID = json['CheckoutRequestID'];
+
+      if (ResponseDescription == 'Success. Request accepted for processing') {
+        this.router.navigate(['/motor-payment-success', payment.id]);
+      } else {
+      }
 
       this.parseService.fetching = false;
-
 
       // {
       //   "MerchantRequestID": "7071-4170-a0e4-8345632bad442222021",
@@ -666,7 +704,6 @@ export class MotorKycComponent {
       //   "ResponseDescription": "Success. Request accepted for processing",
       //   "CustomerMessage": "Success. Request accepted for processing"
       // }
-
     } catch (error) {
       console.error(error);
       this.toastr.error('Error while creating order. Please try again.');

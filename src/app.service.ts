@@ -86,6 +86,7 @@ export class AppService {
         return req.raw_body
       } catch (error) {
         console.error("Request failed:", error);
+        return String(error).toString()
       }
 
     });
