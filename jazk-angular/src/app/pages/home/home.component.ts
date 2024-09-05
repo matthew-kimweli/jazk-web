@@ -81,7 +81,7 @@ export class HomeComponent {
       
       this.salesCount = this.dataService.recent.salesCount
       let query2 = new Parse.Query("JazkeSale");
-      query2.equalTo("userId", this.auth.currentUserId);
+      query2.equalTo("user_id", this.auth.currentUserId);
       this.salesCount = await query2.count();
 
       this.dataService.recent.salesCount = this.salesCount
@@ -109,7 +109,7 @@ export class HomeComponent {
     let user: any = this.auth.currentUser;
 
     let query = new Parse.Query("JazkeSale");
-    query.equalTo('userId', user.id)
+    query.equalTo('user_id', user.id)
     query.include(['quotation'])
     
     this.sales = await this.parseService.find(query);

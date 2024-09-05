@@ -48,7 +48,8 @@ export class QuotationSalesListComponent implements OnInit {
 
     let query = new Parse.Query("JazkeSale");
     query.equalTo('insurance_type', id)
-    query.equalTo('userId', user.id)
+    query.equalTo('user_id', user.id)
+    query.include(['quotation'])
     
     this.sales = await this.parseService.find(query);
     console.log('sales', this.sales)

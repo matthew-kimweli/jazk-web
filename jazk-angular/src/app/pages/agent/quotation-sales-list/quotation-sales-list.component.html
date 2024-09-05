@@ -251,16 +251,17 @@
                             </td>
 
                             <td class="text-secondary">
-                              {{ item.get("client").name }}
+                              {{ item.get('quotation').get("client").name }}
                             </td>
                             <td class="text-secondary">
                               <strong style="color: orange">{{
-                                item.get("whatIsInsured")
+                                item.get('quotation').get("whatIsInsured")
                               }}</strong>
                             </td>
                             <td class="text-success">
-                              {{ item.get("premium") || "---" }}
+                              {{ item.get('quotation').get("premium") || "---" }}
                             </td>
+                            
                             <td class="text-azure">
                               {{ item.get("outstandingPremium") || "---" }}
                             </td>
