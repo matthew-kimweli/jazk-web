@@ -29,7 +29,7 @@ jobs:
           npm run test --if-present
 
       - name: Zip artifact for deployment
-        run: zip -r release.zip ./* -x "src/*" "jazk-angular/*"
+        run: zip -r release.zip ./* -x "src/*" "node_modules/*" "jazk-angular/*"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4

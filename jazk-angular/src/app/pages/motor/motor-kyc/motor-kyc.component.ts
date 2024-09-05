@@ -658,6 +658,7 @@ export class MotorKycComponent {
     let userData = {
       fname: this.pfname,
       lname: this.plname,
+      name: `${this.pfname} ${this.plname}`,
       age: this.pAge,
       DoB: this.pDob,
       phone: this.pphone,
@@ -665,6 +666,7 @@ export class MotorKycComponent {
       tin: this.pTin,
       city: this.pCity,
       address: this.pAddress,
+      registrationNumber: this.vehicle.registrationNumber
     };
 
 
@@ -789,6 +791,13 @@ export class MotorKycComponent {
 
       let data = this.motorService.motorQuotation;
       let client = this.quote.get('client');
+      if(!client){
+        let kyc = this.motorData.kyc
+        this.quote.set('client', kyc)
+        this.quote.set('actionType', 'purchase')
+        await this.quote.save()
+      }
+
 
       let amount = data.grossPremium;
       let currency = this.currency;
@@ -813,6 +822,8 @@ export class MotorKycComponent {
 
       payment.set('insurance_data', this.motorData)
 
+      let agent_email
+
       if (this.authService.currentUser) {
         let agent = {
           email:
@@ -820,6 +831,8 @@ export class MotorKycComponent {
           phone_number: this.authService.currentUser?.get('phone'),
           name: this.authService.currentUserName,
         };
+
+        agent_email = agent.email
 
         payment.set('agent', agent);
         payment.set('agent_username', this.authService.currentLoginUserName);
@@ -834,6 +847,10 @@ export class MotorKycComponent {
       let res = await Parse.Cloud.run('paympesa', {
         phone: this.paymentData.mmNumber,
         sale_id: payment.id,
+        quote_id: this.quote.id,
+        quote_data: this.quote.get('quoteData'),
+        client: client,
+        agent_email: agent_email
       });
       console.log('response', res);
       let json = JSON.parse(res);
@@ -845,6 +862,7 @@ export class MotorKycComponent {
 
       if (ResponseDescription == 'Success. Request accepted for processing') {
         this.router.navigate(['/motor-payment-success', payment.id]);
+
       } else {
       }
 
