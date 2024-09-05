@@ -53,6 +53,7 @@ export class AppService {
   }
 
   initCloudFunctions() {
+
     Parse.Cloud.define("paympesa", async (request) => {
       let params = request.params;
       let phone = params.phone;
@@ -89,9 +90,9 @@ export class AppService {
               Timestamp: Date.now(),
               TransactionType: "CustomerPayBillOnline",
               Amount: 1,
-              PartyA: phone,
+              PartyA: 254708374149,
               PartyB: 174379,
-              PhoneNumber: phone, //254708374149,
+              PhoneNumber: 254708374149,
               CallBackURL:
                 "https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/receivepayment",
               AccountReference: "Jubilee Allianz",

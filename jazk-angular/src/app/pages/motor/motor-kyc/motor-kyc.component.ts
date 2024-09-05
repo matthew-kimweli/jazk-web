@@ -809,6 +809,7 @@ export class MotorKycComponent {
       payment.set('amount', amount);
       payment.set('txRef', txRef);
       payment.set('quotation_id', this.quote.id);
+      payment.set('quotation', this.quote);
       payment.set('installments', this.installments);
       payment.set('installment_type', this.paymentData.installment_type);
 
@@ -839,6 +840,8 @@ export class MotorKycComponent {
         payment.set('agent_name', this.authService.currentUserName);
         payment.set('loggedInUser', this.authService.currentUser.toJSON());
         payment.set('userId', this.authService.currentUser.id);
+        payment.set('user_id', this.authService.currentUser.id);
+        
       }
       await payment.save();
 
@@ -862,7 +865,8 @@ export class MotorKycComponent {
 
       if (ResponseDescription == 'Success. Request accepted for processing') {
         this.router.navigate(['/motor-payment-success', payment.id]);
-
+        payment.set('paymentStatus', 'Paid')
+        payment.save()
       } else {
       }
 
