@@ -785,6 +785,10 @@ export class MotorKycComponent {
 
   async startPayment() {
     
+    if(!this.paymentData.method){
+      this.toastr.error("Please select a payment method")
+      return;
+    }
 
     if(this.paymentData.method == 'card'){
       this.toastr.info('Coming soon', 'This is payment method is not yet available')
@@ -910,6 +914,7 @@ export class MotorKycComponent {
       //   "ResponseDescription": "Success. Request accepted for processing",
       //   "CustomerMessage": "Success. Request accepted for processing"
       // }
+      document.getElementById('paymentcancelbutton')?.click()
     } catch (error) {
       console.error(error);
       this.toastr.error('Error while creating order. Please try again.');
