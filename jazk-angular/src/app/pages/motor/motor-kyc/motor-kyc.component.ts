@@ -847,8 +847,15 @@ export class MotorKycComponent {
 
       this.parseService.fetching = true;
 
+      let phone = String(this.paymentData.mmNumber).replace('+','')
+      if(phone.includes('254')){
+        
+      } else {
+        phone = `254${phone}`
+      }
+
       let res = await Parse.Cloud.run('paympesa', {
-        phone: this.paymentData.mmNumber,
+        phone: phone,
         sale_id: payment.id,
         quote_id: this.quote.id,
         quote_data: this.quote.get('quoteData'),
