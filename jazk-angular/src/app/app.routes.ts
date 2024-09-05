@@ -103,7 +103,7 @@ export const routes: Routes = [
     component: MotorKycComponent,
   },
   {
-    path: 'motor-payment-success',
+    path: 'motor-payment-success/:id',
     component: MotorPaymentSuccessComponent,
   },
 

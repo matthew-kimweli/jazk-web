@@ -19,6 +19,7 @@ export class AppComponent {
     private toastr: ToastrService,) {
       // let serverURL2 = `https://jubilee.plot411.com/parse`;
       let serverURL2 = `https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/parse`;
+      // let serverURL2 = `http://localhost:3012/parse`;
       var keyApplicationId = 'debunkbot';
       var keyParseServerKey = 'debunkbot12@!!';
       var keyLiveQueryUrl = 'wss://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/';

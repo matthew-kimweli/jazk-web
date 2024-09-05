@@ -63,6 +63,20 @@ export class AppService {
       let agent_email = params.agent_email;
       let client = params.client;
 
+      function getTimestamp() {
+        const now = new Date();
+        
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');  // getMonth() returns 0-11
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        
+        return `${year}${month}${day}${hours}${minutes}${seconds}`;
+    }
+    
+
       try {
         const response = await axios.get(
           "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
@@ -75,34 +89,41 @@ export class AppService {
         );
 
         // {
-        //   "access_token": "xHM8FgkuvIujKU7ZoD89Q6xFGC7u",
-        //   "expires_in": "3599"
-        // }
+        //   "BusinessShortCode": 174379,
+        //   "Password": "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQwOTA1MTAxNDM0",
+        //   "Timestamp": getTimestamp(),
+        //   "TransactionType": "CustomerPayBillOnline",
+        //   "Amount": 1,
+        //   "PartyA": 254708374149,
+        //   "PartyB": 174379,
+        //   "PhoneNumber": 254708374149,
+        //   "CallBackURL": "https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/receivepayment",
+        //   "AccountReference": "CompanyXLTD",
+        //   "TransactionDesc": "Payment of Motor Insurance" 
+        // },
         console.log("access token", response.data);
         let tokenData = response.data;
         if (tokenData && tokenData.access_token) {
           const response = await axios.post(
             "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
             {
-              BusinessShortCode: 174379,
-              Password:
-                "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQwOTA1MDcxMTQ1",
-              Timestamp: Date.now(),
-              TransactionType: "CustomerPayBillOnline",
-              Amount: 1,
-              PartyA: 254708374149,
-              PartyB: 174379,
-              PhoneNumber: 254708374149,
-              CallBackURL:
-                "https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/receivepayment",
-              AccountReference: "Jubilee Allianz",
-              TransactionDesc: "Payment of Motor insurance",
+              "BusinessShortCode": 174379,
+              "Password": "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQwOTA1MTAxNDM0",
+              "Timestamp": "20240905101434",
+              "TransactionType": "CustomerPayBillOnline",
+              "Amount": 1,
+              "PartyA": phone,
+              "PartyB": 174379,
+              "PhoneNumber": phone,//254708374149,
+              "CallBackURL": "https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/receivepayment",
+              "AccountReference": "CompanyXLTD",
+              "TransactionDesc": "Payment of Motor Insurance" 
             },
 
             {
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${tokenData.access_token}`,
+                "Authorization": `Bearer ${tokenData.access_token}`,
               },
             }
           );

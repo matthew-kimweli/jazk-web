@@ -828,7 +828,7 @@ export class MotorKycComponent {
       if (this.authService.currentUser) {
         let agent = {
           email:
-            this.authService.currentUser?.get('email') || 'marmope7@gmail.com',
+            this.authService.currentUser?.get('email') || 'jazkesales@allianz.com',
           phone_number: this.authService.currentUser?.get('phone'),
           name: this.authService.currentUserName,
         };
@@ -856,7 +856,7 @@ export class MotorKycComponent {
         agent_email: agent_email
       });
       console.log('response', res);
-      let json = JSON.parse(res);
+      let json = res;
 
       console.log('mm response', json);
 
