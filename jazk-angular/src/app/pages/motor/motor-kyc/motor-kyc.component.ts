@@ -784,7 +784,21 @@ export class MotorKycComponent {
   }
 
   async startPayment() {
+    
+
+    if(this.paymentData.method == 'card'){
+      this.toastr.info('Coming soon', 'This is payment method is not yet available')
+      return;
+    }
+
+
+    if(!this.paymentData.mmNumber){
+      this.toastr.error('Please provide mobile money number')
+      return;
+    }
+
     this.toastr.info('Please wait...');
+
     try {
       let txRef = `jazke__${Date.now()}`;
       let payment_success = false;
