@@ -61,47 +61,237 @@ export class MotorKycComponent {
     { id: 'no', name: 'No' },
   ];
   banks_mfis: any = [
-    'ABC Capital Bank Uganda Limited',
-    'Absa Bank Uganda Limited',
-    'Bank of Africa Uganda Limited',
-    'Bank of Baroda Uganda Limited',
-    'Bank of India (Uganda) Limited',
-    'Cairo Bank Uganda Ltd',
-    'Centenary Rural Development Bank Limited',
-    'Citibank Uganda Limited',
-    'DFCU Bank Limited',
-    'Diamond Trust Bank Uganda Limited',
-    'Ecobank Uganda Limited',
-    'Equity Bank Uganda Limited',
-    'Exim Bank Uganda Limited',
-    'Finance Trust Bank Limited',
-    'Guaranty Trust Bank (Uganda) Limited',
-    'Housing Finance Bank Uganda Limited',
-    'KCB Bank Uganda Limited',
-    'NCBA Bank Uganda Limited',
-    'Opportunity Bank Uganda Limited',
-    'I&M Bank (Uganda) Limited',
-    'Stanbic Bank Uganda Limited',
-    'Standard Chartered Bank Uganda Limited',
-    'Tropical Bank Limited',
-    'United Bank for Africa Uganda Limited',
-    'Postbank (U) Limited',
-    'BRAC Uganda Bank Limited',
-    'Mercantile Credit Bank Limited',
-    'Yako Bank Uganda Limited',
-    'Top Finance Bank Limited',
-    'BRAC Uganda Bank Limited',
-    'Mercantile Credit Bank Limited',
-    'Yako Bank Uganda Limited',
-    'Top Finance Bank Limited',
-    'EFC Uganda Limited',
-    'FINCA Uganda Limited',
-    'PRIDE Microfinance Limited',
-    'UGAFODE Limited',
-    'EFC Uganda Limited',
-    'FINCA Uganda Limited',
-    'PRIDE Microfinance Limited',
-    'UGAFODE Limited',
+    {
+      name: 'Absa Bank of Kenya Limited',
+      email: 'absa.kenya@absa.africa.com',
+    },
+    {
+      name: 'Access Bank (Kenya) PLC',
+      email: 'infokenya@accessbankplc.com',
+    },
+    {
+      name: 'African Banking Corporation Limited',
+      email: 'talk2us@abcthebank.com, headoffice@abcthebank.com',
+    },
+    {
+      name: 'Bank of Africa Kenya Limited',
+      email: 'headoffice@boakenya.com',
+    },
+    {
+      name: 'Bank of Baroda (K) Limited',
+      email: 'ho.kenya@bankofbaroda.com, Kenya@bankofbaroda.com',
+    },
+    {
+      name: 'Bank of India',
+      email: 'cekenya@boikenya.com',
+    },
+    {
+      name: 'Citibank N.A Kenya',
+      email: 'Kenya.citiservice@citi.com',
+    },
+    {
+      name: 'Consolidated Bank of Kenya Limited',
+      email: 'headoffice@consolidated-bank.com',
+    },
+    {
+      name: 'Co-operative Bank of Kenya Limited',
+      email: 'customerservice@co-opbank.co.ke',
+    },
+    {
+      name: 'Credit Bank Limited',
+      email: 'customerservice@creditbank.co.ke',
+    },
+    {
+      name: 'Development Bank of Kenya Limited',
+      email: 'dbk@devbank.com',
+    },
+    {
+      name: 'Diamond Trust Bank Kenya Limited',
+      email: 'info@dtbafrica.com',
+    },
+    {
+      name: 'DIB Bank Kenya Limited',
+      email: 'contactus@dibkenya.co.ke',
+    },
+    {
+      name: 'Ecobank Kenya Limited',
+      email: 'info@ecobank.com',
+    },
+    {
+      name: 'Equity Bank Kenya Limited',
+      email: 'info@equitybank.co.ke',
+    },
+    {
+      name: 'Family Bank Limited',
+      email: 'customerservice@familybank.co.ke, info@familybank.co.ke',
+    },
+    {
+      name: 'First Community Bank Limited',
+      email: 'info@fcb.co.ke',
+    },
+    {
+      name: 'Guaranty Trust Bank (K) Ltd',
+      email: 'banking@gtbank.com',
+    },
+    {
+      name: 'Guardian Bank Limited',
+      email: 'biashara@guardian-bank.com, headoffice@guardian-bank.com',
+    },
+    {
+      name: 'Gulf African Bank Limited',
+      email: 'info@gulfafricanbank.com',
+    },
+    {
+      name: 'Habib Bank A.G Zurich',
+      email: 'habibbank@wananchi.com',
+    },
+    {
+      name: 'Habib Bank Limited',
+      email: 'habibbank@wananchi.com',
+    },
+    {
+      name: 'I & M Bank Limited',
+      email: 'invest@imbank.co.ke',
+    },
+    {
+      name: 'Jamii Bora Bank Limited',
+      email: 'info@jamiiborabank.co.ke',
+    },
+    {
+      name: 'KCB Bank Kenya Limited',
+      email: 'kcbhq@kcb.co.ke',
+    },
+    {
+      name: 'Kingdom Bank Limited',
+      email: 'info@kingdombankltd.co.ke',
+    },
+    {
+      name: 'Mayfair CIB Bank Limited',
+      email: 'info@mayfair-bank.com',
+    },
+    {
+      name: 'Middle East Bank (K) Limited',
+      email: 'Kingdom Bank Limited',
+    },
+    {
+      name: 'M-Oriental Bank Limited',
+      email: 'headoffice@moriental.co.ke',
+    },
+    {
+      name: 'National Bank of Kenya Limited',
+      email: 'info@nationalbank.co.ke',
+    },
+    {
+      name: 'NCBA Bank Kenya PLC',
+      email: 'contactcentre@ncbagroup.com',
+    },
+    {
+      name: 'Paramount Bank Limited',
+      email: 'info@paramountbank.co.ke',
+    },
+    {
+      name: 'Prime Bank Limited',
+      email: 'headoffice@primebank.co.ke',
+    },
+    {
+      name: 'SBM Bank Kenya Limited',
+      email: 'customerservice@smbank.co.ke',
+    },
+    {
+      name: 'Sidian Bank Limited',
+      email: 'enquiries@sidianbank.co.ke',
+    },
+    {
+      name: 'Spire Bank Ltd',
+      email: 'letstalk@spirebank.co.ke',
+    },
+    {
+      name: 'Stanbic Bank Kenya Limited',
+      email: 'customercare@stanbic.com',
+    },
+    {
+      name: 'Standard Chartered Bank Kenya Limited',
+      email: 'Talk-Us@sc.com',
+    },
+    {
+      name: 'Trans-National Bank Limited',
+      email: 'customerservice@tnbl.co.ke',
+    },
+    {
+      name: 'UBA Kenya Bank Limited',
+      email: 'ubakenya@ubagroup.com',
+    },
+    {
+      name: 'Victoria Commercial Bank Limited',
+      email: 'victoria@vicbank.com',
+    },
+
+    // microfinances
+    {
+      name: 'Branch Microfinance Bank Limited',
+      email: '',
+    },
+    {
+      name: 'Caritas Microfinance Bank Limited',
+      email: 'info@caritas-mfb.co.ke',
+    },
+    {
+      name: 'Century Microfinance Bank Limited',
+      email: 'info@century.co.ke',
+    },
+    {
+      name: 'Choice Microfinance Bank Limited',
+      email: 'daraja@darajabank.co.ke',
+    },
+    {
+      name: 'Daraja Microfinance Bank Limited',
+      email: 'daraja@darajabank.co.ke',
+    },
+    {
+      name: 'Faulu Microfinance Bank Limited',
+      email:
+        'info@faulukenya.com, customercare@faulukenya.com, contact@faulukenya.com',
+    },
+    {
+      name: 'Kenya Women Microfinance Bank PLC',
+      email: 'info@kwftbank.com',
+    },
+    {
+      name: 'LOLC Kenya Microfinance Bank PLC',
+      email: '',
+    },
+    {
+      name: 'Maisha Microfinance Bank Ltd',
+      email: 'info@maishabank.com',
+    },
+    {
+      name: 'Muungano Microfinance Bank PLC',
+      email: 'info@muunganomfbank.co.ke',
+    },
+    {
+      name: 'Rafiki Microfinance Bank Limited',
+      email: 'info@rafiki.co.ke',
+    },
+    {
+      name: 'Salaam Microfinance Bank Limited',
+      email: '',
+    },
+    {
+      name: 'SMEP Microfinance Bank PLC',
+      email: 'info@smep.co.ke',
+    },
+    {
+      name: 'Sumac Microfinance Bank Limited',
+      email: 'info@sumacmicrofinancebank.co.ke',
+    },
+    {
+      name: 'U & I Microfinance Bank Limited',
+      email: 'info@uni-microfinance.co.ke',
+    },
+    {
+      name: 'Uwezo Microfinance Bank Limited',
+      email: 'info@uwezomfbank.com',
+    },
   ];
 
   vehicleMake: any = '';
@@ -123,12 +313,14 @@ export class MotorKycComponent {
   coverStartDate: any;
   coverEndDate: any;
   maxCoverDate: any;
+  vehicle:any = {}
 
   termsUrl: any =
     'https://www.beanafrica.com/Allianz/ug/PolicyDocs/Private%20Motor%20Insurance%20Policy.pdf';
   quote: any;
-  paymentData: any = { method: '', installment_type:'1' };
+  paymentData: any = { method: '', installment_type: '1' };
   installments: any = [];
+  motorData: any = {};
 
   constructor(
     public utilsService: UtilsService,
@@ -169,11 +361,11 @@ export class MotorKycComponent {
       }
     });
 
-    console.log(this.utilsService.motorData);
-    let data = this.utilsService.motorData;
-    if (!data) {
-      this.router.navigate(['motor']);
-    }
+    // console.log(this.utilsService.motorData);
+    // let data = this.utilsService.motorData;
+    // if (!data) {
+    //   this.router.navigate(['motor']);
+    // }
 
     let user = this.authService.currentUser;
     this.user = user;
@@ -192,12 +384,12 @@ export class MotorKycComponent {
       }
     }
 
-    for (let obj of this.utilsService.motorData.autoMobiles) {
-      obj.vehicleDisabled = true;
-      obj.IsBankOrMFIinterested = false;
-    }
+    // for (let obj of this.utilsService.motorData.autoMobiles) {
+    //   obj.vehicleDisabled = true;
+    //   obj.IsBankOrMFIinterested = false;
+    // }
 
-    this.vehicles = this.utilsService.motorData.autoMobiles;
+    // this.vehicles = this.utilsService.motorData.autoMobiles;
     this.getYears();
   }
 
@@ -226,38 +418,28 @@ export class MotorKycComponent {
   }
 
   onVehicleMakeChanged(event: any, id: any) {
-    if (event.target.value) {
-      this.selectedVehicleMake = id;
-      //@ts-ignore
-      let obj = this.utilsService.motorData.autoMobiles.find(
-        (obj: any) => obj.motorId === id
-      );
-      obj.vehicleDisabled = false;
-      // this.vehicleMakeNotSelected = false;
-    }
+    // if (event.target.value) {
+    //   this.selectedVehicleMake = id;
+    //   //@ts-ignore
+    //   let obj = this.utilsService.motorData.autoMobiles.find(
+    //     (obj: any) => obj.motorId === id
+    //   );
+    //   obj.vehicleDisabled = false;
+    //   // this.vehicleMakeNotSelected = false;
+    // }
   }
 
   onbankInterestChanged(event: any, id: any) {
     if (event.target.value && event.target.value === 'yes') {
       this.selectedVehicle = id;
-      //@ts-ignore
-      let obj = this.utilsService.motorData.autoMobiles.find(
-        (obj: any) => obj.motorId === id
-      );
-      obj.IsBankOrMFIinterested = true;
+      
+      this.vehicle.IsBankOrMFIinterested = true;
       // this.bankOrMFIInterested = true;
     } else {
       //@ts-ignore
-      let obj = this.utilsService.motorData.autoMobiles.find(
-        (obj: any) => obj.motorId === id
-      );
-      obj.IsBankOrMFIinterested = false;
-      // Remove the .bankOrMFI .vehicleModel property if it exists
-      if (obj) {
-        if (obj.hasOwnProperty('bankOrMFI')) {
-          delete obj.bankOrMFI;
-        }
-      }
+      
+      this.vehicle.IsBankOrMFIinterested = false;
+     
     }
   }
 
@@ -322,32 +504,31 @@ export class MotorKycComponent {
     }
   }
 
-  createInstallments(event:any){
-    let now = new Date()
-    let secondMonth = new Date(new Date().setMonth(now.getMonth()+1))
-    let thirdMonth = new Date(new Date().setMonth(now.getMonth()+2))
+  createInstallments(event: any) {
+    let now = new Date();
+    let secondMonth = new Date(new Date().setMonth(now.getMonth() + 1));
+    let thirdMonth = new Date(new Date().setMonth(now.getMonth() + 2));
     let data = this.motorService.motorQuotation;
-      let amount = data.grossPremium;
+    let amount = data.grossPremium;
 
-    if(this.paymentData.installment_type == '2'){
-      let partAmount = amount/2
-      this.installments = []
-      this.installments.push({date:now, amount: partAmount})
-      this.installments.push({date:secondMonth, amount: partAmount})
-    } else if(this.paymentData.installment_type == '3'){
-      let partAmount = amount/3
-      this.installments = []
-      this.installments.push({date:now, amount: partAmount})
-      this.installments.push({date:secondMonth, amount: partAmount})
-      this.installments.push({date:thirdMonth, amount: partAmount})
+    if (this.paymentData.installment_type == '2') {
+      let partAmount = amount / 2;
+      this.installments = [];
+      this.installments.push({ date: now, amount: partAmount });
+      this.installments.push({ date: secondMonth, amount: partAmount });
+    } else if (this.paymentData.installment_type == '3') {
+      let partAmount = amount / 3;
+      this.installments = [];
+      this.installments.push({ date: now, amount: partAmount });
+      this.installments.push({ date: secondMonth, amount: partAmount });
+      this.installments.push({ date: thirdMonth, amount: partAmount });
     } else {
-      this.installments = []
+      this.installments = [];
     }
-
   }
 
   buyNow() {
-    console.log(this.utilsService.motorData);
+    // console.log(this.utilsService.motorData);
 
     if (!this.pfname) {
       this.toastr.error('First name is required');
@@ -369,11 +550,11 @@ export class MotorKycComponent {
       return;
     }
 
-    if (this.pphone.startsWith('07') || this.pphone.startsWith('7')) {
-      this.pphone = '256' + Number(this.pphone).toString();
-      // this.toastr.error("Invalid phone. Please include your country code")
-      // return
-    }
+    // if (this.pphone.startsWith('07') || this.pphone.startsWith('7')) {
+    //   this.pphone = '254' + Number(this.pphone).toString();
+    //   // this.toastr.error("Invalid phone. Please include your country code")
+    //   // return
+    // }
 
     if (!this.pemail) {
       this.toastr.error('Email is required');
@@ -404,47 +585,34 @@ export class MotorKycComponent {
       return;
     }
 
-    for (let index = 0; index < this.vehicles.length; index++) {
-      const v = this.vehicles[index];
-      let count = index + 1;
-      if (!v.vehicleMake) {
-        this.toastr.error(`Please provide make of vehicle ${count}`);
-        return;
-      }
-      if (!v.vehicleModel) {
-        this.toastr.error(`Please provide model of vehicle ${count}`);
-        return;
-      }
+      const v = this.vehicle;
+      
+      
       if (!v.bodyType) {
-        this.toastr.error(`Please provide body type of vehicle ${count}`);
+        this.toastr.error(`Please provide body type of vehicle`);
         return;
       }
-      if (!v.yearOfManufacture) {
-        this.toastr.error(
-          `Please provide manufacture year of vehicle ${count}`
-        );
-        return;
-      }
+      
 
       if (!v.EngineNumber) {
-        this.toastr.error(`Please provide engine number of vehicle ${count}`);
+        this.toastr.error(`Please provide engine number of vehicle`);
         return;
       }
       if (!v.registrationNumber) {
         this.toastr.error(
-          `Please provide registration number of vehicle ${count}`
+          `Please provide registration number of vehicle`
         );
         return;
       }
 
       if (!v.chasisNumber) {
-        this.toastr.error(`Please provide chasis number of vehicle ${count}`);
+        this.toastr.error(`Please provide chasis number of vehicle`);
         return;
       }
 
       if (!v.anyBankOrMFIInterested) {
         this.toastr.error(
-          `Please tell us if vehicle ${count} has Bank interest or not`
+          `Please tell us if vehicle has Bank interest or not`
         );
         return;
       }
@@ -452,22 +620,12 @@ export class MotorKycComponent {
       if (v.anyBankOrMFIInterested === 'yes') {
         if (!v.bankOrMFI) {
           this.toastr.error(
-            `Please inform us the Bank or MFI that has an interest on the vehicle ${count}`
+            `Please inform us the Bank or MFI that has an interest on the vehicle`
           );
           return;
         }
       }
-    }
-
-    // if (!this.logBookDeclarationYes) {
-    //   this.toastr.error("Please accept the log Book declaration statement to proceed")
-    //   return
-    // }
-
-    // if (!this.vehiclePhotosDeclarationYes) {
-    //   this.toastr.error("Please accept the vehicle photos declaration statement to proceed")
-    //   return
-    // }
+    
 
     if (!this.acceptTerms) {
       this.toastr.error('Please accept the Terms and Conditions to proceed');
@@ -509,25 +667,18 @@ export class MotorKycComponent {
       address: this.pAddress,
     };
 
-    if (this.user) {
-      this.user.set('kyc', userData);
-      this.user.save(userData);
-    }
 
-    this.utilsService.motorData.kyc = userData;
+    this.motorData.kyc = userData;
+    this.motorData.vehicle = this.vehicle
 
-    this.utilsService.motorData.coverStartDate = this.coverStartDate;
-    this.utilsService.motorData.coverEndDate = this.coverEndDate;
+    this.motorData.coverStartDate = this.coverStartDate;
+    this.motorData.coverEndDate = this.coverEndDate;
 
-    let data = this.utilsService.motorData;
+    let data = this.motorData;
 
-    // this.utilsService.showModal(BuyOptionsModalComponent, {
-    //   data: {
-    //     quoteData: data,
-    //     userData: userData,
-    //     type: 'motor'
-    //   }
-    // })
+    console.log('data', this.motorData)
+
+    document.getElementById('showPaymentModal')?.click()
   }
 
   amount = 3000;
@@ -649,8 +800,8 @@ export class MotorKycComponent {
       payment.set('amount', amount);
       payment.set('txRef', txRef);
       payment.set('quotation_id', this.quote.id);
-      payment.set('installments', this.installments)
-      payment.set('installment_type', this.paymentData.installment_type)
+      payment.set('installments', this.installments);
+      payment.set('installment_type', this.paymentData.installment_type);
 
       if (client) {
         payment.set('client', client);
@@ -659,6 +810,8 @@ export class MotorKycComponent {
         payment.set('client_name', client.name);
         payment.set('vehicle_reg_number', client.registrationNumber);
       }
+
+      payment.set('insurance_data', this.motorData)
 
       if (this.authService.currentUser) {
         let agent = {

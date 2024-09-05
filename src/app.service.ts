@@ -61,25 +61,22 @@ export class AppService {
         let req = await unirest
           .post("https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest")
           .headers({
-            "Content-Type": "application/json",
-            Authorization: "Bearer d6ApR5S5dIQdvlvaBFA72cC91OKf",
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer nGNZ4jA4yX3am5EFuPaqmaeuszfo'
           })
-          .send(
-            JSON.stringify({
-              BusinessShortCode: 174379,
-              Password:
-                "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQwOTA0MTgwNjE2",
-              Timestamp: "20240904180616",
-              TransactionType: "CustomerPayBillOnline",
-              Amount: 1,
-              PartyA: 254708374149,
-              PartyB: 174379,
-              PhoneNumber: 254708374149,
-              CallBackURL: "https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/receivepayment",
-              AccountReference: "CompanyXLTD",
-              TransactionDesc: "Payment of X",
-            })
-          );
+          .send(JSON.stringify({
+            "BusinessShortCode": 174379,
+            "Password": "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQwOTA1MDcwMTU0",
+            "Timestamp": Date.now(),
+            "TransactionType": "CustomerPayBillOnline",
+            "Amount": 1,
+            "PartyA": payload.phone,
+            "PartyB": 174379,
+            "PhoneNumber": payload.phone,//254708374149,
+            "CallBackURL": "https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/receivepayment",
+            "AccountReference": "CompanyXLTD",
+            "TransactionDesc": "Payment of X" 
+          }))
     
         if (req.error) throw new Error(req.error);
         console.log(req.raw_body);

@@ -63,31 +63,30 @@
                       </div> -->
 
               <div class="col-md-4 form-group">
-                <label class="form-label" for="tin"><small>TIN</small></label>
+                <label class="form-label" for="tin"
+                  ><small>KRA PIN</small></label
+                >
                 <input
                   [(ngModel)]="pTin"
                   type="text"
                   name="tin"
                   class="form-control"
                   id="tin"
-                  placeholder="TIN"
+                  placeholder="KRA PIN"
                 />
                 <div class="validate"></div>
               </div>
 
               <div class="col-md-4 form-group">
-                <label class="form-label" for="phone"
-                  ><small>Phone</small></label
-                >
-                <input
-                  [(ngModel)]="pphone"
-                  type="tel"
-                  class="form-control"
-                  name="phone"
-                  id="phonenumber"
-                  placeholder="Phone"
-                />
-                <div class="validate"></div>
+                <label class="form-label">Phone</label>
+                <div class="input-group">
+                  <span class="input-group-text">+254</span>
+                  <input
+                    class="form-control"
+                    placeholder="Phone Number"
+                    [(ngModel)]="pphone"
+                  />
+                </div>
               </div>
 
               <div class="col-md-4 form-group">
@@ -179,55 +178,8 @@
             <br />
           </div>
 
-          <div
-            class="php-email-form"
-            *ngFor="let vehicle of utilsService.motorData.autoMobiles"
-          >
-            <p>{{ vehicle.singleVehicleName }} Vehicle Information</p>
+          <div>
             <div class="row">
-              <div class="col-md-3 form-group mt-3">
-                <label class="form-label" for="{{ vehicle.motorId }}"
-                  ><small>Vehicle Make</small></label
-                >
-                <select
-                  title="select"
-                  [(ngModel)]="vehicle.vehicleMake"
-                  [ngModelOptions]="{ standalone: true }"
-                  name="vehicleMake"
-                  id="{{ vehicle.motorId }}"
-                  (change)="onVehicleMakeChanged($event, vehicle.motorId)"
-                  class="form-select"
-                >
-                  <option value="" disabled>Vehicle Make</option>
-                  <option *ngFor="let item of vehicleMakes" [value]="item">
-                    {{ item }}
-                  </option>
-                </select>
-                <div class="validate"></div>
-              </div>
-              <div class="col-md-3 form-group mt-3">
-                <label class="form-label" for="vehiclemodel"
-                  ><small>Vehicle Model</small></label
-                >
-                <select
-                  title="select"
-                  [disabled]="vehicle.vehicleDisabled"
-                  [(ngModel)]="vehicle.vehicleModel"
-                  [ngModelOptions]="{ standalone: true }"
-                  name="vehicleModel"
-                  id="vehiclemodel"
-                  class="form-select"
-                >
-                  <option value="" disabled>Vehicle Model</option>
-                  <option
-                    *ngFor="let item of vehicleModels[vehicle.vehicleMake]"
-                    [value]="item"
-                  >
-                    {{ item }}
-                  </option>
-                </select>
-                <div class="validate"></div>
-              </div>
               <div class="col-md-3 form-group mt-3">
                 <label class="form-label" for="bodytype"
                   ><small>Vehicle Body Type</small></label
@@ -235,7 +187,6 @@
                 <select
                   title="select"
                   [(ngModel)]="vehicle.bodyType"
-                  [ngModelOptions]="{ standalone: true }"
                   name="bodyType"
                   id="bodytype"
                   class="form-select"
@@ -247,27 +198,7 @@
                 </select>
                 <div class="validate"></div>
               </div>
-              <div class="col-md-3 form-group mt-3">
-                <label class="form-label" for="yearofmanufacture"
-                  ><small>Year of Manufacture</small></label
-                >
-                <select
-                  (change)="onSelectManufactureYear($event, vehicle)"
-                  title="select"
-                  [ngModelOptions]="{ standalone: true }"
-                  [(ngModel)]="vehicle.yearOfManufacture"
-                  name="yearOfManufacture"
-                  id="yearofmanufacture"
-                  class="form-select"
-                >
-                  <option value="" disabled>Year Of Manufacture</option>
-                  <option *ngFor="let item of tYears" [value]="item">
-                    {{ item }}
-                  </option>
-                  <!-- [disabled]="item < '1993'" -->
-                </select>
-                <div class="validate"></div>
-              </div>
+
               <div class="col-md-3 form-group mt-3">
                 <label class="form-label" for="enginenumber"
                   ><small>Vehicle Engine Number</small></label
@@ -275,7 +206,6 @@
                 <input
                   type="text"
                   [(ngModel)]="vehicle.EngineNumber"
-                  [ngModelOptions]="{ standalone: true }"
                   name="EngineNumber"
                   class="form-control"
                   id="enginenumber"
@@ -290,7 +220,6 @@
                 <input
                   type="text"
                   [(ngModel)]="vehicle.registrationNumber"
-                  [ngModelOptions]="{ standalone: true }"
                   name="registrationNumber"
                   class="form-control"
                   id="registrationnumber"
@@ -305,7 +234,6 @@
                 <input
                   type="text"
                   [(ngModel)]="vehicle.chasisNumber"
-                  [ngModelOptions]="{ standalone: true }"
                   name="chasisNumber"
                   class="form-control"
                   id="chasisnumber"
@@ -326,7 +254,6 @@
                 <select
                   title="select"
                   [(ngModel)]="vehicle.anyBankOrMFIInterested"
-                  [ngModelOptions]="{ standalone: true }"
                   name="bankOrMFIInterest"
                   id="{{ vehicle.motorId }}"
                   (change)="onbankInterestChanged($event, vehicle.motorId)"
@@ -359,8 +286,8 @@
                   class="form-select"
                 >
                   <option value="" disabled>Name of the Bank/MFI</option>
-                  <option *ngFor="let item of banks_mfis" [value]="item">
-                    {{ item }}
+                  <option *ngFor="let item of banks_mfis" [value]="item.name">
+                    {{ item.name }}
                   </option>
                 </select>
                 <div class="validate"></div>
@@ -566,12 +493,18 @@
 
           <br />
 
+          <button
+            id="showPaymentModal"
+            hidden
+            data-bs-toggle="modal"
+            data-bs-target="#modal-make-payment"
+          ></button>
+
           <div class="php-email-form">
             <div class="text-center">
               <button
+                (click)="buyNow()"
                 class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#modal-make-payment"
                 [disabled]="parseService.fetching"
               >
                 Make Payment
