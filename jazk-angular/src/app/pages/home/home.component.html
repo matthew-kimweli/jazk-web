@@ -344,7 +344,7 @@
                                 }}</strong>
                               </td>
                               <td class="text-success">
-                                {{ item.get('quotation').get("premium") || "---" }}
+                                KES {{ item.get('quotation').get("quoteData")['grossPremium'] | number  }}
                               </td>
                               <td class="text-azure">
                                 {{ item.get("outstandingPremium") || "---" }}

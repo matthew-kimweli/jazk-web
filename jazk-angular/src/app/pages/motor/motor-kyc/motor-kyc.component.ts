@@ -824,6 +824,7 @@ export class MotorKycComponent {
       payment.set('txRef', txRef);
       payment.set('quotation_id', this.quote.id);
       payment.set('quotation', this.quote);
+      payment.set('insurance_type', this.quote.get('insurance_type'));
       payment.set('installments', this.installments);
       payment.set('installment_type', this.paymentData.installment_type);
 
