@@ -19,6 +19,7 @@ import { AuthService } from '../../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ParseService } from '../../../services/parse.service';
 import * as Parse from 'parse';
+import { UtilsService } from '../../../services/utils.service';
 
 @Component({
   selector: 'app-motor-calc',
@@ -70,6 +71,24 @@ export class MotorCalcComponent implements OnInit {
     normalizeZeros: true,
     min: 0,
   };
+  benefit50Mask = {
+    mask: Number,
+    scale: 0,
+    signed: true,
+    thousandsSeparator: ',',
+    padFractionalZeros: true,
+    normalizeZeros: true,
+    min: 50000,
+  };
+  benefit100Mask = {
+    mask: Number,
+    scale: 0,
+    signed: true,
+    thousandsSeparator: ',',
+    padFractionalZeros: true,
+    normalizeZeros: true,
+    min: 100000,
+  };
   sumInsuredMask = {
     mask: Number,
     scale: 0,
@@ -99,14 +118,19 @@ export class MotorCalcComponent implements OnInit {
   actionType: any;
   clientForm!: FormGroup;
 
+  disableButton: any = false;
+  serialNumber: any;
+
   constructor(
     public motorService: MotorService,
     public auth: AuthService,
     private router: Router,
     private fb: FormBuilder,
     public parseService: ParseService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public utilsService: UtilsService
   ) {
+    this.serialNumber = this.utilsService.fetchSerialNo();
     this.clientForm = this.fb.group({
       name: ['', Validators.required],
       phone: ['', Validators.required],
@@ -121,9 +145,26 @@ export class MotorCalcComponent implements OnInit {
     this.motorService.motorQuotation.motorId = uuidv4();
     this.motorService.motorQuotation.vehicleDisabled = true;
     this.control = new FormControl<number>(this.sumInsured);
+
+    this.windscreen = this.benefitMinimum();
+    this.radioCassette = this.benefitMinimum();
     this.windscreenControl = new FormControl<number>(this.windscreen);
     this.radioControl = new FormControl<number>(this.radioCassette);
     this.filterBenefits();
+    this.getYears()
+  }
+
+  benefitMinimum() {
+    if (this.sumInsured && this.sumInsured <= 2500000) {
+      return 50000
+    } else if (this.sumInsured && this.sumInsured > 2500000) {
+      return 100000
+    } else
+    return 0
+  }
+
+  sumInsuredLimits() {
+
   }
 
   filterBenefits() {
@@ -145,7 +186,7 @@ export class MotorCalcComponent implements OnInit {
     const result = this.motorService.makeModels.find((model: any) => {
       return (
         model.class.toLowerCase() === this.motorClass.toLowerCase() &&
-        model.name.toLowerCase().includes(this.vehicleModel.toLowerCase())
+        (model.name.toLowerCase().includes(this.vehicleModel.toLowerCase()) || model.name.toLowerCase().includes(this.vehicleMake.toLowerCase())) // Check both model and make
       );
     });
 
@@ -153,8 +194,6 @@ export class MotorCalcComponent implements OnInit {
     const label = result ? result.label : this.motorService.makeModels.find((model: any) => model.label === 'AllOtherVehicleMakes').label;
     this.makeModel = label
     } 
-
-    this.getYears(this.makeModel);
   }
 
   onVehicleMakeChanged(event: any, id: any) {
@@ -168,20 +207,49 @@ export class MotorCalcComponent implements OnInit {
     }
   }
 
-  getYears(value: any) {
+  getYears() {
     let tyear = new Date().getFullYear();
-    if (value == 'Tankers' || value == 'SubaruProboxEtc') {
-      this.tYears = [];
-      for (let index = 0; index < 10; index++) {
-        this.tYears.push(tyear--);
-      }
-      return;
-    }
+    // if (value == 'Tankers' || value == 'SubaruProboxEtc') {
+    //   this.tYears = [];
+    //   for (let index = 0; index < 10; index++) {
+    //     this.tYears.push(tyear--);
+    //   }
+    //   return;
+    // }
     this.tYears = [];
-    for (let index = 0; index < 15; index++) {
-      this.tYears.push(tyear--);
+    // for (let index = 0; index < 15; index++) {
+    //   this.tYears.push(tyear--);
+    // }
+    for (let index = 0; index < 100; index++) {
+      this.tYears.push(tyear--)
     }
     return;
+  }
+
+  onSelectManufactureYear() {
+    let year = this.yearOfManufacture;
+    let currentYear = new Date().getFullYear()
+    let minTankersSubaruYear = currentYear - 10
+    let minVehicleYear = currentYear - 15
+    if (year < minTankersSubaruYear && this.makeModel == 'Tankers') {
+      this.yearOfManufacture = '-'
+      setTimeout(() => {
+        this.yearOfManufacture = ''
+      }, 400);
+      this.toastr.error('Please note we only insure Tankers whose age is not more than 10 years from the year of manufacture.')
+    } else if (year < minTankersSubaruYear && this.makeModel == 'SubaruProboxEtc') {
+      this.yearOfManufacture = '-'
+      setTimeout(() => {
+        this.yearOfManufacture = ''
+      }, 400);
+      this.toastr.error('Please note we only insure a '+ this.vehicleMake + ' ' + this.vehicleModel +' whose age is not more than 10 years from the year of manufacture.')
+    } else if (year < minVehicleYear) {
+      this.yearOfManufacture = '-'
+      setTimeout(() => {
+        this.yearOfManufacture = ''
+      }, 400);
+      this.toastr.error('Please note we only insure vehicles whose age is not more than 15 years from the year of manufacture.')
+    }
   }
 
   filterMakeModels() {
@@ -196,6 +264,14 @@ export class MotorCalcComponent implements OnInit {
 
   onVehicleValueChange(event: any) {
     let value = this.sumInsured; //event.target.value;
+    if (value < 500000) {
+      this.toastr.error('The value of the vehicle should not be less than Kshs.500,000')
+    } else if (value > 15000000 && this.motorClass == 'private') {
+      this.disableButton = true
+    } else if (value > 20000000 && this.motorClass == 'commercial') {
+      this.disableButton = true
+    }
+
     this.filterBenefits();
     if (
       (value > 1500000 && this.motorClass == 'private') ||
@@ -318,6 +394,9 @@ export class MotorCalcComponent implements OnInit {
   async submit() {
     console.log('Result: ', this.motorService.motorQuotation);
 
+    // this.serialNumber = this.utilsService.fetchSerialNo();
+    this.motorService.motorQuotation.serialNumber = this.serialNumber;
+
     let JazkeQuotation = Parse.Object.extend('JazkeQuotation');
     let quote = new JazkeQuotation();
 
@@ -367,10 +446,13 @@ export class MotorCalcComponent implements OnInit {
 
   async purchase() {
     if (this.motorClass == 'commercial') {
-      if (this.makeModel == 'Tankers' || this.makeModel == 'DrivingSchool' || this.makeModel == 'MotorCommercialInstitutional' || this.makeModel == 'SpecialVehiclesAgricultural' || this.makeModel == 'SpecialVehiclesAmbulance' || this.makeModel == 'SpecialVehiclesFireFighters') {
+      if (this.makeModel == 'Tankers' || this.makeModel == 'DrivingSchool' || this.makeModel == 'MotorCommercialInstitutional' || this.makeModel == 'SpecialVehiclesAgricultural' || this.makeModel == 'SpecialVehiclesAmbulance' || this.makeModel == 'SpecialVehiclesFireFighters' || this.sumInsured > 20000000) {
         document.getElementById('manualUnderwritingModalButton')?.click();
         return;
       }
+    } else if (this.sumInsured > 15000000 && this.motorClass == 'private') {
+      document.getElementById('manualUnderwritingModalButton')?.click();
+      return;
     }
     this.submit();
     this.toastr.success('Please wait', 'Submitting...');
@@ -383,10 +465,13 @@ export class MotorCalcComponent implements OnInit {
 
   async onSubmitEmailDownload() {
     if (this.motorClass == 'commercial') {
-      if (this.makeModel == 'Tankers' || this.makeModel == 'DrivingSchool' || this.makeModel == 'MotorCommercialInstitutional' || this.makeModel == 'SpecialVehiclesAgricultural' || this.makeModel == 'SpecialVehiclesAmbulance' || this.makeModel == 'SpecialVehiclesFireFighters') {
+      if (this.makeModel == 'Tankers' || this.makeModel == 'DrivingSchool' || this.makeModel == 'MotorCommercialInstitutional' || this.makeModel == 'SpecialVehiclesAgricultural' || this.makeModel == 'SpecialVehiclesAmbulance' || this.makeModel == 'SpecialVehiclesFireFighters' || this.sumInsured > 20000000) {
         document.getElementById('manualUnderwritingModalButton')?.click();
         return;
       }
+    } else if (this.sumInsured > 15000000 && this.motorClass == 'private') {
+      document.getElementById('manualUnderwritingModalButton')?.click();
+      return;
     }
     this.submit();
     console.log(this.clientForm.value);
@@ -414,10 +499,13 @@ export class MotorCalcComponent implements OnInit {
   }
   downloadQuote() {
     if (this.motorClass == 'commercial') {
-      if (this.makeModel == 'Tankers' || this.makeModel == 'DrivingSchool' || this.makeModel == 'MotorCommercialInstitutional' || this.makeModel == 'SpecialVehiclesAgricultural' || this.makeModel == 'SpecialVehiclesAmbulance' || this.makeModel == 'SpecialVehiclesFireFighters') {
+      if (this.makeModel == 'Tankers' || this.makeModel == 'DrivingSchool' || this.makeModel == 'MotorCommercialInstitutional' || this.makeModel == 'SpecialVehiclesAgricultural' || this.makeModel == 'SpecialVehiclesAmbulance' || this.makeModel == 'SpecialVehiclesFireFighters' || this.sumInsured > 20000000) {
         document.getElementById('manualUnderwritingModalButton')?.click();
         return;
       }
+    } else if (this.sumInsured > 15000000 && this.motorClass == 'private') {
+      document.getElementById('manualUnderwritingModalButton')?.click();
+      return;
     }
     this.submit();
     this.router.navigate(['motor-view-quote']);

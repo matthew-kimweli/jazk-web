@@ -73,7 +73,7 @@
             <div class="mb-3">
               <label class="form-label">Year of Manufacture</label>
               <select title="select" [(ngModel)]="yearOfManufacture" [disabled]="!makeModel" name="yearOfManufacture"
-                id="yearofmanufacture" class="form-select">
+                id="yearofmanufacture" class="form-select" (change)="onSelectManufactureYear()">
                 <option value="" disabled>Year Of Manufacture</option>
                 <option *ngFor="let item of tYears" [value]="item">
                   {{ item }}
@@ -159,18 +159,18 @@
               </select>
             </div>
             <div class="mb-3" *ngIf="sumInsured != undefined && motorClass == 'private'">
-              <label class="form-label text-center">Additional Windscreen coverage amount?</label>
+              <label class="form-label text-center">Windscreen coverage amount?</label>
               <input class="form-control text-center" [(ngModel)]="windscreen" (change)="calculate()" name="windscreen"
                 id="windscreen" placeholder="Windscreen coverage amount" [formControl]="windscreenControl"
-                [imask]="mask" unmask="typed" />
+                [imask]="sumInsured <= 2500000 ? benefit50Mask : benefit100Mask" unmask="typed" />
               <small class="form-hint text-center">Free Benefit limit for Windscreen coverage is Kshs.
                 {{ (sumInsured <= 2500000 ? 50000 : 100000) | number }}.</small>
             </div>
             <div class="mb-3" *ngIf="sumInsured != undefined && motorClass == 'private'">
-              <label class="form-label text-center">Additional Radio Cassette coverage amount?</label>
+              <label class="form-label text-center">Radio Cassette coverage amount?</label>
               <input class="form-control text-center" [(ngModel)]="radioCassette" (change)="calculate()"
                 name="radioCassette" id="radioCassette" placeholder="Radio Cassette coverage amount"
-                [formControl]="radioControl" [imask]="mask" unmask="typed" />
+                [formControl]="radioControl" [imask]="sumInsured <= 2500000 ? benefit50Mask : benefit100Mask" unmask="typed" />
               <small class="form-hint text-center">Free Benefit limit for a Radio Cassette is Kshs. {{ (sumInsured <=
                   2500000 ? 50000 : 100000) | number }}.</small>
             </div>
@@ -263,7 +263,7 @@
       <div class="row align-items-center mt-3">
         <div class="col">
           <div class="btn-list justify-content-end">
-            <button class="btn btn-primary" [disabled]="!motorClass || !makeModel || !sumInsured || !yearOfManufacture"
+            <button class="btn btn-primary" [disabled]="!motorClass || !makeModel || !sumInsured || !yearOfManufacture || disableButton"
               (click)="actionType = 'Download'" data-bs-toggle="modal" data-bs-target="#modal-email-quote">
               Download Quote &nbsp;
               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-download" width="44"
@@ -276,7 +276,7 @@
               </svg>
             </button>
             <button class="btn btn-primary" (click)="actionType = 'Email'"
-              [disabled]="!motorClass || !makeModel || !sumInsured || !yearOfManufacture" data-bs-toggle="modal"
+              [disabled]="!motorClass || !makeModel || !sumInsured || !yearOfManufacture || disableButton" data-bs-toggle="modal"
               data-bs-target="#modal-email-quote">
               Email Quote &nbsp;
               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-message-forward" width="44"
