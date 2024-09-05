@@ -22,7 +22,7 @@
                 </option>
               </select>
             </div>
-            <div class="mb-3">
+            <!-- <div class="mb-3">
               <label class="form-label">Make/Model</label>
               <select [(ngModel)]="makeModel" (change)="getYears($event)" class="form-select" [disabled]="!motorClass">
                 <option value="" disabled>
@@ -32,8 +32,8 @@
                   {{ item.name }}
                 </option>
               </select>
-            </div>
-            <!-- <div class="mb-3">
+            </div> -->
+            <div class="mb-3">
               <label class="form-label">Vehicle Make</label>
               <select
                 title="select"
@@ -56,6 +56,7 @@
                 title="select"
                 [disabled]="motorService.motorQuotation.vehicleDisabled"
                 [(ngModel)]="vehicleModel"
+                (change) = "onVehicleModelSelected()"
                 name="vehicleModel"
                 id="vehiclemodel"
                 class="form-select"
@@ -68,7 +69,7 @@
                   {{ item }}
                 </option>
               </select>
-            </div> -->
+            </div>
             <div class="mb-3">
               <label class="form-label">Year of Manufacture</label>
               <select title="select" [(ngModel)]="yearOfManufacture" [disabled]="!makeModel" name="yearOfManufacture"

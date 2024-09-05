@@ -138,6 +138,22 @@ export class MotorCalcComponent implements OnInit {
     }
   }
 
+  onVehicleModelSelected() {
+
+    // Convert the name property to lowercase and check if it contains the vehicle model (also converted to lowercase)
+    const result = this.motorService.makeModels.find((model: any) => {
+      return (
+        model.class.toLowerCase() === this.motorClass.toLowerCase() &&
+        model.name.toLowerCase().includes(this.vehicleModel.toLowerCase())
+      );
+    });
+
+    // If result is found, use its label; otherwise, default to 'AllOtherVehicleMakes'
+    const label = result ? result.label : this.motorService.makeModels.find((model: any) => model.label === 'AllOtherVehicleMakes').label;
+    this.makeModel = label
+    this.getYears(label);
+  }
+
   onVehicleMakeChanged(event: any, id: any) {
     if (event.target.value) {
       this.selectedVehicleMake = id;
@@ -149,8 +165,7 @@ export class MotorCalcComponent implements OnInit {
     }
   }
 
-  getYears(event: any) {
-    let value = event.target.value;
+  getYears(value: any) {
     let tyear = new Date().getFullYear();
     if (value == 'Tankers' || value == 'SubaruProboxEtc') {
       this.tYears = [];
@@ -397,7 +412,7 @@ export class MotorCalcComponent implements OnInit {
     this.submit();
     this.router.navigate(['motor-view-quote']);
   }
-  emailQuote() {}
+  emailQuote() { }
 
   goBack() {
     history.back();
