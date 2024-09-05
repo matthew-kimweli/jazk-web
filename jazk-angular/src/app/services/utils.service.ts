@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 // import { parseString } from 'xml2js';
-import * as Parse from "parse";
 
 
 @Injectable({
@@ -107,80 +106,6 @@ export class UtilsService {
     public http: HttpClient,) {
 
   }
-
-  private padNumber(number: number, length: number = 2): string {
-    return number.toString().padStart(length, '0');
-  }
-
-  async fetchSerialNo () {
-    return await this.generateSerialNumber()
-  }
-
-  async generateSerialNumber(prefix?:any): Promise<any> {
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = this.padNumber(currentDate.getMonth() + 1);
-    const day = this.padNumber(currentDate.getDate());
-
-    let query = new Parse.Query('ProductSerialNo')
-    try {
-      query.descending('createdAt')
-      // query
-      let first = await query.first()
-      if (first) {
-        console.log('Serial No Trigger 1')
-        let previousSerialNo = first.get('serialNo')
-
-        let ProductSerialNo = Parse.Object.extend('ProductSerialNo')
-        let ps = new ProductSerialNo()
-
-        let newSerialNo = `${year}${month}${day}`;
-
-        if (previousSerialNo && previousSerialNo.substring(0, 8) === newSerialNo) {
-          console.log('Serial No Trigger 1.1')
-          // If the last serial number has the same date, increment the sequential number
-          let sequentialNumber = parseInt(previousSerialNo.substring(8)) + 1;
-          newSerialNo += this.padNumber(sequentialNumber, 4);
-        } else {
-          console.log('Serial No Trigger 1.2')
-          newSerialNo += '0001';
-        }
-
-        ps.set('serialNo', newSerialNo)
-        await ps.save()
-
-        if(prefix){
-          newSerialNo = `${prefix}${newSerialNo}`
-        }
-
-        return newSerialNo;
-        
-      } else {
-        
-        console.log('Serial No Trigger 2')
-
-        let ProductSerialNo = Parse.Object.extend('ProductSerialNo')
-        let ps = new ProductSerialNo()
-
-        let newSerialNo = `${year}${month}${day}`;
-
-        newSerialNo += '0001';
-
-        ps.set('serialNo', newSerialNo)
-        await ps.save()
-        if(prefix){
-          newSerialNo = `${prefix}${newSerialNo}`
-        }
-        return newSerialNo;
-      }
-
-    } catch (error) {
-      console.error(error)
-    }
-
-  }
-
-
 
   isDesktop(){
     // return this.platform.is('desktop')

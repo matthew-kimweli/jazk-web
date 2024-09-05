@@ -19,7 +19,6 @@ import { AuthService } from '../../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ParseService } from '../../../services/parse.service';
 import * as Parse from 'parse';
-import { UtilsService } from '../../../services/utils.service';
 
 @Component({
   selector: 'app-motor-calc',
@@ -127,10 +126,8 @@ export class MotorCalcComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     public parseService: ParseService,
-    private toastr: ToastrService,
-    public utilsService: UtilsService
+    private toastr: ToastrService
   ) {
-    this.serialNumber = this.utilsService.fetchSerialNo();
     this.clientForm = this.fb.group({
       name: ['', Validators.required],
       phone: ['', Validators.required],
@@ -393,9 +390,6 @@ export class MotorCalcComponent implements OnInit {
 
   async submit() {
     console.log('Result: ', this.motorService.motorQuotation);
-
-    // this.serialNumber = this.utilsService.fetchSerialNo();
-    this.motorService.motorQuotation.serialNumber = this.serialNumber;
 
     let JazkeQuotation = Parse.Object.extend('JazkeQuotation');
     let quote = new JazkeQuotation();
