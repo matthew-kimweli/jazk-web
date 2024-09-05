@@ -140,7 +140,8 @@ export class MotorCalcComponent implements OnInit {
 
   onVehicleModelSelected() {
 
-    // Convert the name property to lowercase and check if it contains the vehicle model (also converted to lowercase)
+    if (this.makeModel.length === 0) {
+      // Convert the name property to lowercase and check if it contains the vehicle model (also converted to lowercase)
     const result = this.motorService.makeModels.find((model: any) => {
       return (
         model.class.toLowerCase() === this.motorClass.toLowerCase() &&
@@ -151,7 +152,9 @@ export class MotorCalcComponent implements OnInit {
     // If result is found, use its label; otherwise, default to 'AllOtherVehicleMakes'
     const label = result ? result.label : this.motorService.makeModels.find((model: any) => model.label === 'AllOtherVehicleMakes').label;
     this.makeModel = label
-    this.getYears(label);
+    } 
+
+    this.getYears(this.makeModel);
   }
 
   onVehicleMakeChanged(event: any, id: any) {
@@ -213,15 +216,11 @@ export class MotorCalcComponent implements OnInit {
       this.sumInsured
     ) {
       this.calculate();
-      console.log('Go ', this.displayedBasicPremium);
     }
   }
 
   calculate() {
-    console.log(
-      'Excess ->',
-      this.motorService.motorQuotation.excessProtectorBenefit
-    );
+
 
     this.motorService.motorQuotation.motorClass = this.motorClass;
     this.motorService.motorQuotation.makeModel = this.makeModel;
@@ -240,13 +239,6 @@ export class MotorCalcComponent implements OnInit {
 
     if (this.motorClass == 'private') {
       if (this.makeModel == 'Rare & Unique Models') {
-        document.getElementById('manualUnderwritingModalButton')?.click();
-        return;
-      }
-    }
-
-    if (this.motorClass == 'commercial') {
-      if (this.makeModel == 'Tankers') {
         document.getElementById('manualUnderwritingModalButton')?.click();
         return;
       }
@@ -374,6 +366,12 @@ export class MotorCalcComponent implements OnInit {
   }
 
   async purchase() {
+    if (this.motorClass == 'commercial') {
+      if (this.makeModel == 'Tankers' || this.makeModel == 'DrivingSchool' || this.makeModel == 'MotorCommercialInstitutional' || this.makeModel == 'SpecialVehiclesAgricultural' || this.makeModel == 'SpecialVehiclesAmbulance' || this.makeModel == 'SpecialVehiclesFireFighters') {
+        document.getElementById('manualUnderwritingModalButton')?.click();
+        return;
+      }
+    }
     this.submit();
     this.toastr.success('Please wait', 'Submitting...');
     let quoteDB: any = this.motorService.motorQuotation.quoteDB;
@@ -384,6 +382,12 @@ export class MotorCalcComponent implements OnInit {
   }
 
   async onSubmitEmailDownload() {
+    if (this.motorClass == 'commercial') {
+      if (this.makeModel == 'Tankers' || this.makeModel == 'DrivingSchool' || this.makeModel == 'MotorCommercialInstitutional' || this.makeModel == 'SpecialVehiclesAgricultural' || this.makeModel == 'SpecialVehiclesAmbulance' || this.makeModel == 'SpecialVehiclesFireFighters') {
+        document.getElementById('manualUnderwritingModalButton')?.click();
+        return;
+      }
+    }
     this.submit();
     console.log(this.clientForm.value);
 
@@ -409,6 +413,12 @@ export class MotorCalcComponent implements OnInit {
     }
   }
   downloadQuote() {
+    if (this.motorClass == 'commercial') {
+      if (this.makeModel == 'Tankers' || this.makeModel == 'DrivingSchool' || this.makeModel == 'MotorCommercialInstitutional' || this.makeModel == 'SpecialVehiclesAgricultural' || this.makeModel == 'SpecialVehiclesAmbulance' || this.makeModel == 'SpecialVehiclesFireFighters') {
+        document.getElementById('manualUnderwritingModalButton')?.click();
+        return;
+      }
+    }
     this.submit();
     this.router.navigate(['motor-view-quote']);
   }

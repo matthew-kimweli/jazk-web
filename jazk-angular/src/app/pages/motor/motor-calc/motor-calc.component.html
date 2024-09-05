@@ -22,17 +22,17 @@
                 </option>
               </select>
             </div>
-            <!-- <div class="mb-3">
-              <label class="form-label">Make/Model</label>
-              <select [(ngModel)]="makeModel" (change)="getYears($event)" class="form-select" [disabled]="!motorClass">
+            <div class="mb-3" *ngIf="motorClass == 'commercial'">
+              <label class="form-label">Vehicle Usage</label>
+              <select [(ngModel)]="makeModel" class="form-select" [disabled]="!motorClass">
                 <option value="" disabled>
-                  Select the Make or Model of the Vehicle
+                  Pick how the vehicle is used
                 </option>
                 <option *ngFor="let item of filteredMakeModels" [value]="item.label">
                   {{ item.name }}
                 </option>
               </select>
-            </div> -->
+            </div>
             <div class="mb-3">
               <label class="form-label">Vehicle Make</label>
               <select
