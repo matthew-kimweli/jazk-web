@@ -79,16 +79,17 @@ export class AppService {
             {
               "BusinessShortCode": 174379,
               "Password": "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQwOTA1MDcxMTQ1",
-              "Timestamp": "20240905071145",
+              "Timestamp": Date.now(),
               "TransactionType": "CustomerPayBillOnline",
               "Amount": 1,
-              "PartyA": 254708374149,
+              "PartyA": payload.phone,
               "PartyB": 174379,
-              "PhoneNumber": 254708374149,
-              "CallBackURL": "https://mydomain.com/path",
-              "AccountReference": "CompanyXLTD",
-              "TransactionDesc": "Payment of X"
+              "PhoneNumber": payload.phone, //254708374149,
+              "CallBackURL": "https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/receivepayment",
+              "AccountReference": "Jubilee Allianz",
+              "TransactionDesc": "Payment of Motor insurance"
             },
+            
             {
               headers: {
                 'Content-Type': 'application/json',
