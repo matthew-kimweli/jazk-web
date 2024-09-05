@@ -150,8 +150,8 @@ export class AppService {
 
               let params = {
                 from: "saleske@allianz.com",
-                subject: `Your Jubilee Allianz Quotation`,
-                text: `Hi ${client.name}. Thank you for showing interest in our insurance service.`,
+                subject: `Motor Insurance: Your Jubilee Allianz Quotation`,
+                text: `Hi ${client.name}. Thank you for showing interest in our insurance service. Please find attached your insurance policy package.`,
                 amount: "500",
                 to: emails,
                 cc: ["saleske@allianz.com"],
