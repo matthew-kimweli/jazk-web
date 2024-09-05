@@ -57,16 +57,17 @@ export class ViewQuoteSubdetailsComponent {
 
         let client = quote.get('client');
         if (client) {
-          setTimeout(() => {
-            this.sendEmailQuotation(client);
-          }, 3000);
-          // if (!client.emailSent) {
-          //   this.sendEmailQuotation(client);
+          
+          if (!client.emailSent) {
+            // this.sendEmailQuotation(client);
+            setTimeout(() => {
+              this.sendEmailQuotation(client);
+            }, 3000);
 
-          //   client.emailSent = true;
-          //   quote.set('client', client);
-          //   quote.save();
-          // }
+            client.emailSent = true;
+            quote.set('client', client);
+            quote.save();
+          }
         }
       }
       this.parseService.fetching = false;
