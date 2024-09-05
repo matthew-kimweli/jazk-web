@@ -30,12 +30,13 @@ async function bootstrap() {
   // var serverURL = process.env.SERVER_URL || 'https://debunk.plot411.com/parse'
 
   // var serverURL = `http://127.0.0.1:${port}/parse`;
+  // databaseUri = "mongodb+srv://admin:6iT4wLTN6rXYa8B@cluster0.2toly.mongodb.net/debunkbot?retryWrites=true&w=majority"
   var serverURL = `https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/parse`;
   var publicServerURL = 'https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/parse' 
-  // databaseUri = 'postgres://postgres:postgres@157.230.47.71:5432/jazke'
-  // databaseUri = "mongodb+srv://admin:6iT4wLTN6rXYa8B@cluster0.2toly.mongodb.net/debunkbot?retryWrites=true&w=majority"
-  databaseUri = 'postgres://jazk_uat_user:Developement.313*@jazk-postgres-fdb.postgres.database.azure.com/web_dev'
   
+  // databaseUri = 'postgres://postgres:postgres@157.230.47.71:5432/jazke'
+  // databaseUri = 'postgres://jazk_uat_user:Developement.313*@jazk-postgres-fdb.postgres.database.azure.com/web_dev'
+  databaseUri = "mongodb+srv://admin:6iT4wLTN6rXYa8B@cluster0.2toly.mongodb.net/debunkbot?retryWrites=true&w=majority"
 
 
   var appId = process.env.APP_ID || 'debunkbot'
