@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: jazke-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - db
+
+  db:
+    container_name: postgres_db
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_USER: jazke
+      POSTGRES_PASSWORD: jazke
+      POSTGRES_DB: jazke
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

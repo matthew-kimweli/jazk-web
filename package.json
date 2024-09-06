@@ -21,7 +21,8 @@
     "build-angular": "cd jazk-angular && ng build",
     "copy-build-files": "cp -r jazk-angular/dist/jazk/browser/* public/",
     "start-node": "npm run build && npm run start:prod",
-    "build-and-start": "npm run install-all && npm run build-angular && npm run copy-build-files && npm run build"
+    "build-and-start": "npm run install-all && npm run build-angular && npm run copy-build-files && npm run build",
+    "build-start-deploy": "npm run install-all && npm run build-angular && npm run copy-build-files && npm run build && start-node"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
