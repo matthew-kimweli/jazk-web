@@ -30,7 +30,7 @@ jobs:
         uses: azure/container-apps-deploy-action@v2
         with:
           # appSourcePath: ${{ github.workspace }}Dockerfile
-          appSourcePath: ${{ github.workspace }}/jazk-web
+          appSourcePath: ${{ github.workspace }}
           # _dockerfilePathKey_: _dockerfilePath_
           registryUrl: jazkapiregistry.azurecr.io
           registryUsername: ${{ secrets.JAZKWEBCA_REGISTRY_USERNAME }}
