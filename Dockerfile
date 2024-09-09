@@ -2,6 +2,7 @@
 FROM node:20
 
 
+
 # Set up the working directory for your application
 WORKDIR /usr/src/app
 
@@ -11,10 +12,11 @@ COPY package*.json ./
 # Copy the rest of the application code to the container
 COPY . .
 
-RUN npm install -g @angular/cli
+# Install dependecies
+RUN npm run install-node
 
 # Build the NestJS app
-RUN npm run build-and-start
+RUN npm run build
 
 # Expose the port your app runs on
 EXPOSE 3000

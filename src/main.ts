@@ -29,10 +29,10 @@ async function bootstrap() {
   var masterKey = process.env.MASTER_KEY || 'debunkbot12@!!Master_AAHc3e9q_Rj6mUbV';
   // var serverURL = process.env.SERVER_URL || 'https://debunk.plot411.com/parse'
 
-  // var serverURL = `http://127.0.0.1:${port}/parse`;
+  var serverURL = `http://127.0.0.1:${port}/parse`;
   // databaseUri = "mongodb+srv://admin:6iT4wLTN6rXYa8B@cluster0.2toly.mongodb.net/debunkbot?retryWrites=true&w=majority"
-  var serverURL = `https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/parse`;
-  var publicServerURL = 'https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/parse' 
+  // var serverURL = `https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/parse`;
+  var publicServerURL = process.env.PUBLICSERVERURL || 'https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/parse' 
   
   // databaseUri = 'postgres://postgres:postgres@157.230.47.71:5432/jazke'
   // databaseUri = 'postgres://jazk_uat_user:Developement.313*@jazk-postgres-fdb.postgres.database.azure.com/web_dev'
@@ -186,8 +186,11 @@ async function bootstrap() {
 
   app.enableCors();
 
+  let p = process.env.PORT || port
 
-  await app.listen(process.env.PORT || port);
+  await app.listen(p);
+
+  console.log('server is running on port', p)
 
   // This will enable the Live Query real-time server
   ParseServer.createLiveQueryServer(app.getHttpServer());

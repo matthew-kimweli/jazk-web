@@ -142,6 +142,10 @@ export class SideMenuComponent implements OnInit {
     }
 
     this.fetchInbox()
+
+    setTimeout(() => {
+      document.getElementById('product-heading')?.click()
+    }, 1000);
   }
 
   async fetchInbox() {
