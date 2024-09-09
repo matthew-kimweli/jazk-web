@@ -181,6 +181,20 @@
           <div>
             <div class="row">
               <div class="col-md-3 form-group mt-3">
+                <label class="form-label"
+                  >Vehicle Make:
+                </label>
+                <input type="text" disabled class="form-control" [value]="this.motorService.motorQuotation.vehicleMake">
+              </div>
+
+              <div class="col-md-3 form-group mt-3">
+                <label class="form-label"
+                  >Vehicle Model
+                </label>
+                <input type="text" disabled class="form-control" [value]="this.motorService.motorQuotation.vehicleModel">
+              </div>
+
+              <div class="col-md-3 form-group mt-3">
                 <label class="form-label" for="bodytype"
                   ><small>Vehicle Body Type</small></label
                 >
@@ -442,14 +456,15 @@
       </div>
 
       <div class="modal-footer">
-        <a id="paymentcancelbutton" href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+        <a
+          id="paymentcancelbutton"
+          href="#"
+          class="btn btn-link link-secondary"
+          data-bs-dismiss="modal"
+        >
           Cancel
         </a>
-        <a
-          (click)="startPayment()"
-          class="btn btn-primary ms-auto"
-          
-        >
+        <a (click)="startPayment()" class="btn btn-primary ms-auto">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

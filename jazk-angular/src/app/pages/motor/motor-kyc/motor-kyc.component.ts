@@ -627,31 +627,31 @@ export class MotorKycComponent {
       }
     
 
-    if (!this.acceptTerms) {
-      this.toastr.error('Please accept the Terms and Conditions to proceed');
-      return;
-    }
+    // if (!this.acceptTerms) {
+    //   this.toastr.error('Please accept the Terms and Conditions to proceed');
+    //   return;
+    // }
 
-    if (!this.ownershipDeclarationYes) {
-      this.toastr.error(
-        'Please accept the Ownership Declaration statement to proceed'
-      );
-      return;
-    }
+    // if (!this.ownershipDeclarationYes) {
+    //   this.toastr.error(
+    //     'Please accept the Ownership Declaration statement to proceed'
+    //   );
+    //   return;
+    // }
 
-    if (!this.inspectionVehicleDeclarationYes) {
-      this.toastr.error(
-        'Please accept the Inspection of my vehicle declaration statement to proceed'
-      );
-      return;
-    }
+    // if (!this.inspectionVehicleDeclarationYes) {
+    //   this.toastr.error(
+    //     'Please accept the Inspection of my vehicle declaration statement to proceed'
+    //   );
+    //   return;
+    // }
 
-    if (!this.userDeclarationYes) {
-      this.toastr.error(
-        'Please accept the Self declaration statement to proceed'
-      );
-      return;
-    }
+    // if (!this.userDeclarationYes) {
+    //   this.toastr.error(
+    //     'Please accept the Self declaration statement to proceed'
+    //   );
+    //   return;
+    // }
 
     this.pphone = Number(this.pphone).toString();
 
