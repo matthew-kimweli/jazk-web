@@ -100,6 +100,7 @@ export class MotorService {
   ]
 
   motorQuotation = {
+    serialNumber: '',
     motorId: '',
     motorClass: '',
     motorSubclass: '',
@@ -375,7 +376,7 @@ export class MotorService {
     }
 
     this.motorQuotation.levies =
-      0.0045 * Number(this.motorQuotation.netPremium);
+      Math.round(0.0045 * Number(this.motorQuotation.netPremium));
 
     // Calculate grossPremium as the sum of netPremium, levies, and stampDuty
     let gross =
@@ -388,6 +389,7 @@ export class MotorService {
 
   resetQuotation() {
     this.motorQuotation = {
+      serialNumber: '',
       motorId: '',
       motorClass: '',
       motorSubclass: '',
