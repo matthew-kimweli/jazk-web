@@ -1,16 +1,39 @@
-version: '3.8'
+# version: '3.8'
 
+# services:
+#   app:
+#     container_name: jazke-web
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     ports:
+#       - "3000:3000"
+#     # environment:
+#     #   NODE_ENV: production
+#     #   PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium-browser
+#     # volumes:
+#     #   - .:/usr/src/app
+#     # working_dir: /usr/src/app
+
+version: '3'
 services:
-  app:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+
+  node:
+    build: .
     container_name: jazke-web
-    build:
-      context: .
-      dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    # environment:
-    #   NODE_ENV: production
-    #   PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium-browser
-    # volumes:
-    #   - .:/usr/src/app
-    # working_dir: /usr/src/app
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/jazke
+
+volumes:
+  mongodb-data:
