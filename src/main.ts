@@ -35,7 +35,7 @@ async function bootstrap() {
   var publicServerURL = process.env.PUBLICSERVERURL || 'https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/parse' 
   
   // databaseUri = 'postgres://postgres:postgres@157.230.47.71:5432/jazke'
-  databaseUri = 'postgres://jazk_uat_user:Developement.313*@jazk-postgres-fdb.postgres.database.azure.com/web_dev'
+  databaseUri = 'postgres://jazkadmin:Developement.313*@jazk-postgres-fdb.postgres.database.azure.com/web_dev'
   // databaseUri = "mongodb+srv://admin:6iT4wLTN6rXYa8B@cluster0.2toly.mongodb.net/debunkbot?retryWrites=true&w=majority"
 
 

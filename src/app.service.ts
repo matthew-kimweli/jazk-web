@@ -61,7 +61,7 @@ export class AppService {
       let quote_id = params.quote_id;
       let sale_id = params.sale_id;
       let agent_email = params.agent_email;
-      let client = params.client;
+      let client = params.client || {};
 
       function getTimestamp() {
         const now = new Date();
