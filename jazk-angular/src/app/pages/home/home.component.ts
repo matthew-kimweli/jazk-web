@@ -66,6 +66,7 @@ export class HomeComponent {
       this.quotationCount = this.dataService.recent.quotationCount
       let query = new Parse.Query("JazkeQuotation");
       query.equalTo("user_id", this.auth.currentUserId);
+      query.exists('client')
       this.quotationCount = await query.count();
 
       this.dataService.recent.quotationCount = this.quotationCount
@@ -124,6 +125,7 @@ export class HomeComponent {
 
     let query = new Parse.Query("JazkeQuotation");
     query.equalTo('user_id', user.id)
+    query.exists('client')
     
     this.quotations = await this.parseService.find(query);
     console.log('quotes', this.quotations)

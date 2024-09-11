@@ -18,15 +18,15 @@ export class AppComponent {
   constructor(public auth: AuthService,
     private toastr: ToastrService,) {
       // let serverURL2 = `https://jubilee.plot411.com/parse`;
-      let serverURL2 = `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/parse`;
-      // let serverURL2 = `http://localhost:3000/parse`;
+      // let serverURL2 = `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/parse`;
+      let serverURL2 = `http://localhost:3000/parse`;
       var keyApplicationId = 'debunkbot';
       var keyParseServerKey = 'debunkbot12@!!';
-      var keyLiveQueryUrl = 'wss://localhost:3000';
+      // var keyLiveQueryUrl = 'wss://localhost:3000';
 
 
     (Parse as any).serverURL = serverURL2;
-    Parse.liveQueryServerURL = keyLiveQueryUrl
+    // Parse.liveQueryServerURL = keyLiveQueryUrl
     // console.log('host', host, serverURL)
     Parse.initialize(keyApplicationId, keyParseServerKey)
     // Parse.enableLocalDatastore()
