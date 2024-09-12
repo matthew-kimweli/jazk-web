@@ -1,0 +1,287 @@
+<div class="container" id="motorDebitNote">
+    <div class="row">
+        <div class="col-md-4 mt-3 mb-3 px-5" id="logo">
+            <img src="https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/assets/images/jaz-logo.png"
+                height="37px" width="200px" alt="Jubilee Allianz" />
+        </div>
+        <div class="col-md-4 mt-3 mb-3"></div>
+        <div class="col-md-4 mt-3 mb-3" id="insurance-type">
+            <b>
+                <p style="font-size: 13px; margin: 0.18rem;"><b>JUBILEE ALLIANZ GENERAL INSURANCE LTD</b></p>
+            </b>
+            <p style="font-size: 13px; margin: 0.18rem;">Po Box - 6685 00100 GPO</p>
+            <p style="font-size: 13px; margin: 0.18rem;">NAIROBI, KENYA</p>
+            <p style="font-size: 13px; margin: 0.18rem;"><b>Phone&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>:+254 (0) 20 328 1000</p>
+            <p style="font-size: 13px; margin: 0.18rem;"><b>Fax&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>:+254 (0) 20 328 1150</p>
+            <p style="font-size: 13px; margin: 0.18rem;">
+                <b>Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>:info&#64;jubileekenya.com
+            </p>
+            <p style="font-size: 13px; margin: 0.18rem;">
+                <b>Website&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>:http://www.jubileeinsurance.com/ke/
+            </p>
+        </div>
+        <div class="row mt-1 px-5">
+        <!-- <div class="row mt-1 px-5" *ngIf="data?.quoteData.kyc"> -->
+            <p class="col-md-12 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border: 1px solid black; text-align: center; background-color: rgb(170, 170, 170);">
+                <b>Debit Note</b>
+            </p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
+                {{data?.quoteData.kyc.fname}} {{data?.quoteData.kyc.lname}}</p>
+            <p class="col-md-4 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;">
+                <b>Debit
+                    Note No&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</b>xxx
+            </p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right;">
+                <b>Date:</b>{{pdf_date}}
+            </p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
+                {{data?.quoteData.kyc.address}}</p>
+            <p class="col-md-4 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;">
+                <b>Insured
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</b><b>{{data?.quoteData.kyc.fname}}
+                    {{data?.quoteData.kyc.lname}}</b>
+            </p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: left;">
+            </p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
+            </p>
+            <p class="col-md-4 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{data?.quoteData.kyc.address}}
+            </p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: left;">
+            </p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
+            </p>
+            <p class="col-md-4 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{data?.quoteData.kyc.city}}
+            </p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: left;">
+            </p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
+                {{data?.quoteData.kyc.city}}</p>
+            <p class="col-md-4 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;">
+                <b>Business&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</b>New
+                Business
+            </p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: left;">
+            </p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; border-bottom: 1px solid black; text-align: left;">
+            </p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-bottom: 1px solid black; text-align: left;">
+                <b>Vat Reg
+                    No&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</b>{{data?.quoteData.kyc.tin}}
+            </p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; border-bottom: 1px solid black; text-align: left;">
+            </p>
+        </div>
+        <div class="row mt-1 px-5">
+            <p class="col-md-12 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border: 1px solid black; text-align: center; background-color: rgb(170, 170, 170);">
+                <b>Policy Details</b>
+            </p>
+            <p class="col-md-6 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
+                <b>Policy No&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</b>P/XXX/XXXX/XXXX/XXXXXX
+            </p>
+            <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;"></p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: left;">
+                <b>Agent Code&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</b>
+            </p>
+            <p class="col-md-6 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
+                <b>Cover
+                    From&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</b>{{data?.start_date}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>To&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</b>{{data?.end_date}}
+            </p>
+            <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;"></p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: left;">
+                <b>Insured Code&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</b>UXXXXXXXXXX
+            </p>
+            <p class="col-md-6 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
+                <b>Risk Cover&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</b>{{data?.quoteData.motorClass | titlecase}}
+            </p>
+            <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;"></p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: left;">
+                <b>Risk Code&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</b>xxxx
+            </p>
+            <p class="col-md-6 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; border-bottom: 1px solid black; text-align: left;">
+                <b>Risk Note No&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</b>
+            </p>
+            <p class="col-md-2 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; text-align: left; border-bottom: 1px solid black;">
+            </p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; border-bottom: 1px solid black; text-align: left;">
+            </p>
+        </div>
+        <div class="row mt-1 px-5">
+
+            <p class="col-md-6 mx-0 my-0"
+                style="border-top: 1px solid black; font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
+            </p>
+            <p class="col-md-6 mx-0 my-0"
+                style="border-top: 1px solid black;font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right;">
+                <b>UGX</b>
+            </p>
+            <p class="col-md-5 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
+            </p>
+            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;">GROSS
+                PREMIUM</p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right;">
+                {{data?.quoteData.totalBasicPremium | number : '2.0-2' }}</p>
+            <p class="col-md-5 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
+            </p>
+            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;">STAMP
+                DUTY
+            </p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right;">
+                {{data?.quoteData.totalStampDuty | number : '2.0-2' }}</p>
+            <p class="col-md-5 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
+            </p>
+            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;">VAT
+            </p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right;">
+                {{data?.quoteData.totalVAT | number : '2.0-2' }}</p>
+            <p class="col-md-5 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
+            </p>
+            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;">
+                STICKER
+                FEE</p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right;">
+                {{data?.quoteData.totalStickerFees | number : '2.0-2' }}</p>
+            <p class="col-md-5 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
+            </p>
+            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;">
+                INSURANCE
+                TRAINING LEVY</p>
+            <p class="col-md-4 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right;">
+                {{data?.quoteData.totalTrainingLevy | number : '2.0-2' }}</p>
+            <p class="col-md-10 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
+                All
+                other Terms and Conditions remian unaltered</p>
+            <p class="col-md-2 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; text-align: left; border-right: 1px solid black;">
+            </p>
+            <p class="col-md-10 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
+                Entered in the books of the Company at KAMPALA this : {{pdf_date}}</p>
+            <p class="col-md-2 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; text-align: left; border-right: 1px solid black;">
+            </p>
+            <p class="col-md-10 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
+                <b>TOTAL :- UGX {{data?.quoteData.grandPremium | numberToWords | titlecase}}</b>
+            </p>
+            <p class="col-md-2 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; text-align: right; border-right: 1px solid black;">
+                <b>{{data?.quoteData.grandPremium | number : '2.0-2' }}</b>
+            </p>
+            <p class="col-md-12 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; text-align: left;">
+                <b>only</b>
+            </p>
+        </div>
+        <div class="row mt-1 px-5">
+            <p class="col-md-6 mx-0 mt-0 mb-4" style="font-size: 13px; margin: 0.18rem; text-align: left;">
+            </p>
+            <p class="col-md-2 mx-0 mt-0 mb-4" style="font-size: 13px; margin: 0.18rem; text-align: left;">
+            </p>
+            <p class="col-md-4 mx-0 mt-0 mb-4" style="font-size: 13px; margin: 0.18rem; text-align: left;">
+                <b>Prepared By&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;XXX
+            </p>
+            <p class="col-md-3 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; text-align: left; border-bottom: 1px solid black">
+            </p>
+            <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;"></p>
+            <p class="col-md-4 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;"></p>
+            <p class="col-md-6 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;">
+                <b>Signed
+                    for and on behalf of the Company</b>
+            </p>
+            <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;"></p>
+            <p class="col-md-4 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;">
+                <b>Approved By&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;XXX
+            </p>
+            <p class="col-md-6 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;">
+                Jubilee
+                Allianz General Insurance Company Limited</p>
+            <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;"></p>
+            <p class="col-md-4 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;"></p>
+        </div>
+        <div class="row mt-0 px-5">
+            <p class="col-md-12 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border: 1px solid black; text-align: center;">
+                <b>This
+                    is not a TAX INVOICE. A TAX INVOICE will be issued on payment.</b>
+            </p>
+        </div>
+        <div class="row mt-1 px-5">
+            <p class="col-md-12 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: center;">
+                <b>Withholding Tax Exempted</b>
+            </p>
+        </div>
+        <div class="row mt-1 px-5">
+            <p class="col-md-12 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-top: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; text-align: left;">
+                <b><u>Bank Details</u></b>
+            </p>
+            <p class="col-md-12 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; border-right: 1px solid black; text-align: left;">
+                <b>Account Name&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;Jubilee Allianz General
+                    Insurance Company Limited</b>
+            </p>
+            <p class="col-md-12 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; border-right: 1px solid black; text-align: left;">
+                <b>Bank Name&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;Diamond Trust Bank Uganda
+                    Limited</b>
+            </p>
+            <p class="col-md-12 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; border-right: 1px solid black; text-align: left;">
+                <b>USD
+                    Account&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;5101344004&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SWIFT
+                    CODE: DTKEUGKA</b>
+            </p>
+            <p class="col-md-12 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; text-align: left;">
+                <b>USH Account&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;0101344037</b>
+            </p>
+        </div>
+        <div class="row mt-2 mb-2 px-5">
+            <p class="col-md-12 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border: 1px solid black; text-align: left;">
+                <b>IMPORTANT NOTICE : </b>Please examine this Debit Note carefully. If we do not hear from
+                you
+                within 14 days, we shall assume the above details are correct and PAYABLE
+            </p>
+        </div>
+    </div>
+</div>
