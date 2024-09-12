@@ -97,7 +97,7 @@ export class AppService {
         //   "PartyA": 254708374149,
         //   "PartyB": 174379,
         //   "PhoneNumber": 254708374149,
-        //   "CallBackURL": "https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/receivepayment",
+        //   "CallBackURL": "https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/receivepayment",
         //   "AccountReference": "CompanyXLTD",
         //   "TransactionDesc": "Payment of Motor Insurance" 
         // },
@@ -115,7 +115,7 @@ export class AppService {
               "PartyA": phone,
               "PartyB": 174379,
               "PhoneNumber": phone,//254708374149,
-              "CallBackURL": "https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/receivepayment",
+              "CallBackURL": "https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/receivepayment",
               "AccountReference": "CompanyXLTD",
               "TransactionDesc": "Payment of Motor Insurance" 
             },
@@ -157,8 +157,16 @@ export class AppService {
                 cc: ["saleske@allianz.com"],
                 attachments: [
                   {
+                    filename: `${today} - Debit Credit Note.pdf`,
+                    path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/debit_credit_note.pdf`,
+                  },
+                  {
+                    filename: `${today} - Receipt.pdf`,
+                    path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/receipt.pdf`,
+                  },
+                  {
                     filename: `${today} - Valuation Letter.pdf`,
-                    path: `https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/assets/data/valuation-letter.pdf`,
+                    path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/valuation-letter.pdf`,
                   },
                 ],
               };
@@ -167,18 +175,18 @@ export class AppService {
                 if (d.motorSubclass == "Standard Auto") {
                   params.attachments.push({
                     filename: `${today} - Motor private Standard Auto Insurance.pdf`,
-                    path: `https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/assets/data/motor-private.pdf`,
+                    path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/motor-private.pdf`,
                   });
                 } else {
                   params.attachments.push({
                     filename: `${today} - Motor private Premia Insurance.pdf`,
-                    path: `https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/assets/data/motor-premia.pdf`,
+                    path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/motor-premia.pdf`,
                   });
                 }
               } else {
                 params.attachments.push({
                   filename: `${today} - Motor commercial Insurance.pdf`,
-                  path: `https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/assets/data/motor-commercial.pdf`,
+                  path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/motor-commercial.pdf`,
                 });
               }
 

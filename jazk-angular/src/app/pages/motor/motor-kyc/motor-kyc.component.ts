@@ -28,23 +28,14 @@ declare var FlutterwaveCheckout: any;
   styleUrl: './motor-kyc.component.css',
 })
 export class MotorKycComponent {
-  acceptTerms: any;
-  userDeclarationYes: any;
-  logBookDeclarationYes: any;
-  vehiclePhotosDeclarationYes: any;
-  privacyNoticeDeclarationYes: any;
-  ownershipDeclarationYes: any;
-  inspectionVehicleDeclarationYes: any;
-  pfname: any;
-  plname: any;
-  pphone: any;
-  pemail: any;
-  pCity: any;
-  pAddress: any;
-  pTin: any;
-  pAge: any;
-  pDob: any;
-  createAccountForMe: any = true;
+  // acceptTerms: any;
+  // userDeclarationYes: any;
+  // logBookDeclarationYes: any;
+  // vehiclePhotosDeclarationYes: any;
+  // privacyNoticeDeclarationYes: any;
+  // ownershipDeclarationYes: any;
+  // inspectionVehicleDeclarationYes: any;
+
   user: Parse.Object<Parse.Attributes> | undefined;
 
   vehicleMakes: any = Object.keys(vehicleData);
@@ -313,7 +304,9 @@ export class MotorKycComponent {
   coverStartDate: any;
   coverEndDate: any;
   maxCoverDate: any;
-  vehicle:any = {}
+  vehicle: any = {
+    kycType: 'individual',
+  };
 
   termsUrl: any =
     'https://www.beanafrica.com/Allianz/ug/PolicyDocs/Private%20Motor%20Insurance%20Policy.pdf';
@@ -321,6 +314,13 @@ export class MotorKycComponent {
   paymentData: any = { method: '', installment_type: '1' };
   installments: any = [];
   motorData: any = {};
+  valuers: any = [
+    'REGENT VALUERS',
+    'AUTOMOBILE ASSOCIATION of KENYA',
+    'SOLVIT LIMITED',
+    'Capital Alliance Valuers and Assessors',
+    'Links Valuers & Assesors',
+  ];
 
   constructor(
     public utilsService: UtilsService,
@@ -332,6 +332,17 @@ export class MotorKycComponent {
     private activatedRoute: ActivatedRoute
   ) {
     this.getToday();
+  }
+
+  // Validator function for template-driven forms
+  validateKraPin(value: string, type: string): boolean {
+    if (type == 'individual') {
+      const kraPinRegex = /^[A-Z]\d{9}[A-Z]$/i;
+      return kraPinRegex.test(value);
+    } else {
+      const kraPinRegex = /^[B-Z]\d{9}[A-Z]$/i;
+      return kraPinRegex.test(value);
+    }
   }
 
   getToday() {
@@ -372,15 +383,15 @@ export class MotorKycComponent {
     if (user) {
       let kyc = user.get('kyc');
       if (kyc) {
-        this.pfname = kyc.fname;
-        this.plname = kyc.lname;
-        this.pAge = kyc.age;
-        this.pDob = kyc.dob;
-        this.pphone = kyc.phone;
-        this.pemail = kyc.email;
-        this.pTin = kyc.tin;
-        this.pCity = kyc.city;
-        this.pAddress = kyc.address;
+        this.vehicle.pfname = kyc.fname;
+        this.vehicle.plname = kyc.lname;
+        this.vehicle.pAge = kyc.age;
+        this.vehicle.pDob = kyc.dob;
+        this.vehicle.pphone = kyc.phone;
+        this.vehicle.pemail = kyc.email;
+        this.vehicle.pTin = kyc.tin;
+        this.vehicle.pCity = kyc.city;
+        this.vehicle.pAddress = kyc.address;
       }
     }
 
@@ -413,7 +424,9 @@ export class MotorKycComponent {
   emailIsValid(): boolean {
     // Perform additional custom validation if needed
     // You might want to add more complex validation logic here
-    return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(this.pemail);
+    return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(
+      this.vehicle.pemail
+    );
     // return /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(this.pemail);
   }
 
@@ -432,14 +445,13 @@ export class MotorKycComponent {
   onbankInterestChanged(event: any, id: any) {
     if (event.target.value && event.target.value === 'yes') {
       this.selectedVehicle = id;
-      
+
       this.vehicle.IsBankOrMFIinterested = true;
       // this.bankOrMFIInterested = true;
     } else {
       //@ts-ignore
-      
+
       this.vehicle.IsBankOrMFIinterested = false;
-     
     }
   }
 
@@ -455,14 +467,14 @@ export class MotorKycComponent {
     if (value) {
       let today = new Date();
       let dob = new Date(value);
-      this.pDob = dob;
+      this.vehicle.pDob = dob;
       let age = today.getFullYear() - dob.getFullYear();
-      this.pAge = age;
+      this.vehicle.pAge = age;
     }
-    if (this.pAge < 16) {
-      this.pAge = '-';
+    if (this.vehicle.pAge < 16) {
+      this.vehicle.pAge = '-';
       setTimeout(() => {
-        this.pAge = '';
+        this.vehicle.pAge = '';
       }, 400);
       this.toastr.error('Policyholder should be above 16 years of age.');
     }
@@ -530,7 +542,7 @@ export class MotorKycComponent {
   buyNow() {
     // console.log(this.utilsService.motorData);
 
-    if (!this.pfname) {
+    if (!this.vehicle.pfname) {
       this.toastr.error('First name is required');
       return;
     }
@@ -545,7 +557,7 @@ export class MotorKycComponent {
     //   return
     // }
 
-    if (!this.pphone) {
+    if (!this.vehicle.pphone) {
       this.toastr.error('Phone number is required');
       return;
     }
@@ -556,7 +568,7 @@ export class MotorKycComponent {
     //   // return
     // }
 
-    if (!this.pemail) {
+    if (!this.vehicle.pemail) {
       this.toastr.error('Email is required');
       return;
     }
@@ -566,16 +578,16 @@ export class MotorKycComponent {
       return;
     }
 
-    if (!this.pCity) {
+    if (!this.vehicle.pCity) {
       this.toastr.error('City is required');
       return;
     }
-    if (!this.pAddress) {
+    if (!this.vehicle.pAddress) {
       this.toastr.error('Address of residence is required');
       return;
     }
 
-    if (!this.pTin) {
+    if (!this.vehicle.pTin) {
       this.toastr.error('TIN is required');
       return;
     }
@@ -585,47 +597,40 @@ export class MotorKycComponent {
       return;
     }
 
-      const v = this.vehicle;
-      
-      
-      if (!v.bodyType) {
-        this.toastr.error(`Please provide body type of vehicle`);
-        return;
-      }
-      
+    const v = this.vehicle;
 
-      if (!v.EngineNumber) {
-        this.toastr.error(`Please provide engine number of vehicle`);
-        return;
-      }
-      if (!v.registrationNumber) {
+    if (!v.bodyType) {
+      this.toastr.error(`Please provide body type of vehicle`);
+      return;
+    }
+
+    if (!v.EngineNumber) {
+      this.toastr.error(`Please provide engine number of vehicle`);
+      return;
+    }
+    if (!v.registrationNumber) {
+      this.toastr.error(`Please provide registration number of vehicle`);
+      return;
+    }
+
+    if (!v.chasisNumber) {
+      this.toastr.error(`Please provide chasis number of vehicle`);
+      return;
+    }
+
+    if (!v.anyBankOrMFIInterested) {
+      this.toastr.error(`Please tell us if vehicle has Bank interest or not`);
+      return;
+    }
+
+    if (v.anyBankOrMFIInterested === 'yes') {
+      if (!v.bankOrMFI) {
         this.toastr.error(
-          `Please provide registration number of vehicle`
+          `Please inform us the Bank or MFI that has an interest on the vehicle`
         );
         return;
       }
-
-      if (!v.chasisNumber) {
-        this.toastr.error(`Please provide chasis number of vehicle`);
-        return;
-      }
-
-      if (!v.anyBankOrMFIInterested) {
-        this.toastr.error(
-          `Please tell us if vehicle has Bank interest or not`
-        );
-        return;
-      }
-
-      if (v.anyBankOrMFIInterested === 'yes') {
-        if (!v.bankOrMFI) {
-          this.toastr.error(
-            `Please inform us the Bank or MFI that has an interest on the vehicle`
-          );
-          return;
-        }
-      }
-    
+    }
 
     // if (!this.acceptTerms) {
     //   this.toastr.error('Please accept the Terms and Conditions to proceed');
@@ -653,34 +658,33 @@ export class MotorKycComponent {
     //   return;
     // }
 
-    this.pphone = Number(this.pphone).toString();
+    this.vehicle.pphone = Number(this.vehicle.pphone).toString();
 
     let userData = {
-      fname: this.pfname,
-      lname: this.plname,
-      name: `${this.pfname} ${this.plname}`,
-      age: this.pAge,
-      DoB: this.pDob,
-      phone: this.pphone,
-      email: this.pemail,
-      tin: this.pTin,
-      city: this.pCity,
-      address: this.pAddress,
-      registrationNumber: this.vehicle.registrationNumber
+      fname: this.vehicle.pfname,
+      lname: this.vehicle.plname,
+      name: `${this.vehicle.pfname}`,
+      age: this.vehicle.pAge,
+      DoB: this.vehicle.pDob,
+      phone: this.vehicle.pphone,
+      email: this.vehicle.pemail,
+      tin: this.vehicle.pTin,
+      city: this.vehicle.pCity,
+      address: this.vehicle.pAddress,
+      registrationNumber: this.vehicle.registrationNumber,
     };
 
-
     this.motorData.kyc = userData;
-    this.motorData.vehicle = this.vehicle
+    this.motorData.vehicle = this.vehicle;
 
     this.motorData.coverStartDate = this.coverStartDate;
     this.motorData.coverEndDate = this.coverEndDate;
 
     let data = this.motorData;
 
-    console.log('data', this.motorData)
+    console.log('data', this.motorData);
 
-    document.getElementById('showPaymentModal')?.click()
+    document.getElementById('showPaymentModal')?.click();
   }
 
   amount = 3000;
@@ -784,20 +788,21 @@ export class MotorKycComponent {
   }
 
   async startPayment() {
-    
-    if(!this.paymentData.method){
-      this.toastr.error("Please select a payment method")
+    if (!this.paymentData.method) {
+      this.toastr.error('Please select a payment method');
       return;
     }
 
-    if(this.paymentData.method == 'card'){
-      this.toastr.info('Coming soon', 'This is payment method is not yet available')
+    if (this.paymentData.method == 'card') {
+      this.toastr.info(
+        'Coming soon',
+        'This is payment method is not yet available'
+      );
       return;
     }
 
-
-    if(!this.paymentData.mmNumber){
-      this.toastr.error('Please provide mobile money number')
+    if (!this.paymentData.mmNumber) {
+      this.toastr.error('Please provide mobile money number');
       return;
     }
 
@@ -809,13 +814,12 @@ export class MotorKycComponent {
 
       let data = this.motorService.motorQuotation;
       let client = this.quote.get('client');
-      if(!client){
-        let kyc = this.motorData.kyc
-        this.quote.set('client', kyc)
-        this.quote.set('actionType', 'purchase')
-        await this.quote.save()
+      if (!client) {
+        let kyc = this.motorData.kyc;
+        this.quote.set('client', kyc);
+        this.quote.set('actionType', 'purchase');
+        await this.quote.save();
       }
-
 
       let amount = data.grossPremium;
       let currency = this.currency;
@@ -840,19 +844,20 @@ export class MotorKycComponent {
         payment.set('vehicle_reg_number', client.registrationNumber);
       }
 
-      payment.set('insurance_data', this.motorData)
+      payment.set('insurance_data', this.motorData);
 
-      let agent_email
+      let agent_email;
 
       if (this.authService.currentUser) {
         let agent = {
           email:
-            this.authService.currentUser?.get('email') || 'jazkesales@allianz.com',
+            this.authService.currentUser?.get('email') ||
+            'jazkesales@allianz.com',
           phone_number: this.authService.currentUser?.get('phone'),
           name: this.authService.currentUserName,
         };
 
-        agent_email = agent.email
+        agent_email = agent.email;
 
         payment.set('agent', agent);
         payment.set('agent_username', this.authService.currentLoginUserName);
@@ -860,17 +865,15 @@ export class MotorKycComponent {
         payment.set('loggedInUser', this.authService.currentUser.toJSON());
         payment.set('userId', this.authService.currentUser.id);
         payment.set('user_id', this.authService.currentUser.id);
-        
       }
       await payment.save();
 
       this.parseService.fetching = true;
 
-      let phone = String(this.paymentData.mmNumber).replace('+','')
-      if(phone.includes('254')){
-        
+      let phone = String(this.paymentData.mmNumber).replace('+', '');
+      if (phone.includes('254')) {
       } else {
-        phone = `254${phone}`
+        phone = `254${phone}`;
       }
 
       let res = await Parse.Cloud.run('paympesa', {
@@ -879,7 +882,7 @@ export class MotorKycComponent {
         quote_id: this.quote.id,
         quote_data: this.quote.get('quoteData'),
         client: client,
-        agent_email: agent_email
+        agent_email: agent_email,
       });
       console.log('response', res);
       let json = res;
@@ -891,17 +894,17 @@ export class MotorKycComponent {
 
       if (ResponseDescription == 'Success. Request accepted for processing') {
         this.router.navigate(['/motor-payment-success', payment.id]);
-        payment.set('paymentStatus', 'Paid')
-        payment.set('outstandingPremium', 0)
-        if(this.paymentData.installment_type == '1'){
-          payment.set('outstandingPremium', 0)
-        } else if(this.paymentData.installment_type == '2'){
-          payment.set('outstandingPremium', 0)
-        } else if(this.paymentData.installment_type == '3'){
-          payment.set('outstandingPremium', 0)
+        payment.set('paymentStatus', 'Paid');
+        payment.set('outstandingPremium', 0);
+        if (this.paymentData.installment_type == '1') {
+          payment.set('outstandingPremium', 0);
+        } else if (this.paymentData.installment_type == '2') {
+          payment.set('outstandingPremium', 0);
+        } else if (this.paymentData.installment_type == '3') {
+          payment.set('outstandingPremium', 0);
         }
-        
-        payment.save()
+
+        payment.save();
       } else {
       }
 
@@ -914,7 +917,7 @@ export class MotorKycComponent {
       //   "ResponseDescription": "Success. Request accepted for processing",
       //   "CustomerMessage": "Success. Request accepted for processing"
       // }
-      document.getElementById('paymentcancelbutton')?.click()
+      document.getElementById('paymentcancelbutton')?.click();
     } catch (error) {
       console.error(error);
       this.toastr.error('Error while creating order. Please try again.');

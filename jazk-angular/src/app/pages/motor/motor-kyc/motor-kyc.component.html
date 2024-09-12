@@ -35,46 +35,103 @@
             <p>Please provide the details below to proceed</p>
             <div class="row">
               <div class="col-md-4 form-group mb-3">
+                <label class="form-label" for="bodytype"
+                  ><small>Type</small></label
+                >
+                <select
+                  title="select"
+                  [(ngModel)]="vehicle.kycType"
+                  name="bodyType"
+                  id="bodytype"
+                  class="form-select"
+                >
+                  <option value="individual">Individual</option>
+                  <option value="company">Company</option>
+                </select>
+                <div class="validate"></div>
+              </div>
+
+              <div class="col-md-4 form-group mb-3">
                 <label class="form-label" for="firstname"
-                  ><small>First & Last Name / Business Name</small></label
+                  ><small>{{
+                    vehicle.kycType == "individual"
+                      ? "First & Last Name"
+                      : "Business Name"
+                  }}</small></label
                 >
                 <input
-                  [(ngModel)]="pfname"
+                  [(ngModel)]="vehicle.pfname"
                   type="text"
                   name="firstname"
                   class="form-control"
                   id="firstname"
-                  placeholder="First & Last Name / Business Name"
+                  placeholder="Enter Name"
                 />
                 <div class="validate"></div>
               </div>
-              <!-- <div class="col-md-4 form-group">
-                          <label class="form-label" for="lastname"><small>Last Name</small></label>
-                          <input [(ngModel)]="plname" type="text" name="lastname" class="form-control" id="lastname"
-                              placeholder="Last Name">
-                          <div class="validate"></div>
-                      </div> -->
 
-              <!-- <div class="col-md-4 form-group">
-                          <label class="form-label" for="age"><small>Date Of Birth</small></label>
-                          <input onkeydown='event.preventDefault()' [max]="minDob" (input)="onDobChanged($event)"
-                              name="age" type="date" id="age" class="form-control" placeholder="Age">
-                          <div class="validate"></div>
-                      </div> -->
+              <div
+                class="col-md-4 form-group"
+                *ngIf="vehicle.kycType == 'individual'"
+              >
+                <label class="form-label" for="nin"
+                  ><small>National ID</small></label
+                >
+                <input
+                  [(ngModel)]="vehicle.nin"
+                  type="text"
+                  name="nin"
+                  class="form-control"
+                  id="nin"
+                  placeholder="Enter NIN"
+                />
+                <div class="validate"></div>
+              </div>
+
+              <div
+                class="col-md-4 form-group"
+                *ngIf="vehicle.kycType == 'company'"
+              >
+                <label class="form-label" for="companyRegNo"
+                  ><small>Company Registration Number</small></label
+                >
+                <input
+                  [(ngModel)]="vehicle.companyRegNo"
+                  type="text"
+                  name="companyRegNo"
+                  class="form-control"
+                  id="companyRegNo"
+                  placeholder="Enter Registration Number"
+                />
+                <div class="validate"></div>
+              </div>
 
               <div class="col-md-4 form-group">
                 <label class="form-label" for="tin"
-                  ><small>KRA PIN</small></label
+                  ><small>{{
+                    vehicle.kycType == "individual"
+                      ? "KRA PIN"
+                      : "Company KRA PIN"
+                  }}</small></label
                 >
                 <input
-                  [(ngModel)]="pTin"
+                  [(ngModel)]="vehicle.pTin"
                   type="text"
-                  name="tin"
+                  id="kraPin"
+                  name="kraPin"
                   class="form-control"
-                  id="tin"
                   placeholder="KRA PIN"
+                  #kraPinInput="ngModel"
                 />
-                <div class="validate"></div>
+                <div
+                  style="color: red"
+                  *ngIf="
+                    vehicle.pTin &&
+                    !validateKraPin(vehicle.pTin, vehicle.kycType)
+                  "
+                >
+                  Invalid KRA PIN format.
+                </div>
               </div>
 
               <div class="col-md-4 form-group">
@@ -84,7 +141,7 @@
                   <input
                     class="form-control"
                     placeholder="Phone Number"
-                    [(ngModel)]="pphone"
+                    [(ngModel)]="vehicle.pphone"
                   />
                 </div>
               </div>
@@ -94,7 +151,7 @@
                   ><small>Email</small></label
                 >
                 <input
-                  [(ngModel)]="pemail"
+                  [(ngModel)]="vehicle.pemail"
                   type="email"
                   class="form-control"
                   name="email"
@@ -110,7 +167,7 @@
               <div class="col-md-4 form-group">
                 <label class="form-label" for="city"><small>City</small></label>
                 <input
-                  [(ngModel)]="pCity"
+                  [(ngModel)]="vehicle.pCity"
                   type="text"
                   name="city"
                   class="form-control"
@@ -125,7 +182,7 @@
                   ><small>Postal Address</small></label
                 >
                 <input
-                  [(ngModel)]="pAddress"
+                  [(ngModel)]="vehicle.pAddress"
                   type="text"
                   name="address"
                   class="form-control"
@@ -181,17 +238,23 @@
           <div>
             <div class="row">
               <div class="col-md-3 form-group mt-3">
-                <label class="form-label"
-                  >Vehicle Make:
-                </label>
-                <input type="text" disabled class="form-control" [value]="this.motorService.motorQuotation.vehicleMake">
+                <label class="form-label">Vehicle Make: </label>
+                <input
+                  type="text"
+                  disabled
+                  class="form-control"
+                  [value]="this.motorService.motorQuotation.vehicleMake"
+                />
               </div>
 
               <div class="col-md-3 form-group mt-3">
-                <label class="form-label"
-                  >Vehicle Model
-                </label>
-                <input type="text" disabled class="form-control" [value]="this.motorService.motorQuotation.vehicleModel">
+                <label class="form-label">Vehicle Model </label>
+                <input
+                  type="text"
+                  disabled
+                  class="form-control"
+                  [value]="this.motorService.motorQuotation.vehicleModel"
+                />
               </div>
 
               <div class="col-md-3 form-group mt-3">
@@ -205,7 +268,7 @@
                   id="bodytype"
                   class="form-select"
                 >
-                  <option value="" disabled>Body Type</option>
+                  <option value="undefined" disabled>Body Type</option>
                   <option *ngFor="let item of bodyTypes" [value]="item">
                     {{ item }}
                   </option>
@@ -273,7 +336,7 @@
                   (change)="onbankInterestChanged($event, vehicle.motorId)"
                   class="form-select"
                 >
-                  <option value="" disabled>
+                  <option value="undefined" disabled>
                     Does your vehicle have interest of a bank/MFI?
                   </option>
                   <option *ngFor="let item of twoType" [value]="item.id">
@@ -291,7 +354,23 @@
                     >Please Select the Bank/Micro-Finance Institution</small
                   ></label
                 >
-                <select
+
+                <input
+                  [(ngModel)]="vehicle.bankOrMFI"
+                  name="bankOrMFI"
+                  id="bankOrMFIname"
+                  class="form-control"
+                  list="datalistOptions"
+                  placeholder="Type to search..."
+                />
+                <datalist id="datalistOptions">
+                  <option value="" disabled>Name of the Bank/MFI</option>
+                  <option *ngFor="let item of banks_mfis" [value]="item.name">
+                    {{ item.name }}
+                  </option>
+                </datalist>
+
+                <!-- <select
                   title="select"
                   [(ngModel)]="vehicle.bankOrMFI"
                   [ngModelOptions]="{ standalone: true }"
@@ -303,15 +382,185 @@
                   <option *ngFor="let item of banks_mfis" [value]="item.name">
                     {{ item.name }}
                   </option>
-                </select>
+                </select> -->
                 <div class="validate"></div>
               </div>
             </div>
             <br />
+            <div class="row">
+              <div class="col-md-4 form-group mb-3">
+                <label class="form-label" for="bodytype"
+                  ><small>Select Valuer</small></label
+                >
+                <select
+                  title="select"
+                  [(ngModel)]="vehicle.valuer"
+                  name="bodyType"
+                  id="bodytype"
+                  class="form-select"
+                >
+                  <option value="undefined" disabled>Name of Valuer</option>
+                  <option *ngFor="let v of valuers" [value]="v">{{ v }}</option>
+                </select>
+                <div class="validate"></div>
+              </div>
+            </div>
           </div>
 
-          <br />
+          <div *ngIf="!user">
+            <br />
+            <br />
+            <div class="doctors">
+              <div class="member">
+                <div class="member-info">
+                  <h4>Ownership Declaration</h4>
+                  <!-- <br> -->
+                  <!-- <p>Self Declaration Statement:</p> -->
+                  <div class="form-check">
+                    <input
+                      [(ngModel)]="vehicle.ownershipDeclarationYes"
+                      class="form-check-input"
+                      type="checkbox"
+                      name="flexRadioDefaultownership"
+                      id="flexRadioDefaultownership"
+                    />
+                    <label
+                      class="form-label"
+                      class="form-check-label"
+                      for="flexRadioDefaultownership"
+                    >
+                      I understand that I can only procure insurance on an asset
+                      that I have a legal interest in. I confirm that the
+                      vehicle(s) whose details I have provided is/are owned by
+                      me and that the details in the log book match my personal
+                      details which I have provided. I understand that if at the
+                      time of claim the personal information provided is
+                      different from the information in the log book then the
+                      claim may be declined.
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="doctors">
+              <div class="member">
+                <div class="member-info">
+                  <h4>Inspection of my vehicle</h4>
+                  <!-- <br> -->
+                  <!-- <p>Self Declaration Statement:</p> -->
+                  <div class="form-check">
+                    <input
+                      [(ngModel)]="vehicle.inspectionVehicleDeclarationYes"
+                      class="form-check-input"
+                      type="checkbox"
+                      name="flexRadioDefaultOwneshipVehicle"
+                      id="flexRadioDefaultOwneshipVehicle"
+                    />
+                    <label
+                      class="form-label"
+                      class="form-check-label"
+                      for="flexRadioDefaultOwneshipVehicle"
+                    >
+                      I agree to avail my vehicle for inspection within two (2)
+                      weeks after buying my motor insurance. I understand that
+                      failure to have my vehicle inspected may lead to
+                      cancellation of my insurance and refund of my premiums
+                      less premium chargeable for the two weeks of cover.
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            <br />
+
+            <div class="doctors">
+              <div class="member">
+                <div class="member-info">
+                  <h4>Terms and Conditions</h4>
+                  <br />
+                  <p>
+                    We want you to know exactly how our service works and why we
+                    need your registration information. Please read and accept
+                    the terms before continuing.
+                  </p>
+                  <div class="form-check form-check-inline">
+                    <input
+                      [(ngModel)]="vehicle.acceptTerms"
+                      class="form-check-input"
+                      type="checkbox"
+                      id="inlineCheckbox1"
+                      value="option1"
+                    />
+                    <label
+                      class="form-label"
+                      class="form-check-label"
+                      for="inlineCheckbox1"
+                    >
+                      I confirm I have read, understood and accept the
+                      <a [href]="termsUrl" target="_blank"
+                        >Terms and Conditions</a
+                      >. I accept your
+                      <a
+                        href="https://www.jubilee-allianz.com/ke/privacy_policy.html"
+                        target="_blank"
+                        >Privacy Notice</a
+                      >
+                      and understand that I can learn more about how you protect
+                      my personal data by reading
+                      <a
+                        href="https://www.jubilee-allianz.com/ke/privacy_policy.html"
+                        target="_blank"
+                        >the document</a
+                      >. I acknowledge that I am aware about the importance of
+                      obtaining insurance advice From an insurance consultant,
+                      licensed and registered with the Insurance and Regulatory
+                      Authority before buying any insurance product.
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <br />
+
+            <div class="doctors">
+              <div class="member">
+                <div class="member-info">
+                  <h4>Self Declaration</h4>
+                  <!-- <br> -->
+                  <!-- <p>Self Declaration Statement:</p> -->
+                  <div class="form-check">
+                    <input
+                      [(ngModel)]="vehicle.userDeclarationYes"
+                      class="form-check-input"
+                      type="checkbox"
+                      name="flexRadioDefault4"
+                      id="flexRadioDefault4"
+                    />
+                    <label
+                      class="form-label"
+                      class="form-check-label"
+                      for="flexRadioDefault4"
+                    >
+                      I declare that the statements and particulars filled and
+                      submitted through this platform are complete, correct and
+                      true to the best of my knowledge and belief and that no
+                      material facts have been misstated or withheld. I agree
+                      that the information I have provided shall form the basis
+                      of my insurance contract between me and Jubliee Allianz
+                      General Insurance Company Limited (the Company) and I
+                      agree to accept the policy subject to the terms and
+                      conditions prescribed by the Company which have been
+                      carefully read and understood by me.
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
           <br />
 
           <button
