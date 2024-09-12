@@ -22,7 +22,7 @@ export class AppComponent {
       let serverURL2 = `http://localhost:3000/parse`;
       var keyApplicationId = 'debunkbot';
       var keyParseServerKey = 'debunkbot12@!!';
-      // var keyLiveQueryUrl = 'wss://localhost:3000';
+      var keyLiveQueryUrl = 'wss://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io';
 
 
     (Parse as any).serverURL = serverURL2;
