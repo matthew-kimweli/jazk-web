@@ -892,6 +892,8 @@ export class MotorKycComponent {
       let ResponseDescription = json['ResponseDescription'];
       let CheckoutRequestID = json['CheckoutRequestID'];
 
+      payment.set('payment_response', json);
+
       if (ResponseDescription == 'Success. Request accepted for processing') {
         this.router.navigate(['/motor-payment-success', payment.id]);
         payment.set('paymentStatus', 'Paid');
@@ -904,9 +906,10 @@ export class MotorKycComponent {
           payment.set('outstandingPremium', 0);
         }
 
-        payment.save();
       } else {
       }
+      
+      payment.save();
 
       this.parseService.fetching = false;
 

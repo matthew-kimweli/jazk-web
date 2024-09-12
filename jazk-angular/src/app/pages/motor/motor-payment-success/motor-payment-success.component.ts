@@ -12,4 +12,5 @@ import { HeaderComponent } from "../../_components/header/header.component";
 })
 export class MotorPaymentSuccessComponent {
 
+  reference = Date.now()
 }
