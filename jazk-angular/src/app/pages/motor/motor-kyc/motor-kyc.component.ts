@@ -859,7 +859,7 @@ export class MotorKycComponent {
 
         agent_email = agent.email;
 
-        payment.set('agent', agent);
+        // payment.set('agent', agent);
         payment.set('agent_username', this.authService.currentLoginUserName);
         payment.set('agent_name', this.authService.currentUserName);
         payment.set('loggedInUser', this.authService.currentUser.toJSON());
@@ -908,7 +908,7 @@ export class MotorKycComponent {
 
       } else {
       }
-      
+
       payment.save();
 
       this.parseService.fetching = false;

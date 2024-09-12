@@ -13,7 +13,7 @@ var ParseDashboard = require('parse-dashboard');
 // import { ParseServer } from 'parse-server';
 // import ParseDashboard from 'parse-dashboard';
 
-const port = 3000
+const port = 3100
 
 
 async function bootstrap() {
