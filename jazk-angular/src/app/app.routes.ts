@@ -108,10 +108,10 @@ export const routes: Routes = [
     component: MotorPaymentSuccessComponent,
   },
 
-  {
-    path: 'motor-docs',
-    component: DebitNoteComponent,
-  },
+  // {
+  //   path: 'motor-docs',
+  //   component: DebitNoteComponent,
+  // },
 
   
 ];
