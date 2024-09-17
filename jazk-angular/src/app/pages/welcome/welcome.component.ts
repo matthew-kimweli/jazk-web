@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from '../_components/header/header.component';
 import { CommonModule } from '@angular/common';
 
@@ -8,9 +8,11 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, RouterModule, HeaderComponent],
   templateUrl: './welcome.component.html',
-  styleUrl: './welcome.component.css'
+  styleUrl: './welcome.component.css',
 })
 export class WelcomeComponent {
+  constructor(private router: Router) {}
+
   insuranceTypes = [
     {
       title: 'Buy Motor Insurance',
@@ -24,11 +26,10 @@ export class WelcomeComponent {
     },
     {
       title: 'Travel Insurance',
-      description: `You can purchase a single trip cover for every travel or an annual cover to cover all the trips within a 12-month period.`,
+      description: `You can purchase a single trip cover for every travel or an annual cover to cover all the trips within a 12-month period. Get protected against unforeseen medical expenses, trip cancellations, or delays.`,
       buttonText: 'Get your travel insurance',
-      buttonLink: '',
-      href: 'https://travel.jubilee-allianz.com/',
-      isActive: true,
+      buttonLink: 'https://travel.jubilee-allianz.com/',
+      isActive: false,
     },
     {
       title: 'Home Insurance',
@@ -72,12 +73,24 @@ export class WelcomeComponent {
       buttonText: 'Coming Soon',
       buttonLink: '/marine',
       isActive: false,
-    }
+    },
   ];
 
   isMobile() {
     return window.innerWidth <= 768; // Adjust the width based on your breakpoint
   }
-  
-  
+
+  gotoLink(item: {
+    title: string;
+    description: string;
+    buttonText: string;
+    buttonLink: string;
+    isActive: boolean;
+  }) {
+    if (item.buttonLink.startsWith('http')) {
+      window.location.href = item.buttonLink;
+    } else {
+      this.router.navigate([item.buttonLink]);
+    }
+  }
 }

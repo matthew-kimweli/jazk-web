@@ -26,8 +26,7 @@
                   <p class="text-secondary mb-4">{{ ins.description }}</p>
                   <div class="my-4">
                     <a
-                      [routerLink]="[ins.buttonLink]"
-                      routerLinkActive="router-link-active"
+                    (click)="gotoLink(ins)"
                       class="btn btn-primary w-100"
                     >
                       {{ ins.buttonText }} &nbsp;
@@ -69,10 +68,7 @@
                   <h2 class="mb-3">{{ insurance.title }}</h2>
                   <p class="text-secondary mb-4">{{ insurance.description }}</p>
                   <div class="my-4">
-                    <a
-                    [href]="insurance.href"
-                      [routerLink]="[insurance.buttonLink]"
-                      routerLinkActive="router-link-active"
+                    <a (click)="gotoLink(insurance)"
                       class="btn btn-primary w-100"
                     >
                       {{ insurance.buttonText }} &nbsp;
