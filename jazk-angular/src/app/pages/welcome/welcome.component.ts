@@ -23,6 +23,14 @@ export class WelcomeComponent {
       isActive: true,
     },
     {
+      title: 'Travel Insurance',
+      description: `You can purchase a single trip cover for every travel or an annual cover to cover all the trips within a 12-month period.`,
+      buttonText: 'Get your travel insurance',
+      buttonLink: '',
+      href: 'https://travel.jubilee-allianz.com/',
+      isActive: true,
+    },
+    {
       title: 'Home Insurance',
       description: `Protect Your Home: Get coverage for your
                     home against damages or losses caused by fire, theft,

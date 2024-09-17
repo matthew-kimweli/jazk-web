@@ -70,6 +70,7 @@
                   <p class="text-secondary mb-4">{{ insurance.description }}</p>
                   <div class="my-4">
                     <a
+                    [href]="insurance.href"
                       [routerLink]="[insurance.buttonLink]"
                       routerLinkActive="router-link-active"
                       class="btn btn-primary w-100"
