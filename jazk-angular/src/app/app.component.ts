@@ -27,7 +27,7 @@ export class AppComponent {
 
     (Parse as any).serverURL = serverURL2;
     // Parse.liveQueryServerURL = keyLiveQueryUrl
-    // console.log('host', host, serverURL)
+    console.log('host', serverURL2)
     Parse.initialize(keyApplicationId, keyParseServerKey)
     // Parse.enableLocalDatastore()
 
