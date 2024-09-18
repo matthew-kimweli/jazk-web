@@ -1867,3 +1867,281 @@ INSERT INTO "uwclass" ("class_sys_id", "class_code", "class_name", "class_frz_fl
 	(10, '90', 'Oil and Gas', 'false', '2024-07-22 16:21:13.086367', NULL, NULL, NULL);
 /*!40000 ALTER TABLE "uwclass" ENABLE KEYS */;
 
+-- Dumping structure for table public._Audience
+DROP TABLE IF EXISTS "_Audience";
+CREATE TABLE IF NOT EXISTS "_Audience" (
+	"objectId" TEXT NOT NULL,
+	"createdAt" TIMESTAMPTZ NULL DEFAULT NULL,
+	"updatedAt" TIMESTAMPTZ NULL DEFAULT NULL,
+	"name" TEXT NULL DEFAULT NULL,
+	"query" TEXT NULL DEFAULT NULL,
+	"lastUsed" TIMESTAMPTZ NULL DEFAULT NULL,
+	"timesUsed" DOUBLE PRECISION NULL DEFAULT NULL,
+	"_rperm" UNKNOWN NULL DEFAULT NULL,
+	"_wperm" UNKNOWN NULL DEFAULT NULL,
+	PRIMARY KEY ("objectId")
+);
+
+-- Dumping data for table public._Audience: -1 rows
+/*!40000 ALTER TABLE "_Audience" DISABLE KEYS */;
+/*!40000 ALTER TABLE "_Audience" ENABLE KEYS */;
+
+-- Dumping structure for table public._GlobalConfig
+DROP TABLE IF EXISTS "_GlobalConfig";
+CREATE TABLE IF NOT EXISTS "_GlobalConfig" (
+	"objectId" TEXT NOT NULL,
+	"params" JSONB NULL DEFAULT NULL,
+	"masterKeyOnly" JSONB NULL DEFAULT NULL,
+	PRIMARY KEY ("objectId")
+);
+
+-- Dumping data for table public._GlobalConfig: -1 rows
+/*!40000 ALTER TABLE "_GlobalConfig" DISABLE KEYS */;
+/*!40000 ALTER TABLE "_GlobalConfig" ENABLE KEYS */;
+
+-- Dumping structure for table public._GraphQLConfig
+DROP TABLE IF EXISTS "_GraphQLConfig";
+CREATE TABLE IF NOT EXISTS "_GraphQLConfig" (
+	"objectId" TEXT NOT NULL,
+	"config" JSONB NULL DEFAULT NULL,
+	PRIMARY KEY ("objectId")
+);
+
+-- Dumping data for table public._GraphQLConfig: -1 rows
+/*!40000 ALTER TABLE "_GraphQLConfig" DISABLE KEYS */;
+/*!40000 ALTER TABLE "_GraphQLConfig" ENABLE KEYS */;
+
+-- Dumping structure for table public._Hooks
+DROP TABLE IF EXISTS "_Hooks";
+CREATE TABLE IF NOT EXISTS "_Hooks" (
+	"functionName" TEXT NULL DEFAULT NULL,
+	"className" TEXT NULL DEFAULT NULL,
+	"triggerName" TEXT NULL DEFAULT NULL,
+	"url" TEXT NULL DEFAULT NULL
+);
+
+-- Dumping data for table public._Hooks: -1 rows
+/*!40000 ALTER TABLE "_Hooks" DISABLE KEYS */;
+/*!40000 ALTER TABLE "_Hooks" ENABLE KEYS */;
+
+-- Dumping structure for table public._Idempotency
+DROP TABLE IF EXISTS "_Idempotency";
+CREATE TABLE IF NOT EXISTS "_Idempotency" (
+	"objectId" TEXT NOT NULL,
+	"createdAt" TIMESTAMPTZ NULL DEFAULT NULL,
+	"updatedAt" TIMESTAMPTZ NULL DEFAULT NULL,
+	"reqId" TEXT NULL DEFAULT NULL,
+	"expire" TIMESTAMPTZ NULL DEFAULT NULL,
+	"_rperm" UNKNOWN NULL DEFAULT NULL,
+	"_wperm" UNKNOWN NULL DEFAULT NULL,
+	PRIMARY KEY ("objectId"),
+	UNIQUE INDEX "_Idempotency_unique_reqId" ("reqId"),
+	INDEX "ttl" ("expire")
+);
+
+-- Dumping data for table public._Idempotency: -1 rows
+/*!40000 ALTER TABLE "_Idempotency" DISABLE KEYS */;
+/*!40000 ALTER TABLE "_Idempotency" ENABLE KEYS */;
+
+-- Dumping structure for table public._JobSchedule
+DROP TABLE IF EXISTS "_JobSchedule";
+CREATE TABLE IF NOT EXISTS "_JobSchedule" (
+	"objectId" TEXT NOT NULL,
+	"createdAt" TIMESTAMPTZ NULL DEFAULT NULL,
+	"updatedAt" TIMESTAMPTZ NULL DEFAULT NULL,
+	"jobName" TEXT NULL DEFAULT NULL,
+	"description" TEXT NULL DEFAULT NULL,
+	"params" TEXT NULL DEFAULT NULL,
+	"startAfter" TEXT NULL DEFAULT NULL,
+	"daysOfWeek" JSONB NULL DEFAULT NULL,
+	"timeOfDay" TEXT NULL DEFAULT NULL,
+	"lastRun" DOUBLE PRECISION NULL DEFAULT NULL,
+	"repeatMinutes" DOUBLE PRECISION NULL DEFAULT NULL,
+	"_rperm" UNKNOWN NULL DEFAULT NULL,
+	"_wperm" UNKNOWN NULL DEFAULT NULL,
+	PRIMARY KEY ("objectId")
+);
+
+-- Dumping data for table public._JobSchedule: -1 rows
+/*!40000 ALTER TABLE "_JobSchedule" DISABLE KEYS */;
+/*!40000 ALTER TABLE "_JobSchedule" ENABLE KEYS */;
+
+-- Dumping structure for table public._JobStatus
+DROP TABLE IF EXISTS "_JobStatus";
+CREATE TABLE IF NOT EXISTS "_JobStatus" (
+	"objectId" TEXT NOT NULL,
+	"createdAt" TIMESTAMPTZ NULL DEFAULT NULL,
+	"updatedAt" TIMESTAMPTZ NULL DEFAULT NULL,
+	"jobName" TEXT NULL DEFAULT NULL,
+	"source" TEXT NULL DEFAULT NULL,
+	"status" TEXT NULL DEFAULT NULL,
+	"message" TEXT NULL DEFAULT NULL,
+	"params" JSONB NULL DEFAULT NULL,
+	"finishedAt" TIMESTAMPTZ NULL DEFAULT NULL,
+	"_rperm" UNKNOWN NULL DEFAULT NULL,
+	"_wperm" UNKNOWN NULL DEFAULT NULL,
+	PRIMARY KEY ("objectId")
+);
+
+-- Dumping data for table public._JobStatus: -1 rows
+/*!40000 ALTER TABLE "_JobStatus" DISABLE KEYS */;
+/*!40000 ALTER TABLE "_JobStatus" ENABLE KEYS */;
+
+-- Dumping structure for table public._Join:roles:_Role
+DROP TABLE IF EXISTS "_Join:roles:_Role";
+CREATE TABLE IF NOT EXISTS "_Join:roles:_Role" (
+	"relatedId" VARCHAR(120) NOT NULL,
+	"owningId" VARCHAR(120) NOT NULL,
+	PRIMARY KEY ("relatedId", "owningId")
+);
+
+-- Dumping data for table public._Join:roles:_Role: -1 rows
+/*!40000 ALTER TABLE "_Join:roles:_Role" DISABLE KEYS */;
+/*!40000 ALTER TABLE "_Join:roles:_Role" ENABLE KEYS */;
+
+-- Dumping structure for table public._Join:users:_Role
+DROP TABLE IF EXISTS "_Join:users:_Role";
+CREATE TABLE IF NOT EXISTS "_Join:users:_Role" (
+	"relatedId" VARCHAR(120) NOT NULL,
+	"owningId" VARCHAR(120) NOT NULL,
+	PRIMARY KEY ("relatedId", "owningId")
+);
+
+-- Dumping data for table public._Join:users:_Role: -1 rows
+/*!40000 ALTER TABLE "_Join:users:_Role" DISABLE KEYS */;
+INSERT INTO "_Join:users:_Role" ("relatedId", "owningId") VALUES
+	('jeJFKCADAj', 'dOwjgFQEcW');
+/*!40000 ALTER TABLE "_Join:users:_Role" ENABLE KEYS */;
+
+-- Dumping structure for table public._PushStatus
+DROP TABLE IF EXISTS "_PushStatus";
+CREATE TABLE IF NOT EXISTS "_PushStatus" (
+	"objectId" TEXT NOT NULL,
+	"createdAt" TIMESTAMPTZ NULL DEFAULT NULL,
+	"updatedAt" TIMESTAMPTZ NULL DEFAULT NULL,
+	"pushTime" TEXT NULL DEFAULT NULL,
+	"source" TEXT NULL DEFAULT NULL,
+	"query" TEXT NULL DEFAULT NULL,
+	"payload" TEXT NULL DEFAULT NULL,
+	"title" TEXT NULL DEFAULT NULL,
+	"expiry" DOUBLE PRECISION NULL DEFAULT NULL,
+	"expiration_interval" DOUBLE PRECISION NULL DEFAULT NULL,
+	"status" TEXT NULL DEFAULT NULL,
+	"numSent" DOUBLE PRECISION NULL DEFAULT NULL,
+	"numFailed" DOUBLE PRECISION NULL DEFAULT NULL,
+	"pushHash" TEXT NULL DEFAULT NULL,
+	"errorMessage" JSONB NULL DEFAULT NULL,
+	"sentPerType" JSONB NULL DEFAULT NULL,
+	"failedPerType" JSONB NULL DEFAULT NULL,
+	"sentPerUTCOffset" JSONB NULL DEFAULT NULL,
+	"failedPerUTCOffset" JSONB NULL DEFAULT NULL,
+	"count" DOUBLE PRECISION NULL DEFAULT NULL,
+	"_rperm" UNKNOWN NULL DEFAULT NULL,
+	"_wperm" UNKNOWN NULL DEFAULT NULL,
+	PRIMARY KEY ("objectId")
+);
+
+-- Dumping data for table public._PushStatus: -1 rows
+/*!40000 ALTER TABLE "_PushStatus" DISABLE KEYS */;
+/*!40000 ALTER TABLE "_PushStatus" ENABLE KEYS */;
+
+-- Dumping structure for table public._Role
+DROP TABLE IF EXISTS "_Role";
+CREATE TABLE IF NOT EXISTS "_Role" (
+	"objectId" TEXT NOT NULL,
+	"createdAt" TIMESTAMPTZ NULL DEFAULT NULL,
+	"updatedAt" TIMESTAMPTZ NULL DEFAULT NULL,
+	"name" TEXT NULL DEFAULT NULL,
+	"_rperm" UNKNOWN NULL DEFAULT NULL,
+	"_wperm" UNKNOWN NULL DEFAULT NULL,
+	PRIMARY KEY ("objectId"),
+	UNIQUE INDEX "_Role_unique_name" ("name")
+);
+
+-- Dumping data for table public._Role: -1 rows
+/*!40000 ALTER TABLE "_Role" DISABLE KEYS */;
+INSERT INTO "_Role" ("objectId", "createdAt", "updatedAt", "name", "_rperm", "_wperm") VALUES
+	('dOwjgFQEcW', '2024-08-27 09:35:05.231+00', '2024-08-27 09:42:12.068+00', 'Admin', '{*,role:Admin}', '{role:Admin}');
+/*!40000 ALTER TABLE "_Role" ENABLE KEYS */;
+
+-- Dumping structure for table public._SCHEMA
+DROP TABLE IF EXISTS "_SCHEMA";
+CREATE TABLE IF NOT EXISTS "_SCHEMA" (
+	"className" VARCHAR(120) NOT NULL,
+	"schema" JSONB NULL DEFAULT NULL,
+	"isParseClass" BOOLEAN NULL DEFAULT NULL,
+	PRIMARY KEY ("className")
+);
+
+-- Dumping data for table public._SCHEMA: -1 rows
+/*!40000 ALTER TABLE "_SCHEMA" DISABLE KEYS */;
+INSERT INTO "_SCHEMA" ("className", "schema", "isParseClass") VALUES
+	('_User', '{"fields": {"email": {"type": "String"}, "_rperm": {"type": "Array", "contents": {"type": "String"}}, "_wperm": {"type": "Array", "contents": {"type": "String"}}, "authData": {"type": "Object"}, "objectId": {"type": "String"}, "username": {"type": "String"}, "createdAt": {"type": "Date"}, "updatedAt": {"type": "Date"}, "emailVerified": {"type": "Boolean"}, "_hashed_password": {"type": "String"}}, "className": "_User"}', 'true'),
+	('_Role', '{"fields": {"name": {"type": "String"}, "roles": {"type": "Relation", "targetClass": "_Role"}, "users": {"type": "Relation", "targetClass": "_User"}, "_rperm": {"type": "Array", "contents": {"type": "String"}}, "_wperm": {"type": "Array", "contents": {"type": "String"}}, "objectId": {"type": "String"}, "createdAt": {"type": "Date"}, "updatedAt": {"type": "Date"}}, "className": "_Role"}', 'true'),
+	('AppSettings', '{"fields": {"_rperm": {"type": "Array", "contents": {"type": "String"}}, "_wperm": {"type": "Array", "contents": {"type": "String"}}, "objectId": {"type": "String"}, "createdAt": {"type": "Date"}, "updatedAt": {"type": "Date"}}, "className": "AppSettings"}', 'true'),
+	('_Session', '{"fields": {"user": {"type": "Pointer", "targetClass": "_User"}, "_rperm": {"type": "Array", "contents": {"type": "String"}}, "_wperm": {"type": "Array", "contents": {"type": "String"}}, "objectId": {"type": "String"}, "createdAt": {"type": "Date"}, "expiresAt": {"type": "Date"}, "updatedAt": {"type": "Date"}, "createdWith": {"type": "Object"}, "sessionToken": {"type": "String"}, "installationId": {"type": "String"}}, "className": "_Session"}', 'true'),
+	('JazkeSale', '{"fields": {"_rperm": {"type": "Array", "contents": {"type": "String"}}, "_wperm": {"type": "Array", "contents": {"type": "String"}}, "objectId": {"type": "String"}, "createdAt": {"type": "Date"}, "updatedAt": {"type": "Date"}}, "className": "JazkeSale"}', 'true'),
+	('JazkeQuotation', '{"fields": {"_rperm": {"type": "Array", "contents": {"type": "String"}}, "_wperm": {"type": "Array", "contents": {"type": "String"}}, "objectId": {"type": "String"}, "createdAt": {"type": "Date"}, "updatedAt": {"type": "Date"}}, "className": "JazkeQuotation"}', 'true');
+/*!40000 ALTER TABLE "_SCHEMA" ENABLE KEYS */;
+
+-- Dumping structure for table public._Session
+DROP TABLE IF EXISTS "_Session";
+CREATE TABLE IF NOT EXISTS "_Session" (
+	"objectId" TEXT NOT NULL,
+	"createdAt" TIMESTAMPTZ NULL DEFAULT NULL,
+	"updatedAt" TIMESTAMPTZ NULL DEFAULT NULL,
+	"user" TEXT NULL DEFAULT NULL,
+	"installationId" TEXT NULL DEFAULT NULL,
+	"sessionToken" TEXT NULL DEFAULT NULL,
+	"expiresAt" TIMESTAMPTZ NULL DEFAULT NULL,
+	"createdWith" JSONB NULL DEFAULT NULL,
+	"_rperm" UNKNOWN NULL DEFAULT NULL,
+	"_wperm" UNKNOWN NULL DEFAULT NULL,
+	PRIMARY KEY ("objectId")
+);
+
+-- Dumping data for table public._Session: -1 rows
+/*!40000 ALTER TABLE "_Session" DISABLE KEYS */;
+INSERT INTO "_Session" ("objectId", "createdAt", "updatedAt", "user", "installationId", "sessionToken", "expiresAt", "createdWith", "_rperm", "_wperm") VALUES
+	('b3w7H8nemo', '2024-08-27 09:31:27.063+00', '2024-08-27 09:31:27.063+00', 'jeJFKCADAj', '5b825d19-9bb1-466e-bd7a-6909b44fcc54', 'r:78c1adffa30e47daae47a5de2dfc21a1', '2025-08-27 09:31:27.062+00', '{"action": "signup", "authProvider": "password"}', NULL, NULL),
+	('7Q4elcAVWH', '2024-08-28 07:55:44.93+00', '2024-08-28 07:55:44.93+00', 'jeJFKCADAj', '31d3f01f-11b8-4758-8f1e-132a191a634c', 'r:d59894d341384446d8f98cf183a62c5a', '2025-08-28 07:55:44.93+00', '{"action": "login", "authProvider": "password"}', NULL, NULL),
+	('J3xlDkRyLd', '2024-08-28 08:51:04.047+00', '2024-08-28 08:51:04.047+00', 'jeJFKCADAj', '0387a0cb-5e24-40d6-b6dd-545594c56685', 'r:569226c4ad85c1ca637e3a511622b821', '2025-08-28 08:51:04.046+00', '{"action": "login", "authProvider": "password"}', NULL, NULL);
+/*!40000 ALTER TABLE "_Session" ENABLE KEYS */;
+
+-- Dumping structure for table public._User
+DROP TABLE IF EXISTS "_User";
+CREATE TABLE IF NOT EXISTS "_User" (
+	"objectId" TEXT NOT NULL,
+	"createdAt" TIMESTAMPTZ NULL DEFAULT NULL,
+	"updatedAt" TIMESTAMPTZ NULL DEFAULT NULL,
+	"username" TEXT NULL DEFAULT NULL,
+	"email" TEXT NULL DEFAULT NULL,
+	"emailVerified" BOOLEAN NULL DEFAULT NULL,
+	"authData" JSONB NULL DEFAULT NULL,
+	"_rperm" UNKNOWN NULL DEFAULT NULL,
+	"_wperm" UNKNOWN NULL DEFAULT NULL,
+	"_hashed_password" TEXT NULL DEFAULT NULL,
+	"_email_verify_token_expires_at" TIMESTAMPTZ NULL DEFAULT NULL,
+	"_email_verify_token" TEXT NULL DEFAULT NULL,
+	"_account_lockout_expires_at" TIMESTAMPTZ NULL DEFAULT NULL,
+	"_failed_login_count" DOUBLE PRECISION NULL DEFAULT NULL,
+	"_perishable_token" TEXT NULL DEFAULT NULL,
+	"_perishable_token_expires_at" TIMESTAMPTZ NULL DEFAULT NULL,
+	"_password_changed_at" TIMESTAMPTZ NULL DEFAULT NULL,
+	"_password_history" JSONB NULL DEFAULT NULL,
+	PRIMARY KEY ("objectId"),
+	UNIQUE INDEX "_User_unique_username" ("username"),
+	UNIQUE INDEX "_User_unique_email" ("email")
+);
+
+-- Dumping data for table public._User: -1 rows
+/*!40000 ALTER TABLE "_User" DISABLE KEYS */;
+INSERT INTO "_User" ("objectId", "createdAt", "updatedAt", "username", "email", "emailVerified", "authData", "_rperm", "_wperm", "_hashed_password", "_email_verify_token_expires_at", "_email_verify_token", "_account_lockout_expires_at", "_failed_login_count", "_perishable_token", "_perishable_token_expires_at", "_password_changed_at", "_password_history") VALUES
+	('jeJFKCADAj', '2024-08-27 09:31:24.936+00', '2024-08-27 09:31:24.936+00', 'admin', NULL, NULL, NULL, '{jeJFKCADAj}', '{jeJFKCADAj}', '$2y$10$.4XxHz5o8wQjdbQMazeRtuG8FXZGK4OFyXFZfZqe2unt7Wghin2Da', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+/*!40000 ALTER TABLE "_User" ENABLE KEYS */;
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
