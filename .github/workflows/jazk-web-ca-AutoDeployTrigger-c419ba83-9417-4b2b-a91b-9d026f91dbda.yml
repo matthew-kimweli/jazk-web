@@ -37,7 +37,7 @@ jobs:
           registryPassword: ${{ secrets.JAZKWEBCA_REGISTRY_PASSWORD }}
           containerAppName: jazk-web-ca
           resourceGroup: jazk-api-rg
-          containerAppEnvironment: jazk-api-env2
+          containerAppEnvironment: jazk-api-env
           ingress: external
           targetPort: 3100
           dockerfilePath: Dockerfile
