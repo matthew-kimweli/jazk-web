@@ -10,5 +10,5 @@ services:
       - "3100:3100"
     environment:
       NODE_ENV: production
-      DATABASE_URI: postgres://jazkadmin:Developement.313*@jazk-postgres-fdb.postgres.database.azure.com/web_dev
+      DATABASE_URI: postgres://jazkadmin:Development.313*@jazk-postgres-fdb.postgres.database.azure.com/web_dev
       PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium-browser
