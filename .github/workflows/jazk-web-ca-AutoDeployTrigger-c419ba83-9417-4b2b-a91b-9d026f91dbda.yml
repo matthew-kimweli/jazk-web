@@ -42,7 +42,7 @@ jobs:
           targetPort: 3100
           dockerfilePath: Dockerfile
           # imageToBuild: jazkapiregistry.azurecr.io/jazk-web-ca:${{ github.sha }}
-          imageToBuild: jazkapiregistry.azurecr.io/jazk-web-ca:latest
+          imageToBuild: jazkapiregistry.azurecr.io/jazx-web-ca:newest
           
             
 
