@@ -32,7 +32,7 @@ async function bootstrap() {
   var serverURL = `http://127.0.0.1:${port}/parse`;
   // databaseUri = "mongodb+srv://admin:6iT4wLTN6rXYa8B@cluster0.2toly.mongodb.net/debunkbot?retryWrites=true&w=majority"
   // var serverURL = `https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/parse`;
-  var publicServerURL = serverURL//process.env.PUBLICSERVERURL || 'https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/parse'
+  var publicServerURL = 'https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/parse'
   
   // databaseUri = 'postgres://postgres:postgres@157.230.47.71:5432/jazke'
   // databaseUri = 'postgres://admin:admin@143.198.68.104:5432/jazke'
