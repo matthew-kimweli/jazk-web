@@ -14,7 +14,7 @@ COPY . .
 
 RUN apt-get update && apt-get install -y postgresql-client
 
-RUN PGPASSWORD="Development.313*" psql -h jazk-postgres-fdb.postgres.database.azure.com -p 5432 -U jazkadmin -d web_dev
+RUN PGPASSWORD="Development313" psql -h jazk-postgres-fdb.postgres.database.azure.com -p 5432 -U jazkadmin -d web_dev
 
 # Install dependecies
 RUN npm run install-node
