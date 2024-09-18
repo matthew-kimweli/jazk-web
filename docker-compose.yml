@@ -12,6 +12,3 @@ services:
       NODE_ENV: production
       DATABASE_URI: postgres://admin:admin@143.198.68.104:5432/jazke
       PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium-browser
-    # volumes:
-    #   - .:/usr/src/app
-    # working_dir: /usr/src/app
