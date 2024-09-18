@@ -10,5 +10,5 @@ services:
       - "3100:3100"
     environment:
       NODE_ENV: production
-      DATABASE_URI: postgres://admin:admin@143.198.68.104:5432/jazke
+      DATABASE_URI: mongodb+srv://admin:6iT4wLTN6rXYa8B@cluster0.2toly.mongodb.net/debunkbot?retryWrites=true&w=majority
       PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium-browser

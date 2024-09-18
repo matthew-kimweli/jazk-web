@@ -38,7 +38,7 @@ async function bootstrap() {
   // databaseUri = 'postgres://admin:admin@143.198.68.104:5432/jazke'
   // databaseUri = 'mongodb://mongodb:27017/jazke'
   // databaseUri = 'postgres://jazkadmin:Developement.313*@jazk-postgres-fdb.postgres.database.azure.com/web_dev'
-  databaseUri = "mongodb+srv://admin:6iT4wLTN6rXYa8B@cluster0.2toly.mongodb.net/debunkbot?retryWrites=true&w=majority"
+  // databaseUri = "mongodb+srv://admin:6iT4wLTN6rXYa8B@cluster0.2toly.mongodb.net/debunkbot?retryWrites=true&w=majority"
 
 
   var appId = process.env.APP_ID || 'debunkbot'
