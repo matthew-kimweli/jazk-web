@@ -115,7 +115,7 @@ export const routes: Routes = [
 
   {
     path: 'admin-settings',
-    
+    component: ValuationLetterComponent
   },
 
   
