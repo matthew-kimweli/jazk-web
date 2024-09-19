@@ -139,7 +139,7 @@
               <label class="form-label text-center">Do you want Courtesy Car benefit?</label>
               <select title="select" [(ngModel)]="courtesyCar" (change)="calculate()" name="courtesyCar"
                 id="courtesyCar" class="form-select">
-                <option value="" disabled class="text-center">Loss of Use Benefit</option>
+                <option value="" class="text-center">Loss of Use Benefit</option>
                 <option *ngFor="let item of filteredBenefits" [value]="item.benefit">
                   {{ item.time }}
                 </option>

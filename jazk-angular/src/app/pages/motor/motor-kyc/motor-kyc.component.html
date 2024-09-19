@@ -51,43 +51,7 @@
                 <div class="validate"></div>
               </div>
 
-              <div class="col-md-4 form-group mb-3">
-                <label class="form-label" for="firstname"
-                  ><small>{{
-                    vehicle.kycType == "individual"
-                      ? "First & Last Name"
-                      : "Business Name"
-                  }}</small></label
-                >
-                <input
-                  [(ngModel)]="vehicle.pfname"
-                  type="text"
-                  name="firstname"
-                  class="form-control"
-                  id="firstname"
-                  placeholder="Enter Name"
-                />
-                <div class="validate"></div>
-              </div>
-
-              <div
-                class="col-md-4 form-group"
-                *ngIf="vehicle.kycType == 'individual'"
-              >
-                <label class="form-label" for="nin"
-                  ><small>National ID</small></label
-                >
-                <input
-                  [(ngModel)]="vehicle.nin"
-                  type="text"
-                  name="nin"
-                  class="form-control"
-                  id="nin"
-                  placeholder="Enter NIN"
-                />
-                <div class="validate"></div>
-              </div>
-
+              
               <div
                 class="col-md-4 form-group"
                 *ngIf="vehicle.kycType == 'company'"
@@ -134,11 +98,69 @@
                 </div>
               </div>
 
+              <div
+                class="col-md-4 form-group"
+                *ngIf="vehicle.kycType == 'individual'"
+              >
+                <label class="form-label" for="nin"
+                  ><small>National ID</small></label
+                >
+                <!-- <input
+                [(ngModel)]="vehicle.nin"
+                type="text"
+                name="nin"
+                class="form-control"
+                id="nin"
+                placeholder="Enter NIN"
+              /> -->
+
+                <div class="input-group input-group-flat">
+                  <input
+                    id="queryInput"
+                    (input)="onSearchNIN($event)"
+                    [(ngModel)]="vehicle.nin"
+                    type="text"
+                    class="form-control"
+                    autocomplete="off"
+                    placeholder="Enter National ID"
+                  />
+                  <span class="input-group-text">
+                    <div
+                      *ngIf="searching.nin"
+                      class="spinner-border spinner-border-sm text-secondary"
+                      role="status"
+                    ></div>
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-md-4 form-group mb-3">
+                <label class="form-label" for="firstname"
+                  ><small>{{
+                    vehicle.kycType == "individual"
+                      ? "First & Last Name"
+                      : "Business Name"
+                  }}</small></label
+                >
+                <input
+                  disabled
+                  [(ngModel)]="vehicle.pfname"
+                  type="text"
+                  name="firstname"
+                  class="form-control"
+                  id="firstname"
+                  placeholder="Enter Name"
+                />
+                <div class="validate"></div>
+              </div>
+
+
               <div class="col-md-4 form-group">
                 <label class="form-label">Phone</label>
                 <div class="input-group">
                   <span class="input-group-text">+254</span>
                   <input
+                    disabled
                     class="form-control"
                     placeholder="Phone Number"
                     [(ngModel)]="vehicle.pphone"
@@ -146,11 +168,12 @@
                 </div>
               </div>
 
-              <div class="col-md-4 form-group">
+              <div class="col-md-4 form-group mb-3">
                 <label class="form-label" for="email"
                   ><small>Email</small></label
                 >
                 <input
+                  disabled
                   [(ngModel)]="vehicle.pemail"
                   type="email"
                   class="form-control"
@@ -164,9 +187,10 @@
                 <div class="validate"></div>
               </div>
 
-              <div class="col-md-4 form-group">
+              <div class="col-md-4 form-group mb-3">
                 <label class="form-label" for="city"><small>City</small></label>
                 <input
+                  disabled
                   [(ngModel)]="vehicle.pCity"
                   type="text"
                   name="city"
@@ -182,12 +206,51 @@
                   ><small>Postal Address</small></label
                 >
                 <input
+                  disabled
                   [(ngModel)]="vehicle.pAddress"
                   type="text"
                   name="address"
                   class="form-control"
                   id="address"
                   placeholder="Postal Address"
+                />
+                <div class="validate"></div>
+              </div>
+
+              <div
+                class="col-md-4 form-group"
+                *ngIf="vehicle.kycType == 'individual'"
+              >
+                <label class="form-label" for="dob"
+                  ><small>Date of Birth</small></label
+                >
+                <input
+                  disabled
+                  [(ngModel)]="vehicle.dob"
+                  type="date"
+                  name="dob"
+                  class="form-control"
+                  id="dob"
+                  placeholder="dob"
+                />
+                <div class="validate"></div>
+              </div>
+
+              <div
+                class="col-md-4 form-group"
+                *ngIf="vehicle.kycType == 'individual'"
+              >
+                <label class="form-label" for="city"
+                  ><small>Gender</small></label
+                >
+                <input
+                  disabled
+                  [(ngModel)]="vehicle.gender"
+                  type="text"
+                  name="gender"
+                  class="form-control"
+                  id="gender"
+                  placeholder="Gender"
                 />
                 <div class="validate"></div>
               </div>

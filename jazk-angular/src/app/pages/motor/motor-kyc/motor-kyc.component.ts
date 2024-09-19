@@ -321,6 +321,7 @@ export class MotorKycComponent {
     'Capital Alliance Valuers and Assessors',
     'Links Valuers & Assesors',
   ];
+  searching: any = {};
 
   constructor(
     public utilsService: UtilsService,
@@ -361,6 +362,40 @@ export class MotorKycComponent {
     maxCoverDate.setMonth(date.getMonth() + 6);
 
     this.maxCoverDate = maxCoverDate.toISOString().substring(0, 10);
+  }
+
+  async onSearchNIN(event: any) {
+    let d = {"nationalID":"12345678","firstName":"John","middleName":"Mwai","lastName":"Doe","dateOfBirth":"1990-05-10","gender":"Male","citizenship":"Kenyan","placeOfBirth":{"county":"Nairobi","subCounty":"Westlands","ward":"Parklands"},"idIssueDate":"2008-11-25","maritalStatus":"Single","photo":"https://iprs.go.ke/photos/12345678.jpg","fingerprintData":"base64encodedfingerprintdata","contacts":{"phone":"+254712345678","email":"john.doe@example.com"},"address":{"postalAddress":"P.O Box 12345-00100","county":"Nairobi","subCounty":"Westlands","ward":"Parklands"},"nextOfKin":{"name":"Jane Doe","relationship":"Sister","phone":"+254711223344"}}
+    try {
+      this.searching.nin = true
+    let value:string = event.target.value;
+    if(value.length == 8){
+      if(isNaN(Number(value))){
+        this.toastr.error('Please provide a valid NIN. ID should be numbers only')
+      } else {
+        let query = new Parse.Query('IPRSCache')
+        query.equalTo('id_number', value)
+        let id = await query.first()
+        if(id){
+          
+          this.vehicle.pfname = `${d.firstName} ${d.lastName}`
+          this.vehicle.pfname = d.lastName
+          this.vehicle.pAddress = d.address.postalAddress
+          this.vehicle.pCity = d.address.county
+          this.vehicle.pemail = d.contacts.email
+          this.vehicle.pphone = d.contacts.phone
+          this.vehicle.dob = d.dateOfBirth
+          this.vehicle.gender = d.gender
+          this.vehicle.pphone = d.contacts.phone
+
+        }
+      }
+    }
+
+    this.searching.nin = false
+    } catch (error) {
+        console.log(error)
+    }
   }
 
   ngOnInit(): void {
@@ -905,7 +940,6 @@ export class MotorKycComponent {
         } else if (this.paymentData.installment_type == '3') {
           payment.set('outstandingPremium', 0);
         }
-
       } else {
       }
 
