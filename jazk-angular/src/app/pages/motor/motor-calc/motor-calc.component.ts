@@ -262,6 +262,18 @@ export class MotorCalcComponent implements OnInit {
     } else {
       this.filteredMakeModels = [];
     }
+    if (
+      this.vehicleMake &&
+      this.vehicleModel &&
+      this.yearOfManufacture &&
+      this.sumInsured
+    ) {
+      this.vehicleModel = '';
+      this.vehicleMake = '';
+      this.yearOfManufacture = '';
+      this.sumInsured = '';
+      this.control.reset();
+    }
   }
 
   onVehicleValueChange(event: any) {
