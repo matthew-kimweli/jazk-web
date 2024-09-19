@@ -1,3 +1,18 @@
+<div class="page-wrapper">
+    <div class="page-body">
+      <div class="container-xl">
+          <div
+            class="mb-3"
+            *ngIf="
+              parseService.fetching ||
+              parseService.saving ||
+              parseService.deleting
+            "
+          >
+            <div class="progress">
+              <div class="progress-bar progress-bar-indeterminate bg-green"></div>
+            </div>
+          </div>
 <div class="container" id="policySchedule">
     <div class="row">
         <div class="col-md-4 mt-3 mb-3 px-5" id="logo">
@@ -351,4 +366,7 @@
             </p>
         </div>
     </div>
+</div>
+</div>
+</div>
 </div>
