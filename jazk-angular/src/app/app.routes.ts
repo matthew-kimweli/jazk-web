@@ -21,6 +21,7 @@ import { ValuationLetterComponent } from './pages/portal-docs/valuation-letter/v
 import { ReceiptComponent } from './pages/portal-docs/receipt/receipt.component';
 import { PolicyScheduleComponent } from './pages/portal-docs/policy-schedule/policy-schedule.component';
 import { DebitNoteComponent } from './pages/portal-docs/debit-note/debit-note.component';
+import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.component';
 
 export const routes: Routes = [
   {
@@ -139,7 +140,7 @@ export const routes: Routes = [
 
   {
     path: 'admin-settings',
-    component: ValuationLetterComponent
+    component: AdminSettingsComponent
   },
 
   
