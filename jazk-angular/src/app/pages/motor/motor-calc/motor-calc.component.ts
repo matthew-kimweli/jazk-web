@@ -252,6 +252,16 @@ export class MotorCalcComponent implements OnInit {
       }, 400);
       this.toastr.error('Please note we only insure vehicles whose age is not more than 15 years from the year of manufacture.')
     }
+    if (
+      this.vehicleMake &&
+      this.vehicleModel &&
+      this.sumInsured
+    ) {
+      this.vehicleModel = '';
+      this.vehicleMake = '';
+      this.sumInsured = '';
+      this.control.reset();
+    }
   }
 
   filterMakeModels() {
