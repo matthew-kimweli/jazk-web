@@ -51,25 +51,6 @@
                 <div class="validate"></div>
               </div>
 
-              
-              <div
-                class="col-md-4 form-group"
-                *ngIf="vehicle.kycType == 'company'"
-              >
-                <label class="form-label" for="companyRegNo"
-                  ><small>Company Registration Number</small></label
-                >
-                <input
-                  [(ngModel)]="vehicle.companyRegNo"
-                  type="text"
-                  name="companyRegNo"
-                  class="form-control"
-                  id="companyRegNo"
-                  placeholder="Enter Registration Number"
-                />
-                <div class="validate"></div>
-              </div>
-
               <div class="col-md-4 form-group">
                 <label class="form-label" for="tin"
                   ><small>{{
@@ -97,6 +78,26 @@
                   Invalid KRA PIN format.
                 </div>
               </div>
+
+                            
+              <div
+                class="col-md-4 form-group"
+                *ngIf="vehicle.kycType == 'company'"
+              >
+                <label class="form-label" for="companyRegNo"
+                  ><small>Company Registration Number</small></label
+                >
+                <input
+                  [(ngModel)]="vehicle.companyRegNo"
+                  type="text"
+                  name="companyRegNo"
+                  class="form-control"
+                  id="companyRegNo"
+                  placeholder="Enter Registration Number"
+                />
+                <div class="validate"></div>
+              </div>
+
 
               <div
                 class="col-md-4 form-group"
@@ -160,7 +161,6 @@
                 <div class="input-group">
                   <span class="input-group-text">+254</span>
                   <input
-                    disabled
                     class="form-control"
                     placeholder="Phone Number"
                     [(ngModel)]="vehicle.pphone"
@@ -173,7 +173,6 @@
                   ><small>Email</small></label
                 >
                 <input
-                  disabled
                   [(ngModel)]="vehicle.pemail"
                   type="email"
                   class="form-control"

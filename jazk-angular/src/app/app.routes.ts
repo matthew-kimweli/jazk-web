@@ -18,6 +18,9 @@ import { ViewQuoteSubdetailsComponent } from './pages/motor/view-quote-subdetail
 import { GenerateReportComponent } from './pages/report_list/generate-report/generate-report.component';
 import { MotorPaymentSuccessComponent } from './pages/motor/motor-payment-success/motor-payment-success.component';
 import { ValuationLetterComponent } from './pages/portal-docs/valuation-letter/valuation-letter.component';
+import { ReceiptComponent } from './pages/portal-docs/receipt/receipt.component';
+import { PolicyScheduleComponent } from './pages/portal-docs/policy-schedule/policy-schedule.component';
+import { DebitNoteComponent } from './pages/portal-docs/debit-note/debit-note.component';
 
 export const routes: Routes = [
   {
@@ -112,6 +115,27 @@ export const routes: Routes = [
     path: 'motor-docs',
     component: ValuationLetterComponent,
   },
+
+  {
+    path: 'valuation-letter/:id',
+    component: ValuationLetterComponent,
+  },
+
+  {
+    path: 'receipt/:id',
+    component: ReceiptComponent,
+  },
+
+  {
+    path: 'policyschedule/:id',
+    component: PolicyScheduleComponent,
+  },
+
+  {
+    path: 'debitnote/:id',
+    component: DebitNoteComponent,
+  },
+
 
   {
     path: 'admin-settings',

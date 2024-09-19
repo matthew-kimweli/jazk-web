@@ -4,6 +4,7 @@ const nodemailer = require("nodemailer");
 // let unirest = require("unirest");
 const axios = require("axios");
 import { Utils } from "./utils";
+const puppeteer = require("puppeteer");
 
 @Injectable()
 export class AppService {
@@ -52,8 +53,39 @@ export class AppService {
     }
   }
 
-  initCloudFunctions() {
+  async generateDocument(url) {
 
+    try {
+     
+      // Connecting to browserless
+      const browser = await puppeteer.connect({
+        browserWSEndpoint:
+          "https://production-sfo.browserless.io/?token=QmuE8WkTVYM8xc2da8679cf58e5ec565146f438cfd",
+      });
+
+      const page = await browser.newPage();
+      await page.goto(url, { waitUntil: 'networkidle0' });
+
+      // Set HTML content
+      // await page.setContent(invoiceHtml);
+
+      // Generate PDF
+      const pdfBuffer = await page.pdf({ format: "A4", printBackground: true
+      });
+      console.log("emailing 3");
+
+      await browser.close();
+      console.log("emailing 4");
+
+      return pdfBuffer
+
+    } catch (error) {
+      console.error(error);
+      
+    }
+  }
+
+  initCloudFunctions() {
     Parse.Cloud.define("paympesa", async (request) => {
       let params = request.params;
       let phone = params.phone;
@@ -62,20 +94,21 @@ export class AppService {
       let sale_id = params.sale_id;
       let agent_email = params.agent_email;
       let client = params.client || {};
+      const host = process.env.HOST || 'https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io';  // Use an environment variable or default to 'localhost'
+
 
       function getTimestamp() {
         const now = new Date();
-        
+
         const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0');  // getMonth() returns 0-11
-        const day = String(now.getDate()).padStart(2, '0');
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-        
+        const month = String(now.getMonth() + 1).padStart(2, "0"); // getMonth() returns 0-11
+        const day = String(now.getDate()).padStart(2, "0");
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        const seconds = String(now.getSeconds()).padStart(2, "0");
+
         return `${year}${month}${day}${hours}${minutes}${seconds}`;
-    }
-    
+      }
 
       try {
         const response = await axios.get(
@@ -99,7 +132,7 @@ export class AppService {
         //   "PhoneNumber": 254708374149,
         //   "CallBackURL": "https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/receivepayment",
         //   "AccountReference": "CompanyXLTD",
-        //   "TransactionDesc": "Payment of Motor Insurance" 
+        //   "TransactionDesc": "Payment of Motor Insurance"
         // },
         console.log("access token", response.data);
         let tokenData = response.data;
@@ -107,23 +140,25 @@ export class AppService {
           const response = await axios.post(
             "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
             {
-              "BusinessShortCode": 174379,
-              "Password": "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQwOTA1MTAxNDM0",
-              "Timestamp": "20240905101434",
-              "TransactionType": "CustomerPayBillOnline",
-              "Amount": 1,
-              "PartyA": phone,
-              "PartyB": 174379,
-              "PhoneNumber": phone,//254708374149,
-              "CallBackURL": "https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/receivepayment",
-              "AccountReference": "CompanyXLTD",
-              "TransactionDesc": "Payment of Motor Insurance" 
+              BusinessShortCode: 174379,
+              Password:
+                "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQwOTA1MTAxNDM0",
+              Timestamp: "20240905101434",
+              TransactionType: "CustomerPayBillOnline",
+              Amount: 1,
+              PartyA: phone,
+              PartyB: 174379,
+              PhoneNumber: phone, //254708374149,
+              CallBackURL:
+                "https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/receivepayment",
+              AccountReference: "CompanyXLTD",
+              TransactionDesc: "Payment of Motor Insurance",
             },
 
             {
               headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${tokenData.access_token}`,
+                Authorization: `Bearer ${tokenData.access_token}`,
               },
             }
           );
@@ -148,7 +183,12 @@ export class AppService {
 
               let emails = [client.email, agent_email];
 
-              let params = {
+              let valuationLetterBuffer = await this.generateDocument(`${host}/valuation-letter/${sale_id}`)
+              let receiptBuffer = await this.generateDocument(`${host}/receipt/${sale_id}`)
+              let debitNoteBuffer = await this.generateDocument(`${host}/debitnote/${sale_id}`)
+              let policyScheduleBuffer = await this.generateDocument(`${host}/policyschedule/${sale_id}`)
+
+              let params:any = {
                 from: "saleske@allianz.com",
                 subject: `Motor Insurance: Your Jubilee Allianz Quotation`,
                 text: `Hi ${client.name}. Thank you for showing interest in our insurance service. Please find attached your insurance policy package.`,
@@ -158,15 +198,22 @@ export class AppService {
                 attachments: [
                   {
                     filename: `${today} - Debit Credit Note.pdf`,
-                    path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/debit_credit_note.pdf`,
+                    content: debitNoteBuffer,
+                    // path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/debit_credit_note.pdf`,
                   },
                   {
                     filename: `${today} - Receipt.pdf`,
-                    path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/receipt.pdf`,
+                    content: receiptBuffer,
+                    // path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/receipt.pdf`,
                   },
                   {
                     filename: `${today} - Valuation Letter.pdf`,
-                    path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/valuation-letter.pdf`,
+                    content: valuationLetterBuffer,
+                    // path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/valuation-letter.pdf`,
+                  },
+                  {
+                    filename: `${today} - Policy Schedule.pdf`,
+                    content: policyScheduleBuffer,
                   },
                 ],
               };

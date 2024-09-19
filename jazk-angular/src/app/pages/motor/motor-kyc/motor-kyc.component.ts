@@ -318,8 +318,8 @@ export class MotorKycComponent {
     'REGENT VALUERS',
     'AUTOMOBILE ASSOCIATION of KENYA',
     'SOLVIT LIMITED',
-    'Capital Alliance Valuers and Assessors',
-    'Links Valuers & Assesors',
+    'CAPITAL ALLIANCE VALUERS AND ASSESSORS',
+    'LINKS VALUERS AND ASSESSORS',
   ];
   searching: any = {};
 
@@ -338,10 +338,10 @@ export class MotorKycComponent {
   // Validator function for template-driven forms
   validateKraPin(value: string, type: string): boolean {
     if (type == 'individual') {
-      const kraPinRegex = /^[A-Z]\d{9}[A-Z]$/i;
+      const kraPinRegex = /^[A]\d{9}[A-Z]$/i;
       return kraPinRegex.test(value);
     } else {
-      const kraPinRegex = /^[B-Z]\d{9}[A-Z]$/i;
+      const kraPinRegex = /^[P]\d{9}[A-Z]$/i;
       return kraPinRegex.test(value);
     }
   }
@@ -386,7 +386,7 @@ export class MotorKycComponent {
           this.vehicle.pphone = d.contacts.phone
           this.vehicle.dob = d.dateOfBirth
           this.vehicle.gender = d.gender
-          this.vehicle.pphone = d.contacts.phone
+          this.vehicle.pphone = String(d.contacts.phone).replace('+254', '')
 
         }
       }
@@ -894,7 +894,7 @@ export class MotorKycComponent {
 
         agent_email = agent.email;
 
-        // payment.set('agent', agent);
+        payment.set('agent', agent);
         payment.set('agent_username', this.authService.currentLoginUserName);
         payment.set('agent_name', this.authService.currentUserName);
         payment.set('loggedInUser', this.authService.currentUser.toJSON());
