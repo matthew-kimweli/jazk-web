@@ -18,7 +18,6 @@ import { ViewQuoteSubdetailsComponent } from './pages/motor/view-quote-subdetail
 import { GenerateReportComponent } from './pages/report_list/generate-report/generate-report.component';
 import { MotorPaymentSuccessComponent } from './pages/motor/motor-payment-success/motor-payment-success.component';
 import { PolicyScheduleComponent } from './pages/portal-docs/policy-schedule/policy-schedule.component';
-import { DebitNoteComponent } from './pages/portal-docs/debit-note/debit-note.component';
 
 export const routes: Routes = [
   {
@@ -111,7 +110,7 @@ export const routes: Routes = [
 
   {
     path: 'motor-docs',
-    component: DebitNoteComponent,
+    component: PolicyScheduleComponent,
   },
 
   
