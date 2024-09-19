@@ -155,7 +155,7 @@
                 </option>
               </select>
             </div>
-            <div class="mb-3" *ngIf="(sumInsured != undefined || sumInsured === '') && motorClass == 'private'">
+            <div class="mb-3" *ngIf="sumInsured != undefined && sumInsured != '' && motorClass == 'private'">
               <label class="form-label text-center">Windscreen coverage amount?</label>
               <input class="form-control text-center" [(ngModel)]="windscreen" (change)="calculate()" name="windscreen"
                 id="windscreen" placeholder="Windscreen coverage amount" [formControl]="windscreenControl"
@@ -163,7 +163,7 @@
               <small class="form-hint text-center">Free Benefit limit for Windscreen coverage is Kshs.
                 {{ (sumInsured <= 2500000 ? 50000 : 100000) | number }}.</small>
             </div>
-            <div class="mb-3" *ngIf="sumInsured != undefined && motorClass == 'private'">
+            <div class="mb-3" *ngIf="sumInsured != undefined && sumInsured != '' && motorClass == 'private'">
               <label class="form-label text-center">Radio Cassette coverage amount?</label>
               <input class="form-control text-center" [(ngModel)]="radioCassette" (change)="calculate()"
                 name="radioCassette" id="radioCassette" placeholder="Radio Cassette coverage amount"
