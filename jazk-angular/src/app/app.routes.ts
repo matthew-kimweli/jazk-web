@@ -17,7 +17,7 @@ import { QuotationSalesListComponent } from './pages/agent/quotation-sales-list/
 import { ViewQuoteSubdetailsComponent } from './pages/motor/view-quote-subdetails/view-quote-subdetails.component';
 import { GenerateReportComponent } from './pages/report_list/generate-report/generate-report.component';
 import { MotorPaymentSuccessComponent } from './pages/motor/motor-payment-success/motor-payment-success.component';
-import { ValuationLetterComponent } from './pages/portal-docs/valuation-letter/valuation-letter.component';
+import { PolicyScheduleComponent } from './pages/portal-docs/policy-schedule/policy-schedule.component';
 
 export const routes: Routes = [
   {
@@ -110,7 +110,7 @@ export const routes: Routes = [
 
   {
     path: 'motor-docs',
-    component: ValuationLetterComponent,
+    component: PolicyScheduleComponent,
   },
 
   
