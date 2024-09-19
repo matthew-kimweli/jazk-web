@@ -177,7 +177,7 @@
             *ngIf="makeModel != 'PSVTours' && makeModel != 'Tankers' && makeModel != 'Rare & Unique Models'">
             <label class="form-label fw-bolder text-center text-decoration-underline mb-5">Calculated Premium</label>
             <div *ngIf="sumInsured">
-              <p class="row">
+              <p class="row" *ngIf="motorService.motorQuotation.basicPremium != 0">
                 <span class="m-0 p-0 col-md-7 col-sm-6 col-6"><strong>Basic Premium:</strong></span>
                 <span class="m-0 p-0 col-md-5 col-sm-6 col-6 fw-bold custom-bg-grey">Kshs.{{
                   motorService.motorQuotation.basicPremium | number }}</span>
