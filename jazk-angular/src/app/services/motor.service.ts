@@ -88,9 +88,11 @@ export class MotorService {
     { time: '30 Days', benefit: 13500, motorSubclass: 'Standard Auto' },
     { time: '20 Days', benefit: 9000, motorSubclass: 'Standard Auto' },
     { time: '10 Days', benefit: 4500, motorSubclass: 'Standard Auto' },
+    { time: 'None', benefit: 0, motorSubclass: 'Standard Auto' },
     { time: '30 Days', benefit: 22500, motorSubclass: 'Premier Auto' },
     { time: '20 Days', benefit: 15000, motorSubclass: 'Premier Auto' },
     { time: '10 Days', benefit: 7500, motorSubclass: 'Premier Auto' },
+    { time: 'None', benefit: 0, motorSubclass: 'Premier Auto' },
   ];
 
   passengerLegalLiabiltyObject: any = [

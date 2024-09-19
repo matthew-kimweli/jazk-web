@@ -143,22 +143,21 @@ export class MotorCalcComponent implements OnInit {
     this.motorService.motorQuotation.vehicleDisabled = true;
     this.control = new FormControl<number>(this.sumInsured);
 
-    this.windscreen = this.benefitMinimum();
-    this.radioCassette = this.benefitMinimum();
+    // this.windscreen = this.benefitMinimum();
+    // this.radioCassette = this.benefitMinimum();
     this.windscreenControl = new FormControl<number>(this.windscreen);
     this.radioControl = new FormControl<number>(this.radioCassette);
     this.filterBenefits();
     this.getYears()
   }
 
-  benefitMinimum() {
-    if (this.sumInsured && this.sumInsured <= 2500000) {
-      return 50000
-    } else if (this.sumInsured && this.sumInsured > 2500000) {
-      return 100000
-    } else
-    return 0
-  }
+  // benefitMinimum() {
+  //   if (this.sumInsured && this.sumInsured <= 2500000) {
+  //     return 50000
+  //   } else {
+  //     return 100000
+  //   }
+  // }
 
   sumInsuredLimits() {
 
@@ -180,17 +179,17 @@ export class MotorCalcComponent implements OnInit {
 
     if (this.makeModel.length === 0) {
       // Convert the name property to lowercase and check if it contains the vehicle model (also converted to lowercase)
-    const result = this.motorService.makeModels.find((model: any) => {
-      return (
-        model.class.toLowerCase() === this.motorClass.toLowerCase() &&
-        (model.name.toLowerCase().includes(this.vehicleModel.toLowerCase()) || model.name.toLowerCase().includes(this.vehicleMake.toLowerCase())) // Check both model and make
-      );
-    });
+      const result = this.motorService.makeModels.find((model: any) => {
+        return (
+          model.class.toLowerCase() === this.motorClass.toLowerCase() &&
+          (model.name.toLowerCase().includes(this.vehicleModel.toLowerCase()) || model.name.toLowerCase().includes(this.vehicleMake.toLowerCase())) // Check both model and make
+        );
+      });
 
-    // If result is found, use its label; otherwise, default to 'AllOtherVehicleMakes'
-    const label = result ? result.label : this.motorService.makeModels.find((model: any) => model.label === 'AllOtherVehicleMakes').label;
-    this.makeModel = label
-    } 
+      // If result is found, use its label; otherwise, default to 'AllOtherVehicleMakes'
+      const label = result ? result.label : this.motorService.makeModels.find((model: any) => model.label === 'AllOtherVehicleMakes').label;
+      this.makeModel = label
+    }
   }
 
   onVehicleMakeChanged(event: any, id: any) {
@@ -239,7 +238,7 @@ export class MotorCalcComponent implements OnInit {
       setTimeout(() => {
         this.yearOfManufacture = ''
       }, 400);
-      this.toastr.error('Please note we only insure a '+ this.vehicleMake + ' ' + this.vehicleModel +' whose age is not more than 10 years from the year of manufacture.')
+      this.toastr.error('Please note we only insure a ' + this.vehicleMake + ' ' + this.vehicleModel + ' whose age is not more than 10 years from the year of manufacture.')
     } else if (year < minVehicleYear) {
       this.yearOfManufacture = '-'
       setTimeout(() => {
@@ -282,6 +281,33 @@ export class MotorCalcComponent implements OnInit {
       this.excessProtector = '';
       this.excessProtectorBenefit = 0;
     }
+
+    const inputElement = event.target as HTMLInputElement; // Type assertion to access value properly
+    let inputValueString = inputElement.value; // Original string value
+
+    // Remove commas from the string
+    inputValueString = inputValueString.replace(/,/g, '');
+
+    const inputValue = parseFloat(inputValueString); // Get the input's value
+
+    if (inputValue <= 2500000) {
+      this.windscreen = 50000
+      this.radioCassette = 50000
+    } else {
+      this.windscreen = 100000
+      this.radioCassette = 100000
+    }
+
+    if (inputValue <= 2500000 && this.windscreen === 100000) {
+      this.windscreen = 50000
+    } else if (inputValue > 2500000 && this.windscreen === 50000) {
+      this.windscreen = 100000
+    } else if (inputValue <= 2500000 && this.radioCassette === 100000) {
+      this.radioCassette = 50000
+    } else if (inputValue > 2500000 && this.radioCassette === 50000) {
+      this.radioCassette = 100000
+    }
+
     if (
       this.motorClass &&
       this.makeModel &&
@@ -367,8 +393,8 @@ export class MotorCalcComponent implements OnInit {
           ? this.windscreen - 100000
           : 0
         : this.windscreen > 50000
-        ? this.windscreen - 50000
-        : 0;
+          ? this.windscreen - 50000
+          : 0;
     this.motorService.motorQuotation.radioCassetteBenefit =
       this.motorService.getWindOrRadio(this.radioCassette, this.sumInsured);
     this.motorService.motorQuotation.radioCassetteExtraBenefit =
@@ -377,8 +403,8 @@ export class MotorCalcComponent implements OnInit {
           ? this.radioCassette - 100000
           : 0
         : this.radioCassette > 50000
-        ? this.radioCassette - 50000
-        : 0;
+          ? this.radioCassette - 50000
+          : 0;
     this.motorService.motorQuotation.passengerLegalLiabilityBenefit = Number(
       this.passengerLegalLiability
     );
