@@ -143,21 +143,12 @@ export class MotorCalcComponent implements OnInit {
     this.motorService.motorQuotation.vehicleDisabled = true;
     this.control = new FormControl<number>(this.sumInsured);
 
-    // this.windscreen = this.benefitMinimum();
-    // this.radioCassette = this.benefitMinimum();
     this.windscreenControl = new FormControl<number>(this.windscreen);
     this.radioControl = new FormControl<number>(this.radioCassette);
     this.filterBenefits();
     this.getYears()
   }
 
-  // benefitMinimum() {
-  //   if (this.sumInsured && this.sumInsured <= 2500000) {
-  //     return 50000
-  //   } else {
-  //     return 100000
-  //   }
-  // }
 
   sumInsuredLimits() {
 
@@ -194,12 +185,27 @@ export class MotorCalcComponent implements OnInit {
 
   onVehicleMakeChanged(event: any, id: any) {
     if (event.target.value) {
+      console.log('Yess..')
       this.selectedVehicleMake = id;
       //@ts-ignore
       if (this.motorService.motorQuotation.motorId === id) {
         this.motorService.motorQuotation.vehicleDisabled = false;
       }
       // this.vehicleMakeNotSelected = false;
+      // this.motorClass = ''
+    
+      if (
+        this.motorClass &&
+        this.vehicleModel &&
+        this.yearOfManufacture &&
+        this.sumInsured
+      ) {
+        this.vehicleModel = '';
+        // this.motorClass = '';
+        this.yearOfManufacture = '';
+        this.sumInsured = '';
+        this.control.reset();
+      }
     }
   }
 

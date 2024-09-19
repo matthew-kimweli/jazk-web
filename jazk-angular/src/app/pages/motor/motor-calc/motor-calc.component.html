@@ -155,7 +155,7 @@
                 </option>
               </select>
             </div>
-            <div class="mb-3" *ngIf="sumInsured != undefined && motorClass == 'private'">
+            <div class="mb-3" *ngIf="(sumInsured != undefined || sumInsured === '') && motorClass == 'private'">
               <label class="form-label text-center">Windscreen coverage amount?</label>
               <input class="form-control text-center" [(ngModel)]="windscreen" (change)="calculate()" name="windscreen"
                 id="windscreen" placeholder="Windscreen coverage amount" [formControl]="windscreenControl"
