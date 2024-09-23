@@ -11,6 +11,7 @@ import { DataService } from "../../services/data.service";
 import { ToastrService } from "ngx-toastr";
 import { SideMenuComponent } from "../_components/side-menu/side-menu.component";
 import { ParseService } from "../../services/parse.service";
+import * as quotationObj from "../../_helpers/premia.json";
 
 @Component({
   selector: "app-home",
@@ -48,7 +49,7 @@ export class HomeComponent {
     private toastr: ToastrService,
     public dataService: DataService,
     public parseService: ParseService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.fetchSalesCount()
@@ -58,7 +59,7 @@ export class HomeComponent {
     this.fetchSales()
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void { }
 
 
   async fetchQuoteCount() {
@@ -70,7 +71,7 @@ export class HomeComponent {
       this.quotationCount = await query.count();
 
       this.dataService.recent.quotationCount = this.quotationCount
-      
+
     } catch (error: any) {
       console.error(error);
       this.fetching = false;
@@ -79,7 +80,7 @@ export class HomeComponent {
 
   async fetchSalesCount() {
     try {
-      
+
       this.salesCount = this.dataService.recent.salesCount
       let query2 = new Parse.Query("JazkeSale");
       query2.equalTo("user_id", this.auth.currentUserId);
@@ -112,11 +113,148 @@ export class HomeComponent {
     let query = new Parse.Query("JazkeSale");
     query.equalTo('user_id', user.id)
     query.include(['quotation'])
-    
+
     this.sales = await this.parseService.find(query);
     console.log('sales', this.sales)
+    console.log('Normal Sales Obj => ', this.parseObjectToPlain(this.sales)[0])
+    console.log('Final Mapping => ', this.updateQuotation(this.parseObjectToPlain(this.sales)[0]));
     this.dataService.recent.sales = this.sales
   }
+
+  // Function to recursively convert Parse objects into plain JavaScript objects
+  parseObjectToPlain(obj: any): any {
+    if (obj instanceof Parse.Object) {
+      const plainObject = { ...obj.attributes };  // Get object attributes
+
+      // Recursively handle any nested Parse objects
+      for (const key in plainObject) {
+        if (plainObject[key] instanceof Parse.Object) {
+          plainObject[key] = this.parseObjectToPlain(plainObject[key]);
+        }
+      }
+
+      return plainObject;
+    }
+
+    // If it's a normal object or array, recursively handle those
+    if (Array.isArray(obj)) {
+      return obj.map((item) => this.parseObjectToPlain(item));
+    } else if (typeof obj === 'object' && obj !== null) {
+      const plainObject: any = {};
+      for (const key in obj) {
+        plainObject[key] = this.parseObjectToPlain(obj[key]);
+      }
+      return plainObject;
+    }
+
+    return obj; // Return the value if it's a primitive
+  }
+
+  // Function to create a template with keys from the JSON and empty values
+  createEmptyTemplate(originalObj: any): { [key: string]: any } {
+    let template: { [key: string]: any } = {};
+    
+    for (let key in originalObj) {
+      if (originalObj.hasOwnProperty(key)) {
+        if (Array.isArray(originalObj[key])) {
+          // Create an array of empty objects with the same structure for proposals
+          template[key] = originalObj[key].map((item: any) => this.createEmptyTemplate(item));
+        } else if (typeof originalObj[key] === 'object' && originalObj[key] !== null) {
+          // Create an empty object with the same keys
+          template[key] = this.createEmptyTemplate(originalObj[key]);
+        } else {
+          // Initialize string or primitive types
+          template[key] = "";
+        }
+      }
+    }
+  
+    return template;
+  }
+  
+  
+  
+
+
+  updateQuotation(newData: any) {
+    // Create a deep copy of the imported quotationObj to allow mutations
+    let updatedQuotationObj: any = this.createEmptyTemplate(quotationObj);
+  
+    // Update personal details
+    updatedQuotationObj['quot_assr_name'] = newData.insurance_data.kyc.name || '';
+    updatedQuotationObj['quot_assr_pin'] = newData.insurance_data.kyc.tin || '';
+    updatedQuotationObj['quot_assr_phone'] = newData.insurance_data.kyc.phone || '';
+    updatedQuotationObj['quot_assr_email'] = newData.insurance_data.kyc.email || '';
+  
+    // Access proposals array
+    let proposals = updatedQuotationObj['proposals'];
+  
+    if (proposals && proposals.length > 0) {
+      let proposal = proposals[0];
+      let newQuoteData = newData.quotation.quoteData;
+  
+      // Safeguard to ensure proposal is valid
+      if (proposal) {
+        // Update proposal dates
+        proposal['pol_fm_dt'] = newData.insurance_data.coverStartDate || '';
+        proposal['pol_to_dt'] = newData.insurance_data.coverEndDate || '';
+  
+        // Update policy info
+        proposal['pol_quot_no'] = newData.quotation.objectId || '';
+        proposal['pol_dflt_si_curr_code'] = 'KES';  // Assuming currency remains the same
+        proposal['pol_prem_curr_code'] = 'KES';
+  
+        // Access proposal sections and risks
+        let proposalRisk = proposal['proposalsections']?.[0]?.['proposalrisks']?.[0];
+        let vehicleData = newData.insurance_data.vehicle;
+  
+        if (proposalRisk && vehicleData) {
+          // Update vehicle details
+          proposalRisk['prai_flexi']['vehicle_make']['prai_code_04'] = newQuoteData.vehicleMake || '';
+          proposalRisk['prai_flexi']['vehicle_model']['prai_code_05'] = newQuoteData.vehicleModel || '';
+          proposalRisk['prai_flexi']['vehicle_reg_no']['prai_data_03'] = vehicleData.registrationNumber || '';
+          proposalRisk['prai_flexi']['vehicle_chassis_no']['prai_data_01'] = vehicleData.chasisNumber || '';
+          proposalRisk['prai_flexi']['vehicle_engine_no']['prai_data_02'] = vehicleData.EngineNumber || '';
+          proposalRisk['prai_flexi']['vehicle_yom']['prai_num_01'] = newQuoteData.yearOfManufacture || 0;
+          proposalRisk['prai_flexi']['vehicle_value']['prai_num_02'] = newQuoteData.sumInsured || 0;
+          proposalRisk['prai_flexi']['vehicle_cc']['prai_num_04'] = 1800; // Assuming unchanged
+          proposalRisk['prai_flexi']['num_pax']['prai_num_03'] = newQuoteData.passengerLegalLiabilityBenefit || 0;
+  
+          // Update cover details in proposal
+          proposalRisk['proposalcovers']?.forEach((cover: any) => {
+            switch (cover['prc_code']) {
+              case '3101': // Own Damage
+                cover['prc_prem_fc'] = newQuoteData.basicPremium || 0;
+                break;
+              case '3176': // Third Party Only
+                cover['prc_prem_fc'] = newQuoteData.pvtBenefit || 0;
+                break;
+              case '3109': // Windscreen
+                cover['prc_prem_fc'] = newQuoteData.windScreenBenefit || 0;
+                break;
+              case '3110': // Radio Cassette
+                cover['prc_prem_fc'] = newQuoteData.radioCassetteBenefit || 0;
+                break;
+              case '3198': // Excess Protector
+                cover['prc_prem_fc'] = newQuoteData.excessProtectorBenefit || 0;
+                break;
+            }
+          });
+  
+          // Update payment information
+          proposal['pol_flexi']['payment_mode_desc']['pol_flex_18'] = `Flutterwave - ${newData.txRef || ''} - ${newData.amount || 0}`;
+          proposal['pol_flexi']['payment_mode_code']['pol_flex_10'] = '4'; // Assuming unchanged
+        }
+      }
+    }
+  
+    // Return updated object
+    return updatedQuotationObj;
+  }
+  
+  
+  
+
 
   async fetchQuotations() {
     this.quotations = this.dataService.recent.quotations
@@ -126,7 +264,7 @@ export class HomeComponent {
     let query = new Parse.Query("JazkeQuotation");
     query.equalTo('user_id', user.id)
     query.exists('client')
-    
+
     this.quotations = await this.parseService.find(query);
     console.log('quotes', this.quotations)
     this.dataService.recent.quotations = this.quotations
