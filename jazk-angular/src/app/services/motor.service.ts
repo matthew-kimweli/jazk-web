@@ -105,6 +105,7 @@ export class MotorService {
     serialNumber: '',
     motorId: '',
     motorClass: '',
+    vehicleRegNumber: '',
     motorSubclass: '',
     makeModel: '',
     vehicleMake: '',
@@ -393,6 +394,7 @@ export class MotorService {
     this.motorQuotation = {
       serialNumber: '',
       motorId: '',
+      vehicleRegNumber: '',
       motorClass: '',
       motorSubclass: '',
       makeModel: '',

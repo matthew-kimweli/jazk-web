@@ -104,6 +104,8 @@ export class MotorCalcComponent implements OnInit {
   vehicleMakes: any = Object.keys(vehicleData);
   vehicleModels: any = vehicleData;
 
+  searching: any = {};
+  vehicleRegNumber: any = '';
   vehicleMake: any = '';
   modelOfVehicle: any = '';
   vehicleModel: any = '';
@@ -146,13 +148,10 @@ export class MotorCalcComponent implements OnInit {
     this.windscreenControl = new FormControl<number>(this.windscreen);
     this.radioControl = new FormControl<number>(this.radioCassette);
     this.filterBenefits();
-    this.getYears()
+    this.getYears();
   }
 
-
-  sumInsuredLimits() {
-
-  }
+  sumInsuredLimits() {}
 
   filterBenefits() {
     if (this.sumInsured > 2500000) {
@@ -166,26 +165,17 @@ export class MotorCalcComponent implements OnInit {
     }
   }
 
-  onVehicleModelSelected() {
+  onSearchVehicle(event: any) {
+    let value = event.target.value
+    this.searching.regNumber = true;
 
-    if (this.makeModel.length === 0) {
-      // Convert the name property to lowercase and check if it contains the vehicle model (also converted to lowercase)
-      const result = this.motorService.makeModels.find((model: any) => {
-        return (
-          model.class.toLowerCase() === this.motorClass.toLowerCase() &&
-          (model.name.toLowerCase().includes(this.vehicleModel.toLowerCase()) || model.name.toLowerCase().includes(this.vehicleMake.toLowerCase())) // Check both model and make
-        );
-      });
-
-      // If result is found, use its label; otherwise, default to 'AllOtherVehicleMakes'
-      const label = result ? result.label : this.motorService.makeModels.find((model: any) => model.label === 'AllOtherVehicleMakes').label;
-      this.makeModel = label
-    }
+    setTimeout(() => {
+      this.searching.regNumber = false;
+    }, 2000);
   }
 
   onVehicleMakeChanged(event: any, id: any) {
     if (event.target.value) {
-      console.log('Yess..')
       this.selectedVehicleMake = id;
       //@ts-ignore
       if (this.motorService.motorQuotation.motorId === id) {
@@ -193,7 +183,7 @@ export class MotorCalcComponent implements OnInit {
       }
       // this.vehicleMakeNotSelected = false;
       // this.motorClass = ''
-    
+
       if (
         this.motorClass &&
         this.vehicleModel &&
@@ -206,6 +196,27 @@ export class MotorCalcComponent implements OnInit {
         this.sumInsured = '';
         this.control.reset();
       }
+    }
+  }
+
+  onVehicleModelSelected() {
+    if (this.makeModel.length === 0) {
+      // Convert the name property to lowercase and check if it contains the vehicle model (also converted to lowercase)
+      const result = this.motorService.makeModels.find((model: any) => {
+        return (
+          model.class.toLowerCase() === this.motorClass.toLowerCase() &&
+          (model.name.toLowerCase().includes(this.vehicleModel.toLowerCase()) ||
+            model.name.toLowerCase().includes(this.vehicleMake.toLowerCase())) // Check both model and make
+        );
+      });
+
+      // If result is found, use its label; otherwise, default to 'AllOtherVehicleMakes'
+      const label = result
+        ? result.label
+        : this.motorService.makeModels.find(
+            (model: any) => model.label === 'AllOtherVehicleMakes'
+          ).label;
+      this.makeModel = label;
     }
   }
 
@@ -223,40 +234,49 @@ export class MotorCalcComponent implements OnInit {
     //   this.tYears.push(tyear--);
     // }
     for (let index = 0; index < 100; index++) {
-      this.tYears.push(tyear--)
+      this.tYears.push(tyear--);
     }
     return;
   }
 
   onSelectManufactureYear() {
     let year = this.yearOfManufacture;
-    let currentYear = new Date().getFullYear()
-    let minTankersSubaruYear = currentYear - 10
-    let minVehicleYear = currentYear - 15
+    let currentYear = new Date().getFullYear();
+    let minTankersSubaruYear = currentYear - 10;
+    let minVehicleYear = currentYear - 15;
     if (year < minTankersSubaruYear && this.makeModel == 'Tankers') {
-      this.yearOfManufacture = '-'
+      this.yearOfManufacture = '-';
       setTimeout(() => {
-        this.yearOfManufacture = ''
+        this.yearOfManufacture = '';
       }, 400);
-      this.toastr.error('Please note we only insure Tankers whose age is not more than 10 years from the year of manufacture.')
-    } else if (year < minTankersSubaruYear && this.makeModel == 'SubaruProboxEtc') {
-      this.yearOfManufacture = '-'
-      setTimeout(() => {
-        this.yearOfManufacture = ''
-      }, 400);
-      this.toastr.error('Please note we only insure a ' + this.vehicleMake + ' ' + this.vehicleModel + ' whose age is not more than 10 years from the year of manufacture.')
-    } else if (year < minVehicleYear) {
-      this.yearOfManufacture = '-'
-      setTimeout(() => {
-        this.yearOfManufacture = ''
-      }, 400);
-      this.toastr.error('Please note we only insure vehicles whose age is not more than 15 years from the year of manufacture.')
-    }
-    if (
-      this.vehicleMake &&
-      this.vehicleModel &&
-      this.sumInsured
+      this.toastr.error(
+        'Please note we only insure Tankers whose age is not more than 10 years from the year of manufacture.'
+      );
+    } else if (
+      year < minTankersSubaruYear &&
+      this.makeModel == 'SubaruProboxEtc'
     ) {
+      this.yearOfManufacture = '-';
+      setTimeout(() => {
+        this.yearOfManufacture = '';
+      }, 400);
+      this.toastr.error(
+        'Please note we only insure a ' +
+          this.vehicleMake +
+          ' ' +
+          this.vehicleModel +
+          ' whose age is not more than 10 years from the year of manufacture.'
+      );
+    } else if (year < minVehicleYear) {
+      this.yearOfManufacture = '-';
+      setTimeout(() => {
+        this.yearOfManufacture = '';
+      }, 400);
+      this.toastr.error(
+        'Please note we only insure vehicles whose age is not more than 15 years from the year of manufacture.'
+      );
+    }
+    if (this.vehicleMake && this.vehicleModel && this.sumInsured) {
       this.vehicleModel = '';
       this.vehicleMake = '';
       this.sumInsured = '';
@@ -289,11 +309,13 @@ export class MotorCalcComponent implements OnInit {
   onVehicleValueChange(event: any) {
     let value = this.sumInsured; //event.target.value;
     if (value < 500000) {
-      this.toastr.error('The value of the vehicle should not be less than Kshs.500,000')
+      this.toastr.error(
+        'The value of the vehicle should not be less than Kshs.500,000'
+      );
     } else if (value > 15000000 && this.motorClass == 'private') {
-      this.disableButton = true
+      this.disableButton = true;
     } else if (value > 20000000 && this.motorClass == 'commercial') {
-      this.disableButton = true
+      this.disableButton = true;
     }
 
     this.filterBenefits();
@@ -319,21 +341,21 @@ export class MotorCalcComponent implements OnInit {
     const inputValue = parseFloat(inputValueString); // Get the input's value
 
     if (inputValue <= 2500000) {
-      this.windscreen = 50000
-      this.radioCassette = 50000
+      this.windscreen = 50000;
+      this.radioCassette = 50000;
     } else {
-      this.windscreen = 100000
-      this.radioCassette = 100000
+      this.windscreen = 100000;
+      this.radioCassette = 100000;
     }
 
     if (inputValue <= 2500000 && this.windscreen === 100000) {
-      this.windscreen = 50000
+      this.windscreen = 50000;
     } else if (inputValue > 2500000 && this.windscreen === 50000) {
-      this.windscreen = 100000
+      this.windscreen = 100000;
     } else if (inputValue <= 2500000 && this.radioCassette === 100000) {
-      this.radioCassette = 50000
+      this.radioCassette = 50000;
     } else if (inputValue > 2500000 && this.radioCassette === 50000) {
-      this.radioCassette = 100000
+      this.radioCassette = 100000;
     }
 
     if (
@@ -347,9 +369,9 @@ export class MotorCalcComponent implements OnInit {
   }
 
   calculate() {
-
-
     this.motorService.motorQuotation.motorClass = this.motorClass;
+    this.motorService.motorQuotation.vehicleRegNumber = this.vehicleRegNumber;
+    
     this.motorService.motorQuotation.makeModel = this.makeModel;
     this.motorService.motorQuotation.vehicleMake = this.vehicleMake;
     this.motorService.motorQuotation.vehicleModel = this.vehicleModel;
@@ -421,8 +443,8 @@ export class MotorCalcComponent implements OnInit {
           ? this.windscreen - 100000
           : 0
         : this.windscreen > 50000
-          ? this.windscreen - 50000
-          : 0;
+        ? this.windscreen - 50000
+        : 0;
     this.motorService.motorQuotation.radioCassetteBenefit =
       this.motorService.getWindOrRadio(this.radioCassette, this.sumInsured);
     this.motorService.motorQuotation.radioCassetteExtraBenefit =
@@ -431,8 +453,8 @@ export class MotorCalcComponent implements OnInit {
           ? this.radioCassette - 100000
           : 0
         : this.radioCassette > 50000
-          ? this.radioCassette - 50000
-          : 0;
+        ? this.radioCassette - 50000
+        : 0;
     this.motorService.motorQuotation.passengerLegalLiabilityBenefit = Number(
       this.passengerLegalLiability
     );
@@ -444,6 +466,7 @@ export class MotorCalcComponent implements OnInit {
 
   async submit() {
     console.log('Result: ', this.motorService.motorQuotation);
+    this.motorService.motorQuotation.vehicleRegNumber = this.vehicleRegNumber
 
     let JazkeQuotation = Parse.Object.extend('JazkeQuotation');
     let quote = new JazkeQuotation();
@@ -493,8 +516,21 @@ export class MotorCalcComponent implements OnInit {
   }
 
   async purchase() {
+    if(!this.vehicleRegNumber){
+      this.toastr.error('Vehicle Registration Number is required')
+      return;
+    }
+
     if (this.motorClass == 'commercial') {
-      if (this.makeModel == 'Tankers' || this.makeModel == 'DrivingSchool' || this.makeModel == 'MotorCommercialInstitutional' || this.makeModel == 'SpecialVehiclesAgricultural' || this.makeModel == 'SpecialVehiclesAmbulance' || this.makeModel == 'SpecialVehiclesFireFighters' || this.sumInsured > 20000000) {
+      if (
+        this.makeModel == 'Tankers' ||
+        this.makeModel == 'DrivingSchool' ||
+        this.makeModel == 'MotorCommercialInstitutional' ||
+        this.makeModel == 'SpecialVehiclesAgricultural' ||
+        this.makeModel == 'SpecialVehiclesAmbulance' ||
+        this.makeModel == 'SpecialVehiclesFireFighters' ||
+        this.sumInsured > 20000000
+      ) {
         document.getElementById('manualUnderwritingModalButton')?.click();
         return;
       }
@@ -512,8 +548,20 @@ export class MotorCalcComponent implements OnInit {
   }
 
   async onSubmitEmailDownload() {
+    if(!this.vehicleRegNumber){
+      this.toastr.error('Vehicle Registration Number is required')
+      return;
+    }
     if (this.motorClass == 'commercial') {
-      if (this.makeModel == 'Tankers' || this.makeModel == 'DrivingSchool' || this.makeModel == 'MotorCommercialInstitutional' || this.makeModel == 'SpecialVehiclesAgricultural' || this.makeModel == 'SpecialVehiclesAmbulance' || this.makeModel == 'SpecialVehiclesFireFighters' || this.sumInsured > 20000000) {
+      if (
+        this.makeModel == 'Tankers' ||
+        this.makeModel == 'DrivingSchool' ||
+        this.makeModel == 'MotorCommercialInstitutional' ||
+        this.makeModel == 'SpecialVehiclesAgricultural' ||
+        this.makeModel == 'SpecialVehiclesAmbulance' ||
+        this.makeModel == 'SpecialVehiclesFireFighters' ||
+        this.sumInsured > 20000000
+      ) {
         document.getElementById('manualUnderwritingModalButton')?.click();
         return;
       }
@@ -546,8 +594,20 @@ export class MotorCalcComponent implements OnInit {
     }
   }
   downloadQuote() {
+    if(!this.vehicleRegNumber){
+      this.toastr.error('Vehicle Registration Number is required')
+      return;
+    }
     if (this.motorClass == 'commercial') {
-      if (this.makeModel == 'Tankers' || this.makeModel == 'DrivingSchool' || this.makeModel == 'MotorCommercialInstitutional' || this.makeModel == 'SpecialVehiclesAgricultural' || this.makeModel == 'SpecialVehiclesAmbulance' || this.makeModel == 'SpecialVehiclesFireFighters' || this.sumInsured > 20000000) {
+      if (
+        this.makeModel == 'Tankers' ||
+        this.makeModel == 'DrivingSchool' ||
+        this.makeModel == 'MotorCommercialInstitutional' ||
+        this.makeModel == 'SpecialVehiclesAgricultural' ||
+        this.makeModel == 'SpecialVehiclesAmbulance' ||
+        this.makeModel == 'SpecialVehiclesFireFighters' ||
+        this.sumInsured > 20000000
+      ) {
         document.getElementById('manualUnderwritingModalButton')?.click();
         return;
       }
@@ -558,7 +618,7 @@ export class MotorCalcComponent implements OnInit {
     this.submit();
     this.router.navigate(['motor-view-quote']);
   }
-  emailQuote() { }
+  emailQuote() {}
 
   goBack() {
     history.back();

@@ -4,9 +4,8 @@ import { Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 // import { parseString } from 'xml2js';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UtilsService {
   programs: any;
@@ -19,7 +18,7 @@ export class UtilsService {
   currentResponse: any;
   selectedChunk: any;
   // motorData: any = {
-    
+
   //   "autoMobiles": [
   //       {
   //           "vehicleType": "tankerschemical",
@@ -96,21 +95,14 @@ export class UtilsService {
   //           "chasisNumber": "252"
   //       }
   //   ],
-    
+
   // };
 
+  constructor(private route: Router, public http: HttpClient) {}
 
-  constructor(
-    
-    private route: Router,
-    public http: HttpClient,) {
-
-  }
-
-  isDesktop(){
+  isDesktop() {
     // return this.platform.is('desktop')
   }
-
 
   formatDateToYYYYMMDD(date: Date) {
     var d = new Date(date),
@@ -118,10 +110,8 @@ export class UtilsService {
       day = '' + d.getDate(),
       year = d.getFullYear();
 
-    if (month.length < 2)
-      month = '0' + month;
-    if (day.length < 2)
-      day = '0' + day;
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
 
     return [year, month, day].join('-');
   }
@@ -133,7 +123,6 @@ export class UtilsService {
   }
 
   formatDateToddMMyy(date: Date) {
-
     const yyyy = date.getFullYear();
     let mm: any = date.getMonth() + 1; // Months start at 0!
     let dd: any = date.getDate();
@@ -142,13 +131,12 @@ export class UtilsService {
     if (mm < 10) mm = '0' + mm;
 
     const formatted = dd + '/' + mm + '/' + yyyy;
-    return formatted
-
+    return formatted;
   }
 
   formatDateStringToddMMyy(datestring: any) {
     // Date.parse(datestring)
-    let date = new Date(datestring)
+    let date = new Date(datestring);
 
     const yyyy = date.getFullYear();
     let mm: any = date.getMonth() + 1; // Months start at 0!
@@ -158,16 +146,26 @@ export class UtilsService {
     if (mm < 10) mm = '0' + mm;
 
     const formatted = dd + '/' + mm + '/' + yyyy;
-    return formatted
-
+    return formatted;
   }
-
-
 
   formatDateToWords() {
     const today = new Date();
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
 
     const dayOfWeek = daysOfWeek[today.getDay()];
     const day = today.getDate();
@@ -178,16 +176,26 @@ export class UtilsService {
     return customDateString;
   }
 
+  maskString(str: any) {
+    if (str.length <= 4) {
+      return str; // No need to mask if string is too short
+    }
+
+    // Create the masked string
+    const firstPart = str.slice(0, 2);
+    const lastPart = str.slice(-2);
+    const maskedPart = '*'.repeat(str.length - 4);
+
+    return firstPart + maskedPart + lastPart;
+  }
 
   sanitizeFileName(fileName: any) {
     // Remove all characters that are not letters (alphabetic characters)
     return fileName.replace(/[^a-zA-Z]/g, '');
   }
 
-
-
   convertTimeFormat(inputTime: any) {
-    const parts = inputTime.split(":");
+    const parts = inputTime.split(':');
     const hours = parseInt(parts[0], 10);
     const minutes = parseInt(parts[1], 10);
     const seconds = parseFloat(parts[2]);
@@ -197,9 +205,8 @@ export class UtilsService {
     return totalSeconds.toFixed(3);
   }
 
-
   getData(vidId: any): Observable<any> {
-    let url = `https://pipedapi.kavin.rocks/streams/${vidId}`
+    let url = `https://pipedapi.kavin.rocks/streams/${vidId}`;
     return this.http.get<any>(url);
   }
 
@@ -234,7 +241,6 @@ export class UtilsService {
   //   );
   // }
 
-
   getVideoIdFromUrl(url: string): string | null {
     // Remove query parameters
     const urlWithoutQuery = url.split('?')[0];
@@ -256,11 +262,11 @@ export class UtilsService {
 
   convertTextToArray(text: any) {
     // Replace line breaks with spaces and split the text into an array of strings
-    var arrayOfStrings = text.replace(/[\n\r]+/g, ' ').split(" ");
+    var arrayOfStrings = text.replace(/[\n\r]+/g, ' ').split(' ');
 
     // Remove spaces and empty strings
     arrayOfStrings = arrayOfStrings.filter((str: any) => {
-      return str.trim() !== "";
+      return str.trim() !== '';
     });
 
     // Remove duplicates using Set
@@ -281,16 +287,11 @@ export class UtilsService {
         : timeParts.slice(1, 3).join('.');
 
     return updatedTime;
-
-
   }
 
-
   async delay(milliseconds: number) {
-    return new Promise(resolve => {
-        setTimeout(resolve, milliseconds);
+    return new Promise((resolve) => {
+      setTimeout(resolve, milliseconds);
     });
-}
-
-
+  }
 }

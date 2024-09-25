@@ -377,8 +377,9 @@ export class MotorKycComponent {
         query.equalTo('id_number', value)
         let id = await query.first()
         if(id){
-          
-          this.vehicle.pfname = `${d.firstName} ${d.lastName}`
+          let fullName = `${d.firstName} ${d.lastName}`
+          this.vehicle.pfname = fullName
+          this.vehicle.pfnameMasked = this.utilsService.maskString(fullName)
           this.vehicle.pfname = d.lastName
           this.vehicle.pAddress = d.address.postalAddress
           this.vehicle.pCity = d.address.county
@@ -448,6 +449,7 @@ export class MotorKycComponent {
       this.quote = quote;
       if (quote) {
         this.motorService.motorQuotation = quote.get('quoteData');
+        
       }
       this.parseService.fetching = false;
     } catch (error) {
@@ -465,17 +467,6 @@ export class MotorKycComponent {
     // return /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(this.pemail);
   }
 
-  onVehicleMakeChanged(event: any, id: any) {
-    // if (event.target.value) {
-    //   this.selectedVehicleMake = id;
-    //   //@ts-ignore
-    //   let obj = this.utilsService.motorData.autoMobiles.find(
-    //     (obj: any) => obj.motorId === id
-    //   );
-    //   obj.vehicleDisabled = false;
-    //   // this.vehicleMakeNotSelected = false;
-    // }
-  }
 
   onbankInterestChanged(event: any, id: any) {
     if (event.target.value && event.target.value === 'yes') {
@@ -497,24 +488,6 @@ export class MotorKycComponent {
     }
   }
 
-  onDobChanged(event: any) {
-    let value = event.target.value;
-    if (value) {
-      let today = new Date();
-      let dob = new Date(value);
-      this.vehicle.pDob = dob;
-      let age = today.getFullYear() - dob.getFullYear();
-      this.vehicle.pAge = age;
-    }
-    if (this.vehicle.pAge < 16) {
-      this.vehicle.pAge = '-';
-      setTimeout(() => {
-        this.vehicle.pAge = '';
-      }, 400);
-      this.toastr.error('Policyholder should be above 16 years of age.');
-    }
-  }
-
   onCoverDateChanged(event: any) {
     let value = event.target.value;
     if (value) {
@@ -527,29 +500,6 @@ export class MotorKycComponent {
     }
   }
 
-  onSelectManufactureYear(event: any, vehicle: any) {
-    let year = event.target.value;
-    let currentYear = new Date().getFullYear();
-    let minPrivateYear = currentYear - 25;
-    let minCommercialYear = currentYear - 20;
-    if (year < minPrivateYear) {
-      vehicle.yearOfManufacture = '-';
-      setTimeout(() => {
-        vehicle.yearOfManufacture = '';
-      }, 400);
-      this.toastr.error(
-        'Please note we only insure vehicles for private use whose age is not more than 25 years from the year of manufacture.'
-      );
-    } else if (year < minCommercialYear) {
-      vehicle.yearOfManufacture = '-';
-      setTimeout(() => {
-        vehicle.yearOfManufacture = '';
-      }, 400);
-      this.toastr.error(
-        'Please note we only insure vehicles for commercial use whose age is not more than 25 years from the year of manufacture.'
-      );
-    }
-  }
 
   createInstallments(event: any) {
     let now = new Date();
@@ -706,7 +656,6 @@ export class MotorKycComponent {
       tin: this.vehicle.pTin,
       city: this.vehicle.pCity,
       address: this.vehicle.pAddress,
-      registrationNumber: this.vehicle.registrationNumber,
     };
 
     this.motorData.kyc = userData;

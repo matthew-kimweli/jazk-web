@@ -79,7 +79,6 @@
                 </div>
               </div>
 
-                            
               <div
                 class="col-md-4 form-group"
                 *ngIf="vehicle.kycType == 'company'"
@@ -97,7 +96,6 @@
                 />
                 <div class="validate"></div>
               </div>
-
 
               <div
                 class="col-md-4 form-group"
@@ -145,7 +143,7 @@
                 >
                 <input
                   disabled
-                  [(ngModel)]="vehicle.pfname"
+                  [(ngModel)]="vehicle.pfnameMasked"
                   type="text"
                   name="firstname"
                   class="form-control"
@@ -154,7 +152,6 @@
                 />
                 <div class="validate"></div>
               </div>
-
 
               <div class="col-md-4 form-group">
                 <label class="form-label">Phone</label>
@@ -224,7 +221,6 @@
                   ><small>Date of Birth</small></label
                 >
                 <input
-                  disabled
                   [(ngModel)]="vehicle.dob"
                   type="date"
                   name="dob"
@@ -255,50 +251,26 @@
               </div>
             </div>
             <br />
-            <p>When do you want the Insurance cover to start?</p>
-            <div class="row">
-              <div class="col-md-4 form-group">
-                <label class="form-label" for="coverstartdate"
-                  ><small>Cover Start Date</small></label
-                >
-                <input
-                  onkeydown="event.preventDefault()"
-                  [min]="minDate"
-                  [max]="maxCoverDate"
-                  (input)="onCoverDateChanged($event)"
-                  name="age"
-                  type="date"
-                  id="coverstartdate"
-                  class="form-control"
-                  placeholder="Cover Start Date"
-                />
-                <div class="validate"></div>
-              </div>
-
-              <div class="col-md-2 form-group"></div>
-
-              <div class="col-md-4 form-group">
-                <label class="form-label" for="coverenddate"
-                  ><small>Cover End Date</small></label
-                >
-                <input
-                  onkeydown="event.preventDefault()"
-                  id="coverenddate"
-                  disabled
-                  name="age"
-                  type="date"
-                  [(ngModel)]="coverEndDate"
-                  class="form-control"
-                  placeholder="Cover End Date"
-                />
-                <div class="validate"></div>
-              </div>
-            </div>
-            <br />
           </div>
 
           <div>
             <div class="row">
+
+              <div class="col-md-3 form-group mt-3">
+                <label class="form-label" for="registrationnumber"
+                  ><small>Vehicle Registration Number</small></label
+                >
+                <input
+                disabled
+                  type="text"
+                  [(ngModel)]="motorService.motorQuotation.vehicleRegNumber"
+                  name="registrationNumber"
+                  class="form-control"
+                  id="registrationnumber"
+                  placeholder="Registration Number"
+                />
+                <div class="validate"></div>
+              </div>
               <div class="col-md-3 form-group mt-3">
                 <label class="form-label">Vehicle Make: </label>
                 <input
@@ -352,20 +324,7 @@
                 />
                 <div class="validate"></div>
               </div>
-              <div class="col-md-3 form-group mt-3">
-                <label class="form-label" for="registrationnumber"
-                  ><small>Vehicle Registration Number</small></label
-                >
-                <input
-                  type="text"
-                  [(ngModel)]="vehicle.registrationNumber"
-                  name="registrationNumber"
-                  class="form-control"
-                  id="registrationnumber"
-                  placeholder="Registration Number"
-                />
-                <div class="validate"></div>
-              </div>
+              
               <div class="col-md-3 form-group mt-3">
                 <label class="form-label" for="chasisnumber"
                   ><small>Vehicle Chasis Number</small></label
@@ -468,6 +427,48 @@
               </div>
             </div>
           </div>
+
+          <br />
+          <p>When do you want the Insurance cover to start?</p>
+          <div class="row">
+            <div class="col-md-4 form-group">
+              <label class="form-label" for="coverstartdate"
+                ><small>Cover Start Date</small></label
+              >
+              <input
+                onkeydown="event.preventDefault()"
+                [min]="minDate"
+                [max]="maxCoverDate"
+                (input)="onCoverDateChanged($event)"
+                name="age"
+                type="date"
+                id="coverstartdate"
+                class="form-control"
+                placeholder="Cover Start Date"
+              />
+              <div class="validate"></div>
+            </div>
+
+            <div class="col-md-2 form-group"></div>
+
+            <div class="col-md-4 form-group">
+              <label class="form-label" for="coverenddate"
+                ><small>Cover End Date</small></label
+              >
+              <input
+                onkeydown="event.preventDefault()"
+                id="coverenddate"
+                disabled
+                name="age"
+                type="date"
+                [(ngModel)]="coverEndDate"
+                class="form-control"
+                placeholder="Cover End Date"
+              />
+              <div class="validate"></div>
+            </div>
+          </div>
+          <br />
 
           <div *ngIf="!user">
             <br />
