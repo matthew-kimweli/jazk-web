@@ -26,18 +26,17 @@ export class AppController {
     try {
       // Launch Puppeteer
 
-      // const browser = await puppeteer.launch({
-      //   headless: true,
-      //   executablePath: "./google-chrome", //path.join(__dirname, "../google-chrome"), // Path to the Chrome binary
-      //   args: ["--no-sandbox", "--disable-setuid-sandbox"],
-      // });
+      const browser = await puppeteer.launch({
+        headless: true,
+        // executablePath: "./google-chrome", //path.join(__dirname, "../google-chrome"), // Path to the Chrome binary
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      });
 
 
       // Connecting to browserless
-      const browser = await puppeteer.connect({
-        browserWSEndpoint:
-          "https://production-sfo.browserless.io/?token=QmuE8WkTVYM8xc2da8679cf58e5ec565146f438cfd",
-      });
+      // const browser = await puppeteer.connect({
+      //   browserWSEndpoint: "wss://api.grac33.com:49805/devtools/browser/a4d71815-7a8f-4eb4-a335-12f8b33f41d3",
+      // });
 
       const page = await browser.newPage();
       console.log("emailing 1");

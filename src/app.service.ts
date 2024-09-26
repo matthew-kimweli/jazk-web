@@ -12,10 +12,19 @@ export class AppService {
 
   onModuleInit() {
     this.initCloudFunctions();
+    // this.generateDocument('https://stackoverflow.com/questions/51466388/puppeteer-how-to-connect-wsendpoint-using-local-ip-address')
   }
 
   getHello(): string {
     return "Hello World!";
+  }
+
+  getFormattedDate() {
+    var date = new Date();
+    var formattedDate = date.toISOString().substring(0, 10).replace(/-/g, "");
+    console.log(formattedDate);
+    let today = formattedDate;
+    return today;
   }
 
   async sendEmailWithAttachment(pdfBuffer, client) {
@@ -54,34 +63,103 @@ export class AppService {
   }
 
   async generateDocument(url) {
-
     try {
-     
-      // Connecting to browserless
+      // Connecting to browserlesss
       const browser = await puppeteer.connect({
-        browserWSEndpoint:
-          "https://production-sfo.browserless.io/?token=QmuE8WkTVYM8xc2da8679cf58e5ec565146f438cfd",
+        // browserWSEndpoint:
+        //   "wss://143.198.68.104:49805",
+        //   ignoreHTTPSErrors: true
+        headless: true,
+        args: [
+          "--no-sandbox",
+          "--disable-setuid-sandbox",
+        ],
       });
 
+      // const browser = await puppeteer.launch({
+      //   headless: true,
+      //   // executablePath: "./google-chrome", //path.join(__dirname, "../google-chrome"), // Path to the Chrome binary
+      //   args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      // });
+
       const page = await browser.newPage();
-      await page.goto(url, { waitUntil: 'networkidle0' });
+      await page.goto(url, { waitUntil: "networkidle0" });
 
       // Set HTML content
       // await page.setContent(invoiceHtml);
 
       // Generate PDF
-      const pdfBuffer = await page.pdf({ format: "A4", printBackground: true
-      });
+      const pdfBuffer = await page.pdf({ format: "A4", printBackground: true });
       console.log("emailing 3");
 
       await browser.close();
       console.log("emailing 4");
 
-      return pdfBuffer
-
+      return pdfBuffer;
     } catch (error) {
       console.error(error);
-      
+    }
+  }
+
+  async issueDMVICCertificate(params) {
+    let phone = params.phone;
+    let quote_data = params.quote_data;
+    let quote_id = params.quote_id;
+    let quoteDB = params.quoteDB;
+    let sale_id = params.sale_id;
+    let agent_email = params.agent_email;
+    let client = params.client || {};
+
+    let cert_params = {
+      endpoint: "Integration/IssuanceTypeCCertificate",
+      body: {
+        IntermediaryIRANumber: "",
+        Typeofcover: 100,
+        Policyholder: "HENIMMANS EDWARD BWOGA",
+        InsuredPIN: "A006632277B",
+        policynumber: "P/109/1002/2023/000064",
+        Email: "henimmans@gmail.com",
+        Phonenumber: "721726738",
+        Commencingdate: "07/11/2023",
+        Expiringdate: "06/12/2023",
+        Registrationnumber: "",
+        Vehiclemake: "Toyota",
+        Vehiclemodel: "Land Cruiser 76",
+        Chassisnumber: "HZJ76-1234567",
+        Enginenumber: "1HZ-12345",
+        Bodytype: "STATION WAGON",
+        SumInsured: "1300000",
+        Yearofmanufacture: 2017,
+        HudumaNumber: "123456789",
+      },
+    };
+    let res = await Parse.Cloud.run("dmvic_request", cert_params);
+    console.log("res", res);
+
+    let d = {
+      Inputs:
+        '{"intermediaryiranumber":"","typeofcover":100,"policyholder":"HENIMMANS EDWARD BWOGA","insuredpin":"A006632277B","policynumber":"P/109/1002/2023/000064","email":"henimmans@gmail.com","phonenumber":"721726738","commencingdate":"07/11/2024","expiringdate":"06/12/2024","registrationnumber":"","vehiclemake":"Toyota","vehiclemodel":"Land Cruiser 76","chassisnumber":"HZJ76-1234567","enginenumber":"1HZ-12345","bodytype":"STATION WAGON","suminsured":"1300000","yearofmanufacture":2017,"hudumanumber":"123456789"}',
+      callbackObj: {
+        issueCertificate: {
+          TransactionNo: "UAT-QAA3742",
+          actualCNo: "C27346914",
+          Email: "henimmans@gmail.com",
+        },
+      },
+      success: true,
+      Error: [],
+      APIRequestNumber: "UAT-OAR7423",
+      DMVICRefNo: null,
+    };
+
+    try {
+      let query = new Parse.Query("JazkeSale");
+      let saleDB = await query.get(sale_id);
+
+      saleDB.set("dmvic_cert", res);
+      await saleDB.save();
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -94,8 +172,9 @@ export class AppService {
       let sale_id = params.sale_id;
       let agent_email = params.agent_email;
       let client = params.client || {};
-      const host = process.env.HOST || 'https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io';  // Use an environment variable or default to 'localhost'
-
+      const host =
+        process.env.HOST ||
+        "https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io"; // Use an environment variable or default to 'localhost'
 
       function getTimestamp() {
         const now = new Date();
@@ -109,6 +188,8 @@ export class AppService {
 
         return `${year}${month}${day}${hours}${minutes}${seconds}`;
       }
+
+      let today = this.getFormattedDate();
 
       try {
         const response = await axios.get(
@@ -173,46 +254,48 @@ export class AppService {
           ) {
             let d = quote_data;
             if (quote_data) {
-              var date = new Date(); // create a new date object
-              var formattedDate = date
-                .toISOString()
-                .substring(0, 10)
-                .replace(/-/g, "");
-              console.log(formattedDate);
-              let today = formattedDate;
+              this.issueDMVICCertificate(params);
 
               let emails = [client.email, agent_email];
 
-              let valuationLetterBuffer = await this.generateDocument(`${host}/valuation-letter/${sale_id}`)
-              let receiptBuffer = await this.generateDocument(`${host}/receipt/${sale_id}`)
-              let debitNoteBuffer = await this.generateDocument(`${host}/debitnote/${sale_id}`)
-              let policyScheduleBuffer = await this.generateDocument(`${host}/policyschedule/${sale_id}`)
+              let valuationLetterBuffer = await this.generateDocument(
+                `${host}/valuation-letter/${sale_id}`
+              );
+              let receiptBuffer = await this.generateDocument(
+                `${host}/receipt/${sale_id}`
+              );
+              let debitNoteBuffer = await this.generateDocument(
+                `${host}/debitnote/${sale_id}`
+              );
+              let policyScheduleBuffer = await this.generateDocument(
+                `${host}/policyschedule/${sale_id}`
+              );
 
-              let params:any = {
+              let email_params: any = {
                 from: "saleske@allianz.com",
-                subject: `Motor Insurance: Your Jubilee Allianz Quotation`,
-                text: `Hi ${client.name}. Thank you for showing interest in our insurance service. Please find attached your insurance policy package.`,
+                subject: `Motor Insurance: Your Jubilee Allianz Policy Package`,
+                text: `Hi ${client.name}. Please find attached your insurance policy package.`,
                 amount: "500",
                 to: emails,
                 cc: ["saleske@allianz.com"],
                 attachments: [
                   {
-                    filename: `${today} - Debit Credit Note.pdf`,
+                    filename: `Debit Credit Note - ${today}.pdf`,
                     content: debitNoteBuffer,
                     // path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/debit_credit_note.pdf`,
                   },
                   {
-                    filename: `${today} - Receipt.pdf`,
+                    filename: `Receipt - ${today}.pdf`,
                     content: receiptBuffer,
                     // path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/receipt.pdf`,
                   },
                   {
-                    filename: `${today} - Valuation Letter.pdf`,
+                    filename: `Valuation Letter - ${today}.pdf`,
                     content: valuationLetterBuffer,
                     // path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/valuation-letter.pdf`,
                   },
                   {
-                    filename: `${today} - Policy Schedule.pdf`,
+                    filename: `Policy Schedule - ${today}.pdf`,
                     content: policyScheduleBuffer,
                   },
                 ],
@@ -220,26 +303,25 @@ export class AppService {
 
               if (d.motorClass == "private") {
                 if (d.motorSubclass == "Standard Auto") {
-                  params.attachments.push({
+                  email_params.attachments.push({
                     filename: `${today} - Motor private Standard Auto Insurance.pdf`,
                     path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/motor-private.pdf`,
                   });
                 } else {
-                  params.attachments.push({
+                  email_params.attachments.push({
                     filename: `${today} - Motor private Premia Insurance.pdf`,
                     path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/motor-premia.pdf`,
                   });
                 }
               } else {
-                params.attachments.push({
+                email_params.attachments.push({
                   filename: `${today} - Motor commercial Insurance.pdf`,
                   path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/motor-commercial.pdf`,
                 });
               }
 
-              console.log("params", params);
-              this.utils.sendEmail(params);
-              // let resp = await Parse.Cloud.run("sendMail", params);
+              console.log("params", email_params);
+              this.utils.sendEmail(email_params);
             }
           } else {
           }
@@ -255,6 +337,45 @@ export class AppService {
     Parse.Cloud.define("sendMail", async (request) => {
       let params = request.params;
       return await this.utils.sendEmail(params);
+    });
+
+    Parse.Cloud.define("dmvic_request", async (request) => {
+      let params = request.params;
+      let baseUrl = "https://uat-api.dmvic.com/api/v5";
+      let tokenUrl = "http://10.158.2.21:8080/api/get-aki-token";
+      let endpoint = params.endpoint;
+      let post_body = params.body;
+
+      try {
+        const response = await axios.get(tokenUrl, {
+          // headers: {
+          //   Authorization:
+          //     "Basic S3FUNDk2V1c1V09LMmxjT3AwdnRzQjZxVWFYaHl0UXhwbUdzS2FWS1kza0xNTzA4OlVyaU1lT0NQamVlMDNuaFo0SDZhTlZsNkU0ZWJ2TEExQWNWbnFnRnUxb08yZmJ3c0FkSU1vN2VTWEdXMmRERWM=",
+          // },
+        });
+
+        console.log("access token", response.data);
+        let tokenData = response.data;
+        if (tokenData && tokenData.access_token) {
+          const response = await axios.post(
+            `${baseUrl}/${endpoint}`,
+            post_body,
+
+            {
+              headers: {
+                "Content-Type": "application/json",
+                ClientID: "99EA05B9-7515-4338-A7A2-B8515BD712E8",
+                Authorization: `Bearer ${tokenData.access_token}`,
+              },
+            }
+          );
+          console.log(response.data);
+          return response.data;
+        }
+      } catch (error) {
+        console.error("Request failed:", error);
+        return String(error).toString();
+      }
     });
   }
 }

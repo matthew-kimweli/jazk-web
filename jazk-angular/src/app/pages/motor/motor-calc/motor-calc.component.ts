@@ -165,13 +165,31 @@ export class MotorCalcComponent implements OnInit {
     }
   }
 
-  onSearchVehicle(event: any) {
+  async onSearchVehicle(event: any) {
     let value = event.target.value
+    if(value.length < 7 ){
+      return;
+    }
+
     this.searching.regNumber = true;
 
-    setTimeout(() => {
-      this.searching.regNumber = false;
-    }, 2000);
+    let params = {
+      endpoint: 'Integration/VehicleSearch',
+      body: {
+        "VehicleRegistrationNumber": value//"KAC040R"
+      }
+    }
+
+    console.log('requesting...', params)
+
+    try {
+      let res = await Parse.Cloud.run('dmvic_request', params)
+      console.log('res', res)
+    } catch (error) {
+      console.error(error)
+    }
+    this.searching.regNumber = false;
+
   }
 
   onVehicleMakeChanged(event: any, id: any) {
@@ -593,6 +611,7 @@ export class MotorCalcComponent implements OnInit {
       }
     }
   }
+  
   downloadQuote() {
     if(!this.vehicleRegNumber){
       this.toastr.error('Vehicle Registration Number is required')

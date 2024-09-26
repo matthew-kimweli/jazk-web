@@ -322,6 +322,7 @@ export class MotorKycComponent {
     'LINKS VALUERS AND ASSESSORS',
   ];
   searching: any = {};
+  coverDates: any;
 
   constructor(
     public utilsService: UtilsService,
@@ -365,37 +366,67 @@ export class MotorKycComponent {
   }
 
   async onSearchNIN(event: any) {
-    let d = {"nationalID":"12345678","firstName":"John","middleName":"Mwai","lastName":"Doe","dateOfBirth":"1990-05-10","gender":"Male","citizenship":"Kenyan","placeOfBirth":{"county":"Nairobi","subCounty":"Westlands","ward":"Parklands"},"idIssueDate":"2008-11-25","maritalStatus":"Single","photo":"https://iprs.go.ke/photos/12345678.jpg","fingerprintData":"base64encodedfingerprintdata","contacts":{"phone":"+254712345678","email":"john.doe@example.com"},"address":{"postalAddress":"P.O Box 12345-00100","county":"Nairobi","subCounty":"Westlands","ward":"Parklands"},"nextOfKin":{"name":"Jane Doe","relationship":"Sister","phone":"+254711223344"}}
+    let d = {
+      nationalID: '12345678',
+      firstName: 'John',
+      middleName: 'Mwai',
+      lastName: 'Doe',
+      dateOfBirth: '1990-05-10',
+      gender: 'Male',
+      citizenship: 'Kenyan',
+      placeOfBirth: {
+        county: 'Nairobi',
+        subCounty: 'Westlands',
+        ward: 'Parklands',
+      },
+      idIssueDate: '2008-11-25',
+      maritalStatus: 'Single',
+      photo: 'https://iprs.go.ke/photos/12345678.jpg',
+      fingerprintData: 'base64encodedfingerprintdata',
+      contacts: { phone: '+254712345678', email: 'john.doe@example.com' },
+      address: {
+        postalAddress: 'P.O Box 12345-00100',
+        county: 'Nairobi',
+        subCounty: 'Westlands',
+        ward: 'Parklands',
+      },
+      nextOfKin: {
+        name: 'Jane Doe',
+        relationship: 'Sister',
+        phone: '+254711223344',
+      },
+    };
     try {
-      this.searching.nin = true
-    let value:string = event.target.value;
-    if(value.length == 8){
-      if(isNaN(Number(value))){
-        this.toastr.error('Please provide a valid NIN. ID should be numbers only')
-      } else {
-        let query = new Parse.Query('IPRSCache')
-        query.equalTo('id_number', value)
-        let id = await query.first()
-        if(id){
-          let fullName = `${d.firstName} ${d.lastName}`
-          this.vehicle.pfname = fullName
-          this.vehicle.pfnameMasked = this.utilsService.maskString(fullName)
-          this.vehicle.pfname = d.lastName
-          this.vehicle.pAddress = d.address.postalAddress
-          this.vehicle.pCity = d.address.county
-          this.vehicle.pemail = d.contacts.email
-          this.vehicle.pphone = d.contacts.phone
-          this.vehicle.dob = d.dateOfBirth
-          this.vehicle.gender = d.gender
-          this.vehicle.pphone = String(d.contacts.phone).replace('+254', '')
-
+      this.searching.nin = true;
+      let value: string = event.target.value;
+      if (value.length == 8) {
+        if (isNaN(Number(value))) {
+          this.toastr.error(
+            'Please provide a valid NIN. ID should be numbers only'
+          );
+        } else {
+          let query = new Parse.Query('IPRSCache');
+          query.equalTo('id_number', value);
+          let id = await query.first();
+          if (id) {
+            let fullName = `${d.firstName} ${d.lastName}`;
+            this.vehicle.pfname = fullName;
+            this.vehicle.pfnameMasked = this.utilsService.maskString(fullName);
+            this.vehicle.pfname = d.lastName;
+            this.vehicle.pAddress = d.address.postalAddress;
+            this.vehicle.pCity = d.address.county;
+            this.vehicle.pemail = d.contacts.email;
+            this.vehicle.pphone = d.contacts.phone;
+            this.vehicle.dob = d.dateOfBirth;
+            this.vehicle.gender = d.gender;
+            this.vehicle.pphone = String(d.contacts.phone).replace('+254', '');
+          }
         }
       }
-    }
 
-    this.searching.nin = false
+      this.searching.nin = false;
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
   }
 
@@ -449,7 +480,6 @@ export class MotorKycComponent {
       this.quote = quote;
       if (quote) {
         this.motorService.motorQuotation = quote.get('quoteData');
-        
       }
       this.parseService.fetching = false;
     } catch (error) {
@@ -466,7 +496,6 @@ export class MotorKycComponent {
     );
     // return /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(this.pemail);
   }
-
 
   onbankInterestChanged(event: any, id: any) {
     if (event.target.value && event.target.value === 'yes') {
@@ -497,9 +526,82 @@ export class MotorKycComponent {
       let d1 = new Date(coverStart.setFullYear(coverStart.getFullYear() + 1));
       let result = new Date(d1.setDate(d1.getDate() - 1));
       this.coverEndDate = result.toISOString().substring(0, 10);
+
+      this.coverDates = {
+        startDate: coverStart,
+        endDate: result,
+      };
+
+      this.checkDoubleInsurance();
     }
   }
 
+  async checkDoubleInsurance() {
+    
+    this.searching.doubleInsurance = true;
+    
+    let params = {
+      endpoint: 'Integration/ValidateDoubleInsurance',
+      body: {
+        policystartdate: this.utilsService.formatDateSlash(
+          this.coverDates.startDate
+        ),
+        policyenddate: this.utilsService.formatDateSlash(
+          this.coverDates.endDate
+        ),
+        vehicleregistrationnumber:
+          this.motorService.motorQuotation.vehicleRegNumber,
+        chassisnumber: this.vehicle.chasisNumber,
+
+        // "policystartdate":"26/10/2023",
+        // "policyenddate":"26/10/2024",
+        // "vehicleregistrationnumber": "KDN979K",
+        // "chassisnumber":""
+      },
+    };
+
+    console.log('checking double insurance...', params);
+
+    try {
+      let res = await Parse.Cloud.run('dmvic_request', params);
+      console.log('res', res);
+      let d = {
+        Inputs:
+          '{"policystartdate":"26/10/2023","policyenddate":"26/10/2024","vehicleregistrationnumber":"KDN979K","chassisnumber":""}',
+        callbackObj: {},
+        success: false,
+        Error: [
+          {
+            errorCode: 'ER0016',
+            errorText: 'No Records Found',
+          },
+        ],
+        APIRequestNumber: 'UAT-OAR7421',
+        DMVICRefNo: null,
+      };
+
+      if(!res){
+        this.toastr.error(
+          'Unable to check for double insurance',
+          'Network Error'
+        );
+        return;
+      }
+
+      if (res.Error.length) {
+        this.vehicle.hasDoubleInsurance = false;
+      } else {
+        this.toastr.error(
+          'Double Insurance Found',
+          'This vehicle is already insured'
+        );
+        this.vehicle.hasDoubleInsurance = true;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    this.searching.doubleInsurance = false;
+  }
 
   createInstallments(event: any) {
     let now = new Date();
@@ -525,7 +627,14 @@ export class MotorKycComponent {
   }
 
   buyNow() {
-    // console.log(this.utilsService.motorData);
+    this.vehicle.registrationNumber = this.motorService.motorQuotation.vehicleRegNumber
+    if (this.vehicle.hasDoubleInsurance) {
+      this.toastr.error(
+        'Unable to proceed',
+        'This vehicle is already insured (Double Insurance Found)'
+      );
+      return;
+    }
 
     if (!this.vehicle.pfname) {
       this.toastr.error('First name is required');
