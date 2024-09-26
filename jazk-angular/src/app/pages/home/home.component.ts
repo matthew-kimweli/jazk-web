@@ -117,9 +117,9 @@ export class HomeComponent {
     // console.log('Normal Sales Obj => ', this.parseObjectToPlain(this.sales)[0])
     // console.log('Final Mapping => ', this.updateQuotation(this.parseObjectToPlain(this.sales)[0]));
 
-    let sale: Parse.Object = this.sales[0];
-    let data = sale.toJSON();
-    console.log('Final Mapping => ', this.updateQuotation(data));
+    // let sale: Parse.Object = this.sales[0];
+    // let data = sale.toJSON();
+    // console.log('Final Mapping => ', this.updateQuotation(data));
   }
 
   // Function to recursively convert Parse objects into plain JavaScript objects
@@ -299,5 +299,9 @@ export class HomeComponent {
     this.quotations = await this.parseService.find(query);
     console.log('quotes', this.quotations);
     this.dataService.recent.quotations = this.quotations;
+  }
+
+  get isPublicUser() {
+    return this.auth.currentUserType == 'public'
   }
 }

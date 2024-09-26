@@ -7,7 +7,7 @@
         <div class="card-body">
 
           <div class="text-center mb-4">
-            <h2 class="h2 text-center mb-4">Jazke<span style="color: red;"> Sales Portal</span> </h2>
+            <h2 class="h2 text-center mb-4 text-primary">JAZK<span class="text-red"> Sales Portal</span> </h2>
             <p class="text-center mb-4">
               <small>
                 Sign up to get started.</small></p>
@@ -73,7 +73,7 @@
 
             <div class="form-footer">
               <div class="btn-list">
-                <button [disabled]="saving" (click)="registerUser()" class="btn w-100" style="background-color: red; color: whitesmoke;">
+                <button [disabled]="saving" (click)="registerUser()" class="btn w-100 btn-primary" >
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="icon icon-tabler icons-tabler-outline icon-tabler-key">
@@ -89,8 +89,8 @@
 
             </div>
           </form>
-          <div class="text-center text-muted mt-3">
-            Already have account? <a (click)="gotoLogin()" tabindex="-1">Sign in</a>
+          <div class="text-center text-muted mt-3 text-blue">
+            <a [routerLink]="['/login']" routerLinkActive="router-link-active"  tabindex="-1">Already have account? Sign in</a>
           </div>
         </div>
       </div>

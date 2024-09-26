@@ -314,12 +314,16 @@ export class MotorKycComponent {
   paymentData: any = { method: '', installment_type: '1' };
   installments: any = [];
   motorData: any = {};
+  // valuers: any = [
+  //   'REGENT VALUERS',
+  //   'AUTOMOBILE ASSOCIATION of KENYA',
+  //   'SOLVIT LIMITED',
+  //   'CAPITAL ALLIANCE VALUERS AND ASSESSORS',
+  //   'LINKS VALUERS AND ASSESSORS',
+  // ];
   valuers: any = [
     'REGENT VALUERS',
-    'AUTOMOBILE ASSOCIATION of KENYA',
-    'SOLVIT LIMITED',
-    'CAPITAL ALLIANCE VALUERS AND ASSESSORS',
-    'LINKS VALUERS AND ASSESSORS',
+    'SOLVIT LIMITED'
   ];
   searching: any = {};
   coverDates: any;

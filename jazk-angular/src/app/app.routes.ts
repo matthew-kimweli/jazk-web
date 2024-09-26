@@ -22,6 +22,7 @@ import { ReceiptComponent } from './pages/portal-docs/receipt/receipt.component'
 import { PolicyScheduleComponent } from './pages/portal-docs/policy-schedule/policy-schedule.component';
 import { DebitNoteComponent } from './pages/portal-docs/debit-note/debit-note.component';
 import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.component';
+import { ListUsersComponent } from './pages/admin/users/list-users/list-users.component';
 
 export const routes: Routes = [
   {
@@ -141,6 +142,11 @@ export const routes: Routes = [
   {
     path: 'admin-settings',
     component: AdminSettingsComponent
+  },
+
+  {
+    path: 'users',
+    component: ListUsersComponent
   },
 
   

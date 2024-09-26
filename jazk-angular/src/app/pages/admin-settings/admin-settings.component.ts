@@ -6,6 +6,7 @@ import { SideMenuComponent } from '../_components/side-menu/side-menu.component'
 import { RouterModule } from '@angular/router';
 import { ParseService } from '../../services/parse.service';
 import { ToastrService } from 'ngx-toastr';
+import * as Parse from 'parse';
 
 @Component({
   selector: 'app-admin-settings',

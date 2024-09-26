@@ -1,0 +1,437 @@
+<!-- Hero Section - Home Page -->
+<app-header></app-header>
+<div class="page-wrapper">
+  <div
+    class="mb-3"
+    *ngIf="
+      parseService.fetching || parseService.saving || parseService.deleting
+    "
+  >
+    <div class="progress">
+      <div class="progress-bar progress-bar-indeterminate bg-green"></div>
+    </div>
+  </div>
+
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <!-- Page pre-title -->
+          <div class="page-pretitle">List</div>
+          <h2 class="page-title">Users</h2>
+        </div>
+        <!-- Page title actions -->
+        <div class="col-auto ms-auto d-print-none">
+          <div class="btn-list">
+            <a
+            data-bs-toggle="modal"
+              data-bs-target="#modal-new-user"
+            
+              class="btn btn-primary d-none d-sm-inline-block"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M12 5l0 14"></path>
+                <path d="M5 12l14 0"></path>
+              </svg>
+              New User
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="container-xl">
+      <div class="">
+        <div class="row justify-content-center">
+          <div class="col-3">
+            <app-side-menu></app-side-menu>
+          </div>
+          <div class="col-lg-9">
+            <div class="container">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="">
+                      <table class="table table-vcenter card-table">
+                        <thead>
+                          <tr>
+                            <th>User Type</th>
+                            <th>User Name</th>
+                            <!-- <th>Line Manager</th>
+                            <th>Manager Name</th> -->
+                            <th class="w-1"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of list; let i=index">
+                            <td>
+                              <span class="status status-purple">
+                                {{ item.get("userType") }}
+                              </span>
+                            </td>
+                            <td class="text-secondary">
+                              {{ item.get("name") }}
+                            </td>
+                            <!-- <td class="text-secondary">
+                              <span class="status status-azure">
+                                {{ item.get("managerPosition") || '---' }}
+                              </span>
+                            </td>
+                            <td class="text-secondary">
+                              {{ item.get("managerName") || '---' }}
+                            </td> -->
+
+
+                            <td class="text-end">
+                              <span class="dropdown">
+                                <button
+                                  class="btn dropdown-toggle align-text-top"
+                                  data-bs-boundary="viewport"
+                                  data-bs-toggle="dropdown"
+                                >
+                                  Actions
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                  <!-- <a (click)="selectUser(item)" class="dropdown-item text-azure"
+                                  data-bs-toggle="modal"
+              data-bs-target="#modal-assign-manager" >
+                                    Assign Line Manager
+                                  </a> -->
+
+
+                                  <a (click)="setUserToEdit(item, i)" class="dropdown-item text-azure" data-bs-toggle="modal" data-bs-target="#modal-edit-user">
+                                    Edit
+                                  </a>
+
+                                  <a (click)="deleteItem(item)" class="dropdown-item text-red">
+                                    Delete
+                                  </a>
+                                </div>
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <div class="card card-md" *ngIf="list?.length == 0">
+                        <div class="card-body">
+                          <p class="text-secondary mb-4">Nothing found</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="modal" id="modal-new-user" tabindex="-1">
+    <form (ngSubmit)="submitForm()" [formGroup]="userForm">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">New User</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="form-group mb-3 col-lg-6">
+                <label class="form-label">User Name</label>
+                <input type="text" class="form-control" [(ngModel)]="userData.name" formControlName="name" />
+                <div
+                  *ngIf="parseService.submitting &&
+                    userForm.get('name')!.invalid && userForm.get('name')!.touched
+                  "
+                  class="text-danger"
+                >
+                  Name is required.
+                </div>
+              </div>
+              <div class="form-group mb-3 col-lg-6">
+                <label class="form-label">User Email</label>
+                <input
+                  type="email"
+                  [(ngModel)]="userData.userEmail"
+                  class="form-control"
+                  formControlName="userEmail"
+                />
+                <div
+                  *ngIf="parseService.submitting &&
+                    userForm.get('userEmail')!.invalid && userForm.get('userEmail')!.touched
+                  "
+                  class="text-danger"
+                >
+                  Valid email is required.
+                </div>
+              </div>
+              <!-- <div class="form-group mb-3 col-lg-6">
+                <label class="form-label">Phone Number</label>
+                <input type="text" class="form-control" [(ngModel)]="userData.phone" formControlName="phone" />
+                <div
+                  *ngIf="
+                    userForm.get('phone')!.invalid && userForm.get('phone')!.touched
+                  "
+                  class="text-danger"
+                >
+                  Phone number is required.
+                </div>
+              </div> -->
+              <div class="form-group mb-3 col-lg-6">
+                <label class="form-label">Position</label>
+                <input
+                  type="text"
+                  [(ngModel)]="userData.position"
+                  class="form-control"
+                  formControlName="position"
+                />
+                <div
+                  *ngIf="parseService.submitting &&
+                    userForm.get('position')!.invalid &&
+                    userForm.get('position')!.touched
+                  "
+                  class="text-danger"
+                >
+                  Position is required.
+                </div>
+              </div>
+
+              <div class="form-group mb-3 col-lg-6">
+                <label class="form-label">Password</label>
+                <input
+                  type="text"
+                  [(ngModel)]="userData.password"
+                  class="form-control"
+                  formControlName="password"
+                />
+                <div
+                  *ngIf="parseService.submitting &&
+                    userForm.get('password')!.invalid &&
+                    userForm.get('password')!.touched
+                  "
+                  class="text-danger"
+                >
+                  Password is required.
+                </div>
+              </div>
+
+              <div class="form-group mb-3 col-lg-6">
+                <label class="form-label">User Type</label>
+                <select
+                  type="text"
+                  [(ngModel)]="userData.userType"
+                  class="form-select"
+                  formControlName="userType"
+                >
+                <option value="" disabled>Select</option>
+                <option value="public">Public</option>
+                <option value="broker">Broker</option>
+                <option value="agent">Agent</option>
+                <option value="business-admin">Business Admin</option>
+              
+              </select>
+                <div
+                  *ngIf="parseService.submitting &&
+                    userForm.get('userType')!.invalid &&
+                    userForm.get('userType')!.touched
+                  "
+                  class="text-danger"
+                >
+                User Type is required.
+                </div>
+              </div>
+
+              
+            </div>
+          </div>
+  
+          <div class="modal-footer">
+            <a
+              href="#"
+              id="NewUserCancelButton"
+              class="btn btn-link link-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </a>
+            <button
+              [disabled]="parseService.saving"
+              type="submit"
+              class="btn btn-primary ms-auto"
+            >
+              {{ parseService.saving ? "Saving..." : "Save" }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal" id="modal-edit-user" tabindex="-1">
+    <form (ngSubmit)="updateUser()" [formGroup]="edituserForm">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit User</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="form-group mb-3 col-lg-6">
+                <label class="form-label">User Name</label>
+                <input type="text" class="form-control" [(ngModel)]="editUserData.name" formControlName="name" />
+                <div
+                  *ngIf="parseService.submitting &&
+                    edituserForm.get('name')!.invalid && edituserForm.get('name')!.touched
+                  "
+                  class="text-danger"
+                >
+                  Name is required.
+                </div>
+              </div>
+              <div class="form-group mb-3 col-lg-6">
+                <label class="form-label">User Email</label>
+                <input
+                  type="email"
+                  [(ngModel)]="editUserData.userEmail"
+                  class="form-control"
+                  formControlName="userEmail"
+                />
+                <div
+                  *ngIf="parseService.submitting &&
+                    edituserForm.get('userEmail')!.invalid && edituserForm.get('userEmail')!.touched
+                  "
+                  class="text-danger"
+                >
+                  Valid email is required.
+                </div>
+              </div>
+              <!-- <div class="form-group mb-3 col-lg-6">
+                <label class="form-label">Phone Number</label>
+                <input type="text" class="form-control" [(ngModel)]="userData.phone" formControlName="phone" />
+                <div
+                  *ngIf="
+                    userForm.get('phone')!.invalid && userForm.get('phone')!.touched
+                  "
+                  class="text-danger"
+                >
+                  Phone number is required.
+                </div>
+              </div> -->
+              <div class="form-group mb-3 col-lg-6">
+                <label class="form-label">Position</label>
+                <input
+                  type="text"
+                  [(ngModel)]="editUserData.position"
+                  class="form-control"
+                  formControlName="position"
+                />
+                <div
+                  *ngIf="parseService.submitting &&
+                    edituserForm.get('position')!.invalid &&
+                    edituserForm.get('position')!.touched
+                  "
+                  class="text-danger"
+                >
+                  Position is required.
+                </div>
+              </div>
+
+              <div class="form-group mb-3 col-lg-6">
+                <label class="form-label">Password</label>
+                <input
+                  type="text"
+                  [(ngModel)]="editUserData.password"
+                  class="form-control"
+                  formControlName="password"
+                />
+                <div
+                  *ngIf="parseService.submitting &&
+                    edituserForm.get('password')!.invalid &&
+                    edituserForm.get('password')!.touched
+                  "
+                  class="text-danger"
+                >
+                  Password is required.
+                </div>
+              </div>
+
+              <div class="form-group mb-3 col-lg-6">
+                <label class="form-label">User Type</label>
+                <select
+                  type="text"
+                  [(ngModel)]="editUserData.userType"
+                  class="form-select"
+                  formControlName="userType"
+                >
+                <option value="" disabled>Select</option>
+                <option value="public">Public</option>
+                <option value="broker">Broker</option>
+                <option value="agent">Agent</option>
+                <option value="business-admin">Business Admin</option>
+              
+              </select>
+                <div
+                  *ngIf="parseService.submitting &&
+                    edituserForm.get('userType')!.invalid &&
+                    edituserForm.get('userType')!.touched
+                  "
+                  class="text-danger"
+                >
+                User Type is required.
+                </div>
+              </div>
+
+              
+            </div>
+          </div>
+  
+          <div class="modal-footer">
+            <a
+              href="#"
+              id="EditUserCancelButton"
+              class="btn btn-link link-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </a>
+            <button
+              [disabled]="parseService.saving"
+              type="submit"
+              class="btn btn-primary ms-auto"
+            >
+              {{ parseService.saving ? "Saving..." : "Save" }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
