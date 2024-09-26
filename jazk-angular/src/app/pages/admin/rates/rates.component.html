@@ -1,0 +1,359 @@
+<!-- Hero Section - Home Page -->
+<app-header></app-header>
+<div class="page-wrapper">
+  <div class="mb-3" *ngIf="
+      parseService.fetching || parseService.saving || parseService.deleting
+    ">
+    <div class="progress">
+      <div class="progress-bar progress-bar-indeterminate bg-green"></div>
+    </div>
+  </div>
+
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <!-- Page pre-title -->
+          <div class="page-pretitle">List</div>
+          <h2 class="page-title">Rates</h2>
+        </div>
+        <!-- Page title actions -->
+        <div class="col-auto ms-auto d-print-none">
+          <div class="btn-list">
+            <a data-bs-toggle="modal" data-bs-target="#modal-new-supplier"
+              class="btn btn-primary d-none d-sm-inline-block">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M12 5l0 14"></path>
+                <path d="M5 12l14 0"></path>
+              </svg>
+              New Rate
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="container-xl">
+      <div class="">
+        <div class="row justify-content-center">
+          <div class="col-3">
+            <app-side-menu></app-side-menu>
+          </div>
+          <div class="col-lg-9">
+            <div class="container">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="">
+                      <table class="table table-vcenter card-table">
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Product</th>
+                            <th>Rate</th>
+                            <th>Intermediary</th>
+                            <!-- <th>Address</th> -->
+                            <th class="w-1"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of list; let i=index">
+                            <td>{{ item.get("name") }}</td>
+                            <td class="text-secondary">
+                              {{ item.get("coverType") }}
+                            </td>
+                            <td class="text-secondary">
+                                {{ item.get("rate") }}
+                              </td>
+                            
+                            <td class="text-secondary">
+                              {{ item.get("intermediary") }}
+                            </td>
+                            <td class="text-end">
+                              <span class="dropdown">
+                                <button class="btn dropdown-toggle align-text-top" data-bs-boundary="viewport"
+                                  data-bs-toggle="dropdown">
+                                  Actions
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                  <a (click)="setItemToEdit(item, i)" data-bs-toggle="modal" data-bs-target="#modal-edit-supplier"
+                                    class="dropdown-item text-orange">
+                                    Edit
+                                  </a>
+                                  <a (click)="deleteItem(item)" class="dropdown-item text-red">
+                                    Delete
+                                  </a>
+                                </div>
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <div class="card card-md" *ngIf="list?.length == 0">
+                        <div class="card-body">
+                          <p class="text-secondary mb-4">Nothing found</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal-new-supplier" tabindex="-1">
+  <form (ngSubmit)="submitForm()" [formGroup]="myForm">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">New Rate</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-control" [(ngModel)]="data.name" formControlName="name" />
+              <div *ngIf="
+                  this.parseService.submitting &&
+                  myForm.get('name')!.invalid &&
+                  myForm.get('name')!.touched
+                " class="text-danger">
+                Name is required.
+              </div>
+            </div>
+            
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">Phone Number</label>
+              <select
+              class="form-select"
+              id="coverType"
+              formControlName="coverType"
+            >
+              <option value="">Select</option>
+              <option [value]="s" *ngFor="let s of coverTypes">
+                {{ s }}
+              </option>
+            </select>
+              <div *ngIf="
+                  this.parseService.submitting &&
+                  myForm.get('coverType')!.invalid &&
+                  myForm.get('coverType')!.touched
+                " class="text-danger">
+                Cover Type is required.
+              </div>
+            </div>
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">Intermediary</label>
+              <select
+              class="form-select"
+              id="intermediary"
+              formControlName="intermediary"
+            >
+              <option value="">Select</option>
+              <option [value]="d" *ngFor="let d of users">
+                {{ d }}
+              </option>
+            </select>
+              <div *ngIf="
+                  this.parseService.submitting &&
+                  myForm.get('intermediary')!.invalid &&
+                  myForm.get('intermediary')!.touched
+                " class="text-danger">
+                Intermediary is required.
+              </div>
+            </div>
+
+
+            
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">Rate</label>
+              <input type="text" [(ngModel)]="data.rate" class="form-control" formControlName="premiaCode" />
+              <div *ngIf="
+                  this.parseService.submitting &&
+                  myForm.get('rate')!.invalid &&
+                  myForm.get('rate')!.touched
+                " class="text-danger">
+                Rate is required.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <a href="#" id="cancelButton" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+            Cancel
+          </a>
+          <button [disabled]="parseService.saving" type="submit" class="btn btn-primary ms-auto">
+            {{ parseService.saving ? "Saving..." : "Save" }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal" id="modal-edit-supplier" tabindex="-1">
+  <form [formGroup]="editForm" (ngSubmit)="submitEdits()">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Update Supplier</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">Supplier Name</label>
+              <input  type="text" [(ngModel)]="editData.name" class="form-control" formControlName="name" />
+              <div *ngIf="
+                  this.parseService.submitting &&
+                  editForm.get('name')!.invalid &&
+                  editForm.get('name')!.touched
+                " class="text-danger">
+                Name is required.
+              </div>
+            </div>
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">Contact Email</label>
+              <input type="email" [(ngModel)]="editData.email" class="form-control" formControlName="email" />
+              <div *ngIf="
+                  this.parseService.submitting &&
+                  editForm.get('email')!.invalid &&
+                  editForm.get('email')!.touched
+                " class="text-danger">
+                Valid email is required.
+              </div>
+            </div>
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">Phone Number</label>
+              <input type="text" [(ngModel)]="editData.phone" class="form-control" formControlName="phone" />
+              <div *ngIf="
+                  this.parseService.submitting &&
+                  myForm.get('phone')!.invalid &&
+                  myForm.get('phone')!.touched
+                " class="text-danger">
+                Phone number is required.
+              </div>
+            </div>
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">Address</label>
+              <input type="text" [(ngModel)]="editData.address" class="form-control" formControlName="address" />
+              <div *ngIf="
+                  this.parseService.submitting &&
+                  editForm.get('address')!.invalid &&
+                  editForm.get('address')!.touched
+                " class="text-danger">
+                Address is required.
+              </div>
+            </div>
+
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">Country</label>
+              <input type="text" [(ngModel)]="editData.country" class="form-control" formControlName="country" />
+              <div *ngIf="
+                  this.parseService.submitting &&
+                  editForm.get('country')!.invalid &&
+                  editForm.get('country')!.touched
+                " class="text-danger">
+                Country is required.
+              </div>
+            </div>
+
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">City</label>
+              <input type="text" [(ngModel)]="editData.city" class="form-control" formControlName="city" />
+              <div *ngIf="
+                  this.parseService.submitting &&
+                  editForm.get('city')!.invalid &&
+                  editForm.get('city')!.touched
+                " class="text-danger">
+                City is required.
+              </div>
+            </div>
+
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">Premia 11 Code</label>
+              <input type="text" [(ngModel)]="editData.premiaCode" class="form-control" formControlName="premiaCode" />
+              <div *ngIf="
+                  this.parseService.submitting &&
+                  editForm.get('premiaCode')!.invalid &&
+                  editForm.get('premiaCode')!.touched
+                " class="text-danger">
+                Premia Code is required.
+              </div>
+            </div>
+
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">TIN</label>
+              <input type="text" [(ngModel)]="editData.tin" class="form-control" formControlName="tin" />
+              <div *ngIf="
+                  this.parseService.submitting &&
+                  editForm.get('tin')!.invalid &&
+                  editForm.get('tin')!.touched
+                " class="text-danger">
+                TIN is required.
+              </div>
+            </div>
+
+            <div class="form-group mb-3 col-lg-6">
+              <div>
+                <label class="form-check form-check-inline">
+                  <input
+                    [(ngModel)]="editData.status"
+                    formControlName="status"
+                    class="form-check-input"
+                    type="radio"
+                    name="status"
+                    value="Enabled"
+                  />
+                  <span class="form-check-label">Enabled</span>
+                </label>
+                <label class="form-check form-check-inline">
+                  <input
+                    [(ngModel)]="editData.status"
+                    formControlName="status"
+                    class="form-check-input"
+                    type="radio"
+                    name="status"
+                    value="Disabled"
+                  />
+                  <span class="form-check-label">Disabled</span>
+                </label>
+
+              </div>
+              <div *ngIf="
+                  this.parseService.submitting &&
+                  editForm.get('status')!.invalid &&
+                  editForm.get('status')!.touched
+                " class="text-danger">
+                Status is required.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <a href="#" id="scancelButton" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+            Cancel
+          </a>
+          <button [disabled]="parseService.saving" type="submit" class="btn btn-primary ms-auto">
+            {{ parseService.saving ? "Updating..." : "Update" }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

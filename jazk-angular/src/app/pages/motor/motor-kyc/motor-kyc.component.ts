@@ -321,10 +321,7 @@ export class MotorKycComponent {
   //   'CAPITAL ALLIANCE VALUERS AND ASSESSORS',
   //   'LINKS VALUERS AND ASSESSORS',
   // ];
-  valuers: any = [
-    'REGENT VALUERS',
-    'SOLVIT LIMITED'
-  ];
+  valuers: any = ['REGENT VALUERS', 'SOLVIT LIMITED'];
   searching: any = {};
   coverDates: any;
 
@@ -370,6 +367,15 @@ export class MotorKycComponent {
   }
 
   async onSearchNIN(event: any) {
+    let value: string = event.target.value;
+    if (value.length == 8) {
+      let res = await Parse.Cloud.run('iprs_request', {
+        id_number: value
+      });
+      console.log('res', res)
+    }
+    return
+
     let d = {
       nationalID: '12345678',
       firstName: 'John',
@@ -541,9 +547,8 @@ export class MotorKycComponent {
   }
 
   async checkDoubleInsurance() {
-    
     this.searching.doubleInsurance = true;
-    
+
     let params = {
       endpoint: 'Integration/ValidateDoubleInsurance',
       body: {
@@ -584,7 +589,7 @@ export class MotorKycComponent {
         DMVICRefNo: null,
       };
 
-      if(!res){
+      if (!res) {
         this.toastr.error(
           'Unable to check for double insurance',
           'Network Error'
@@ -631,7 +636,8 @@ export class MotorKycComponent {
   }
 
   buyNow() {
-    this.vehicle.registrationNumber = this.motorService.motorQuotation.vehicleRegNumber
+    this.vehicle.registrationNumber =
+      this.motorService.motorQuotation.vehicleRegNumber;
     if (this.vehicle.hasDoubleInsurance) {
       this.toastr.error(
         'Unable to proceed',

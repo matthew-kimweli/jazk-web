@@ -3,6 +3,7 @@ import { Injectable } from "@nestjs/common";
 const nodemailer = require("nodemailer");
 // let unirest = require("unirest");
 const axios = require("axios");
+
 import { Utils } from "./utils";
 const puppeteer = require("puppeteer");
 
@@ -70,10 +71,7 @@ export class AppService {
         //   "wss://143.198.68.104:49805",
         //   ignoreHTTPSErrors: true
         headless: true,
-        args: [
-          "--no-sandbox",
-          "--disable-setuid-sandbox",
-        ],
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
       });
 
       // const browser = await puppeteer.launch({
@@ -375,6 +373,41 @@ export class AppService {
       } catch (error) {
         console.error("Request failed:", error);
         return String(error).toString();
+      }
+    });
+
+    Parse.Cloud.define("iprs_request", async (request) => {
+      let params = request.params;
+
+      let id_number = params.id_number;
+
+      // Define your proxy configuration
+      const proxyConfig = {
+        host: "192.168.52.47", // e.g., '127.0.0.1'
+        port: 3128, // e.g., 8080
+        auth: {
+          username: "christinkiambi", // Optional, if your proxy requires authentication
+          password: "Abc@jick93!", // Optional
+        },
+      };
+
+      // Define the data you want to send
+      const data = {
+        id_number: id_number,
+      };
+
+      // Define the endpoint you want to POST to
+      // const endpoint = "http://tempuri.org/IServiceIPRS/GetDataByIdCard";
+      const endpoint = "http://10.1.1.5:9003/IServiceIPRS/GetDataByIdCard";
+      
+      try {
+        const response = axios.post(endpoint, data, {
+          proxy: proxyConfig,
+        });
+
+        console.log("Response:", response.data);
+      } catch (error) {
+        console.error(error);
       }
     });
   }

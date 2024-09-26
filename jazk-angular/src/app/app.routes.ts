@@ -23,6 +23,8 @@ import { PolicyScheduleComponent } from './pages/portal-docs/policy-schedule/pol
 import { DebitNoteComponent } from './pages/portal-docs/debit-note/debit-note.component';
 import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.component';
 import { ListUsersComponent } from './pages/admin/users/list-users/list-users.component';
+import { BanksComponent } from './pages/admin/banks/banks.component';
+import { RatesComponent } from './pages/admin/rates/rates.component';
 
 export const routes: Routes = [
   {
@@ -147,6 +149,16 @@ export const routes: Routes = [
   {
     path: 'users',
     component: ListUsersComponent
+  },
+
+  {
+    path: 'banks',
+    component: BanksComponent
+  },
+
+  {
+    path: 'rates',
+    component: RatesComponent
   },
 
   
