@@ -367,14 +367,14 @@ export class MotorKycComponent {
   }
 
   async onSearchNIN(event: any) {
-    let value: string = event.target.value;
-    if (value.length == 8) {
-      let res = await Parse.Cloud.run('iprs_request', {
-        id_number: value
-      });
-      console.log('res', res)
-    }
-    return
+    // let value: string = event.target.value;
+    // if (value.length == 8) {
+    //   let res = await Parse.Cloud.run('iprs_request', {
+    //     id_number: value
+    //   });
+    //   console.log('res', res)
+    // }
+    // return
 
     let d = {
       nationalID: '12345678',

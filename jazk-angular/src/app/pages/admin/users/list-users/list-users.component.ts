@@ -141,7 +141,7 @@ export class ListUsersComponent {
 
   async fetch() {
     let query = new Parse.Query(Parse.User);
-    query.exists("position");
+    // query.exists("position");
     this.list = await this.parseService.find(query);
   }
 

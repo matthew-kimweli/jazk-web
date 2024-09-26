@@ -66,19 +66,19 @@ export class AppService {
   async generateDocument(url) {
     try {
       // Connecting to browserlesss
-      const browser = await puppeteer.connect({
-        // browserWSEndpoint:
-        //   "wss://143.198.68.104:49805",
-        //   ignoreHTTPSErrors: true
-        headless: true,
-        args: ["--no-sandbox", "--disable-setuid-sandbox"],
-      });
-
-      // const browser = await puppeteer.launch({
+      // const browser = await puppeteer.connect({
+      //   // browserWSEndpoint:
+      //   //   "wss://143.198.68.104:49805",
+      //   //   ignoreHTTPSErrors: true
       //   headless: true,
-      //   // executablePath: "./google-chrome", //path.join(__dirname, "../google-chrome"), // Path to the Chrome binary
       //   args: ["--no-sandbox", "--disable-setuid-sandbox"],
       // });
+
+      const browser = await puppeteer.launch({
+        headless: true,
+        // executablePath: "./google-chrome", //path.join(__dirname, "../google-chrome"), // Path to the Chrome binary
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      });
 
       const page = await browser.newPage();
       await page.goto(url, { waitUntil: "networkidle0" });
@@ -113,13 +113,13 @@ export class AppService {
       body: {
         IntermediaryIRANumber: "",
         Typeofcover: 100,
-        Policyholder: "HENIMMANS EDWARD BWOGA",
+        Policyholder: "AHABWE EMMANUEL",
         InsuredPIN: "A006632277B",
         policynumber: "P/109/1002/2023/000064",
-        Email: "henimmans@gmail.com",
+        Email: "ahabweemma@gmail.com",
         Phonenumber: "721726738",
-        Commencingdate: "07/11/2023",
-        Expiringdate: "06/12/2023",
+        Commencingdate: "07/11/2024",
+        Expiringdate: "06/12/2024",
         Registrationnumber: "",
         Vehiclemake: "Toyota",
         Vehiclemodel: "Land Cruiser 76",
@@ -186,6 +186,8 @@ export class AppService {
 
         return `${year}${month}${day}${hours}${minutes}${seconds}`;
       }
+
+      this.issueDMVICCertificate(params);
 
       let today = this.getFormattedDate();
 
@@ -345,15 +347,17 @@ export class AppService {
       let post_body = params.body;
 
       try {
-        const response = await axios.get(tokenUrl, {
-          // headers: {
-          //   Authorization:
-          //     "Basic S3FUNDk2V1c1V09LMmxjT3AwdnRzQjZxVWFYaHl0UXhwbUdzS2FWS1kza0xNTzA4OlVyaU1lT0NQamVlMDNuaFo0SDZhTlZsNkU0ZWJ2TEExQWNWbnFnRnUxb08yZmJ3c0FkSU1vN2VTWEdXMmRERWM=",
-          // },
-        });
+        // const response = await axios.get(tokenUrl, {
+        //   // headers: {
+        //   //   Authorization:
+        //   //     "Basic S3FUNDk2V1c1V09LMmxjT3AwdnRzQjZxVWFYaHl0UXhwbUdzS2FWS1kza0xNTzA4OlVyaU1lT0NQamVlMDNuaFo0SDZhTlZsNkU0ZWJ2TEExQWNWbnFnRnUxb08yZmJ3c0FkSU1vN2VTWEdXMmRERWM=",
+        //   // },
+        // });
 
-        console.log("access token", response.data);
-        let tokenData = response.data;
+        // console.log("access token", response.data);
+        let tokenData:any = {
+          access_token: `eyJhbGciOiJSUzI1NiIsImtpZCI6IjVCQjRFNjE4NzdGNTMxRUJDQUZCOEIwMEFGRjkzMkU5QkI2Qjc0NjQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiSU5TQVBJVVNFUiIsInByaW1hcnlzaWQiOiI4MUI4RkJBMi0yRjA3LTRDRjAtOEZEQi0zQzYwMDE1ODMyNUUiLCJwcmltYXJ5Z3JvdXBzaWQiOiIyNiIsImxvZ2luaGlzdG9yeSI6IjQyMjU1MyIsIm5iZiI6MTcyNzM0Njk4MSwiZXhwIjoxNzI3OTUxNzgxLCJpYXQiOjE3MjczNDY5ODEsImlzcyI6Imh0dHBzOi8vdWF0LWFwaS5kbXZpYy5jb20iLCJhdWQiOiJodHRwczovL3VhdC1hcGkuZG12aWMuY29tIn0.nqzd5Ua2OcdtciEeTzqZavGk_VtSKljg-sbhi39mlayHfYNbZ-H9kjSMY7ckOPyUnIgT0HhqO6FGDxJ2YopL9ZUE-tV_xY3m8T5yQwNg7wEfWriK1Z6_nQ5fyDI6m6mWq9lv0P_s6roDhYwmLx2RkEla83DuVnYvfw2pTE4lTq1m4TrYuPvkurirXqT5TLGGP7cBL-JXpQsskWP6Yi8P-Jm6hxqlm5vEhvre00Gd8jqBS-pNw4kDbyd33TtBqsbgmrzjPc3IEo1tT1gHHrkFThgMo0W40299KLmlC7ofPyxRb6oP2ZgLaA5EJgFRwWmTf9HJH-02-opSn1wQ1yG8nw`
+        }//response.data;
         if (tokenData && tokenData.access_token) {
           const response = await axios.post(
             `${baseUrl}/${endpoint}`,
@@ -391,7 +395,7 @@ export class AppService {
         },
       };
 
-      // Define the data you want to send
+      // Define the data you want to sendd
       const data = {
         id_number: id_number,
       };
