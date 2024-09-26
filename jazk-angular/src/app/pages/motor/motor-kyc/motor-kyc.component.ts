@@ -367,76 +367,41 @@ export class MotorKycComponent {
   }
 
   async onSearchNIN(event: any) {
-    // let value: string = event.target.value;
-    // if (value.length == 8) {
-    //   let res = await Parse.Cloud.run('iprs_request', {
-    //     id_number: value
-    //   });
-    //   console.log('res', res)
-    // }
-    // return
-
-    let d = {
-      nationalID: '12345678',
-      firstName: 'John',
-      middleName: 'Mwai',
-      lastName: 'Doe',
-      dateOfBirth: '1990-05-10',
-      gender: 'Male',
-      citizenship: 'Kenyan',
-      placeOfBirth: {
-        county: 'Nairobi',
-        subCounty: 'Westlands',
-        ward: 'Parklands',
-      },
-      idIssueDate: '2008-11-25',
-      maritalStatus: 'Single',
-      photo: 'https://iprs.go.ke/photos/12345678.jpg',
-      fingerprintData: 'base64encodedfingerprintdata',
-      contacts: { phone: '+254712345678', email: 'john.doe@example.com' },
-      address: {
-        postalAddress: 'P.O Box 12345-00100',
-        county: 'Nairobi',
-        subCounty: 'Westlands',
-        ward: 'Parklands',
-      },
-      nextOfKin: {
-        name: 'Jane Doe',
-        relationship: 'Sister',
-        phone: '+254711223344',
-      },
-    };
+    let d = {"nationalID":"12345678","firstName":"John","middleName":"Mwai","lastName":"Doe","dateOfBirth":"1990-05-10","gender":"Male","citizenship":"Kenyan","placeOfBirth":{"county":"Nairobi","subCounty":"Westlands","ward":"Parklands"},"idIssueDate":"2008-11-25","maritalStatus":"Single","photo":"https://iprs.go.ke/photos/12345678.jpg","fingerprintData":"base64encodedfingerprintdata","contacts":{"phone":"+254712345678","email":"john.doe@example.com"},"address":{"postalAddress":"P.O Box 12345-00100","county":"Nairobi","subCounty":"Westlands","ward":"Parklands"},"nextOfKin":{"name":"Jane Doe","relationship":"Sister","phone":"+254711223344"}}
     try {
-      this.searching.nin = true;
-      let value: string = event.target.value;
-      if (value.length == 8) {
-        if (isNaN(Number(value))) {
-          this.toastr.error(
-            'Please provide a valid NIN. ID should be numbers only'
-          );
-        } else {
-          let query = new Parse.Query('IPRSCache');
-          query.equalTo('id_number', value);
-          let id = await query.first();
-          if (id) {
-            let fullName = `${d.firstName} ${d.lastName}`;
-            this.vehicle.pfname = fullName;
-            this.vehicle.pfnameMasked = this.utilsService.maskString(fullName);
-            this.vehicle.pfname = d.lastName;
-            this.vehicle.pAddress = d.address.postalAddress;
-            this.vehicle.pCity = d.address.county;
-            this.vehicle.pemail = d.contacts.email;
-            this.vehicle.pphone = d.contacts.phone;
-            this.vehicle.dob = d.dateOfBirth;
-            this.vehicle.gender = d.gender;
-            this.vehicle.pphone = String(d.contacts.phone).replace('+254', '');
+      this.searching.nin = true
+    let value:string = event.target.value;
+    if(value.length == 8){
+      if(isNaN(Number(value))){
+        this.toastr.error('Please provide a valid NIN. ID should be numbers only')
+      } else {
+        let query = new Parse.Query('IPRSCache')
+        query.equalTo('id_number', value)
+        let id = await query.first()
+        if(id){
+          
+          this.vehicle.pfname = `${d.firstName} ${d.lastName}`
+          this.vehicle.pfname = d.lastName
+          this.vehicle.pAddress = d.address.postalAddress
+          this.vehicle.pCity = d.address.county
+          this.vehicle.pemail = d.contacts.email
+          this.vehicle.pphone = d.contacts.phone
+          this.vehicle.dob = d.dateOfBirth
+          this.vehicle.gender = d.gender
+          if (this.vehicle.kycType == 'company') {
+            this.vehicle.companyRegNo = id
+          } else {
+            this.vehicle.nin = id
           }
+          this.vehicle.pphone = String(d.contacts.phone).replace('+254', '')
+
         }
       }
+    }
 
-      this.searching.nin = false;
+    this.searching.nin = false
     } catch (error) {
-      console.log(error);
+        console.log(error)
     }
   }
 
@@ -469,6 +434,13 @@ export class MotorKycComponent {
         this.vehicle.pTin = kyc.tin;
         this.vehicle.pCity = kyc.city;
         this.vehicle.pAddress = kyc.address;
+        this.vehicle.gender = kyc.gender;
+        this.vehicle.kycType = kyc.kycType;
+        if (this.vehicle.kycType == 'company') {
+          this.vehicle.companyRegNo = kyc.companyRegNo;
+        } else {
+          this.vehicle.nin = kyc.nin;
+        }
       }
     }
 
@@ -692,7 +664,7 @@ export class MotorKycComponent {
     }
 
     if (!this.vehicle.pTin) {
-      this.toastr.error('TIN is required');
+      this.toastr.error('KRA PIN is required');
       return;
     }
 

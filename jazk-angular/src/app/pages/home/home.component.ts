@@ -49,7 +49,7 @@ export class HomeComponent {
     private toastr: ToastrService,
     public dataService: DataService,
     public parseService: ParseService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.fetchSalesCount();
@@ -59,7 +59,7 @@ export class HomeComponent {
     this.fetchSales();
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void { }
 
   async fetchQuoteCount() {
     try {
@@ -174,7 +174,7 @@ export class HomeComponent {
           } else {
             template[key] = '';
           }
-          
+
         }
       }
     }
@@ -188,13 +188,20 @@ export class HomeComponent {
     // let updatedQuotationObj: any = {...quotationObj}
 
     // Update personal details
+    updatedQuotationObj['quot_ref'] = newData.quotation.objectId || '';
+    updatedQuotationObj['quot_paymt_ref'] = newData.objectId || '';
     updatedQuotationObj['quot_assr_name'] =
       newData.insurance_data.kyc.name || '';
+    updatedQuotationObj['quot_assr_nic'] = newData.insurance_data.kyc.nin || '';
+    updatedQuotationObj['quot_paymt_date'] = newData.createdAt || '';
     updatedQuotationObj['quot_assr_pin'] = newData.insurance_data.kyc.tin || '';
     updatedQuotationObj['quot_assr_phone'] =
       newData.insurance_data.kyc.phone || '';
     updatedQuotationObj['quot_assr_email'] =
       newData.insurance_data.kyc.email || '';
+    updatedQuotationObj['quot_assr_gender'] = newData.insurance_data.kyc.gender || '';
+    updatedQuotationObj['quot_assr_dob'] = newData.insurance_data.kyc.dob || '';
+    updatedQuotationObj['quot_assr_flexi']['quot_assr_addr']['pol_addr_01'] = newData.insurance_data.kyc.address;
 
     // Access proposals array
     let proposals = updatedQuotationObj['proposals'];
@@ -205,12 +212,23 @@ export class HomeComponent {
 
       // Safeguard to ensure proposal is valid
       if (proposal) {
+        proposal['prop_sr_no'] = 1
+        proposal['prop_paymt_ref'] = newData.objectId || '';
+        proposal['prop_paymt_date'] = newData.createdAt || '';
+        proposal['pol_quot_sys_id'] = 0;
+        proposal['pol_comp_code'] = "001";
+        proposal['pol_divn_code'] = "101";
+        proposal['pol_dept_code'] = "10";
+        proposal['pol_prod_code'] = "1002";
+        proposal['pol_type'] = "1002";
+        proposal['pol_cust_code'] = "K9999999";
+        proposal['pol_assr_code'] = "K9999999";
         // Update proposal dates
         proposal['pol_fm_dt'] = newData.insurance_data.coverStartDate || '';
         proposal['pol_to_dt'] = newData.insurance_data.coverEndDate || '';
 
         // Update policy info
-        proposal['pol_quot_no'] = newData.quotation.objectId || '';
+        proposal['pol_quot_no'] = newData.quotation.objectId + '-' + 1 || '';
         proposal['pol_dflt_si_curr_code'] = 'KES'; // Assuming currency remains the same
         proposal['pol_prem_curr_code'] = 'KES';
 

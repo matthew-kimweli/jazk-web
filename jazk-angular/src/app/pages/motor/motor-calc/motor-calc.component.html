@@ -557,18 +557,10 @@
                   }}</span
                 >
               </p>
-              <p
-                class="row"
-                *ngIf="motorService.motorQuotation.aaRoadRescueBenefit != 0"
-              >
-                <span class="m-0 p-0 col-md-7 col-sm-6 col-6"
-                  ><strong>AA Road Rescue:</strong></span
-                >
-                <span class="m-0 p-0 col-md-5 col-sm-6 col-6 fw-bold"
-                  >Kshs.{{
-                    motorService.motorQuotation.aaRoadRescueBenefit | number
-                  }}</span
-                >
+              <p class="row" *ngIf="motorService.motorQuotation.aaRoadRescueBenefit != 0">
+                <span class="m-0 p-0 col-md-7 col-sm-6 col-6"><strong>Road Rescue:</strong></span>
+                <span class="m-0 p-0 col-md-5 col-sm-6 col-6 fw-bold">Kshs.{{
+                  motorService.motorQuotation.aaRoadRescueBenefit | number }}</span>
               </p>
               <p class="row">
                 <span class="m-0 p-0 col-md-7 col-sm-6 col-6"
@@ -601,6 +593,11 @@
                   ><strong>JAZ-Assist Included</strong></span
                 >
               </p>
+              <!-- <button type="button" class="btn btn-primary" data-bs-trigger="hover" data-bs-toggle="popover"
+                title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">
+                Hover to toggle popover
+              </button> -->
+
             </div>
           </div>
         </div>
