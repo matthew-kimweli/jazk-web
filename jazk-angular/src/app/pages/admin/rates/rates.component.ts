@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from '../../_components/header/header.component';
 import { SideMenuComponent } from '../../_components/side-menu/side-menu.component';
+import * as Parse from 'parse';
 
 @Component({
   selector: 'app-rates',
@@ -55,7 +56,7 @@ export class RatesComponent {
   ngOnInit() {
     this.myForm = this.fb.group({
       name: [this.data.name, Validators.required],
-      coverType: [this.data.coverType, [Validators.required, Validators.email]],
+      coverType: [this.data.coverType, [Validators.required]],
       intermediary: [this.data.intermediary, Validators.required],
       rate: [this.data.rate, Validators.required],
      
@@ -66,7 +67,7 @@ export class RatesComponent {
 
     this.editForm = this.fb.group({
       name: [this.editData.name, Validators.required],
-      coverType: [this.editData.coverType, [Validators.required, Validators.email]],
+      coverType: [this.editData.coverType, [Validators.required]],
       intermediary: [this.editData.intermediary, Validators.required],
       rate: [this.editData.rate, Validators.required],
     });
@@ -81,7 +82,7 @@ export class RatesComponent {
   async fetchUsers() {
     let query = new Parse.Query(Parse.User);
     this.users = await this.parseService.find(query);
-    console.log('list', this.list)
+    console.log('user', this.users)
   }
 
 
@@ -106,6 +107,15 @@ export class RatesComponent {
       e = new DB();
     }
 
+    let user = this.users?.find(u=>{
+      if(u.id == this.data.intermediary){
+        return true;
+      }
+      return false
+    })
+
+    this.data.user = user;
+
     let saved = await this.parseService.save(e, this.data);
     if (saved) {
       this.toastr.success("Rate has been submitted");
@@ -120,6 +130,7 @@ export class RatesComponent {
     this.editData.name = item.get('name')
     this.editData.coverType = item.get("coverType")
     this.editData.intermediary = item.get("intermediary")
+    this.editData.rate = item.get("rate")
     this.selectedObject = this.list?.at(index)
   }
 
@@ -134,6 +145,15 @@ export class RatesComponent {
   }
 
   async updateItem() {
+    
+    let user = this.users?.find(u=>{
+      if(u.id == this.editForm.value.intermediary){
+        return true;
+      }
+      return false
+    })
+
+    this.editForm.value.user = user;
     let saved = await this.parseService.save(this.selectedObject, this.editForm.value);
     if (saved) {
       this.toastr.success("rate has been updated");

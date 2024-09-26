@@ -163,6 +163,7 @@ export class SideMenuComponent implements OnInit {
     ];
 
     this.fetchInbox();
+    console.log('menu', this.list)
 
     // setTimeout(() => {
     //   document.getElementById('product-heading')?.click();

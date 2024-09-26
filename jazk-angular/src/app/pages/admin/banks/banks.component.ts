@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from '../../_components/header/header.component';
 import { SideMenuComponent } from '../../_components/side-menu/side-menu.component';
+import * as Parse from 'parse';
 
 @Component({
   selector: 'app-banks',

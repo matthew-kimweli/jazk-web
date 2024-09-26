@@ -61,7 +61,7 @@
                           <tr *ngFor="let item of list; let i=index">
                             <td>{{ item.get("name") }}</td>
                             <td class="text-secondary">
-                              {{ item.get("premiaCode") }}
+                              {{ item.get("email") }}
                             </td>
                             
                             <td class="text-end">
@@ -107,13 +107,13 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">New Supplier</h5>
+          <h5 class="modal-title">New Bank</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="form-group mb-3 col-lg-6">
-              <label class="form-label">Supplier Name</label>
+              <label class="form-label">Bank Name</label>
               <input type="text" class="form-control" [(ngModel)]="data.name" formControlName="name" />
               <div *ngIf="
                   this.parseService.submitting &&
@@ -124,7 +124,7 @@
               </div>
             </div>
             <div class="form-group mb-3 col-lg-6">
-              <label class="form-label">Contact Email</label>
+              <label class="form-label">Bank Email</label>
               <input type="email" [(ngModel)]="data.email" class="form-control" formControlName="email" />
               <div *ngIf="
                   this.parseService.submitting &&
@@ -134,112 +134,7 @@
                 Valid email is required.
               </div>
             </div>
-            <div class="form-group mb-3 col-lg-6">
-              <label class="form-label">Phone Number</label>
-              <input type="text" class="form-control" [(ngModel)]="data.phone" formControlName="phone" />
-              <div *ngIf="
-                  this.parseService.submitting &&
-                  myForm.get('phone')!.invalid &&
-                  myForm.get('phone')!.touched
-                " class="text-danger">
-                Phone number is required.
-              </div>
-            </div>
-            <div class="form-group mb-3 col-lg-6">
-              <label class="form-label">Address</label>
-              <input type="text" [(ngModel)]="data.address" class="form-control" formControlName="address" />
-              <div *ngIf="
-                  this.parseService.submitting &&
-                  myForm.get('address')!.invalid &&
-                  myForm.get('address')!.touched
-                " class="text-danger">
-                Address is required.
-              </div>
-            </div>
-
-            <div class="form-group mb-3 col-lg-6">
-              <label class="form-label">Country</label>
-              <input type="text" [(ngModel)]="data.country" class="form-control" formControlName="country" />
-              <div *ngIf="
-                  this.parseService.submitting &&
-                  myForm.get('country')!.invalid &&
-                  myForm.get('country')!.touched
-                " class="text-danger">
-                Country is required.
-              </div>
-            </div>
-
-            <div class="form-group mb-3 col-lg-6">
-              <label class="form-label">City</label>
-              <input type="text" [(ngModel)]="data.city" class="form-control" formControlName="city" />
-              <div *ngIf="
-                  this.parseService.submitting &&
-                  myForm.get('city')!.invalid &&
-                  myForm.get('city')!.touched
-                " class="text-danger">
-                City is required.
-              </div>
-            </div>
-
             
-            <div class="form-group mb-3 col-lg-6">
-              <label class="form-label">Premia 11 Code</label>
-              <input type="text" [(ngModel)]="data.premiaCode" class="form-control" formControlName="premiaCode" />
-              <div *ngIf="
-                  this.parseService.submitting &&
-                  myForm.get('premiaCode')!.invalid &&
-                  myForm.get('premiaCode')!.touched
-                " class="text-danger">
-                Premia Code is required.
-              </div>
-            </div>
-
-            <div class="form-group mb-3 col-lg-6">
-              <label class="form-label">TIN</label>
-              <input type="text" [(ngModel)]="data.tin" class="form-control" formControlName="tin" />
-              <div *ngIf="
-                  this.parseService.submitting &&
-                  myForm.get('tin')!.invalid &&
-                  myForm.get('tin')!.touched
-                " class="text-danger">
-                TIN is required.
-              </div>
-            </div>
-
-            <div class="form-group mb-3 col-lg-6">
-              <div>
-                <label class="form-check form-check-inline">
-                  <input
-                    [(ngModel)]="data.status"
-                    formControlName="status"
-                    class="form-check-input"
-                    type="radio"
-                    name="status"
-                    value="Enabled"
-                  />
-                  <span class="form-check-label">Enabled</span>
-                </label>
-                <label class="form-check form-check-inline">
-                  <input
-                    [(ngModel)]="data.status"
-                    formControlName="status"
-                    class="form-check-input"
-                    type="radio"
-                    name="status"
-                    value="Disabled"
-                  />
-                  <span class="form-check-label">Disabled</span>
-                </label>
-
-              </div>
-              <div *ngIf="
-                  this.parseService.submitting &&
-                  myForm.get('status')!.invalid &&
-                  myForm.get('status')!.touched
-                " class="text-danger">
-                Status is required.
-              </div>
-            </div>
           </div>
         </div>
 
@@ -261,13 +156,13 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Update Supplier</h5>
+          <h5 class="modal-title">Update Bank</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="form-group mb-3 col-lg-6">
-              <label class="form-label">Supplier Name</label>
+              <label class="form-label"> Name</label>
               <input  type="text" [(ngModel)]="editData.name" class="form-control" formControlName="name" />
               <div *ngIf="
                   this.parseService.submitting &&
@@ -278,7 +173,7 @@
               </div>
             </div>
             <div class="form-group mb-3 col-lg-6">
-              <label class="form-label">Contact Email</label>
+              <label class="form-label">Bank Email</label>
               <input type="email" [(ngModel)]="editData.email" class="form-control" formControlName="email" />
               <div *ngIf="
                   this.parseService.submitting &&
@@ -288,111 +183,7 @@
                 Valid email is required.
               </div>
             </div>
-            <div class="form-group mb-3 col-lg-6">
-              <label class="form-label">Phone Number</label>
-              <input type="text" [(ngModel)]="editData.phone" class="form-control" formControlName="phone" />
-              <div *ngIf="
-                  this.parseService.submitting &&
-                  myForm.get('phone')!.invalid &&
-                  myForm.get('phone')!.touched
-                " class="text-danger">
-                Phone number is required.
-              </div>
-            </div>
-            <div class="form-group mb-3 col-lg-6">
-              <label class="form-label">Address</label>
-              <input type="text" [(ngModel)]="editData.address" class="form-control" formControlName="address" />
-              <div *ngIf="
-                  this.parseService.submitting &&
-                  editForm.get('address')!.invalid &&
-                  editForm.get('address')!.touched
-                " class="text-danger">
-                Address is required.
-              </div>
-            </div>
-
-            <div class="form-group mb-3 col-lg-6">
-              <label class="form-label">Country</label>
-              <input type="text" [(ngModel)]="editData.country" class="form-control" formControlName="country" />
-              <div *ngIf="
-                  this.parseService.submitting &&
-                  editForm.get('country')!.invalid &&
-                  editForm.get('country')!.touched
-                " class="text-danger">
-                Country is required.
-              </div>
-            </div>
-
-            <div class="form-group mb-3 col-lg-6">
-              <label class="form-label">City</label>
-              <input type="text" [(ngModel)]="editData.city" class="form-control" formControlName="city" />
-              <div *ngIf="
-                  this.parseService.submitting &&
-                  editForm.get('city')!.invalid &&
-                  editForm.get('city')!.touched
-                " class="text-danger">
-                City is required.
-              </div>
-            </div>
-
-            <div class="form-group mb-3 col-lg-6">
-              <label class="form-label">Premia 11 Code</label>
-              <input type="text" [(ngModel)]="editData.premiaCode" class="form-control" formControlName="premiaCode" />
-              <div *ngIf="
-                  this.parseService.submitting &&
-                  editForm.get('premiaCode')!.invalid &&
-                  editForm.get('premiaCode')!.touched
-                " class="text-danger">
-                Premia Code is required.
-              </div>
-            </div>
-
-            <div class="form-group mb-3 col-lg-6">
-              <label class="form-label">TIN</label>
-              <input type="text" [(ngModel)]="editData.tin" class="form-control" formControlName="tin" />
-              <div *ngIf="
-                  this.parseService.submitting &&
-                  editForm.get('tin')!.invalid &&
-                  editForm.get('tin')!.touched
-                " class="text-danger">
-                TIN is required.
-              </div>
-            </div>
-
-            <div class="form-group mb-3 col-lg-6">
-              <div>
-                <label class="form-check form-check-inline">
-                  <input
-                    [(ngModel)]="editData.status"
-                    formControlName="status"
-                    class="form-check-input"
-                    type="radio"
-                    name="status"
-                    value="Enabled"
-                  />
-                  <span class="form-check-label">Enabled</span>
-                </label>
-                <label class="form-check form-check-inline">
-                  <input
-                    [(ngModel)]="editData.status"
-                    formControlName="status"
-                    class="form-check-input"
-                    type="radio"
-                    name="status"
-                    value="Disabled"
-                  />
-                  <span class="form-check-label">Disabled</span>
-                </label>
-
-              </div>
-              <div *ngIf="
-                  this.parseService.submitting &&
-                  editForm.get('status')!.invalid &&
-                  editForm.get('status')!.touched
-                " class="text-danger">
-                Status is required.
-              </div>
-            </div>
+            
 
           </div>
         </div>
