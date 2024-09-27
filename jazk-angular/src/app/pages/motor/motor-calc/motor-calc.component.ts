@@ -483,6 +483,21 @@ export class MotorCalcComponent implements OnInit {
   }
 
   async submit() {
+    // Set Motor Product Type to Comprehensive
+    this.motorService.motorQuotation.motorProductTypeName = 'Comprehensive';
+    this.motorService.motorQuotation.motorProductTypeCode = '01';
+
+    // Set the motor Class Code
+    if (this.motorClass == 'private') 
+      {
+        this.motorService.motorQuotation.motorClassCode = '10';
+        this.motorService.motorQuotation.motorProductCode = '1002';
+      } 
+    else {
+      this.motorService.motorQuotation.motorClassCode = '11';
+      this.motorService.motorQuotation.motorProductCode = '1001';
+    }
+
     console.log('Result: ', this.motorService.motorQuotation);
     this.motorService.motorQuotation.vehicleRegNumber = this.vehicleRegNumber
 

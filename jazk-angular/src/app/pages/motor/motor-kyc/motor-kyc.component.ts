@@ -296,6 +296,8 @@ export class MotorKycComponent {
   bankOrMFI: any = '';
   bankOrMFIInterested = false;
 
+  companyDivision: any = '';
+
   vehicleMakeNotSelected = true;
   selectedVehicle: any;
   selectedVehicleMake: any;
@@ -751,6 +753,8 @@ export class MotorKycComponent {
 
     this.motorData.kyc = userData;
     this.motorData.vehicle = this.vehicle;
+
+    this.motorData.companyDivision = this.companyDivision
 
     this.motorData.coverStartDate = this.coverStartDate;
     this.motorData.coverEndDate = this.coverEndDate;

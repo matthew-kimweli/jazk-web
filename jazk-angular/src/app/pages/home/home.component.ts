@@ -216,13 +216,13 @@ export class HomeComponent {
         proposal['prop_paymt_ref'] = newData.objectId || '';
         proposal['prop_paymt_date'] = newData.createdAt || '';
         proposal['pol_quot_sys_id'] = 0;
-        proposal['pol_comp_code'] = "001";
-        proposal['pol_divn_code'] = "101";
-        proposal['pol_dept_code'] = "10";
-        proposal['pol_prod_code'] = "1002";
-        proposal['pol_type'] = "1002";
-        proposal['pol_cust_code'] = "K9999999";
-        proposal['pol_assr_code'] = "K9999999";
+        proposal['pol_comp_code'] = newData.quotation.quoteData.motorProductTypeCode || '';
+        proposal['pol_divn_code'] = newData.insurance_data.companyDivision || '';
+        proposal['pol_dept_code'] = newData.quotation.quoteData.motorClassCode || '';
+        proposal['pol_prod_code'] = newData.quotation.quoteData.motorProductCode || '';
+        proposal['pol_type'] = newData.quotation.quoteData.motorProductCode || '';
+        proposal['pol_cust_code'] = '';
+        proposal['pol_assr_code'] = '';
         // Update proposal dates
         proposal['pol_fm_dt'] = newData.insurance_data.coverStartDate || '';
         proposal['pol_to_dt'] = newData.insurance_data.coverEndDate || '';

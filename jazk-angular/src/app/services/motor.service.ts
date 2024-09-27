@@ -101,11 +101,132 @@ export class MotorService {
     { passengers: '2 Passengers', benefit: 1000},
   ]
 
+  motorProductType : any = [
+    {name: 'Comprehensive', code: '01'},
+    {name: 'Third Party Fire And Theft', code: '02'},
+    {name: 'Third Party Only', code: '03'},
+  ]
+
+  companyDivision :  any = [
+      {
+        divn_code : "105",
+        divn_name : "Kisumu"
+      },
+      {
+        divn_code : "104",
+        divn_name : "Mombasa"
+      },
+      {
+        divn_code : "101",
+        divn_name : "JAZK HQ"
+      },
+      {
+        divn_code : "103",
+        divn_name : "Westlands"
+      },
+      {
+        divn_code : "106",
+        divn_name : "Nakuru"
+      },
+      {
+        divn_code : "107",
+        divn_name : "Eldoret"
+      },
+      {
+        divn_code : "108",
+        divn_name : "Thika"
+      },
+      {
+        divn_code : "109",
+        divn_name : "Meru"
+      },
+      {
+        divn_code : "110",
+        divn_name : "Nyeri"
+      },
+      {
+        divn_code : "111",
+        divn_name : "Kisii"
+      },
+      {
+        divn_code : "112",
+        divn_name : "Bungoma"
+      },
+      {
+        divn_code : "100",
+        divn_name : "Kenya"
+      },
+      {
+        divn_code : "102",
+        divn_name : "Capital Centre"
+      },
+      {
+        divn_code : "113",
+        divn_name : "Customer Service Group (CSG)"
+      },
+      {
+        divn_code : "114",
+        divn_name : "Assessment Centre (MR & Skymall)"
+      },
+      {
+        divn_code : "115",
+        divn_name : "UPPER HILL"
+      },
+      {
+        divn_code : "116",
+        divn_name : "EASTLEND'S"
+      },
+      {
+        divn_code : "117",
+        divn_name : "JUBILEE EXCHANGE"
+      },
+      {
+        divn_code : "118",
+        divn_name : "Digital Lab"
+      },
+      {
+        divn_code : "119",
+        divn_name : "NBI Region Agency 4"
+      },
+      {
+        divn_code : "120",
+        divn_name : "NBI Region Agency 5"
+      },
+      {
+        divn_code : "121",
+        divn_name : "NBI Region Agency 1"
+      },
+      {
+        divn_code : "122",
+        divn_name : "NBI Region Agency 2"
+      },
+      {
+        divn_code : "123",
+        divn_name : "NBI Region Agency 3"
+      },
+      {
+        divn_code : "124",
+        divn_name : "NBI Region HQ"
+      },
+      {
+        divn_code : "125",
+        divn_name : "ALLIANZ"
+      },
+      {
+        divn_code : "126",
+        divn_name : "P9 Policies"
+      }
+    ]
+
   motorQuotation = {
+    motorProductTypeName: '',
+    motorProductTypeCode: '',
     serialNumber: '',
     motorId: '',
+    motorProductCode: '',
     motorClass: '',
     vehicleRegNumber: '',
+    motorClassCode: '',
     motorSubclass: '',
     makeModel: '',
     vehicleMake: '',
@@ -392,10 +513,14 @@ export class MotorService {
 
   resetQuotation() {
     this.motorQuotation = {
+      motorProductTypeName: '',
+      motorProductTypeCode: '',
       serialNumber: '',
       motorId: '',
       vehicleRegNumber: '',
+      motorProductCode: '',
       motorClass: '',
+      motorClassCode: '',
       motorSubclass: '',
       makeModel: '',
       vehicleMake: '',
