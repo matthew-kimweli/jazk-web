@@ -194,6 +194,7 @@ export class HomeComponent {
       newData.insurance_data.kyc.name || '';
     updatedQuotationObj['quot_assr_nic'] = newData.insurance_data.kyc.nin || '';
     updatedQuotationObj['quot_paymt_date'] = newData.createdAt || '';
+    updatedQuotationObj['quot_assr_lic'] = '';
     updatedQuotationObj['quot_assr_pin'] = newData.insurance_data.kyc.tin || '';
     updatedQuotationObj['quot_assr_phone'] =
       newData.insurance_data.kyc.phone || '';
@@ -231,6 +232,16 @@ export class HomeComponent {
         proposal['pol_quot_no'] = newData.quotation.objectId + '-' + 1 || '';
         proposal['pol_dflt_si_curr_code'] = 'KES'; // Assuming currency remains the same
         proposal['pol_prem_curr_code'] = 'KES';
+
+        proposal['pol_flexi']['payment_mode_code']["pol_flex_10"] = "4";
+        proposal['pol_flexi']['payment_mode_desc']["pol_flex_18"] = "Mpesa - RIS1VW7M7H - 10000";
+        proposal['pol_flexi']['cover_type_code']["pol_flex_14"] = "01";
+        proposal['pol_flexi']['cover_type_desc']["pol_flex_16"] = "Comprehensive";
+        proposal['pol_flexi']['issued_at_code']["pol_flex_01"] = "101";
+        proposal['pol_flexi']['issued_at_desc']["pol_flex_17"] = "JAZK HQ";
+        proposal['pol_flexi']['prev_policy_no']["pol_flex_20"] = "";
+        proposal['pol_flexi']['territory']["pol_flex_02"] = "KENYA";
+        proposal['pol_flexi']['broker_risk_note_no']["pol_flex_08"] = "";
 
         // Access proposal sections and risks
         let proposalRisk =
