@@ -11,6 +11,7 @@ const puppeteer = require("puppeteer");
 export class AppService {
   utils = new Utils();
   verificationCodes = {};
+  debugging: any = true;
 
   onModuleInit() {
     this.initCloudFunctions();
@@ -27,6 +28,14 @@ export class AppService {
     console.log(formattedDate);
     let today = formattedDate;
     return today;
+  }
+
+  formatDateSlash(d) {
+    let date = new Date(d)
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   }
 
   async sendEmailWithAttachment(pdfBuffer, client) {
@@ -105,8 +114,10 @@ export class AppService {
     let quote_data = params.quote_data;
     let quote_id = params.quote_id;
     let quoteDB = params.quoteDB;
+    let sale_data = params.sale_data
     let sale_id = params.sale_id;
     let agent_email = params.agent_email;
+    let client_email = params.client_email;
     let client = params.client || {};
 
     let cert_params = {
@@ -114,21 +125,21 @@ export class AppService {
       body: {
         IntermediaryIRANumber: "",
         Typeofcover: 100,
-        Policyholder: "AHABWE EMMANUEL",
-        InsuredPIN: "A006632277B",
+        Policyholder: sale_data.insurance_data.kyc.name,
+        InsuredPIN: sale_data.insurance_data.vehicle.pTin,
         policynumber: "P/109/1002/2023/000064",
-        Email: "ahabweemma@gmail.com",
-        Phonenumber: "721726738",
-        Commencingdate: "07/11/2024",
-        Expiringdate: "06/12/2024",
+        Email: client_email,
+        Phonenumber: sale_data.insurance_data.kyc.phone,
+        Commencingdate: this.formatDateSlash(sale_data.insurance_data.coverStartDate),
+        Expiringdate: this.formatDateSlash(sale_data.insurance_data.coverEndDate),
         Registrationnumber: "",
-        Vehiclemake: "Toyota",
-        Vehiclemodel: "Land Cruiser 76",
-        Chassisnumber: "HZJ76-1234567",
-        Enginenumber: "1HZ-12345",
-        Bodytype: "STATION WAGON",
-        SumInsured: "1300000",
-        Yearofmanufacture: 2017,
+        Vehiclemake: sale_data.insurance_data.vehicle.vehicleMake,
+        Vehiclemodel: sale_data.insurance_data.vehicle.vehicleModel,
+        Chassisnumber: sale_data.insurance_data.vehicle.chasisNumber,
+        Enginenumber: sale_data.insurance_data.vehicle.EngineNumber,
+        Bodytype: sale_data.insurance_data.vehicle.bodyType,
+        SumInsured: quote_data.sumInsured,
+        Yearofmanufacture: quote_data.yearOfManufacture,
         HudumaNumber: "123456789",
       },
     };
@@ -170,10 +181,13 @@ export class AppService {
       let quote_id = params.quote_id;
       let sale_id = params.sale_id;
       let agent_email = params.agent_email;
+      let client_email = params.client_email;
       let client = params.client || {};
-      const host =
-        process.env.HOST ||
-        "https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io"; // Use an environment variable or default to 'localhost'
+      let host = "https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io"; // Use an environment variable or default to 'localhost'
+
+        if(this.debugging){
+          host = 'http://localhost:4200'
+        }
 
       function getTimestamp() {
         const now = new Date();

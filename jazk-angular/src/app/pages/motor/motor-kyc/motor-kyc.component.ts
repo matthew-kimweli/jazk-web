@@ -381,21 +381,25 @@ export class MotorKycComponent {
         query.equalTo('id_number', value)
         let id = await query.first()
         if(id){
+          d = id?.get('id_data')
+          console.log('id', d)
           
           this.vehicle.pfname = `${d.firstName} ${d.lastName}`
-          this.vehicle.pfname = d.lastName
-          this.vehicle.pAddress = d.address.postalAddress
-          this.vehicle.pCity = d.address.county
-          this.vehicle.pemail = d.contacts.email
-          this.vehicle.pphone = d.contacts.phone
-          this.vehicle.dob = d.dateOfBirth
+          // this.vehicle.pfname = d.lastName
+          this.vehicle.pfnameMasked = this.utilsService.maskString(this.vehicle.pfname)
+          // this.vehicle.pAddress = d.address.postalAddress
+          // this.vehicle.pCity = d.address.county
+          // this.vehicle.pemail = d.contacts.email
+          // this.vehicle.pphone = d.contacts.phone
+          // this.vehicle.dob = d.dateOfBirth
           this.vehicle.gender = d.gender
-          if (this.vehicle.kycType == 'company') {
-            this.vehicle.companyRegNo = id
-          } else {
-            this.vehicle.nin = id
-          }
-          this.vehicle.pphone = String(d.contacts.phone).replace('+254', '')
+
+          // if (this.vehicle.kycType == 'company') {
+          //   this.vehicle.companyRegNo = id
+          // } else {
+          //   this.vehicle.nin = id
+          // }
+          // this.vehicle.pphone = String(d.contacts.phone).replace('+254', '')
 
         }
       }
@@ -612,7 +616,10 @@ export class MotorKycComponent {
   buyNow() {
     this.vehicle.registrationNumber =
       this.motorService.motorQuotation.vehicleRegNumber;
-    if (this.vehicle.hasDoubleInsurance) {
+      this.vehicle.vehicleMake = this.motorService.motorQuotation.vehicleMake
+      this.vehicle.vehicleModel = this.motorService.motorQuotation.vehicleModel
+    
+      if (this.vehicle.hasDoubleInsurance) {
       this.toastr.error(
         'Unable to proceed',
         'This vehicle is already insured (Double Insurance Found)'
@@ -905,7 +912,7 @@ export class MotorKycComponent {
 
       this.toastr.info('Please wait. Connecting...');
       let PaymentRequest = Parse.Object.extend('JazkeSale');
-      let payment = new PaymentRequest();
+      let payment:Parse.Object = new PaymentRequest();
       payment.set('type', 'flutterwave');
       payment.set('amount', amount);
       payment.set('txRef', txRef);
@@ -958,10 +965,12 @@ export class MotorKycComponent {
       let res = await Parse.Cloud.run('paympesa', {
         phone: phone,
         sale_id: payment.id,
+        sale_data: payment.toJSON(), 
         quote_id: this.quote.id,
         quote_data: this.quote.get('quoteData'),
         client: client,
         agent_email: agent_email,
+        client_email: this.vehicle.pemail
       });
       console.log('response', res);
       let json = res;

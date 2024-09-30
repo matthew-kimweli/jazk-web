@@ -17,9 +17,17 @@ export class AppComponent {
 
   constructor(public auth: AuthService,
     private toastr: ToastrService,) {
+      let serverURL2 = `http://localhost:3100/parse`;
+      const debugging = true;
+
+      if(debugging){
+        serverURL2 = `http://localhost:3100/parse`;
+      } else {
+        serverURL2 = `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/parse`;
+      }
       // let serverURL2 = `https://jubilee.plot411.com/parse`;
-      let serverURL2 = `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/parse`;
-      // let serverURL2 = `http://localhost:3100/parse`;
+      
+      
       var keyApplicationId = 'debunkbot';
       var keyParseServerKey = 'debunkbot12@!!';
       // var keyLiveQueryUrl = 'wss://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/';

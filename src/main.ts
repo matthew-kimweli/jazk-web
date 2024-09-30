@@ -13,7 +13,7 @@ var ParseDashboard = require("parse-dashboard");
 import * as fs from "fs";
 
 const port = 3100;
-const debugging = false;
+const debugging = true;
 
 async function bootstrap() {
   // const httpsOptions = {
@@ -58,7 +58,7 @@ async function bootstrap() {
 
   if (!databaseUri) {
     databaseUri =
-      "postgres://jazkadmin:Development.313*@jazk-postgres-fdb.postgres.database.azure.com/web_dev";
+      "postgres://admin:admin@143.198.68.104:5432/jazke-web";
     console.log("DATABASE_URI not specified, falling back to localhost.");
   }
 
