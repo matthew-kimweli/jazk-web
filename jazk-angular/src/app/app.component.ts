@@ -32,7 +32,6 @@ export class AppComponent {
       var keyParseServerKey = 'debunkbot12@!!';
       // var keyLiveQueryUrl = 'wss://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/';
 
-
     (Parse as any).serverURL = serverURL2;
     // Parse.liveQueryServerURL = keyLiveQueryUrl
     console.log('host', serverURL2)

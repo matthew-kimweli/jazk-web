@@ -441,15 +441,15 @@
                 <div class="validate"></div>
               </div>
             </div>
-
+            <br />
             <div class="row">
               <div class="col-md-4 form-group mb-3">
                 <label class="form-label" for="companyDivision">
-                  <small>Select the company branch</small>
+                  <small>Select the Insurance Company branch</small>
                 </label>
                 <select title="select" [(ngModel)]="companyDivision"
                 name="companyDivision" id="companyDivision" class="form-select">
-                <option value="" disabled class="text-center">Company Branch</option>
+                <option value="" disabled class="text-left">Company Branch</option>
                 <option *ngFor="let item of motorService.companyDivision" [value]="item.divn_code">
                   {{ item.divn_name }}
                 </option>
