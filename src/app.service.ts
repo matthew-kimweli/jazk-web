@@ -458,18 +458,29 @@ export class AppService {
     });
 
     Parse.Cloud.define("getUser", async (request) => {
-      let params = request.params
-      let p = params.phone
+      let params = request.params;
+      let p = params.phone;
 
-      let query = new Parse.Query(Parse.User)
+      let query = new Parse.Query(Parse.User);
       // query.equalTo('phones', p)
-      query.equalTo('phone', Number(p).toString())
-      let first = await query.first({useMasterKey:true})
+      query.equalTo("phone", Number(p).toString());
+      let first = await query.first({ useMasterKey: true });
       return {
-          user: first
-      }
+        user: first,
+      };
+    });
 
-  });
+    Parse.Cloud.define("getUser2", async (request) => {
+      let params = request.params;
+      let p = params.phone;
 
+      let query = new Parse.Query("UserRegistry");
+      // query.equalTo('phones', p)
+      query.equalTo("phone", Number(p).toString());
+      let first = await query.first({ useMasterKey: true });
+      return {
+        user: first,
+      };
+    });
   }
 }

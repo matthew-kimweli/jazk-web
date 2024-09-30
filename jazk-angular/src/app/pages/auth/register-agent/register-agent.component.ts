@@ -18,10 +18,12 @@ export class RegisterAgentComponent {
   password: any;
   customerCode: any;
   email: any;
+  phone: any;
   user: any;
   returnUrl: any;
   saving: boolean = false;
   passwordType: any = 'password';
+  
 
   constructor(
     private toastr: ToastrService,
@@ -46,6 +48,10 @@ export class RegisterAgentComponent {
         this.toastr.error('Email is required', 'Fill in the requried fields');
         return;
       }
+      if (!this.phone) {
+        this.toastr.error('Phone is required', 'Fill in the requried fields');
+        return;
+      }
       if (!this.password) {
         this.toastr.error(
           'Password is required',
@@ -64,11 +70,41 @@ export class RegisterAgentComponent {
 
       this.saving = true;
 
+      let phone: String = String(this.phone);
+      if (phone.includes('+254')) {
+      } else if (phone.includes('254')) {
+        phone = `+${phone}`;
+      } else if (phone.includes('773314578')) {
+        phone = `+256${Number(phone)}`;
+      } else if (phone.includes('773548160')) {
+        phone = `+256${Number(phone)}`;
+      } else {
+        phone = `+254${Number(phone)}`;
+      }
+
+      phone = Number(phone).toString()
+
+      let result = await Parse.Cloud.run('getUser2', {
+        phone: phone
+      });
+
+      console.log('user resp', result);
+
+      if (!result.user) {
+        console.log('agent not allowed');
+        this.toastr.error(
+          'Not Allowed',
+          'You are not allowed to login. Please contact system administrator'
+        );
+        return;
+      }
+
       this.toastr.info('Signing up...');
       this.user = await Parse.User.signUp(this.email, this.password, {
         name: this.customerCode,
         customerCode: this.customerCode,
         userType: 'agent',
+        phone: phone,
       });
 
       const acl = this.user.getACL() || new Parse.ACL();

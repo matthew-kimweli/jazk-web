@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, NgZone } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import * as Parse from 'parse';
 import { ParseService } from '../../../services/parse.service';
@@ -9,7 +9,7 @@ import { ParseService } from '../../../services/parse.service';
 @Component({
   selector: 'app-login-phone',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './login-phone.component.html',
   styleUrl: './login-phone.component.css',
 })
@@ -58,7 +58,7 @@ export class LoginPhoneComponent {
         phone = `+254${Number(phone)}`;
       }
 
-      phone = Number(phone).toString(),
+      phone = Number(phone).toString()
 
       console.log('phone2', phone);
 
