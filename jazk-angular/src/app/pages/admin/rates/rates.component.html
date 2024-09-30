@@ -187,6 +187,166 @@
                 Rate is required.
               </div>
             </div>
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">Does the rate apply to all Vehicle Makes?</label>
+              <div class="my-0 mt-3 text-center">
+                <label class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    [(ngModel)]="data.makeInterest"
+                    name="makeInterest"
+                    id="makeInterest1"
+                    type="radio"
+                    value="yes"
+                    name="makeInterest-radio-yes"
+                    checked=""
+                  />
+                  <span class="form-check-label">Yes</span>
+                </label>
+                <label class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    value="no"
+                    [(ngModel)]="data.makeInterest"
+                    (change)="selectVehicleMake()"
+                    name="makeInterest"
+                    id="makeInterest2"
+                    type="radio"
+                    name="makeInterest-radio-no"
+                  />
+                  <span class="form-check-label">No</span>
+                </label>
+              </div>
+              <div *ngIf="
+                  this.parseService.submitting &&
+                  myForm.get('makeInterest')!.invalid &&
+                  myForm.get('makeInterest')!.touched
+                " class="text-danger">
+                Indicate which vehicle makes does this rate apply.
+              </div>
+
+              <!-- <div formArrayName="education">
+                <div
+                  *ngFor="
+                    let tx of education.controls;
+                    let i = index
+                  "
+                  [formGroupName]="i"
+                  class="card mb-3"
+                >
+                  <div class="row card-header">
+                    <div class="col">
+                      <h5 class="card-title text-muted">
+                        Record ({{ i + 1 }})
+                      </h5>
+                    </div>
+
+                    <div class="col-auto">
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-sm"
+                        (click)="removeEducation(i)"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-4 mb-3">
+                        <label class="form-label"
+                          >Qualification</label
+                        >
+                        <input
+                          type="text"
+                          formControlName="qualification"
+                          class="form-control"
+                          placeholder="Enter Qualification"
+                        />
+                      </div>
+
+                      <div class="col-md-4 mb-3">
+                        <label class="form-label"
+                          >institution</label
+                        >
+                        <input
+                          type="text"
+                          formControlName="institution"
+                          class="form-control"
+                          placeholder="Enter institution"
+                        />
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <label class="form-label"
+                          >Year Graduated</label
+                        >
+                        <input
+                          type="number"
+                          min="1900"
+                          max="2099"
+                          step="1"
+                          formControlName="yearGraduated"
+                          class="form-control"
+                          placeholder="Enter year"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="addEducation()"
+              >
+                Add Education Record
+              </button> -->
+
+              <label class="form-label" *ngIf="!allVehicleMakes">Vehicle Make</label>
+              <input
+                *ngIf="!allVehicleMakes"
+                [(ngModel)]="data.vehicleMake"
+                name="vehicleMake"
+                id="vehicleMake"
+                class="form-control"
+                list="datalistOptions"
+                placeholder="Type to search..."
+              />
+              <datalist *ngIf="!allVehicleMakes" id="datalistOptions">
+                <option *ngFor="let item of vehicleMakes" [value]="item">
+                  {{ item }}
+                </option>
+              </datalist>
+            </div>
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">What is the maximum Vehicle Age for this rate?</label>
+              <input type="number" [(ngModel)]="data.maxVehicleAge" class="form-control" formControlName="maxVehicleAge" />
+              <div *ngIf="
+                  this.parseService.submitting &&
+                  myForm.get('maxVehicleAge')!.invalid &&
+                  myForm.get('maxVehicleAge')!.touched
+                " class="text-danger">
+                Maximum Vehicle Age is required.
+              </div>
+            </div>
+
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">What is the maximum value of the Vehicle for this rate?</label>
+              <input [(ngModel)]="data.maxVehicleValue" class="form-control" formControlName="maxVehicleValue" [formControl]="control"
+              [imask]="sumInsuredMask"
+              unmask="typed" />
+              <small class="form-hint"
+                >Minimum Sum Insured is Kshs. 500,000.</small
+              >
+              <div *ngIf="
+                  this.parseService.submitting &&
+                  myForm.get('maxVehicleValue')!.invalid &&
+                  myForm.get('maxVehicleValue')!.touched
+                " class="text-danger">
+                Maximum Value of the Vehicle is required.
+              </div>
+            </div>
 
           </div>
         </div>
