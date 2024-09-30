@@ -96,6 +96,7 @@ export class RegisterAgentComponent {
           'Not Allowed',
           'You are not allowed to login. Please contact system administrator'
         );
+        this.saving = false;
         return;
       }
 
