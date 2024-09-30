@@ -21,8 +21,12 @@ export class WelcomeComponent {
                     vehicle with extensive coverage options, including
                     third-party liability, damage and more.`,
       buttonText: 'Insure your motor vehicle',
-      buttonLink: '/motor',
+      // buttonLink: '/motor',
       isActive: true,
+      buttons: [
+        {text: 'New Insurance', buttonLink:'/motor'},
+        {text: 'Renew', buttonLink:'https://digilab.jubilee-allianz.com/motor/renew'}
+      ]
     },
     {
       title: 'Travel Insurance',
@@ -80,17 +84,13 @@ export class WelcomeComponent {
     return window.innerWidth <= 768; // Adjust the width based on your breakpoint
   }
 
-  gotoLink(item: {
-    title: string;
-    description: string;
-    buttonText: string;
-    buttonLink: string;
-    isActive: boolean;
-  }) {
+  gotoLink(item:any) {
     if (item.buttonLink.startsWith('http')) {
       window.location.href = item.buttonLink;
     } else {
       this.router.navigate([item.buttonLink]);
     }
   }
+
+  
 }

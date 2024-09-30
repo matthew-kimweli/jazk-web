@@ -24,9 +24,8 @@
         <div class="col-auto ms-auto d-print-none">
           <div class="btn-list">
             <a
-            data-bs-toggle="modal"
+              data-bs-toggle="modal"
               data-bs-target="#modal-new-user"
-            
               class="btn btn-primary d-none d-sm-inline-block"
             >
               <svg
@@ -77,7 +76,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let item of list; let i=index">
+                          <tr *ngFor="let item of list; let i = index">
                             <td>
                               <span class="status status-purple">
                                 {{ item.get("userType") }}
@@ -95,7 +94,6 @@
                               {{ item.get("managerName") || '---' }}
                             </td> -->
 
-
                             <td class="text-end">
                               <span class="dropdown">
                                 <button
@@ -112,12 +110,19 @@
                                     Assign Line Manager
                                   </a> -->
 
-
-                                  <a (click)="setUserToEdit(item, i)" class="dropdown-item text-azure" data-bs-toggle="modal" data-bs-target="#modal-edit-user">
+                                  <a
+                                    (click)="setUserToEdit(item, i)"
+                                    class="dropdown-item text-azure"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modal-edit-user"
+                                  >
                                     Edit
                                   </a>
 
-                                  <a (click)="deleteItem(item)" class="dropdown-item text-red">
+                                  <a
+                                    (click)="deleteItem(item)"
+                                    class="dropdown-item text-red"
+                                  >
                                     Delete
                                   </a>
                                 </div>
@@ -144,63 +149,83 @@
   </div>
 </div>
 
-  <div class="modal" id="modal-new-user" tabindex="-1">
-    <form (ngSubmit)="submitForm()" [formGroup]="userForm">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">New User</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="form-group mb-3 col-lg-6">
-                <label class="form-label">User Name</label>
-                <input type="text" class="form-control" [(ngModel)]="userData.name" formControlName="name" />
-                <div
-                  *ngIf="parseService.submitting &&
-                    userForm.get('name')!.invalid && userForm.get('name')!.touched
-                  "
-                  class="text-danger"
-                >
-                  Name is required.
-                </div>
+<div class="modal" id="modal-new-user" tabindex="-1">
+  <form (ngSubmit)="submitForm()" [formGroup]="userForm">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">New User</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">User Name</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="userData.name"
+                formControlName="name"
+              />
+              <div
+                *ngIf="
+                  parseService.submitting &&
+                  userForm.get('name')!.invalid &&
+                  userForm.get('name')!.touched
+                "
+                class="text-danger"
+              >
+                Name is required.
               </div>
-              <div class="form-group mb-3 col-lg-6">
-                <label class="form-label">User Email</label>
+            </div>
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">User Email</label>
+              <input
+                type="email"
+                [(ngModel)]="userData.userEmail"
+                class="form-control"
+                formControlName="userEmail"
+              />
+              <div
+                *ngIf="
+                  parseService.submitting &&
+                  userForm.get('userEmail')!.invalid &&
+                  userForm.get('userEmail')!.touched
+                "
+                class="text-danger"
+              >
+                Valid email is required.
+              </div>
+            </div>
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">Phone Number</label>
+              <div class="input-group">
+                <span class="input-group-text">+254</span>
                 <input
-                  type="email"
-                  [(ngModel)]="userData.userEmail"
+                  type="number"
+                  [(ngModel)]="userData.phone"
+                  formControlName="phone"
                   class="form-control"
-                  formControlName="userEmail"
+                  placeholder="Enter phone number"
                 />
-                <div
-                  *ngIf="parseService.submitting &&
-                    userForm.get('userEmail')!.invalid && userForm.get('userEmail')!.touched
-                  "
-                  class="text-danger"
-                >
-                  Valid email is required.
-                </div>
               </div>
-              <!-- <div class="form-group mb-3 col-lg-6">
-                <label class="form-label">Phone Number</label>
-                <input type="text" class="form-control" [(ngModel)]="userData.phone" formControlName="phone" />
-                <div
-                  *ngIf="
-                    userForm.get('phone')!.invalid && userForm.get('phone')!.touched
-                  "
-                  class="text-danger"
-                >
-                  Phone number is required.
-                </div>
-              </div> -->
-              <div class="form-group mb-3 col-lg-6">
+
+              <div
+                *ngIf="
+                  userForm.get('phone')!.invalid &&
+                  userForm.get('phone')!.touched
+                "
+                class="text-danger"
+              >
+                Phone number is required.
+              </div>
+            </div>
+            <!-- <div class="form-group mb-3 col-lg-6">
                 <label class="form-label">Position</label>
                 <input
                   type="text"
@@ -217,120 +242,118 @@
                 >
                   Position is required.
                 </div>
-              </div>
+              </div> -->
 
-              <div class="form-group mb-3 col-lg-6">
-                <label class="form-label">Password</label>
-                <input
-                  type="text"
-                  [(ngModel)]="userData.password"
-                  class="form-control"
-                  formControlName="password"
-                />
-                <div
-                  *ngIf="parseService.submitting &&
-                    userForm.get('password')!.invalid &&
-                    userForm.get('password')!.touched
-                  "
-                  class="text-danger"
-                >
-                  Password is required.
-                </div>
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">Password</label>
+              <input
+                type="text"
+                [(ngModel)]="userData.password"
+                class="form-control"
+                formControlName="password"
+              />
+              <div
+                *ngIf="
+                  parseService.submitting &&
+                  userForm.get('password')!.invalid &&
+                  userForm.get('password')!.touched
+                "
+                class="text-danger"
+              >
+                Password is required.
               </div>
+            </div>
 
-              <div class="form-group mb-3 col-lg-6">
-                <label class="form-label">User Type</label>
-                <select
-                  type="text"
-                  [(ngModel)]="userData.userType"
-                  class="form-select"
-                  formControlName="userType"
-                >
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">User Type</label>
+              <select
+                type="text"
+                [(ngModel)]="userData.userType"
+                class="form-select"
+                formControlName="userType"
+              >
                 <option value="" disabled>Select</option>
                 <option value="public">Public</option>
                 <option value="broker">Broker</option>
                 <option value="agent">Agent</option>
                 <option value="business-admin">Business Admin</option>
-              
               </select>
-                <div
-                  *ngIf="parseService.submitting &&
-                    userForm.get('userType')!.invalid &&
-                    userForm.get('userType')!.touched
-                  "
-                  class="text-danger"
-                >
+              <div
+                *ngIf="
+                  parseService.submitting &&
+                  userForm.get('userType')!.invalid &&
+                  userForm.get('userType')!.touched
+                "
+                class="text-danger"
+              >
                 User Type is required.
-                </div>
               </div>
+            </div>
 
-              <div class="form-group mb-3 col-lg-6">
-                <label class="form-label">Approved</label>
-                <select
-                  type="text"
-                  [(ngModel)]="userData.approvedStatus"
-                  class="form-select"
-                  formControlName="approvedStatus"
-                >
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">Approved</label>
+              <select
+                type="text"
+                [(ngModel)]="userData.approvedStatus"
+                class="form-select"
+                formControlName="approvedStatus"
+              >
                 <option value="" disabled>Select</option>
                 <option value="true">Yes</option>
                 <option value="false">No</option>
-                
-              
               </select>
-                <div
-                  *ngIf="parseService.submitting &&
-                    userForm.get('approvedStatus')!.invalid &&
-                    userForm.get('approvedStatus')!.touched
-                  "
-                  class="text-danger"
-                >
+              <div
+                *ngIf="
+                  parseService.submitting &&
+                  userForm.get('approvedStatus')!.invalid &&
+                  userForm.get('approvedStatus')!.touched
+                "
+                class="text-danger"
+              >
                 Approved status is required.
-                </div>
               </div>
-
-              
             </div>
           </div>
-  
-          <div class="modal-footer">
-            <a
-              href="#"
-              id="NewUserCancelButton"
-              class="btn btn-link link-secondary"
-              data-bs-dismiss="modal"
-            >
-              Cancel
-            </a>
-            <button
-              [disabled]="parseService.saving"
-              type="submit"
-              class="btn btn-primary ms-auto"
-            >
-              {{ parseService.saving ? "Saving..." : "Save" }}
-            </button>
-          </div>
+        </div>
+
+        <div class="modal-footer">
+          <a
+            href="#"
+            id="NewUserCancelButton"
+            class="btn btn-link link-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </a>
+          <button
+            [disabled]="parseService.saving"
+            type="submit"
+            class="btn btn-primary ms-auto"
+          >
+            {{ parseService.saving ? "Saving..." : "Save" }}
+          </button>
         </div>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
+</div>
 
-  <div class="modal" id="modal-edit-user" tabindex="-1">
-    <form (ngSubmit)="updateUser()" [formGroup]="edituserForm">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Edit User</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <!-- <div class="form-group mb-3 col-lg-6">
+<div class="modal" id="modal-edit-user" tabindex="-1">
+  <form (ngSubmit)="updateUser()" [formGroup]="edituserForm">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit User</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <!-- <div class="form-group mb-3 col-lg-6">
                 <label class="form-label">User Name</label>
                 <input type="text" class="form-control" [(ngModel)]="editUserData.name" formControlName="name" />
                 <div
@@ -359,7 +382,7 @@
                   Valid email is required.
                 </div>
               </div> -->
-              <!-- <div class="form-group mb-3 col-lg-6">
+            <!-- <div class="form-group mb-3 col-lg-6">
                 <label class="form-label">Phone Number</label>
                 <input type="text" class="form-control" [(ngModel)]="userData.phone" formControlName="phone" />
                 <div
@@ -371,7 +394,7 @@
                   Phone number is required.
                 </div>
               </div> -->
-              <!-- <div class="form-group mb-3 col-lg-6">
+            <!-- <div class="form-group mb-3 col-lg-6">
                 <label class="form-label">Position</label>
                 <input
                   type="text"
@@ -390,7 +413,7 @@
                 </div>
               </div> -->
 
-              <!-- <div class="form-group mb-3 col-lg-6">
+            <!-- <div class="form-group mb-3 col-lg-6">
                 <label class="form-label">Password</label>
                 <input
                   type="text"
@@ -434,52 +457,50 @@
                 User Type is required.
                 </div>
               </div> -->
-              <div class="form-group mb-3 col-lg-6">
-                <label class="form-label">Approved</label>
-                <select
-                  type="text"
-                  [(ngModel)]="editUserData.approvedStatus"
-                  class="form-select"
-                  formControlName="approvedStatus"
-                >
+            <div class="form-group mb-3 col-lg-6">
+              <label class="form-label">Approved</label>
+              <select
+                type="text"
+                [(ngModel)]="editUserData.approvedStatus"
+                class="form-select"
+                formControlName="approvedStatus"
+              >
                 <option value="undefined" disabled>Select</option>
                 <option value="true">Yes</option>
                 <option value="false">No</option>
-                
-              
               </select>
-                <div
-                  *ngIf="parseService.submitting &&
-                    edituserForm.get('approvedStatus')!.invalid &&
-                    edituserForm.get('approvedStatus')!.touched
-                  "
-                  class="text-danger"
-                >
+              <div
+                *ngIf="
+                  parseService.submitting &&
+                  edituserForm.get('approvedStatus')!.invalid &&
+                  edituserForm.get('approvedStatus')!.touched
+                "
+                class="text-danger"
+              >
                 Approved status is required.
-                </div>
               </div>
-              
             </div>
           </div>
-  
-          <div class="modal-footer">
-            <a
-              href="#"
-              id="EditUserCancelButton"
-              class="btn btn-link link-secondary"
-              data-bs-dismiss="modal"
-            >
-              Cancel
-            </a>
-            <button
-              [disabled]="parseService.saving"
-              type="submit"
-              class="btn btn-primary ms-auto"
-            >
-              {{ parseService.saving ? "Saving..." : "Save" }}
-            </button>
-          </div>
+        </div>
+
+        <div class="modal-footer">
+          <a
+            href="#"
+            id="EditUserCancelButton"
+            class="btn btn-link link-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </a>
+          <button
+            [disabled]="parseService.saving"
+            type="submit"
+            class="btn btn-primary ms-auto"
+          >
+            {{ parseService.saving ? "Saving..." : "Save" }}
+          </button>
         </div>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
+</div>

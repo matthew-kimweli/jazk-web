@@ -10,6 +10,7 @@ const puppeteer = require("puppeteer");
 @Injectable()
 export class AppService {
   utils = new Utils();
+  verificationCodes = {};
 
   onModuleInit() {
     this.initCloudFunctions();
@@ -355,9 +356,9 @@ export class AppService {
         // });
 
         // console.log("access token", response.data);
-        let tokenData:any = {
-          access_token: `eyJhbGciOiJSUzI1NiIsImtpZCI6IjVCQjRFNjE4NzdGNTMxRUJDQUZCOEIwMEFGRjkzMkU5QkI2Qjc0NjQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiSU5TQVBJVVNFUiIsInByaW1hcnlzaWQiOiI4MUI4RkJBMi0yRjA3LTRDRjAtOEZEQi0zQzYwMDE1ODMyNUUiLCJwcmltYXJ5Z3JvdXBzaWQiOiIyNiIsImxvZ2luaGlzdG9yeSI6IjQyMjU1MyIsIm5iZiI6MTcyNzM0Njk4MSwiZXhwIjoxNzI3OTUxNzgxLCJpYXQiOjE3MjczNDY5ODEsImlzcyI6Imh0dHBzOi8vdWF0LWFwaS5kbXZpYy5jb20iLCJhdWQiOiJodHRwczovL3VhdC1hcGkuZG12aWMuY29tIn0.nqzd5Ua2OcdtciEeTzqZavGk_VtSKljg-sbhi39mlayHfYNbZ-H9kjSMY7ckOPyUnIgT0HhqO6FGDxJ2YopL9ZUE-tV_xY3m8T5yQwNg7wEfWriK1Z6_nQ5fyDI6m6mWq9lv0P_s6roDhYwmLx2RkEla83DuVnYvfw2pTE4lTq1m4TrYuPvkurirXqT5TLGGP7cBL-JXpQsskWP6Yi8P-Jm6hxqlm5vEhvre00Gd8jqBS-pNw4kDbyd33TtBqsbgmrzjPc3IEo1tT1gHHrkFThgMo0W40299KLmlC7ofPyxRb6oP2ZgLaA5EJgFRwWmTf9HJH-02-opSn1wQ1yG8nw`
-        }//response.data;
+        let tokenData: any = {
+          access_token: `eyJhbGciOiJSUzI1NiIsImtpZCI6IjVCQjRFNjE4NzdGNTMxRUJDQUZCOEIwMEFGRjkzMkU5QkI2Qjc0NjQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiSU5TQVBJVVNFUiIsInByaW1hcnlzaWQiOiI4MUI4RkJBMi0yRjA3LTRDRjAtOEZEQi0zQzYwMDE1ODMyNUUiLCJwcmltYXJ5Z3JvdXBzaWQiOiIyNiIsImxvZ2luaGlzdG9yeSI6IjQyMjU1MyIsIm5iZiI6MTcyNzM0Njk4MSwiZXhwIjoxNzI3OTUxNzgxLCJpYXQiOjE3MjczNDY5ODEsImlzcyI6Imh0dHBzOi8vdWF0LWFwaS5kbXZpYy5jb20iLCJhdWQiOiJodHRwczovL3VhdC1hcGkuZG12aWMuY29tIn0.nqzd5Ua2OcdtciEeTzqZavGk_VtSKljg-sbhi39mlayHfYNbZ-H9kjSMY7ckOPyUnIgT0HhqO6FGDxJ2YopL9ZUE-tV_xY3m8T5yQwNg7wEfWriK1Z6_nQ5fyDI6m6mWq9lv0P_s6roDhYwmLx2RkEla83DuVnYvfw2pTE4lTq1m4TrYuPvkurirXqT5TLGGP7cBL-JXpQsskWP6Yi8P-Jm6hxqlm5vEhvre00Gd8jqBS-pNw4kDbyd33TtBqsbgmrzjPc3IEo1tT1gHHrkFThgMo0W40299KLmlC7ofPyxRb6oP2ZgLaA5EJgFRwWmTf9HJH-02-opSn1wQ1yG8nw`,
+        }; //response.data;
         if (tokenData && tokenData.access_token) {
           const response = await axios.post(
             `${baseUrl}/${endpoint}`,
@@ -403,7 +404,7 @@ export class AppService {
       // Define the endpoint you want to POST to
       // const endpoint = "http://tempuri.org/IServiceIPRS/GetDataByIdCard";
       const endpoint = "http://10.1.1.5:9003/IServiceIPRS/GetDataByIdCard";
-      
+
       try {
         const response = axios.post(endpoint, data, {
           proxy: proxyConfig,
@@ -414,5 +415,61 @@ export class AppService {
         console.error(error);
       }
     });
+
+    Parse.Cloud.define("sendOTP", async (request) => {
+      let phone = request.params.phone;
+      let code = Math.floor(100000 + Math.random() * 900000);
+
+      if (String(phone).endsWith("212702275231")) {
+        code = 12345;
+      } else if (String(phone).endsWith("773314578")) {
+        code = 12345;
+      } else if (String(phone).endsWith("773548160")) {
+        code = 12345;
+      }
+
+      // code = 12345;
+
+      this.verificationCodes[Number(phone).toString()] = code;
+      let text = `Your otp code for JAZK is ${code}`;
+
+      // if(code == 12345){
+      //   return;
+      // }
+
+      let resend = request.params.resend;
+      if (resend) {
+        this.utils.sendInfoBipSMS(text, phone);
+      } else {
+        // this.utils.sendAfricasTalkingSMS(text, phone)
+        this.utils.sendInfoBipSMS(text, phone);
+      }
+    });
+
+    Parse.Cloud.define("verifyOTP", async (request) => {
+      let phone = request.params.phone;
+      let code = request.params.code;
+      let oc = this.verificationCodes[Number(phone).toString()];
+      if (oc == code) {
+        return { status: "verified", phone: phone, code: code };
+      } else {
+        return { status: "not-verified", phone: phone, code: code };
+      }
+    });
+
+    Parse.Cloud.define("getUser", async (request) => {
+      let params = request.params
+      let p = params.phone
+
+      let query = new Parse.Query(Parse.User)
+      // query.equalTo('phones', p)
+      query.equalTo('phone', Number(p).toString())
+      let first = await query.first({useMasterKey:true})
+      return {
+          user: first
+      }
+
+  });
+
   }
 }

@@ -43,11 +43,11 @@ export const routes: Routes = [
     component: WelcomeComponent,
   },
   {
-    path: 'login',
+    path: 'login-email',
     component: LoginComponent,
   },
   {
-    path: 'login-phone',
+    path: 'login',
     component: LoginPhoneComponent,
   },
   {
