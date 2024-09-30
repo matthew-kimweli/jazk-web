@@ -8,6 +8,7 @@ export class MotorService {
     { id: 'private', name: 'MOTOR PRIVATE', label: 'Private' },
     { id: 'commercial', name: 'MOTOR COMMERCIAL', label: 'Commercial' },
   ];
+  
   makeModels: any = [
     {
       name: 'Subaru, Probox, Succeed, Sienta, Noah or Voxy',
@@ -78,6 +79,91 @@ export class MotorService {
     },
     {
       name: 'Fire Fighters',
+      class: 'commercial',
+      label: 'SpecialVehiclesFireFighters',
+      motorSubclass: 'Special vehicle - Fire Engine',
+    },
+  ];
+
+  certificateClass: any = [
+    {
+      class: 'private',
+      label: 'SubaruProboxEtc',
+      cert_class: 'Class C'
+    },
+    {
+      cert_class: 'Class C',
+      class: 'private',
+      label: 'Rare & Unique Models',
+    },
+    {
+      cert_class: 'Class C',
+      class: 'private',
+      label: 'AllOtherVehicleMakes',
+    },
+    {
+      name: 'General Cartage',
+      cert_class: 'Class B',
+      class: 'commercial',
+      label: 'MotorCommercialGeneralCartage',
+      motorSubclass: 'General Cartage',
+    },
+    {
+      name: 'Own Goods',
+      cert_class: 'Class B',
+      class: 'commercial',
+      label: 'MotorCommercialOwnGoods',
+      motorSubclass: 'Own Goods',
+    },
+    {
+      name: 'PSV Tours (ChauffeurDriven) - Corporates Only',
+      cert_class: 'Class A',
+      class: 'commercial',
+      label: 'PSVTours',
+      motorSubclass:
+        'TSV Chauffeur Driven (Vehicle must be registered in the name of the TSV company)',
+    },
+    {
+      name: 'Tankers - Carrying flammable Liquid',
+      cert_class: 'Class B',
+      class: 'commercial',
+      label: 'Tankers',
+      motorSubclass: 'Tankers - Carrying Flammable products',
+    },
+    {
+      name: 'Driving School Vehicles',
+      cert_class: 'Class B',
+      class: 'commercial',
+      label: 'DrivingSchool',
+      motorSubclass:
+        'Driving School (Vehicles must be registered in the name of the Driving school)',
+    },
+    {
+      name: 'School Buses/Vans Staff, Buses/Vans, Church Buses/Vans',
+      cert_class: 'Class B',
+      class: 'commercial',
+      label: 'MotorCommercialInstitutional',
+      motorSubclass:
+        'Institutions (Vehicle must be registered in the name of the Institution)',
+    },
+    {
+      name: 'Agricultural & Forestry Vehicles, Tracktors, Harvesters, Cranes, Forklift, Rollers, Excavators',
+      cert_class: 'Class B',
+      class: 'commercial',
+      label: 'SpecialVehiclesAgricultural',
+      motorSubclass:
+        'Special vehicle - Agricultural & Forest vehicles (Tractors, Harvestors, Cranes, Excavators, etc)',
+    },
+    {
+      name: 'Ambulance',
+      cert_class: 'Class B',
+      class: 'commercial',
+      label: 'SpecialVehiclesAmbulance',
+      motorSubclass: 'Special vehicle - Ambulance',
+    },
+    {
+      name: 'Fire Fighters',
+      cert_class: 'Class B',
       class: 'commercial',
       label: 'SpecialVehiclesFireFighters',
       motorSubclass: 'Special vehicle - Fire Engine',

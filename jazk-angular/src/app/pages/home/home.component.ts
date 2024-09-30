@@ -338,7 +338,7 @@ export class HomeComponent {
           // Update Certificate details
           proposalRisk['proposalmotorcert'][0]['cert_sr_no'] = 1;
           proposalRisk['proposalmotorcert'][0]['prai_flexi']['cert_mode']['prai_data_08'] = '02';
-          proposalRisk['proposalmotorcert'][0]['prai_flexi']['cert_type']['prai_code_14'] = 'Class ';
+          proposalRisk['proposalmotorcert'][0]['prai_flexi']['cert_type']['prai_code_14'] = this.utilsService.getAnyKeyValue(newData.quotation.quoteData.makeModel, 'cert_class', this.motorService.certificateClass);
           proposalRisk['proposalmotorcert'][0]['prai_flexi']['book_id']['prai_data_09'] = "DIGI_CERT";
           proposalRisk['proposalmotorcert'][0]['prai_flexi']['cert_num']['prai_data_05'] = newData.dmvic_cert.callbackObj.issueCertificate.actualCNo;
           proposalRisk['proposalmotorcert'][0]['prai_flexi']['cert_fm_dt']['prai_date_21'] = newData.insurance_data.coverStartDate || '';
