@@ -12,6 +12,8 @@ import { ToastrService } from 'ngx-toastr';
 import { SideMenuComponent } from '../_components/side-menu/side-menu.component';
 import { ParseService } from '../../services/parse.service';
 import * as quotationObj from '../../_helpers/premia.json';
+import { UtilsService } from '../../services/utils.service';
+import { MotorService } from '../../services/motor.service';
 
 @Component({
   selector: 'app-home',
@@ -48,7 +50,9 @@ export class HomeComponent {
     private auth: AuthService,
     private toastr: ToastrService,
     public dataService: DataService,
-    public parseService: ParseService
+    public parseService: ParseService,
+    public utilsService: UtilsService,
+    public motorService: MotorService
   ) { }
 
   ngOnInit(): void {
@@ -117,9 +121,11 @@ export class HomeComponent {
     // console.log('Normal Sales Obj => ', this.parseObjectToPlain(this.sales)[0])
     // console.log('Final Mapping => ', this.updateQuotation(this.parseObjectToPlain(this.sales)[0]));
 
-    // let sale: Parse.Object = this.sales[0];
-    // let data = sale.toJSON();
-    // console.log('Final Mapping => ', this.updateQuotation(data));
+    console.log('Yes')
+    let sale: Parse.Object = this.sales[0];
+    let data = sale.toJSON();
+    console.log('Yes', data)
+    console.log('Final Mapping => ', this.updateQuotation(data));
   }
 
   // Function to recursively convert Parse objects into plain JavaScript objects
@@ -234,14 +240,17 @@ export class HomeComponent {
         proposal['pol_prem_curr_code'] = 'KES';
 
         proposal['pol_flexi']['payment_mode_code']["pol_flex_10"] = "4";
-        proposal['pol_flexi']['payment_mode_desc']["pol_flex_18"] = "Mpesa - RIS1VW7M7H - 10000";
-        proposal['pol_flexi']['cover_type_code']["pol_flex_14"] = "01";
-        proposal['pol_flexi']['cover_type_desc']["pol_flex_16"] = "Comprehensive";
-        proposal['pol_flexi']['issued_at_code']["pol_flex_01"] = "101";
-        proposal['pol_flexi']['issued_at_desc']["pol_flex_17"] = "JAZK HQ";
-        proposal['pol_flexi']['prev_policy_no']["pol_flex_20"] = "";
+        proposal['pol_flexi']['payment_mode_desc']["pol_flex_18"] = `Flutterwave - ${newData.txRef || ''} - ${newData.amount || 0}`;
+        proposal['pol_flexi']['cover_type_code']["pol_flex_14"] = newData.quotation.quoteData.motorClassCode || '';
+        proposal['pol_flexi']['cover_type_desc']["pol_flex_16"] = this.utilsService.getAnyKeyValue(newData.quotation.quoteData.motorClassCode, 'name', this.motorService.motorProductType);
+        proposal['pol_flexi']['issued_at_code']["pol_flex_01"] = newData.insurance_data.companyDivision || '';
+        proposal['pol_flexi']['issued_at_desc']["pol_flex_17"] = this.utilsService.getAnyKeyValue(newData.insurance_data.companyDivision, 'divn_name', this.motorService.companyDivision);
+        proposal['pol_flexi']['prev_policy_no']["pol_flex_20"] = '';
         proposal['pol_flexi']['territory']["pol_flex_02"] = "KENYA";
-        proposal['pol_flexi']['broker_risk_note_no']["pol_flex_08"] = "";
+        proposal['pol_flexi']['broker_risk_note_no']["pol_flex_08"] = '';
+
+        proposal['proposalsections'][0]['sec_sr_no'] = '1';
+        proposal['proposalsections'][0]['psec_sec_code'] = newData.quotation.quoteData.motorproductSectAssCode || '';
 
         // Access proposal sections and risks
         let proposalRisk =
@@ -250,12 +259,15 @@ export class HomeComponent {
 
         if (proposalRisk && vehicleData) {
           // Update vehicle details
+          proposalRisk['prai_flexi']['vehicle_cover_type']['prai_code_21'] = newData.quotation.quoteData.motorProductTypeCode || '';
           proposalRisk['prai_flexi']['vehicle_make']['prai_code_04'] =
             newQuoteData.vehicleMake || '';
           proposalRisk['prai_flexi']['vehicle_model']['prai_code_05'] =
             newQuoteData.vehicleModel || '';
+          proposalRisk['prai_flexi']['vehicle_body_type']['prai_code_01'] =
+            vehicleData.bodyType || '';
           proposalRisk['prai_flexi']['vehicle_reg_no']['prai_data_03'] =
-            vehicleData.registrationNumber || '';
+            newQuoteData.vehicleRegNumber || '';
           proposalRisk['prai_flexi']['vehicle_chassis_no']['prai_data_01'] =
             vehicleData.chasisNumber || '';
           proposalRisk['prai_flexi']['vehicle_engine_no']['prai_data_02'] =
@@ -264,48 +276,75 @@ export class HomeComponent {
             newQuoteData.yearOfManufacture || 0;
           proposalRisk['prai_flexi']['vehicle_value']['prai_num_02'] =
             newQuoteData.sumInsured || 0;
-          proposalRisk['prai_flexi']['vehicle_cc']['prai_num_04'] = 1800; // Assuming unchanged
-          proposalRisk['prai_flexi']['num_pax']['prai_num_03'] =
-            newQuoteData.passengerLegalLiabilityBenefit || 0;
+          proposalRisk['prai_flexi']['vehicle_cc']['prai_num_04'] = '';
+          proposalRisk['prai_flexi']['seating_capacity']['prai_num_09'] = '';
+          proposalRisk['prai_flexi']['num_pax']['prai_num_03'] = '';
+          proposalRisk['prai_flexi']['vehicle_tonnage']['prai_num_14'] = '';
 
           // Update cover details in proposal
           proposalRisk['proposalcovers']?.forEach((cover: any) => {
             switch (cover['prc_code']) {
               case '3101': // Own Damage
-                cover['prc_prem_fc'] = newQuoteData.basicPremium || 0;
-                cover.prc_desc = 'Own Damage'
+                cover.prc_desc = 'Own Damage';
+                cover.cvr_sr_no = 1;
+                cover['prc_rate'] = newQuoteData.excessProtectorBenefit || 0;
+                cover.prc_rate_per = 1;
+                cover['prc_si_fc'] = newQuoteData.sumInsured || 0;
+                cover['prc_prem_fc'] = newQuoteData.excessProtectorBenefit || 0;
                 break;
               case '3176': // Third Party Only
-                cover['prc_prem_fc'] = newQuoteData.pvtBenefit || 0;
                 cover.prc_desc = 'Third Party Only'
+                cover.cvr_sr_no = 2;
+                cover['prc_rate'] = 0;
+                cover.prc_rate_per = 1;
+                cover['prc_si_fc'] = newQuoteData.sumInsured;
+                cover['prc_prem_fc'] = 0;
                 break;
               case '3109': // Windscreen
-                cover['prc_prem_fc'] = newQuoteData.windScreenBenefit || 0;
                 cover.prc_desc = 'Windscreen'
+                cover.cvr_sr_no = 3;
+                cover['prc_rate'] = newQuoteData.windScreenBenefit || 0;
+                cover.prc_rate_per = 1;
+                cover['prc_si_fc'] = newQuoteData.sumInsured || 0;
+                cover['prc_prem_fc'] = newQuoteData.windScreenBenefit || 0;
                 break;
               case '3110': // Radio Cassette
-                cover['prc_prem_fc'] = newQuoteData.radioCassetteBenefit || 0;
                 cover.prc_desc = 'Radio Cassette'
+                cover.cvr_sr_no = 4;
+                cover['prc_rate'] = newQuoteData.radioCassetteBenefit || 0;
+                cover.prc_rate_per = 1;
+                cover['prc_si_fc'] = newQuoteData.sumInsured;
+                cover['prc_prem_fc'] = newQuoteData.radioCassetteBenefit || 0;
                 break;
               case '3198': // Excess Protector
-                cover['prc_prem_fc'] = newQuoteData.excessProtectorBenefit || 0;
                 cover.prc_desc = 'Excess Protector'
+                cover.cvr_sr_no = 5;
+                cover['prc_rate'] = newQuoteData.excessProtectorBenefit || 0;
+                cover.prc_rate_per = 1;
+                cover['prc_si_fc'] = newQuoteData.sumInsured;
+                cover['prc_prem_fc'] = newQuoteData.excessProtectorBenefit || 0;
+                break;
+              case '3198': // Political Violence and Terrorism
+                cover.prc_desc = 'Political Violence and Terrorism'
+                cover.cvr_sr_no = 6;
+                cover['prc_rate'] = newQuoteData.pvtBenefit || 0;
+                cover.prc_rate_per = 1;
+                cover['prc_si_fc'] = newQuoteData.sumInsured || 0;
+                cover['prc_prem_fc'] = newQuoteData.pvtBenefit || 0;
                 break;
             }
           });
 
-          // Update payment information
-          proposal['pol_flexi']['payment_mode_desc'][
-            'pol_flex_18'
-          ] = `Flutterwave - ${newData.txRef || ''} - ${newData.amount || 0}`;
-          proposal['pol_flexi']['payment_mode_code']['pol_flex_10'] = '4'; // Assuming unchanged
-          proposal.pol_flexi.territory.pol_flex_02 = 'KENYA';
-          proposal.pol_flexi.cover_type_code = 'Comprehensive';
-          // if(newData.insurance_type == 'motor-commercial'){
-          //   proposal.pol_flexi.cover_type_code = 'Commercial'
-          // } else if(newData.insurance_type == 'motor-private'){
-          //   proposal.pol_flexi.cover_type_code = 'Private'
-          // }
+          // Update Certificate details
+          proposalRisk['proposalmotorcert'][0]['cert_sr_no'] = 1;
+          proposalRisk['proposalmotorcert'][0]['prai_flexi']['cert_mode']['prai_data_08'] = '02';
+          proposalRisk['proposalmotorcert'][0]['prai_flexi']['cert_type']['prai_code_14'] = 'Class ';
+          proposalRisk['proposalmotorcert'][0]['prai_flexi']['book_id']['prai_data_09'] = "DIGI_CERT";
+          proposalRisk['proposalmotorcert'][0]['prai_flexi']['cert_num']['prai_data_05'] = '';
+          proposalRisk['proposalmotorcert'][0]['prai_flexi']['cert_fm_dt']['prai_date_21'] = '';
+          proposalRisk['proposalmotorcert'][0]['prai_flexi']['cert_to_dt']['prai_date_22'] = '';
+          proposalRisk['proposalmotorcert'][0]['prai_flexi']['cert_name']['prai_data_10'] = '';
+
         }
       }
     }

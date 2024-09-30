@@ -492,10 +492,12 @@ export class MotorCalcComponent implements OnInit {
       {
         this.motorService.motorQuotation.motorClassCode = '10';
         this.motorService.motorQuotation.motorProductCode = '1002';
+        this.motorService.motorQuotation.motorproductSectAssCode = '100201';
       } 
     else {
       this.motorService.motorQuotation.motorClassCode = '11';
       this.motorService.motorQuotation.motorProductCode = '1001';
+      this.motorService.motorQuotation.motorproductSectAssCode = '100101';
     }
 
     console.log('Result: ', this.motorService.motorQuotation);
