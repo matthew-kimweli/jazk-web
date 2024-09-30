@@ -13,7 +13,7 @@ var ParseDashboard = require("parse-dashboard");
 import * as fs from "fs";
 
 const port = 3100;
-const debugging = true;
+const debugging = false;
 
 async function bootstrap() {
   // const httpsOptions = {

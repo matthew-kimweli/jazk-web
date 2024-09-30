@@ -18,7 +18,7 @@ export class AppComponent {
   constructor(public auth: AuthService,
     private toastr: ToastrService,) {
       let serverURL2 = `http://localhost:3100/parse`;
-      const debugging = true;
+      const debugging = false;
 
       if(debugging){
         serverURL2 = `http://localhost:3100/parse`;

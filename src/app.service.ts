@@ -11,7 +11,7 @@ const puppeteer = require("puppeteer");
 export class AppService {
   utils = new Utils();
   verificationCodes = {};
-  debugging: any = true;
+  debugging: any = false;
 
   onModuleInit() {
     this.initCloudFunctions();
