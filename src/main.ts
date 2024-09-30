@@ -13,9 +13,9 @@ var ParseDashboard = require("parse-dashboard");
 import * as fs from "fs";
 
 const port = 3100;
+const debugging = false;
 
 async function bootstrap() {
-  
   // const httpsOptions = {
   //   key: fs.readFileSync("./DigiCertGlobalRootG2.crt.pem"),
   //   cert: fs.readFileSync("./DigiCertGlobalRootG2.crt.pem"),
@@ -38,11 +38,14 @@ async function bootstrap() {
   var publicServerURL =
     "https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/parse";
 
-    
   // databaseUri = 'postgres://postgres:postgres@157.230.47.71:5432/jazke'
   // databaseUri = 'postgres://admin:admin@143.198.68.104:5432/jazke-web'
-  databaseUri = 'mongodb://localhost:27017/jazke-web'
-  publicServerURL = serverURL
+
+  if (debugging) {
+    databaseUri = "mongodb://localhost:27017/jazke-web";
+    publicServerURL = serverURL;
+  }
+
   // databaseUri = 'postgres://jazkadmin:Development.313*@jazk-postgres-fdb.postgres.database.azure.com/web_dev'
   // databaseUri = "mongodb+srv://admin:6iT4wLTN6rXYa8B@cluster0.2toly.mongodb.net/debunkbot?retryWrites=true&w=majority"
 
@@ -54,7 +57,8 @@ async function bootstrap() {
   (Parse as any).serverURL = serverURL;
 
   if (!databaseUri) {
-    databaseUri = 'postgres://jazkadmin:Development.313*@jazk-postgres-fdb.postgres.database.azure.com/web_dev'
+    databaseUri =
+      "postgres://jazkadmin:Development.313*@jazk-postgres-fdb.postgres.database.azure.com/web_dev";
     console.log("DATABASE_URI not specified, falling back to localhost.");
   }
 
