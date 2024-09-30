@@ -16,7 +16,7 @@ export class AppComponent {
   title = 'JAZKE';
 
   constructor(public auth: AuthService, private toastr: ToastrService) {
-    let serverURL2 = `${this.getHostName()}/parse`;
+    
 
     // if(debugging){
     //   serverURL2 = `http://localhost:3100/parse`;
@@ -24,6 +24,7 @@ export class AppComponent {
     //   serverURL2 = `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/parse`;
     // }
     // let serverURL2 = `https://jubilee.plot411.com/parse`;
+    let serverURL2 = `${this.getHostName()}/parse`;
     console.log('serverurl', serverURL2);
 
     var keyApplicationId = 'debunkbot';
