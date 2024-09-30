@@ -324,7 +324,7 @@ export class HomeComponent {
                 cover['prc_si_fc'] = newQuoteData.sumInsured;
                 cover['prc_prem_fc'] = newQuoteData.excessProtectorBenefit || 0;
                 break;
-              case '3198': // Political Violence and Terrorism
+              case '3199': // Political Violence and Terrorism
                 cover.prc_desc = 'Political Violence and Terrorism'
                 cover.cvr_sr_no = 6;
                 cover['prc_rate'] = newQuoteData.pvtBenefit || 0;
