@@ -330,7 +330,7 @@ export class HomeComponent {
     this.dataService.recent.quotations = this.quotations;
   }
 
-  get isPublicUser() {
-    return this.auth.currentUserType == 'public'
+  get isUserApproved() {
+    return this.auth.currentUserApprovalStatus == true
   }
 }

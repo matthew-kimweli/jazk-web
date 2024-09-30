@@ -25,6 +25,7 @@ import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.co
 import { ListUsersComponent } from './pages/admin/users/list-users/list-users.component';
 import { BanksComponent } from './pages/admin/banks/banks.component';
 import { RatesComponent } from './pages/admin/rates/rates.component';
+import { RegisterAgentComponent } from './pages/auth/register-agent/register-agent.component';
 
 export const routes: Routes = [
   {
@@ -51,7 +52,7 @@ export const routes: Routes = [
   },
   {
     path: 'register',
-    component: RegisterComponent,
+    component: RegisterAgentComponent,
   },
   {
     path: 'profile',

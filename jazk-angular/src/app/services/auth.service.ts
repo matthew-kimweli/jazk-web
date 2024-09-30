@@ -52,6 +52,14 @@ export class AuthService {
     return ''
   }
 
+  get currentUserApprovalStatus() {
+    if(this.currentUser){
+      // console.log('status', this.currentUser.get('approvedStatus'))
+      return this.currentUser.get('approvedStatus')
+    }
+    return ''
+  }
+
   get currentUserDepartment() {
     if(this.currentUser){
       return this.currentUser.get('department')

@@ -31,6 +31,7 @@ export class ListUsersComponent {
     position: "",
     password: "",
     userType: "agent",
+    approvedStatus:''
   };
   userDb: any;
   managers: Parse.Object<Parse.Attributes>[] | undefined;
@@ -53,19 +54,21 @@ export class ListUsersComponent {
       userType: [this.userData.userType, Validators.required],
       password: [this.userData.password, Validators.required],
       position: [this.userData.position, Validators.required],
+      approvedStatus:[this.userData.position, Validators.required],
     });
 
     this.edituserForm = this.fb.group({
-      name: [this.editUserData.name, Validators.required],
-      userEmail: [this.editUserData.userEmail, [Validators.required, Validators.email]],
-      userType: [this.editUserData.userType, Validators.required],
-      password: [this.editUserData.password],
-      position: [this.editUserData.position, Validators.required],
+      // name: [this.editUserData.name, Validators.required],
+      // userEmail: [this.editUserData.userEmail, [Validators.required, Validators.email]],
+      // userType: [this.editUserData.userType, Validators.required],
+      // password: [this.editUserData.password],
+      // position: [this.editUserData.position, Validators.required],
+      approvedStatus:[this.userData.position, Validators.required],
     });
 
     this.fetch();
-    this.fetchManagers();
-    this.fetchDepartments();
+    // this.fetchManagers();
+    // this.fetchDepartments();
   }
 
   async setUserToEdit(item: any, index:any) {
@@ -74,8 +77,9 @@ export class ListUsersComponent {
     this.editUserData.userType = item.get("userType");
     this.editUserData.password = item.get("password");
     this.editUserData.position = item.get("position");
+    this.editUserData.approvedStatus = item.get("approvedStatus");
     
-
+  
     this.selectedUserToEdit = this.list?.at(index);
   }
 
@@ -108,6 +112,7 @@ export class ListUsersComponent {
     user.set("position", this.userData.position);
     user.set("password", this.userData.password);
     user.set("userType", this.userData.userType);
+    user.set('approvedStatus', this.userData.approvedStatus)
     
 
     const acl = user.getACL() || new Parse.ACL();
@@ -130,7 +135,7 @@ export class ListUsersComponent {
           position: "",
           password: "",
           userType: "finance",
-          
+          approvedStatus: ''
         };
       }
       console.log("User saved");
@@ -145,60 +150,6 @@ export class ListUsersComponent {
     this.list = await this.parseService.find(query);
   }
 
-  async fetchManagers() {
-    let query2 = new Parse.Query(Parse.User);
-    query2.equalTo("userType", "manager");
-    this.managers = await this.parseService.find(query2);
-    console.log("managers", this.managers);
-  }
-
-  async fetchDepartments() {
-    let query = new Parse.Query("JazzLPODepartment");
-    this.departments = await this.parseService.find(query);
-  }
-
-  async selectUser(user: Parse.Object<Parse.Attributes>) {
-    this.selectedUser = user;
-    this.fetchManagers();
-  }
-
-  async onSelectManager(event: any) {
-    let value = event.target.value;
-    let manager = this.managers?.find((u) => {
-      if (u.id == value) {
-        return true;
-      }
-      return false;
-    });
-
-    this.selectedManager = manager;
-    console.log("manager", manager);
-  }
-
-  async saveManager() {
-    let manager = this.selectedManager;
-    if (manager) {
-      this.selectedUser.set("manager", manager.toPointer());
-      this.selectedUser.set("managerId", manager.id);
-      this.selectedUser.set("managerName", manager.get("name"));
-      this.selectedUser.set("managerPosition", manager.get("position"));
-
-      try {
-        this.toastr.info("Saving manager");
-        let saved = await this.parseService.save(this.selectedUser);
-        if (saved) {
-          this.toastr.success("Saved");
-          document.getElementById("AssignManagerCancelButton")?.click();
-          this.fetch();
-        } else {
-          this.toastr.info("Unable to save");
-        }
-      } catch (error) {
-        console.error(error);
-        this.toastr.error("Unable to save manager");
-      }
-    }
-  }
 
   submitForm() {
     this.parseService.submitting = true;
@@ -217,15 +168,4 @@ export class ListUsersComponent {
     }
   }
 
-  get potentialManagers() {
-    if (!this.selectedUser) {
-      return this.managers;
-    }
-    return this.managers?.filter((m) => {
-      if (m.id == this.selectedUser.id) {
-        return false;
-      }
-      return true;
-    });
-  }
 }

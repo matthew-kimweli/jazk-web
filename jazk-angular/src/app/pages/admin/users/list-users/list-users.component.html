@@ -264,6 +264,31 @@
                 </div>
               </div>
 
+              <div class="form-group mb-3 col-lg-6">
+                <label class="form-label">Approved</label>
+                <select
+                  type="text"
+                  [(ngModel)]="userData.approvedStatus"
+                  class="form-select"
+                  formControlName="approvedStatus"
+                >
+                <option value="" disabled>Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+                
+              
+              </select>
+                <div
+                  *ngIf="parseService.submitting &&
+                    userForm.get('approvedStatus')!.invalid &&
+                    userForm.get('approvedStatus')!.touched
+                  "
+                  class="text-danger"
+                >
+                Approved status is required.
+                </div>
+              </div>
+
               
             </div>
           </div>
@@ -305,7 +330,7 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="form-group mb-3 col-lg-6">
+              <!-- <div class="form-group mb-3 col-lg-6">
                 <label class="form-label">User Name</label>
                 <input type="text" class="form-control" [(ngModel)]="editUserData.name" formControlName="name" />
                 <div
@@ -333,7 +358,7 @@
                 >
                   Valid email is required.
                 </div>
-              </div>
+              </div> -->
               <!-- <div class="form-group mb-3 col-lg-6">
                 <label class="form-label">Phone Number</label>
                 <input type="text" class="form-control" [(ngModel)]="userData.phone" formControlName="phone" />
@@ -346,7 +371,7 @@
                   Phone number is required.
                 </div>
               </div> -->
-              <div class="form-group mb-3 col-lg-6">
+              <!-- <div class="form-group mb-3 col-lg-6">
                 <label class="form-label">Position</label>
                 <input
                   type="text"
@@ -363,9 +388,9 @@
                 >
                   Position is required.
                 </div>
-              </div>
+              </div> -->
 
-              <div class="form-group mb-3 col-lg-6">
+              <!-- <div class="form-group mb-3 col-lg-6">
                 <label class="form-label">Password</label>
                 <input
                   type="text"
@@ -408,8 +433,31 @@
                 >
                 User Type is required.
                 </div>
+              </div> -->
+              <div class="form-group mb-3 col-lg-6">
+                <label class="form-label">Approved</label>
+                <select
+                  type="text"
+                  [(ngModel)]="editUserData.approvedStatus"
+                  class="form-select"
+                  formControlName="approvedStatus"
+                >
+                <option value="undefined" disabled>Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+                
+              
+              </select>
+                <div
+                  *ngIf="parseService.submitting &&
+                    edituserForm.get('approvedStatus')!.invalid &&
+                    edituserForm.get('approvedStatus')!.touched
+                  "
+                  class="text-danger"
+                >
+                Approved status is required.
+                </div>
               </div>
-
               
             </div>
           </div>
