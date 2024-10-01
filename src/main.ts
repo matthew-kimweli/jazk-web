@@ -41,11 +41,11 @@ async function bootstrap() {
   // databaseUri = 'postgres://postgres:postgres@157.230.47.71:5432/jazke'
   // databaseUri = 'postgres://admin:admin@143.198.68.104:5432/jazke-web'
 
-  if (debugging) {
-    databaseUri = "mongodb://localhost:27017/jazke-web";
-    publicServerURL = serverURL;
-    console.log('debgugginh on', debugging)
-  }
+  // if (debugging) {
+  //   databaseUri = "mongodb://localhost:27017/jazke-web";
+  //   publicServerURL = serverURL;
+  //   console.log('debgugginh on', debugging)
+  // }
 
   // databaseUri = 'postgres://jazkadmin:Development.313*@jazk-postgres-fdb.postgres.database.azure.com/web_dev'
   // databaseUri = "mongodb+srv://admin:6iT4wLTN6rXYa8B@cluster0.2toly.mongodb.net/debunkbot?retryWrites=true&w=majority"

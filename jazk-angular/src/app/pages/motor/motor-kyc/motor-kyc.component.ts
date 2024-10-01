@@ -931,13 +931,12 @@ export class MotorKycComponent {
       let payment_success = false;
 
       let data = this.motorService.motorQuotation;
+
+      let kyc = this.motorData.kyc;
+      this.quote.set('client', kyc);
+      this.quote.set('actionType', 'purchase');
+      await this.quote.save();
       let client = this.quote.get('client');
-      if (!client) {
-        let kyc = this.motorData.kyc;
-        this.quote.set('client', kyc);
-        this.quote.set('actionType', 'purchase');
-        await this.quote.save();
-      }
 
       let amount = data.grossPremium;
       let currency = this.currency;

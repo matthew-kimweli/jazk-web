@@ -99,10 +99,10 @@ export class AppService {
 
       // Generate PDF
       const pdfBuffer = await page.pdf({ format: "A4", printBackground: true });
-      console.log("emailing 3");
+      console.log("got buffer", pdfBuffer);
 
       await browser.close();
-      console.log("emailing 4");
+      console.log("close browser");
 
       return pdfBuffer;
     } catch (error) {
