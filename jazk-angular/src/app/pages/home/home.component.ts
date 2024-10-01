@@ -128,35 +128,7 @@ export class HomeComponent {
     console.log('Final Mapping => ', this.updateQuotation(data));
   }
 
-  // Function to recursively convert Parse objects into plain JavaScript objects
-  parseObjectToPlain(obj: any): any {
-    if (obj instanceof Parse.Object) {
-      const plainObject = { ...obj.attributes }; // Get object attributes
-
-      // Recursively handle any nested Parse objects
-      for (const key in plainObject) {
-        if (plainObject[key] instanceof Parse.Object) {
-          plainObject[key] = this.parseObjectToPlain(plainObject[key]);
-        }
-      }
-
-      return plainObject;
-    }
-
-    // If it's a normal object or array, recursively handle those
-    if (Array.isArray(obj)) {
-      return obj.map((item) => this.parseObjectToPlain(item));
-    } else if (typeof obj === 'object' && obj !== null) {
-      const plainObject: any = {};
-      for (const key in obj) {
-        plainObject[key] = this.parseObjectToPlain(obj[key]);
-      }
-      return plainObject;
-    }
-
-    return obj; // Return the value if it's a primitive
-  }
-
+  
   // Function to create a template with keys from the JSON and empty values
   createEmptyTemplate(originalObj: any): { [key: string]: any } {
     let template: { [key: string]: any } = {};
@@ -185,13 +157,16 @@ export class HomeComponent {
       }
     }
 
-    return template;
+    return {...originalObj};
+
+    // return template;
   }
 
   updateQuotation(newData: any) {
     // Create a deep copy of the imported quotationObj to allow mutations
     let updatedQuotationObj: any = this.createEmptyTemplate(quotationObj);
     // let updatedQuotationObj: any = {...quotationObj}
+    console.log('quotationObj', updatedQuotationObj)
 
     // Update personal details
     updatedQuotationObj['quot_ref'] = newData.quotation.objectId || '';
@@ -208,6 +183,11 @@ export class HomeComponent {
       newData.insurance_data.kyc.email || '';
     updatedQuotationObj['quot_assr_gender'] = newData.insurance_data.kyc.gender || '';
     updatedQuotationObj['quot_assr_dob'] = newData.insurance_data.kyc.dob || '';
+    if(!updatedQuotationObj['quot_assr_flexi']){
+      updatedQuotationObj['quot_assr_flexi'] = {
+        'quot_assr_addr':{}
+      }
+    }
     updatedQuotationObj['quot_assr_flexi']['quot_assr_addr']['pol_addr_01'] = newData.insurance_data.kyc.address;
 
     // Access proposals array
@@ -336,14 +316,17 @@ export class HomeComponent {
           });
 
           // Update Certificate details
-          proposalRisk['proposalmotorcert'][0]['cert_sr_no'] = 1;
-          proposalRisk['proposalmotorcert'][0]['prai_flexi']['cert_mode']['prai_data_08'] = '02';
-          proposalRisk['proposalmotorcert'][0]['prai_flexi']['cert_type']['prai_code_14'] = this.utilsService.getAnyKeyValue(newData.quotation.quoteData.makeModel, 'cert_class', this.motorService.certificateClass);
-          proposalRisk['proposalmotorcert'][0]['prai_flexi']['book_id']['prai_data_09'] = "DIGI_CERT";
-          proposalRisk['proposalmotorcert'][0]['prai_flexi']['cert_num']['prai_data_05'] = newData.dmvic_cert.callbackObj.issueCertificate.actualCNo;
-          proposalRisk['proposalmotorcert'][0]['prai_flexi']['cert_fm_dt']['prai_date_21'] = newData.insurance_data.coverStartDate || '';
-          proposalRisk['proposalmotorcert'][0]['prai_flexi']['cert_to_dt']['prai_date_22'] = newData.insurance_data.coverEndDate || '';
-          proposalRisk['proposalmotorcert'][0]['prai_flexi']['cert_name']['prai_data_10'] = '';
+          proposalRisk['proposalmotorcerts'][0]['cert_sr_no'] = 1;
+          proposalRisk['proposalmotorcerts'][0]['prai_flexi']['cert_mode']['prai_data_08'] = '02';
+          proposalRisk['proposalmotorcerts'][0]['prai_flexi']['cert_type']['prai_code_14'] = this.utilsService.getAnyKeyValue(newData.quotation.quoteData.makeModel, 'cert_class', this.motorService.certificateClass);
+          proposalRisk['proposalmotorcerts'][0]['prai_flexi']['book_id']['prai_data_09'] = "DIGI_CERT";
+          if(newData.dmvic_cert.callbackObj && newData.dmvic_cert.callbackObj.issueCertificate){
+            proposalRisk['proposalmotorcerts'][0]['prai_flexi']['cert_num']['prai_data_05'] = newData.dmvic_cert.callbackObj.issueCertificate.actualCNo;
+          }
+          
+          proposalRisk['proposalmotorcerts'][0]['prai_flexi']['cert_fm_dt']['prai_date_21'] = newData.insurance_data.coverStartDate || '';
+          proposalRisk['proposalmotorcerts'][0]['prai_flexi']['cert_to_dt']['prai_date_22'] = newData.insurance_data.coverEndDate || '';
+          proposalRisk['proposalmotorcerts'][0]['prai_flexi']['cert_name']['prai_data_10'] = '';
 
         }
       }

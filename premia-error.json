@@ -1,0 +1,391 @@
+{
+  "detail": [
+    {
+      "type": "int_parsing",
+      "loc": [
+        "body",
+        "proposals",
+        0,
+        "proposalsections",
+        0,
+        "proposalrisks",
+        0,
+        "risk_sr_no"
+      ],
+      "msg": "Input should be a valid integer, unable to parse string as an integer",
+      "input": ""
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "proposals",
+        0,
+        "proposalsections",
+        0,
+        "proposalrisks",
+        0,
+        "proposalcovers",
+        0,
+        "prc_si_curr_code"
+      ],
+      "msg": "Field required",
+      "input": {
+        "cvr_sr_no": 1,
+        "prc_code": "3101",
+        "prc_desc": "Own Damage",
+        "prc_rate": 40000,
+        "prc_rate_per": 1,
+        "prc_si_fc": 8000000,
+        "prc_prem_fc": 40000
+      }
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "proposals",
+        0,
+        "proposalsections",
+        0,
+        "proposalrisks",
+        0,
+        "proposalcovers",
+        0,
+        "prc_prem_curr_code"
+      ],
+      "msg": "Field required",
+      "input": {
+        "cvr_sr_no": 1,
+        "prc_code": "3101",
+        "prc_desc": "Own Damage",
+        "prc_rate": 40000,
+        "prc_rate_per": 1,
+        "prc_si_fc": 8000000,
+        "prc_prem_fc": 40000
+      }
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "proposals",
+        0,
+        "proposalsections",
+        0,
+        "proposalrisks",
+        0,
+        "proposalcovers",
+        1,
+        "prc_si_curr_code"
+      ],
+      "msg": "Field required",
+      "input": {
+        "cvr_sr_no": 2,
+        "prc_code": "3176",
+        "prc_desc": "Third Party Only",
+        "prc_rate": 0,
+        "prc_rate_per": 1,
+        "prc_si_fc": 8000000,
+        "prc_prem_fc": 0
+      }
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "proposals",
+        0,
+        "proposalsections",
+        0,
+        "proposalrisks",
+        0,
+        "proposalcovers",
+        1,
+        "prc_prem_curr_code"
+      ],
+      "msg": "Field required",
+      "input": {
+        "cvr_sr_no": 2,
+        "prc_code": "3176",
+        "prc_desc": "Third Party Only",
+        "prc_rate": 0,
+        "prc_rate_per": 1,
+        "prc_si_fc": 8000000,
+        "prc_prem_fc": 0
+      }
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "proposals",
+        0,
+        "proposalsections",
+        0,
+        "proposalrisks",
+        0,
+        "proposalcovers",
+        2,
+        "prc_si_curr_code"
+      ],
+      "msg": "Field required",
+      "input": {
+        "cvr_sr_no": 3,
+        "prc_code": "3109",
+        "prc_desc": "Windscreen",
+        "prc_rate": 0,
+        "prc_rate_per": 1,
+        "prc_si_fc": 8000000,
+        "prc_prem_fc": 0
+      }
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "proposals",
+        0,
+        "proposalsections",
+        0,
+        "proposalrisks",
+        0,
+        "proposalcovers",
+        2,
+        "prc_prem_curr_code"
+      ],
+      "msg": "Field required",
+      "input": {
+        "cvr_sr_no": 3,
+        "prc_code": "3109",
+        "prc_desc": "Windscreen",
+        "prc_rate": 0,
+        "prc_rate_per": 1,
+        "prc_si_fc": 8000000,
+        "prc_prem_fc": 0
+      }
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "proposals",
+        0,
+        "proposalsections",
+        0,
+        "proposalrisks",
+        0,
+        "proposalcovers",
+        3,
+        "prc_si_curr_code"
+      ],
+      "msg": "Field required",
+      "input": {
+        "cvr_sr_no": 4,
+        "prc_code": "3110",
+        "prc_desc": "Radio Cassette",
+        "prc_rate": 0,
+        "prc_rate_per": 1,
+        "prc_si_fc": 8000000,
+        "prc_prem_fc": 0
+      }
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "proposals",
+        0,
+        "proposalsections",
+        0,
+        "proposalrisks",
+        0,
+        "proposalcovers",
+        3,
+        "prc_prem_curr_code"
+      ],
+      "msg": "Field required",
+      "input": {
+        "cvr_sr_no": 4,
+        "prc_code": "3110",
+        "prc_desc": "Radio Cassette",
+        "prc_rate": 0,
+        "prc_rate_per": 1,
+        "prc_si_fc": 8000000,
+        "prc_prem_fc": 0
+      }
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "proposals",
+        0,
+        "proposalsections",
+        0,
+        "proposalrisks",
+        0,
+        "proposalcovers",
+        4,
+        "prc_si_curr_code"
+      ],
+      "msg": "Field required",
+      "input": {
+        "cvr_sr_no": 5,
+        "prc_code": "3198",
+        "prc_desc": "Excess Protector",
+        "prc_rate": 40000,
+        "prc_rate_per": 1,
+        "prc_si_fc": 8000000,
+        "prc_prem_fc": 40000
+      }
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "proposals",
+        0,
+        "proposalsections",
+        0,
+        "proposalrisks",
+        0,
+        "proposalcovers",
+        4,
+        "prc_prem_curr_code"
+      ],
+      "msg": "Field required",
+      "input": {
+        "cvr_sr_no": 5,
+        "prc_code": "3198",
+        "prc_desc": "Excess Protector",
+        "prc_rate": 40000,
+        "prc_rate_per": 1,
+        "prc_si_fc": 8000000,
+        "prc_prem_fc": 40000
+      }
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "proposals",
+        0,
+        "proposalsections",
+        0,
+        "proposalrisks",
+        0,
+        "proposalcovers",
+        5,
+        "prc_si_curr_code"
+      ],
+      "msg": "Field required",
+      "input": {
+        "cvr_sr_no": 6,
+        "prc_code": "3199",
+        "prc_desc": "Political Violence and Terrorism",
+        "prc_rate": 36000,
+        "prc_rate_per": 1,
+        "prc_si_fc": 8000000,
+        "prc_prem_fc": 36000
+      }
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "proposals",
+        0,
+        "proposalsections",
+        0,
+        "proposalrisks",
+        0,
+        "proposalcovers",
+        5,
+        "prc_prem_curr_code"
+      ],
+      "msg": "Field required",
+      "input": {
+        "cvr_sr_no": 6,
+        "prc_code": "3199",
+        "prc_desc": "Political Violence and Terrorism",
+        "prc_rate": 36000,
+        "prc_rate_per": 1,
+        "prc_si_fc": 8000000,
+        "prc_prem_fc": 36000
+      }
+    },
+    {
+      "type": "int_parsing",
+      "loc": ["body", "proposals", 0, "proposalcharges", 0, "chg_sr_no"],
+      "msg": "Input should be a valid integer, unable to parse string as an integer",
+      "input": ""
+    },
+    {
+      "type": "float_parsing",
+      "loc": ["body", "proposals", 0, "proposalcharges", 0, "pchg_perc"],
+      "msg": "Input should be a valid number, unable to parse string as a number",
+      "input": ""
+    },
+    {
+      "type": "float_parsing",
+      "loc": ["body", "proposals", 0, "proposalcharges", 0, "pchg_chg_fc"],
+      "msg": "Input should be a valid number, unable to parse string as a number",
+      "input": ""
+    },
+    {
+      "type": "float_parsing",
+      "loc": ["body", "proposals", 0, "proposalcharges", 0, "pchg_rate_per"],
+      "msg": "Input should be a valid number, unable to parse string as a number",
+      "input": ""
+    },
+    {
+      "type": "int_parsing",
+      "loc": ["body", "proposals", 0, "proposalcharges", 1, "chg_sr_no"],
+      "msg": "Input should be a valid integer, unable to parse string as an integer",
+      "input": ""
+    },
+    {
+      "type": "float_parsing",
+      "loc": ["body", "proposals", 0, "proposalcharges", 1, "pchg_perc"],
+      "msg": "Input should be a valid number, unable to parse string as a number",
+      "input": ""
+    },
+    {
+      "type": "float_parsing",
+      "loc": ["body", "proposals", 0, "proposalcharges", 1, "pchg_chg_fc"],
+      "msg": "Input should be a valid number, unable to parse string as a number",
+      "input": ""
+    },
+    {
+      "type": "float_parsing",
+      "loc": ["body", "proposals", 0, "proposalcharges", 1, "pchg_rate_per"],
+      "msg": "Input should be a valid number, unable to parse string as a number",
+      "input": ""
+    },
+    {
+      "type": "int_parsing",
+      "loc": ["body", "proposals", 0, "proposalcharges", 2, "chg_sr_no"],
+      "msg": "Input should be a valid integer, unable to parse string as an integer",
+      "input": ""
+    },
+    {
+      "type": "float_parsing",
+      "loc": ["body", "proposals", 0, "proposalcharges", 2, "pchg_perc"],
+      "msg": "Input should be a valid number, unable to parse string as a number",
+      "input": ""
+    },
+    {
+      "type": "float_parsing",
+      "loc": ["body", "proposals", 0, "proposalcharges", 2, "pchg_chg_fc"],
+      "msg": "Input should be a valid number, unable to parse string as a number",
+      "input": ""
+    },
+    {
+      "type": "float_parsing",
+      "loc": ["body", "proposals", 0, "proposalcharges", 2, "pchg_rate_per"],
+      "msg": "Input should be a valid number, unable to parse string as a number",
+      "input": ""
+    }
+  ]
+}

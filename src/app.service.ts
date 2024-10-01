@@ -14,7 +14,7 @@ export class AppService {
 
   onModuleInit() {
     this.initCloudFunctions();
-    this.generateDocument('https://stackoverflow.com/questions/51466388/puppeteer-how-to-connect-wsendpoint-using-local-ip-address')
+    // this.generateDocument('https://stackoverflow.com/questions/51466388/puppeteer-how-to-connect-wsendpoint-using-local-ip-address')
   }
 
   getHello(): string {
@@ -87,7 +87,7 @@ export class AppService {
 
       const browser = await puppeteer.launch({
         headless: true,
-        executablePath: "/usr/bin/google-chrome-stable", //path.join(__dirname, "../google-chrome"), // Path to the Chrome binary
+        executablePath: "/usr/bin/google-chrome-stable",
         args: ["--no-sandbox", "--disable-setuid-sandbox"],
       });
 

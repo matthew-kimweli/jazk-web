@@ -1,0 +1,241 @@
+{
+    "proposals": [
+        {
+            "prop_sr_no": 1,
+            "prop_paymt_ref": "3lHEkTPHEk",
+            "prop_paymt_date": "2024-10-01T03:11:07.526Z",
+            "pol_quot_sys_id": 0,
+            "pol_quot_no": "XZjbPlmqDM-1",
+            "pol_comp_code": "",
+            "pol_divn_code": "102",
+            "pol_dept_code": "",
+            "pol_prod_code": "",
+            "pol_type": "",
+            "pol_cust_code": "",
+            "pol_assr_code": "",
+            "pol_fm_dt": "2024-10-01",
+            "pol_to_dt": "2025-09-30",
+            "pol_dflt_si_curr_code": "KES",
+            "pol_prem_curr_code": "KES",
+            "pol_flexi": {
+                "payment_mode_code": {
+                    "pol_flex_10": "4"
+                },
+                "payment_mode_desc": {
+                    "pol_flex_18": "Flutterwave - jazke__1727752263255 - 438504"
+                },
+                "cover_type_code": {
+                    "pol_flex_14": ""
+                },
+                "cover_type_desc": {
+                    "pol_flex_16": "Comprehensive"
+                },
+                "issued_at_code": {
+                    "pol_flex_01": "102"
+                },
+                "issued_at_desc": {},
+                "prev_policy_no": {
+                    "pol_flex_20": ""
+                },
+                "territory": {
+                    "pol_flex_02": "KENYA"
+                },
+                "broker_risk_note_no": {
+                    "pol_flex_08": ""
+                }
+            },
+            "proposalsections": [
+                {
+                    "sec_sr_no": "1",
+                    "psec_sec_code": "",
+                    "proposalrisks": [
+                        {
+                            "risk_sr_no": 1,
+                            "prai_flexi": {
+                                "vehicle_cover_type": {
+                                    "prai_code_21": ""
+                                },
+                                "vehicle_make": {
+                                    "prai_code_04": "ISUZU"
+                                },
+                                "vehicle_model": {
+                                    "prai_code_05": "PICKUP"
+                                },
+                                "vehicle_body_type": {
+                                    "prai_code_01": "SEDAN"
+                                },
+                                "vehicle_reg_no": {
+                                    "prai_data_03": "KCB 24332"
+                                },
+                                "vehicle_chassis_no": {
+                                    "prai_data_01": "12654"
+                                },
+                                "vehicle_engine_no": {
+                                    "prai_data_02": "37635"
+                                },
+                                "vehicle_yom": {
+                                    "prai_num_01": "2022"
+                                },
+                                "vehicle_value": {
+                                    "prai_num_02": 8000000
+                                },
+                                "vehicle_cc": {
+                                    "prai_num_04": ""
+                                },
+                                "seating_capacity": {
+                                    "prai_num_09": ""
+                                },
+                                "num_pax": {
+                                    "prai_num_03": ""
+                                },
+                                "vehicle_tonnage": {
+                                    "prai_num_14": ""
+                                }
+                            },
+                            "proposalcovers": [
+                                {
+                                    "cvr_sr_no": 1,
+                                    "prc_code": "3101",
+                                    "prc_desc": "Own Damage",
+                                    "prc_rate": 40000,
+                                    "prc_rate_per": 1,
+                                    "prc_si_curr_code": "KES",
+                                    "prc_prem_curr_code": "KES",
+                                    "prc_si_fc": 8000000,
+                                    "prc_prem_fc": 40000
+                                },
+                                {
+                                    "cvr_sr_no": 2,
+                                    "prc_code": "3176",
+                                    "prc_desc": "Third Party Only",
+                                    "prc_rate": 0,
+                                    "prc_rate_per": 1,
+                                    "prc_si_curr_code": "KES",
+                                    "prc_prem_curr_code": "KES",
+                                    "prc_si_fc": 8000000,
+                                    "prc_prem_fc": 0
+                                },
+                                {
+                                    "cvr_sr_no": 3,
+                                    "prc_code": "3109",
+                                    "prc_desc": "Windscreen",
+                                    "prc_rate": 0,
+                                    "prc_rate_per": 1,
+                                    "prc_si_curr_code": "KES",
+                                    "prc_prem_curr_code": "KES",
+                                    "prc_si_fc": 8000000,
+                                    "prc_prem_fc": 0
+                                },
+                                {
+                                    "cvr_sr_no": 4,
+                                    "prc_code": "3110",
+                                    "prc_desc": "Radio Cassette",
+                                    "prc_rate": 0,
+                                    "prc_rate_per": 1,
+                                    "prc_si_curr_code": "KES",
+                                    "prc_prem_curr_code": "KES",
+                                    "prc_si_fc": 8000000,
+                                    "prc_prem_fc": 0
+                                },
+                                {
+                                    "cvr_sr_no": 5,
+                                    "prc_code": "3198",
+                                    "prc_desc": "Excess Protector",
+                                    "prc_rate": 40000,
+                                    "prc_rate_per": 1,
+                                    "prc_si_curr_code": "KES",
+                                    "prc_prem_curr_code": "KES",
+                                    "prc_si_fc": 8000000,
+                                    "prc_prem_fc": 40000
+                                },
+                                {
+                                    "cvr_sr_no": 6,
+                                    "prc_code": "3199",
+                                    "prc_desc": "Political Violence and Terrorism",
+                                    "prc_rate": 36000,
+                                    "prc_rate_per": 1,
+                                    "prc_si_curr_code": "KES",
+                                    "prc_prem_curr_code": "KES",
+                                    "prc_si_fc": 8000000,
+                                    "prc_prem_fc": 36000
+                                }
+                            ],
+                            "proposalmotorcerts": [
+                                {
+                                    "motor_cert_sr_no": 1,
+                                    "prai_flexi": {
+                                        "cert_mode": {
+                                            "prai_data_08": "02"
+                                        },
+                                        "cert_type": {},
+                                        "book_id": {
+                                            "prai_data_09": "DIGI_CERT"
+                                        },
+                                        "cert_num": {
+                                            "prai_data_05": "C1349985"
+                                        },
+                                        "cert_fm_dt": {
+                                            "prai_date_21": "2024-10-01"
+                                        },
+                                        "cert_to_dt": {
+                                            "prai_date_22": "2025-09-30"
+                                        },
+                                        "cert_name": {
+                                            "prai_data_10": ""
+                                        }
+                                    },
+                                    "cert_sr_no": 1
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "proposalcharges": [
+                {
+                    "chg_sr_no": 1,
+                    "pchg_code": "2001",
+                    "pchg_type": "002",
+                    "pchg_perc": 40,
+                    "pchg_chg_fc": 40,
+                    "pchg_prem_curr_code": "KES",
+                    "pchg_rate_per": 1
+                },
+                {
+                    "chg_sr_no": 2,
+                    "pchg_code": "1004",
+                    "pchg_type": "005",
+                    "pchg_perc": 0.25,
+                    "pchg_chg_fc": 12,
+                    "pchg_prem_curr_code": "KES",
+                    "pchg_rate_per": 100
+                },
+                {
+                    "chg_sr_no": 3,
+                    "pchg_code": "2004",
+                    "pchg_type": "002",
+                    "pchg_perc": 0.2,
+                    "pchg_chg_fc": 11,
+                    "pchg_prem_curr_code": "KES",
+                    "pchg_rate_per": 100
+                }
+            ]
+        }
+    ],
+    "quot_assr_dob": "",
+    "quot_assr_email": "ahabweemma@gmail.com",
+    "quot_assr_flexi": {
+        "quot_assr_addr": {
+            "pol_addr_01": "Port bell road"
+        }
+    },
+    "quot_assr_gender": "",
+    "quot_assr_name": "John Doe",
+    "quot_assr_nic": "",
+    "quot_assr_phone": "773314578",
+    "quot_assr_pin": "A123456789B",
+    "quot_paymt_date": "2024-10-01T03:11:07.526Z",
+    "quot_paymt_ref": "3lHEkTPHEk",
+    "quot_ref": "XZjbPlmqDM",
+    "quot_assr_lic": ""
+}
