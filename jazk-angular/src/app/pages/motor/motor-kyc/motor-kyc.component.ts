@@ -369,45 +369,77 @@ export class MotorKycComponent {
   }
 
   async onSearchNIN(event: any) {
-    let d = {"nationalID":"12345678","firstName":"John","middleName":"Mwai","lastName":"Doe","dateOfBirth":"1990-05-10","gender":"Male","citizenship":"Kenyan","placeOfBirth":{"county":"Nairobi","subCounty":"Westlands","ward":"Parklands"},"idIssueDate":"2008-11-25","maritalStatus":"Single","photo":"https://iprs.go.ke/photos/12345678.jpg","fingerprintData":"base64encodedfingerprintdata","contacts":{"phone":"+254712345678","email":"john.doe@example.com"},"address":{"postalAddress":"P.O Box 12345-00100","county":"Nairobi","subCounty":"Westlands","ward":"Parklands"},"nextOfKin":{"name":"Jane Doe","relationship":"Sister","phone":"+254711223344"}}
+    let d = {
+      nationalID: '12345678',
+      firstName: 'John',
+      middleName: 'Mwai',
+      lastName: 'Doe',
+      dateOfBirth: '1990-05-10',
+      gender: 'Male',
+      citizenship: 'Kenyan',
+      placeOfBirth: {
+        county: 'Nairobi',
+        subCounty: 'Westlands',
+        ward: 'Parklands',
+      },
+      idIssueDate: '2008-11-25',
+      maritalStatus: 'Single',
+      photo: 'https://iprs.go.ke/photos/12345678.jpg',
+      fingerprintData: 'base64encodedfingerprintdata',
+      contacts: { phone: '+254712345678', email: 'john.doe@example.com' },
+      address: {
+        postalAddress: 'P.O Box 12345-00100',
+        county: 'Nairobi',
+        subCounty: 'Westlands',
+        ward: 'Parklands',
+      },
+      nextOfKin: {
+        name: 'Jane Doe',
+        relationship: 'Sister',
+        phone: '+254711223344',
+      },
+    };
     try {
-      this.searching.nin = true
-    let value:string = event.target.value;
-    if(value.length == 8){
-      if(isNaN(Number(value))){
-        this.toastr.error('Please provide a valid NIN. ID should be numbers only')
-      } else {
-        let query = new Parse.Query('IPRSCache')
-        query.equalTo('id_number', value)
-        let id = await query.first()
-        if(id){
-          d = id?.get('id_data')
-          console.log('id', d)
-          
-          this.vehicle.pfname = `${d.firstName} ${d.lastName}`
-          // this.vehicle.pfname = d.lastName
-          this.vehicle.pfnameMasked = this.utilsService.maskString(this.vehicle.pfname)
-          // this.vehicle.pAddress = d.address.postalAddress
-          // this.vehicle.pCity = d.address.county
-          // this.vehicle.pemail = d.contacts.email
-          // this.vehicle.pphone = d.contacts.phone
-          // this.vehicle.dob = d.dateOfBirth
-          this.vehicle.gender = d.gender
+      this.searching.nin = true;
+      let value: string = event.target.value;
+      if (value.length == 8) {
+        if (isNaN(Number(value))) {
+          this.toastr.error(
+            'Please provide a valid NIN. ID should be numbers only'
+          );
+        } else {
+          let query = new Parse.Query('IPRSCache');
+          query.equalTo('id_number', value);
+          let id = await query.first();
+          if (id) {
+            d = id?.get('id_data');
+            console.log('id', d);
 
-          // if (this.vehicle.kycType == 'company') {
-          //   this.vehicle.companyRegNo = id
-          // } else {
-          //   this.vehicle.nin = id
-          // }
-          // this.vehicle.pphone = String(d.contacts.phone).replace('+254', '')
+            this.vehicle.pfname = `${d.firstName} ${d.lastName}`;
+            // this.vehicle.pfname = d.lastName
+            this.vehicle.pfnameMasked = this.utilsService.maskString(
+              this.vehicle.pfname
+            );
+            // this.vehicle.pAddress = d.address.postalAddress
+            // this.vehicle.pCity = d.address.county
+            // this.vehicle.pemail = d.contacts.email
+            // this.vehicle.pphone = d.contacts.phone
+            // this.vehicle.dob = d.dateOfBirth
+            this.vehicle.gender = d.gender;
 
+            // if (this.vehicle.kycType == 'company') {
+            //   this.vehicle.companyRegNo = id
+            // } else {
+            //   this.vehicle.nin = id
+            // }
+            // this.vehicle.pphone = String(d.contacts.phone).replace('+254', '')
+          }
         }
       }
-    }
 
-    this.searching.nin = false
+      this.searching.nin = false;
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
   }
 
@@ -616,10 +648,10 @@ export class MotorKycComponent {
   buyNow() {
     this.vehicle.registrationNumber =
       this.motorService.motorQuotation.vehicleRegNumber;
-      this.vehicle.vehicleMake = this.motorService.motorQuotation.vehicleMake
-      this.vehicle.vehicleModel = this.motorService.motorQuotation.vehicleModel
-    
-      if (this.vehicle.hasDoubleInsurance) {
+    this.vehicle.vehicleMake = this.motorService.motorQuotation.vehicleMake;
+    this.vehicle.vehicleModel = this.motorService.motorQuotation.vehicleModel;
+
+    if (this.vehicle.hasDoubleInsurance) {
       this.toastr.error(
         'Unable to proceed',
         'This vehicle is already insured (Double Insurance Found)'
@@ -761,7 +793,7 @@ export class MotorKycComponent {
     this.motorData.kyc = userData;
     this.motorData.vehicle = this.vehicle;
 
-    this.motorData.companyDivision = this.companyDivision
+    this.motorData.companyDivision = this.companyDivision;
 
     this.motorData.coverStartDate = this.coverStartDate;
     this.motorData.coverEndDate = this.coverEndDate;
@@ -912,7 +944,7 @@ export class MotorKycComponent {
 
       this.toastr.info('Please wait. Connecting...');
       let PaymentRequest = Parse.Object.extend('JazkeSale');
-      let payment:Parse.Object = new PaymentRequest();
+      let payment: Parse.Object = new PaymentRequest();
       payment.set('type', 'flutterwave');
       payment.set('amount', amount);
       payment.set('txRef', txRef);
@@ -962,15 +994,20 @@ export class MotorKycComponent {
         phone = `254${phone}`;
       }
 
+      let host = window.location.host;
+      let pdfHost = `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io`;
+      console.log('host', pdfHost);
+
       let res = await Parse.Cloud.run('paympesa', {
         phone: phone,
         sale_id: payment.id,
-        sale_data: payment.toJSON(), 
+        sale_data: payment.toJSON(),
         quote_id: this.quote.id,
         quote_data: this.quote.get('quoteData'),
         client: client,
         agent_email: agent_email,
-        client_email: this.vehicle.pemail
+        client_email: this.vehicle.pemail,
+        host: pdfHost,
       });
       console.log('response', res);
       let json = res;

@@ -11,11 +11,10 @@ const puppeteer = require("puppeteer");
 export class AppService {
   utils = new Utils();
   verificationCodes = {};
-  debugging: any = false;
 
   onModuleInit() {
     this.initCloudFunctions();
-    // this.generateDocument('https://stackoverflow.com/questions/51466388/puppeteer-how-to-connect-wsendpoint-using-local-ip-address')
+    this.generateDocument('https://stackoverflow.com/questions/51466388/puppeteer-how-to-connect-wsendpoint-using-local-ip-address')
   }
 
   getHello(): string {
@@ -84,14 +83,16 @@ export class AppService {
       //   args: ["--no-sandbox", "--disable-setuid-sandbox"],
       // });
 
+      console.log('pupetter url', url)
+
       const browser = await puppeteer.launch({
         headless: true,
-        // executablePath: "./google-chrome", //path.join(__dirname, "../google-chrome"), // Path to the Chrome binary
+        executablePath: "/usr/bin/google-chrome-stable", //path.join(__dirname, "../google-chrome"), // Path to the Chrome binary
         args: ["--no-sandbox", "--disable-setuid-sandbox"],
       });
 
       const page = await browser.newPage();
-      await page.goto(url, { waitUntil: "networkidle0" });
+      await page.goto(url, { waitUntil: "networkidle0", timeout: 0 });
 
       // Set HTML content
       // await page.setContent(invoiceHtml);
@@ -183,11 +184,7 @@ export class AppService {
       let agent_email = params.agent_email;
       let client_email = params.client_email;
       let client = params.client || {};
-      let host = "https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io"; // Use an environment variable or default to 'localhost'
-
-        if(this.debugging){
-          host = 'http://localhost:4200'
-        }
+      let host = params.host // "https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io"; // Use an environment variable or default to 'localhost'
 
       function getTimestamp() {
         const now = new Date();

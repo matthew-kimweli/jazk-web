@@ -13,7 +13,7 @@ var ParseDashboard = require("parse-dashboard");
 import * as fs from "fs";
 
 const port = 3100;
-const debugging = true;
+const debugging = process.env.DEBUG || false;
 
 async function bootstrap() {
   // const httpsOptions = {
@@ -44,6 +44,7 @@ async function bootstrap() {
   if (debugging) {
     databaseUri = "mongodb://localhost:27017/jazke-web";
     publicServerURL = serverURL;
+    console.log('debgugginh on', debugging)
   }
 
   // databaseUri = 'postgres://jazkadmin:Development.313*@jazk-postgres-fdb.postgres.database.azure.com/web_dev'
