@@ -14,7 +14,7 @@ export class AppService {
 
   onModuleInit() {
     this.initCloudFunctions();
-    // this.generateDocument('https://stackoverflow.com/questions/51466388/puppeteer-how-to-connect-wsendpoint-using-local-ip-address')
+    // this.generateDocument('https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/receipt/3lHEkTPHEk')
   }
 
   getHello(): string {
@@ -87,6 +87,7 @@ export class AppService {
 
       const browser = await puppeteer.launch({
         headless: true,
+        // executablePath: "./google-chrome", //path.join(__dirname, "../google-chrome"), // Path to the Chrome binary
         executablePath: "/usr/bin/google-chrome-stable",
         args: ["--no-sandbox", "--disable-setuid-sandbox"],
       });
@@ -368,7 +369,7 @@ export class AppService {
 
         // console.log("access token", response.data);
         let tokenData: any = {
-          access_token: `eyJhbGciOiJSUzI1NiIsImtpZCI6IjVCQjRFNjE4NzdGNTMxRUJDQUZCOEIwMEFGRjkzMkU5QkI2Qjc0NjQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiSU5TQVBJVVNFUiIsInByaW1hcnlzaWQiOiI4MUI4RkJBMi0yRjA3LTRDRjAtOEZEQi0zQzYwMDE1ODMyNUUiLCJwcmltYXJ5Z3JvdXBzaWQiOiIyNiIsImxvZ2luaGlzdG9yeSI6IjQyMzY2MSIsIm5iZiI6MTcyNzY4Nzk0MiwiZXhwIjoxNzI4MjkyNzQyLCJpYXQiOjE3Mjc2ODc5NDIsImlzcyI6Imh0dHBzOi8vdWF0LWFwaS5kbXZpYy5jb20iLCJhdWQiOiJodHRwczovL3VhdC1hcGkuZG12aWMuY29tIn0.bDUuolu1lbEUAPCQmTH-OU7VzlgitZ06e8Zmh_H-dwnoqrYUuwa2zrxLpOVTaN3Cm88zLgVY7MwyOs-WMskbqZuJeAg85uSZKRpUBu-80NyjU-FOj_z2wVKSO4Efnq7jJ-NUK7okENwexuVBxqsVJ1JUt4NszXGyUUJBWZpYsHBmX_LAuoQScgBrDiBDDSoewwTVt6JeTaZK-Hwsxk20hdLdDl1sFb2pZi3RJmVFs46BbRxKEG0ipYBAu8sFK4g_fzQOZH2-fI2947XOGnE8ru5q8KxPpbYoLi_e3li-rs-5_gR3k15KHd_8MLFMNXomr9P8SD8K88hKyF4yg4X6Ng`,
+          access_token: `eyJhbGciOiJSUzI1NiIsImtpZCI6IjVCQjRFNjE4NzdGNTMxRUJDQUZCOEIwMEFGRjkzMkU5QkI2Qjc0NjQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiSU5TQVBJVVNFUiIsInByaW1hcnlzaWQiOiI4MUI4RkJBMi0yRjA3LTRDRjAtOEZEQi0zQzYwMDE1ODMyNUUiLCJwcmltYXJ5Z3JvdXBzaWQiOiIyNiIsImxvZ2luaGlzdG9yeSI6IjQyNDQwNSIsIm5iZiI6MTcyNzg0ODgwNSwiZXhwIjoxNzI4NDUzNjA1LCJpYXQiOjE3Mjc4NDg4MDUsImlzcyI6Imh0dHBzOi8vdWF0LWFwaS5kbXZpYy5jb20iLCJhdWQiOiJodHRwczovL3VhdC1hcGkuZG12aWMuY29tIn0.RN0pJf-f1cpNwZqhr12BbPdnNkQKFHEYdM6QsXM1Ag6lTQvJz_BQrB_G_eQ2mI8Jwf5GkhxWR0shq1a59lS1M-gHI8icQwX0DwQ3yhAfjtBVn1_iJPN5PuANbLbqdWCHYZxrCpvqiAh3H1w0JNFRbdwymREuHtfQeVWn3P9bRhSbif47xGMegr_Vil4yv5IyY2lv0U3K27vbKsHBqVqhw64UGYKmdxeqm_qUtWwjAl2ysL-kEgnJkyVdL3sO1X-0fCWYMfKCwTHghXt4CKwQRwaH0FER3ttzqWRz-8jgx6lGMxHNZFP7_kETF-RUZJv_lWZYEzTPrlKUGsi9Slj0og`,
         }; //response.data;
         if (tokenData && tokenData.access_token) {
           const response = await axios.post(
