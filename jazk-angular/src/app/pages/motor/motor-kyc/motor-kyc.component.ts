@@ -326,6 +326,24 @@ export class MotorKycComponent {
   valuers: any = ['REGENT VALUERS', 'SOLVIT LIMITED'];
   searching: any = {};
   coverDates: any;
+  disclaimers = [
+    {
+      declarationYes: false,
+      text: 'I have read and accept the intermediary terms and conditions.'
+    },
+    {
+      declarationYes: false,
+      text: 'I have explained and advised the client in detail that they must take the car for valuation as specified in the valuation letter within the next 30 days or their insurance cover will automatically be downgraded to a Third Party Only (TPO) Cover.'
+    },
+    {
+      declarationYes: false,
+      text: 'I have explained and advised the client in detail to return the signed proposal form within the next 30 days or their insurance cover will automatically be downgraded to a Third Party Only (TPO) Cover.'
+    },
+    {
+      declarationYes: false,
+      text: 'I declare that the information I have entered is as provided by the customer'
+    }
+  ]
 
   constructor(
     public utilsService: UtilsService,
@@ -996,9 +1014,13 @@ export class MotorKycComponent {
       let host = window.location.host;
       let pdfHost = `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io`;
       console.log('host', pdfHost);
+      console.log('saleId', payment.id);
+
+      let cert_class = ''//this.utilsService.getAnyKeyValue(this.motorService.motorQuotation.makeModel, 'cert_class', this.motorService.certificateClass);
 
       let res = await Parse.Cloud.run('paympesa', {
         phone: phone,
+        cert_class: cert_class,
         sale_id: payment.id,
         sale_data: payment.toJSON(),
         quote_id: this.quote.id,

@@ -142,7 +142,6 @@
                   }}</small></label
                 >
                 <input
-                  disabled
                   [(ngModel)]="vehicle.pfnameMasked"
                   type="text"
                   name="firstname"
@@ -498,6 +497,32 @@
             </div>
           </div>
           <br />
+
+          <div *ngIf="user">
+            <div class="doctors">
+              <div class="member">
+                <div class="member-info">
+                  <h4>Disclaimers</h4>
+                  <div *ngFor="let d of disclaimers" class="form-check">
+                    <input
+                      [(ngModel)]="d.declarationYes"
+                      class="form-check-input"
+                      type="checkbox"
+                      name="flexRadioDefaultownership"
+                      id="flexRadioDefaultownership"
+                    />
+                    <label
+                      class="form-label"
+                      class="form-check-label"
+                      for="flexRadioDefaultownership"
+                    >
+                      {{d.text}}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div *ngIf="!user">
             <br />

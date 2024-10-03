@@ -14,7 +14,54 @@ export class AppService {
 
   onModuleInit() {
     this.initCloudFunctions();
-    // this.generateDocument('https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/receipt/3lHEkTPHEk')
+    // this.sendDummyDoc()
+  }
+
+  async sendDummyDoc() {
+    try {
+      let sale_id = "A4QmZ1Vgel";
+      let host =
+        "https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io";
+      let url = `${host}/receipt/${sale_id}`;
+
+      console.log("pupetter url", url);
+
+      const browser = await puppeteer.launch({
+        headless: true,
+        // executablePath: "./google-chrome", //path.join(__dirname, "../google-chrome"), // Path to the Chrome binary
+        // executablePath: "/usr/bin/google-chrome-stable",
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      });
+
+      const page = await browser.newPage();
+      await page.goto(url, { waitUntil: "networkidle0", timeout: 0 });
+
+      // Generate PDF
+      const pdfBuffer = await page.pdf({ format: "A4", printBackground: true });
+      console.log("got buffer", pdfBuffer);
+
+      await browser.close();
+      console.log("close browser");
+
+      let email_params: any = {
+        from: "saleske@allianz.com",
+        subject: `Motor Insurance: Your Jubilee Allianz Policy Package`,
+        text: `Hi Please find attached your insurance policy package.`,
+        amount: "500",
+        to: ["ahabweemma@gmail.com"],
+        attachments: [
+          {
+            filename: `Doc.pdf`,
+            content: pdfBuffer,
+          },
+        ],
+      };
+
+      console.log("params", email_params);
+      this.utils.sendEmail(email_params);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   getHello(): string {
@@ -30,9 +77,9 @@ export class AppService {
   }
 
   formatDateSlash(d) {
-    let date = new Date(d)
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    let date = new Date(d);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   }
@@ -72,8 +119,9 @@ export class AppService {
     }
   }
 
-  async generateDocument(url) {
+  async generateDocument(url: string) {
     try {
+      url = url.trim();
       // Connecting to browserlesss
       // const browser = await puppeteer.connect({
       //   // browserWSEndpoint:
@@ -83,12 +131,12 @@ export class AppService {
       //   args: ["--no-sandbox", "--disable-setuid-sandbox"],
       // });
 
-      console.log('pupetter url', url)
+      console.log("pupetter url", url);
 
       const browser = await puppeteer.launch({
         headless: true,
         // executablePath: "./google-chrome", //path.join(__dirname, "../google-chrome"), // Path to the Chrome binary
-        executablePath: "/usr/bin/google-chrome-stable",
+        // executablePath: "/usr/bin/google-chrome-stable",
         args: ["--no-sandbox", "--disable-setuid-sandbox"],
       });
 
@@ -113,10 +161,11 @@ export class AppService {
 
   async issueDMVICCertificate(params) {
     let phone = params.phone;
+    let cert_class = params.cert_class
     let quote_data = params.quote_data;
     let quote_id = params.quote_id;
     let quoteDB = params.quoteDB;
-    let sale_data = params.sale_data
+    let sale_data = params.sale_data;
     let sale_id = params.sale_id;
     let agent_email = params.agent_email;
     let client_email = params.client_email;
@@ -132,8 +181,12 @@ export class AppService {
         policynumber: "P/109/1002/2023/000064",
         Email: client_email,
         Phonenumber: sale_data.insurance_data.kyc.phone,
-        Commencingdate: this.formatDateSlash(sale_data.insurance_data.coverStartDate),
-        Expiringdate: this.formatDateSlash(sale_data.insurance_data.coverEndDate),
+        Commencingdate: this.formatDateSlash(
+          sale_data.insurance_data.coverStartDate
+        ),
+        Expiringdate: this.formatDateSlash(
+          sale_data.insurance_data.coverEndDate
+        ),
         Registrationnumber: "",
         Vehiclemake: sale_data.insurance_data.vehicle.vehicleMake,
         Vehiclemodel: sale_data.insurance_data.vehicle.vehicleModel,
@@ -185,7 +238,7 @@ export class AppService {
       let agent_email = params.agent_email;
       let client_email = params.client_email;
       let client = params.client || {};
-      let host = params.host // "https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io"; // Use an environment variable or default to 'localhost'
+      let host = params.host; // "https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io"; // Use an environment variable or default to 'localhost'
 
       function getTimestamp() {
         const now = new Date();
@@ -271,18 +324,18 @@ export class AppService {
 
               let emails = [client.email, agent_email];
 
-              let valuationLetterBuffer = await this.generateDocument(
-                `${host}/valuation-letter/${sale_id}`
-              );
-              let receiptBuffer = await this.generateDocument(
-                `${host}/receipt/${sale_id}`
-              );
-              let debitNoteBuffer = await this.generateDocument(
-                `${host}/debitnote/${sale_id}`
-              );
-              let policyScheduleBuffer = await this.generateDocument(
-                `${host}/policyschedule/${sale_id}`
-              );
+              let sale_id = "A4QmZ1Vgel";
+              let host =
+                "https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io";
+              let letter_url = `${host}/valuation-letter/${sale_id}`;
+              let receipt_url = `${host}/receipt/${sale_id}`;
+              let debitnote_url = `${host}/debitnote/${sale_id}`;
+              let policyschedule_url = `${host}/policyschedule/${sale_id}`;
+
+              let valuationLetterBuffer = await this.generateDocument(letter_url);
+              let receiptBuffer = await this.generateDocument(receipt_url);
+              let debitNoteBuffer = await this.generateDocument(debitnote_url);
+              let policyScheduleBuffer = await this.generateDocument(policyschedule_url);
 
               let email_params: any = {
                 from: "saleske@allianz.com",
@@ -295,17 +348,14 @@ export class AppService {
                   {
                     filename: `Debit Credit Note - ${today}.pdf`,
                     content: debitNoteBuffer,
-                    // path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/debit_credit_note.pdf`,
                   },
                   {
                     filename: `Receipt - ${today}.pdf`,
                     content: receiptBuffer,
-                    // path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/receipt.pdf`,
                   },
                   {
                     filename: `Valuation Letter - ${today}.pdf`,
                     content: valuationLetterBuffer,
-                    // path: `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/assets/data/valuation-letter.pdf`,
                   },
                   {
                     filename: `Policy Schedule - ${today}.pdf`,
@@ -360,17 +410,18 @@ export class AppService {
       let post_body = params.body;
 
       try {
-        // const response = await axios.get(tokenUrl, {
-        //   // headers: {
-        //   //   Authorization:
-        //   //     "Basic S3FUNDk2V1c1V09LMmxjT3AwdnRzQjZxVWFYaHl0UXhwbUdzS2FWS1kza0xNTzA4OlVyaU1lT0NQamVlMDNuaFo0SDZhTlZsNkU0ZWJ2TEExQWNWbnFnRnUxb08yZmJ3c0FkSU1vN2VTWEdXMmRERWM=",
-        //   // },
-        // });
+        const response = await axios.get(tokenUrl, {
+          headers: {
+            Authorization:
+              "Basic S3FUNDk2V1c1V09LMmxjT3AwdnRzQjZxVWFYaHl0UXhwbUdzS2FWS1kza0xNTzA4OlVyaU1lT0NQamVlMDNuaFo0SDZhTlZsNkU0ZWJ2TEExQWNWbnFnRnUxb08yZmJ3c0FkSU1vN2VTWEdXMmRERWM=",
+          },
+        });
 
         // console.log("access token", response.data);
-        let tokenData: any = {
-          access_token: `eyJhbGciOiJSUzI1NiIsImtpZCI6IjVCQjRFNjE4NzdGNTMxRUJDQUZCOEIwMEFGRjkzMkU5QkI2Qjc0NjQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiSU5TQVBJVVNFUiIsInByaW1hcnlzaWQiOiI4MUI4RkJBMi0yRjA3LTRDRjAtOEZEQi0zQzYwMDE1ODMyNUUiLCJwcmltYXJ5Z3JvdXBzaWQiOiIyNiIsImxvZ2luaGlzdG9yeSI6IjQyNDQwNSIsIm5iZiI6MTcyNzg0ODgwNSwiZXhwIjoxNzI4NDUzNjA1LCJpYXQiOjE3Mjc4NDg4MDUsImlzcyI6Imh0dHBzOi8vdWF0LWFwaS5kbXZpYy5jb20iLCJhdWQiOiJodHRwczovL3VhdC1hcGkuZG12aWMuY29tIn0.RN0pJf-f1cpNwZqhr12BbPdnNkQKFHEYdM6QsXM1Ag6lTQvJz_BQrB_G_eQ2mI8Jwf5GkhxWR0shq1a59lS1M-gHI8icQwX0DwQ3yhAfjtBVn1_iJPN5PuANbLbqdWCHYZxrCpvqiAh3H1w0JNFRbdwymREuHtfQeVWn3P9bRhSbif47xGMegr_Vil4yv5IyY2lv0U3K27vbKsHBqVqhw64UGYKmdxeqm_qUtWwjAl2ysL-kEgnJkyVdL3sO1X-0fCWYMfKCwTHghXt4CKwQRwaH0FER3ttzqWRz-8jgx6lGMxHNZFP7_kETF-RUZJv_lWZYEzTPrlKUGsi9Slj0og`,
-        }; //response.data;
+        // let tokenData: any = {
+        //   access_token: `eyJhbGciOiJSUzI1NiIsImtpZCI6IjVCQjRFNjE4NzdGNTMxRUJDQUZCOEIwMEFGRjkzMkU5QkI2Qjc0NjQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiSU5TQVBJVVNFUiIsInByaW1hcnlzaWQiOiI4MUI4RkJBMi0yRjA3LTRDRjAtOEZEQi0zQzYwMDE1ODMyNUUiLCJwcmltYXJ5Z3JvdXBzaWQiOiIyNiIsImxvZ2luaGlzdG9yeSI6IjQyNDQwNSIsIm5iZiI6MTcyNzg0ODgwNSwiZXhwIjoxNzI4NDUzNjA1LCJpYXQiOjE3Mjc4NDg4MDUsImlzcyI6Imh0dHBzOi8vdWF0LWFwaS5kbXZpYy5jb20iLCJhdWQiOiJodHRwczovL3VhdC1hcGkuZG12aWMuY29tIn0.RN0pJf-f1cpNwZqhr12BbPdnNkQKFHEYdM6QsXM1Ag6lTQvJz_BQrB_G_eQ2mI8Jwf5GkhxWR0shq1a59lS1M-gHI8icQwX0DwQ3yhAfjtBVn1_iJPN5PuANbLbqdWCHYZxrCpvqiAh3H1w0JNFRbdwymREuHtfQeVWn3P9bRhSbif47xGMegr_Vil4yv5IyY2lv0U3K27vbKsHBqVqhw64UGYKmdxeqm_qUtWwjAl2ysL-kEgnJkyVdL3sO1X-0fCWYMfKCwTHghXt4CKwQRwaH0FER3ttzqWRz-8jgx6lGMxHNZFP7_kETF-RUZJv_lWZYEzTPrlKUGsi9Slj0og`,
+        // }; 
+        let tokenData = response.data;
         if (tokenData && tokenData.access_token) {
           const response = await axios.post(
             `${baseUrl}/${endpoint}`,

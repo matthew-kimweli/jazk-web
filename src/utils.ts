@@ -21,6 +21,8 @@ export class Utils {
 
     console.log("sendig=ng email");
 
+    // return this.sendEmailInfobip(params);
+
     let transporter = nodemailer.createTransport({
       service: "gmail", // e.g., 'gmail', 'yahoo', etc.
       auth: {
@@ -105,6 +107,7 @@ export class Utils {
       "App a6ec5d4ba09701375f50783beecb490d-59a3338d-9898-4e81-b0aa-f4a303f131b8";
     const apiBaseURL = "https://89kj1e.api.infobip.com";
 
+
     const SENDER_EMAIL = params.from || "noreply@mails-ke.jubilee-allianz.com";
     const RECIPIENT_EMAILS = toArray(params.to);
     const CC_EMAILS = toArray(params.cc);
@@ -146,8 +149,7 @@ export class Utils {
 
       // const headers = { Authorization: apiKey, ...formData.getHeaders() };
       const headers = { Authorization: apiKey };
-      const response = await axios.post(
-        `${apiBaseURL}/email/3/send`,
+      const response = await axios.post(apiBaseURL+'/email/3/send',
         formData,
         { headers }
       );
@@ -155,8 +157,8 @@ export class Utils {
       console.log(JSON.stringify(response.data));
       return { success: true, message: "Email Sent via Infobip" };
     } catch (error) {
-      console.error(error.response.data.requestError);
-      // console.error("Error", error);
+      // console.error(error.response.data.requestError);
+      console.error("Error", error);
       return {
         success: false,
         title: "Infobip - Error, Email Not Sent.",

@@ -12,4 +12,4 @@ services:
       NODE_ENV: production
       DATABASE_URI: postgres://admin:admin@143.198.68.104:5432/jazke-web
       HOST: https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io
-      PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome-stable
+      # PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome-stable
