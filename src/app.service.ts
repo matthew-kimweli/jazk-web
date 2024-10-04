@@ -136,7 +136,7 @@ export class AppService {
       const browser = await puppeteer.launch({
         headless: true,
         // executablePath: "./google-chrome", //path.join(__dirname, "../google-chrome"), // Path to the Chrome binary
-        // executablePath: "/usr/bin/google-chrome-stable",
+        executablePath: "/usr/bin/google-chrome-stable",
         args: ["--no-sandbox", "--disable-setuid-sandbox"],
       });
 

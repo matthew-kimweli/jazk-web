@@ -352,6 +352,50 @@
                 />
                 <div class="validate"></div>
               </div>
+              <div class="col-md-3 form-group mt-3">
+                <label class="form-label" for="seating"
+                  ><small>Seating Capacity</small></label
+                >
+                <input
+                  type="number"
+                  [(ngModel)]="vehicle.seatingCapacity"
+                  name="seating"
+                  class="form-control"
+                  id="seating"
+                  placeholder="Seating Capacity"
+                />
+                <div class="validate"></div>
+              </div>
+              <div class="col-md-3 form-group mt-3">
+                <label class="form-label" for="passengers"
+                  ><small>Number of Passengers</small></label
+                >
+                <input
+                  type="number"
+                  [(ngModel)]="vehicle.numPassengers"
+                  name="passengers"
+                  class="form-control"
+                  id="passengers"
+                  placeholder="Number of passengers"
+                />
+                <div class="validate"></div>
+              </div>
+
+              <div class="col-md-3 form-group mt-3">
+                <label class="form-label" for="seating"
+                  ><small>CC</small></label
+                >
+                <input
+                  type="number"
+                  [(ngModel)]="vehicle.cc"
+                  name="cc"
+                  class="form-control"
+                  id="cc"
+                  placeholder="Vehicle CC"
+                />
+                <div class="validate"></div>
+              </div>
+              
             </div>
             <br />
             <div class="row">

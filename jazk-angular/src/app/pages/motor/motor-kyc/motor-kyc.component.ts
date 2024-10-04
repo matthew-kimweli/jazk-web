@@ -329,21 +329,21 @@ export class MotorKycComponent {
   disclaimers = [
     {
       declarationYes: false,
-      text: 'I have read and accept the intermediary terms and conditions.'
+      text: 'I have read and accept the intermediary terms and conditions.',
     },
     {
       declarationYes: false,
-      text: 'I have explained and advised the client in detail that they must take the car for valuation as specified in the valuation letter within the next 30 days or their insurance cover will automatically be downgraded to a Third Party Only (TPO) Cover.'
+      text: 'I have explained and advised the client in detail that they must take the car for valuation as specified in the valuation letter within the next 30 days or their insurance cover will automatically be downgraded to a Third Party Only (TPO) Cover.',
     },
     {
       declarationYes: false,
-      text: 'I have explained and advised the client in detail to return the signed proposal form within the next 30 days or their insurance cover will automatically be downgraded to a Third Party Only (TPO) Cover.'
+      text: 'I have explained and advised the client in detail to return the signed proposal form within the next 30 days or their insurance cover will automatically be downgraded to a Third Party Only (TPO) Cover.',
     },
     {
       declarationYes: false,
-      text: 'I declare that the information I have entered is as provided by the customer'
-    }
-  ]
+      text: 'I declare that the information I have entered is as provided by the customer',
+    },
+  ];
 
   constructor(
     public utilsService: UtilsService,
@@ -752,6 +752,24 @@ export class MotorKycComponent {
       this.toastr.error(`Please provide chasis number of vehicle`);
       return;
     }
+    if (!v.seatingCapacity) {
+      this.toastr.error(`Please provide seating capacity of vehicle`);
+      return;
+    }
+    if (!v.numPassengers) {
+      this.toastr.error(`Please provide number of passengers of vehicle`);
+      return;
+    }
+
+    if (!v.cc) {
+      this.toastr.error(`Please provide vehicle cc`);
+      return;
+    }
+
+    if (!v.tonnage) {
+      this.toastr.error(`Please provide vehicle tonnage`);
+      return;
+    }
 
     if (!v.anyBankOrMFIInterested) {
       this.toastr.error(`Please tell us if vehicle has Bank interest or not`);
@@ -987,7 +1005,7 @@ export class MotorKycComponent {
         let agent = {
           email:
             this.authService.currentUser?.get('email') ||
-            'jazkesales@allianz.com',
+            'intermediary.administration@allianz.com',
           phone_number: this.authService.currentUser?.get('phone'),
           name: this.authService.currentUserName,
         };
@@ -1001,6 +1019,14 @@ export class MotorKycComponent {
         payment.set('userId', this.authService.currentUser.id);
         payment.set('user_id', this.authService.currentUser.id);
       }
+
+      
+      let paymentJson = payment.toJSON();
+      let premiaJson = this.motorService.createPremiaJson(paymentJson);
+      console.log('Yes', data);
+      console.log('Final Mapping => ', premiaJson);
+      payment.set('premiaJson', premiaJson)
+      
       await payment.save();
 
       this.parseService.fetching = true;
@@ -1016,11 +1042,13 @@ export class MotorKycComponent {
       console.log('host', pdfHost);
       console.log('saleId', payment.id);
 
-      let cert_class = ''//this.utilsService.getAnyKeyValue(this.motorService.motorQuotation.makeModel, 'cert_class', this.motorService.certificateClass);
+      let cert_class = ''; //this.utilsService.getAnyKeyValue(this.motorService.motorQuotation.makeModel, 'cert_class', this.motorService.certificateClass);
+
 
       let res = await Parse.Cloud.run('paympesa', {
         phone: phone,
         cert_class: cert_class,
+        premiaJson: premiaJson,
         sale_id: payment.id,
         sale_data: payment.toJSON(),
         quote_id: this.quote.id,

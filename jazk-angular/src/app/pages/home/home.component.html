@@ -360,17 +360,35 @@
                                     Actions
                                   </button>
                                   <div class="dropdown-menu dropdown-menu-end">
-                                    <a
-                                      routerLinkActive="router-link-active"
+                                    <!-- <a
+                                      [routerLink]="['/routePath']" routerLinkActive="router-link-active" 
                                       class="dropdown-item text-green"
                                     >
                                       View
-                                    </a>
+                                    </a> -->
                                     <a
-                                      routerLinkActive="router-link-active"
+                                      [routerLink]="['/receipt', item.id]" routerLinkActive="router-link-active" 
                                       class="dropdown-item text-green"
                                     >
-                                      Sale
+                                      Receipt
+                                    </a>
+                                    <a
+                                    [routerLink]="['/valuation-letter', item.id]" routerLinkActive="router-link-active" 
+                                      class="dropdown-item text-green"
+                                    >
+                                      Valuation Letter
+                                    </a>
+                                    <a
+                                    [routerLink]="['/debitnote', item.id]" routerLinkActive="router-link-active" 
+                                      class="dropdown-item text-green"
+                                    >
+                                      Debit Note
+                                    </a>
+                                    <a
+                                    [routerLink]="['/policyschedule', item.id]" routerLinkActive="router-link-active" 
+                                      class="dropdown-item text-green"
+                                    >
+                                      Policy Schedule
                                     </a>
 
                                     <!-- <a [hidden]="item.get('status') == 'Completed'" *ngIf="auth.isAdmin"

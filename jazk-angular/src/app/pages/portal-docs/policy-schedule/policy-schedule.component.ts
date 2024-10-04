@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ParseService } from '../../../services/parse.service';
+import * as Parse from 'parse';
 
 @Component({
   selector: 'app-policy-schedule',
@@ -46,6 +47,7 @@ export class PolicyScheduleComponent {
       console.log('fetching sale', id);
       this.parseService.fetching = true;
       let query = new Parse.Query('JazkeSale');
+      query.include(['quotation'])
       let sale = await query.get(id);
       console.log('sale', sale);
       this.sale = sale;

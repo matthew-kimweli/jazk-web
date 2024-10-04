@@ -302,8 +302,5 @@ export class UtilsService {
     });
   }
 
-  getAnyKeyValue(inHandValue: any, propertyOfInterest: keyof any, objectInQuestion: any) {
-    const obj = objectInQuestion.find((pair: any) => pair.inHandValue === inHandValue);
-    return obj ? obj[propertyOfInterest] : undefined;
-  }
+  
 }
