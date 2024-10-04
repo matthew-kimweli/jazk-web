@@ -133,10 +133,17 @@
                 <p class="col-md-5 mx-0 my-0"
                     style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
                 </p>
-                <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: right;"><b>LEVIES</b></p>
+                <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: right;"><b>POLICY HOLDERS PROTECTION FUND</b></p>
                 <p class="col-md-4 mx-0 my-0"
                     style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right;">
-                    {{sale.get('quotation')?.get('quoteData')?.levies | number:'1.2-2'}}</p>
+                    {{ (0.25 * sale.get('quotation')?.get('quoteData')?.netPremium) | number:'1.2-2' }}</p>
+                <p class="col-md-5 mx-0 my-0"
+                    style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
+                </p>
+                <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: right;"><b>INSURANCE TRAINING LEVY</b></p>
+                <p class="col-md-4 mx-0 my-0"
+                    style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right;">
+                    {{ (0.20 * sale.get('quotation')?.get('quoteData')?.netPremium) | number:'1.2-2' }}</p>
                 <p class="col-md-5 mx-0 my-0"
                     style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
                 </p>

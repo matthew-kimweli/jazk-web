@@ -38,7 +38,7 @@
         <div class="row mt-0 px-5">
             <p class="col-md-12 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border: 1px solid black; text-align: center; background-color: rgb(207, 207, 207);">
-                <b>Motor XXX Insurance Policy Schedule</b>
+                <b>{{ sale.get('insurance_type').replace('-', ' ') | titlecase }} Insurance Policy Schedule</b>
             </p>
         </div>
         <div class="row mt-4 px-5">
@@ -48,7 +48,7 @@
             </p>
             <p class="col-md-6 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
-                <b>Insured Name /Bank Interest&nbsp;:&nbsp;</b>XXX
+                <b>Insured Name /Bank Interest&nbsp;:&nbsp;</b>{{sale.get('client_name')}}
             </p>
             <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;"></p>
             <p class="col-md-4 mx-0 my-0"
@@ -66,7 +66,7 @@
             </p>
             <p class="col-md-6 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
-                <b>Postal Address&nbsp;:&nbsp;</b>XXX
+                <b>Postal Address&nbsp;:&nbsp;</b>{{sale.get('client')?.address}}
             </p>
             <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;"></p>
             <p class="col-md-4 mx-0 my-0"
@@ -88,11 +88,11 @@
             </p>
             <p class="col-md-12 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; border-right: 1px solid black; text-align: left;">
-                <b>KRA PIN&nbsp;:&nbsp;</b>XXX
+                <b>KRA PIN&nbsp;:&nbsp;</b>{{sale.get('insurance_data')?.kyc?.tin}}
             </p>
             <p class="col-md-12 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; border-right: 1px solid black; text-align: left;">
-                <b>Email&nbsp;:&nbsp;</b>XXX
+                <b>Email&nbsp;:&nbsp;</b>{{sale.get('client')?.email}}
             </p>
             <p class="col-md-12 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; border-right: 1px solid black; text-align: left;">
@@ -105,11 +105,11 @@
             <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;"></p>
             <p class="col-md-4 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: left;">
-                <b>Broker/Agent Name&nbsp;:&nbsp;</b>XXX
+                <b>Broker/Agent Name&nbsp;:&nbsp;</b>{{sale.get('agent_name')}}
             </p>
             <p class="col-md-6 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
-                <b>From&nbsp;:&nbsp;</b>XXX
+                <b>From&nbsp;:&nbsp;</b>{{sale.get('insurance_data')?.coverEndDate}}
             </p>
             <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;"></p>
             <p class="col-md-4 mx-0 my-0"
@@ -117,7 +117,7 @@
             </p>
             <p class="col-md-6 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
-                <b>To&nbsp;:&nbsp;</b>XXX
+                <b>To&nbsp;:&nbsp;</b>{{sale.get('insurance_data')?.coverStartDate}}
             </p>
             <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;"></p>
             <p class="col-md-4 mx-0 my-0"
@@ -146,7 +146,7 @@
             </p>
             <p class="col-md-2 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border-top: 1px solid black; border-right: 1px solid black; text-align: right; background-color: rgb(207, 207, 207);">
-                <b>XXX</b>
+                <b>{{sale.get('quotation')?.get('quoteData')?.netPremium | number:'1.2-2'}}</b>
             </p>
             <p class="col-md-6 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left; background-color: rgb(207, 207, 207);">
@@ -165,11 +165,30 @@
             </p>
             <p class="col-md-2 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right; background-color: rgb(207, 207, 207);">
-                <b>XXX</b>
+                <b>{{ (0.20 * sale.get('quotation')?.get('quoteData')?.netPremium) | number:'1.2-2' }}</b>
             </p>
             <p class="col-md-6 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left; background-color: rgb(207, 207, 207);">
-                <b>Motor XXX:</b>
+            </p>
+            <p class="col-md-2 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; text-align: left; background-color: rgb(207, 207, 207);">
+                <b>IP Funds</b>
+            </p>
+            <p class="col-md-1 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; text-align: left; background-color: rgb(207, 207, 207);">
+                <b>0.25%</b>
+            </p>
+            <p class="col-md-1 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; text-align: left; background-color: rgb(207, 207, 207);">
+                <b>KES</b>
+            </p>
+            <p class="col-md-2 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right; background-color: rgb(207, 207, 207);">
+                <b>{{ (0.25 * sale.get('quotation')?.get('quoteData')?.netPremium) | number:'1.2-2' }}</b>
+            </p>
+            <p class="col-md-6 mx-0 my-0"
+                style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left; background-color: rgb(207, 207, 207);">
+                <b>{{ sale.get('insurance_type').replace('-', ' ') | titlecase }}:</b>
             </p>
             <p class="col-md-2 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; text-align: left; background-color: rgb(207, 207, 207);">
@@ -185,7 +204,7 @@
             </p>
             <p class="col-md-2 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right; background-color: rgb(207, 207, 207);">
-                <b>XXX</b>
+                <b>40.00</b>
             </p>
             <p class="col-md-6 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left; background-color: rgb(207, 207, 207);">
@@ -205,7 +224,7 @@
             </p>
             <p class="col-md-2 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right; background-color: rgb(207, 207, 207);">
-                <b>XXX</b>
+                <b>450.00</b>
             </p>
             <p class="col-md-6 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left; border-bottom: 1px solid black; background-color: rgb(207, 207, 207);">
@@ -224,7 +243,7 @@
             </p>
             <p class="col-md-2 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right; border-bottom: 1px solid black; background-color: rgb(207, 207, 207);">
-                <b>XXX</b>
+                <b>{{sale.get('quotation')?.get('quoteData')?.grossPremium | number:'1.2-2'}}</b>
             </p>
         </div>
         <div class="row mt-4 px-5">
@@ -270,28 +289,28 @@
             </ng-container> -->
             <p class="col-md-1 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border: 1px solid black; border-right: none; border-top: none; text-align: center;">
-                XXX</p>
+                {{sale.get('quotation')?.get('quoteData')?.vehicleRegNumber | uppercase}}</p>
             <p class="col-md-3 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border: 1px solid black; border-right: none; border-top: none; text-align: center;">
-                XXX</p>
+                {{sale.get('insurance_data')?.vehicle?.vehicleMake | uppercase}} {{sale.get('insurance_data')?.vehicle?.vehicleModel | uppercase}} {{sale.get('insurance_data')?.vehicle?.bodyType | uppercase}}</p>
             <p class="col-md-1 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border: 1px solid black; border-right: none; border-top: none; text-align: center;">
-                XXX</p>
+                {{sale.get('insurance_data')?.vehicle?.cc || ''}}</p>
             <p class="col-md-1 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border: 1px solid black; border-right: none; border-top: none; text-align: center;">
-                XXX</p>
+                {{sale.get('quotation')?.get('quoteData')?.yearOfManufacture}}</p>
             <p class="col-md-1 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border: 1px solid black; border-right: none; border-top: none; text-align: center;">
-                XXX</p>
+                {{sale.get('insurance_data')?.vehicle?.seatingCap || ''}}</p>
             <p class="col-md-2 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border: 1px solid black; border-right: none; border-top: none; text-align: center;">
-                0.00</p>
+                {{sale.get('quotation')?.get('quoteData')?.sumInsured | number}}</p>
             <p class="col-md-2 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border: 1px solid black; border-right: none; border-top: none; text-align: center;">
-                XXX</p>
+                {{ (sale.get('quotation')?.get('quoteData')?.sumInsured <= 2500000 ? 50000 : 100000) | number }}</p>
             <p class="col-md-1 mx-0 my-0"
                 style="font-size: 13px; margin: 0.18rem; border: 1px solid black; border-top: none; text-align: center;">
-                XXX</p>
+                {{ (sale.get('quotation')?.get('quoteData')?.sumInsured <= 2500000 ? 50000 : 100000) | number }}</p>
         </div>
         <div class="row mt-3 px-5">
             <p class="col-md-12 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left; border: 1px solid black; background-color: rgb(207, 207, 207);"><b>Cover Details</b></p>
@@ -302,20 +321,20 @@
             <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: right; border-right: 1px solid black; border-bottom: 1px solid black;"><b>Premium(KES)</b></p>
             <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; border-right: 1px solid black; text-align: left; border-bottom: 1px solid black;">1</p>
             <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left; border-right: 1px solid black; border-bottom: 1px solid black;">Own Damage</p>
-            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: right; border-right: 1px solid black; border-bottom: 1px solid black;">XXX</p>
-            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: right; border-right: 1px solid black; border-bottom: 1px solid black;">XXX</p>
+            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: right; border-right: 1px solid black; border-bottom: 1px solid black;">{{sale.get('quotation')?.get('quoteData')?.sumInsured | number}}</p>
+            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: right; border-right: 1px solid black; border-bottom: 1px solid black;">{{ sale.get('quotation')?.get('quoteData')?.excessProtectorBenefit == "Inclusive" ? (sale.get('quotation')?.get('quoteData')?.excessProtectorBenefit | titlecase) : (sale.get('quotation')?.get('quoteData')?.excessProtectorBenefit | number) }}</p>
             <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; text-align: left;">2</p>
             <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left; border-right: 1px solid black; border-bottom: 1px solid black;">Wind Screen</p>
-            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: right; border-right: 1px solid black; border-bottom: 1px solid black;">XXX</p>
-            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right; border-bottom: 1px solid black;">XXX</p>
+            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: right; border-right: 1px solid black; border-bottom: 1px solid black;">{{ (sale.get('quotation')?.get('quoteData')?.sumInsured <= 2500000 ? 50000 : 100000) | number }}</p>
+            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right; border-bottom: 1px solid black;">{{sale.get('quotation')?.get('quoteData')?.windScreenBenefit | number}}</p>
             <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; text-align: left;">3</p>
             <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left; border-right: 1px solid black; border-bottom: 1px solid black;">Radio Casette</p>
-            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: right; border-right: 1px solid black; border-bottom: 1px solid black;">XXX</p>
-            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right; border-bottom: 1px solid black;">XXX</p>
+            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: right; border-right: 1px solid black; border-bottom: 1px solid black;">{{ (sale.get('quotation')?.get('quoteData')?.sumInsured <= 2500000 ? 50000 : 100000) | number }}</p>
+            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right; border-bottom: 1px solid black;">{{sale.get('quotation')?.get('quoteData')?.radioCassetteBenefit | number}}</p>
             <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; text-align: left;">4</p>
             <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left; border-right: 1px solid black; border-bottom: 1px solid black;">Terrorism, Sabotage & Political Risks</p>
-            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: right; border-right: 1px solid black; border-bottom: 1px solid black;">XXX</p>
-            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right; border-bottom: 1px solid black;">XXX</p>
+            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: right; border-right: 1px solid black; border-bottom: 1px solid black;">{{sale.get('quotation')?.get('quoteData')?.sumInsured | number}}</p>
+            <p class="col-md-3 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: right; border-bottom: 1px solid black;">{{sale.get('quotation')?.get('quoteData')?.pvtBenefit | number}}</p>
         </div>
         <!-- <div class="row mt-2 mb-5 px-4" *ngIf="motorClass == 'private'">
             <p class="col-md-12 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;">

@@ -118,7 +118,7 @@ export const routes: Routes = [
 
   {
     path: 'motor-docs',
-    component: ValuationLetterComponent,
+    component: PolicyScheduleComponent,
   },
 
   {
