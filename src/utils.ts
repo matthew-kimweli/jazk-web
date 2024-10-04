@@ -19,9 +19,17 @@ export class Utils {
       return;
     }
 
-    console.log("sendig=ng email");
+    return this.sendEmailInfobip(params);
+    // this.sendEmailNodeMailer(params)
 
-    // return this.sendEmailInfobip(params);
+  }
+
+  async sendEmailNodeMailer(params) {
+    if (!params.subject) {
+      return;
+    }
+
+    console.log("sendig=ng email");
 
     let transporter = nodemailer.createTransport({
       service: "gmail", // e.g., 'gmail', 'yahoo', etc.
@@ -102,13 +110,14 @@ export class Utils {
       }
     }
 
+    console.log("sendig=ng email");
+
     // Set up InfoBip API credentials
     const apiKey =
       "App a6ec5d4ba09701375f50783beecb490d-59a3338d-9898-4e81-b0aa-f4a303f131b8";
     const apiBaseURL = "https://89kj1e.api.infobip.com";
 
-
-    const SENDER_EMAIL = params.from || "noreply@mails-ke.jubilee-allianz.com";
+    const SENDER_EMAIL = "noreply@mails-ke.jubilee-allianz.com";
     const RECIPIENT_EMAILS = toArray(params.to);
     const CC_EMAILS = toArray(params.cc);
     const EMAIL_SUBJECT = params.subject;
@@ -118,7 +127,11 @@ export class Utils {
     let REMOTE_ATTACHMENTS: any = [];
     if (attachments && attachments.length) {
       for (const file of attachments) {
-        REMOTE_ATTACHMENTS.push({ url: file.path, name: file.filename });
+        REMOTE_ATTACHMENTS.push({
+          url: file.path,
+          content: file.content,
+          name: file.filename,
+        });
       }
     }
 
@@ -137,10 +150,16 @@ export class Utils {
     }
 
     const fetchAndAppendAttachments = async () => {
-      for (const { url, name } of REMOTE_ATTACHMENTS) {
-        const response = await axios.get(url, { responseType: "stream" });
-        // formData.append('attachment', response.data, { filename: filename });
-        formData.append("attachment", response.data, name);
+      for (const { url, content, name } of REMOTE_ATTACHMENTS) {
+        if (url) {
+          const response = await axios.get(url, { responseType: "stream" });
+          // formData.append('attachment', response.data, { filename: filename });
+          formData.append("attachment", response.data, name);
+        } else if (content) {
+          const blob = new Blob([content], { type: 'application/pdf' });
+          // const base64PDF = content.toString('base64');
+          formData.append("attachment", blob, name);
+        }
       }
     };
 
@@ -149,7 +168,8 @@ export class Utils {
 
       // const headers = { Authorization: apiKey, ...formData.getHeaders() };
       const headers = { Authorization: apiKey };
-      const response = await axios.post(apiBaseURL+'/email/3/send',
+      const response = await axios.post(
+        apiBaseURL + "/email/3/send",
         formData,
         { headers }
       );
