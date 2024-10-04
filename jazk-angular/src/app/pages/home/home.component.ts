@@ -223,8 +223,8 @@ export class HomeComponent {
         proposal['pol_flexi']['payment_mode_desc']["pol_flex_18"] = `Flutterwave - ${newData.txRef || ''} - ${newData.amount || 0}`;
         proposal['pol_flexi']['cover_type_code']["pol_flex_14"] = newData.quotation.quoteData.motorClassCode || '';
         proposal['pol_flexi']['cover_type_desc']["pol_flex_16"] = this.utilsService.getAnyKeyValue(newData.quotation.quoteData.motorClassCode, 'name', this.motorService.motorProductType);
-        proposal['pol_flexi']['issued_at_code']["pol_flex_01"] = newData.insurance_data.companyDivision || '';
-        proposal['pol_flexi']['issued_at_desc']["pol_flex_17"] = this.utilsService.getAnyKeyValue(newData.insurance_data.companyDivision, 'divn_name', this.motorService.companyDivision);
+        proposal['pol_flexi']['issued_at_code']["pol_flex_01"] = 118;
+        proposal['pol_flexi']['issued_at_desc']["pol_flex_17"] = "Portal Policies";
         proposal['pol_flexi']['prev_policy_no']["pol_flex_20"] = '';
         proposal['pol_flexi']['territory']["pol_flex_02"] = "KENYA";
         proposal['pol_flexi']['broker_risk_note_no']["pol_flex_08"] = '';

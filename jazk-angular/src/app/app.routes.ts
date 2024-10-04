@@ -141,7 +141,6 @@ export const routes: Routes = [
     component: DebitNoteComponent,
   },
 
-
   {
     path: 'admin-settings',
     component: AdminSettingsComponent
