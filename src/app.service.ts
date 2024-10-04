@@ -537,7 +537,7 @@ export class AppService {
       let params = request.params;
       let p = params.phone;
 
-      let query = new Parse.Query("UserRegistry");
+      let query = new Parse.Query("UserRegistry")
       // query.equalTo('phones', p)
       query.equalTo("phone", Number(p).toString());
       let first = await query.first({ useMasterKey: true });

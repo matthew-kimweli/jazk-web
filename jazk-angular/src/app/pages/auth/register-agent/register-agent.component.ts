@@ -84,6 +84,14 @@ export class RegisterAgentComponent {
 
       phone = Number(phone).toString()
 
+      
+      let agent = await this.checkUser()
+      if(!agent){
+        this.toastr.error('Your are not authorised to register. Please contact system administrator')
+        this.saving = false;
+        return;
+      }
+
       let result = await Parse.Cloud.run('getUser2', {
         phone: phone
       });
@@ -99,6 +107,7 @@ export class RegisterAgentComponent {
         this.saving = false;
         return;
       }
+
 
       this.toastr.info('Signing up...');
       this.user = await Parse.User.signUp(this.email, this.password, {
@@ -150,5 +159,16 @@ export class RegisterAgentComponent {
     } else if (this.passwordType == 'text') {
       this.passwordType = 'password';
     }
+  }
+
+  
+  async checkUser(){
+    let Agent = Parse.Object.extend('user')
+    let query = new Parse.Query('user')
+    query.equalTo('cust_code', this.customerCode)
+    query.equalTo('email', this.email)
+    let first = await query.first()
+    return first
+
   }
 }

@@ -111,4 +111,5 @@ export class RegisterComponent {
       this.passwordType = 'password';
     }
   }
+
 }

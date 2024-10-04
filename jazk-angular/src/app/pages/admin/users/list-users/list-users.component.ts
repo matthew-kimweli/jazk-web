@@ -74,11 +74,12 @@ export class ListUsersComponent {
     });
 
     this.edituserForm = this.fb.group({
-      // name: [this.editUserData.name, Validators.required],
-      // userEmail: [this.editUserData.userEmail, [Validators.required, Validators.email]],
-      // userType: [this.editUserData.userType, Validators.required],
-      // password: [this.editUserData.password],
-      // position: [this.editUserData.position, Validators.required],
+      name: [this.editUserData.name, Validators.required],
+      userEmail: [this.editUserData.userEmail, [Validators.required, Validators.email]],
+      userType: [this.editUserData.userType, Validators.required],
+      phone: [this.editUserData.phone, Validators.required],
+      password: [this.editUserData.password],
+      position: [this.editUserData.position, Validators.required],
       approvedStatus: [this.userData.position, Validators.required],
     });
 
