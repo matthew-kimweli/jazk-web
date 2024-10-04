@@ -118,7 +118,7 @@ export const routes: Routes = [
 
   {
     path: 'motor-docs',
-    component: ValuationLetterComponent,
+    component: PolicyScheduleComponent,
   },
 
   {
@@ -140,7 +140,6 @@ export const routes: Routes = [
     path: 'debitnote/:id',
     component: DebitNoteComponent,
   },
-
 
   {
     path: 'admin-settings',
