@@ -37,6 +37,14 @@ export class AuthService {
     return ''
   }
 
+  get currentAgentCode() {
+    if(this.currentUser){
+      return this.currentUser.get('agentCode')
+    }
+    return ''
+  }
+
+
   get currentLoginUserName() {
     if(this.currentUser){
       return this.currentUser.get('username')

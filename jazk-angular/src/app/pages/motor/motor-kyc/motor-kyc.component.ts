@@ -11,6 +11,7 @@ import { HeaderComponent } from '../../_components/header/header.component';
 import * as Parse from 'parse';
 import { ParseService } from '../../../services/parse.service';
 import { MotorService } from '../../../services/motor.service';
+import { DataService } from '../../../services/data.service';
 
 declare var FlutterwaveCheckout: any;
 
@@ -349,6 +350,7 @@ export class MotorKycComponent {
     public utilsService: UtilsService,
     public authService: AuthService,
     public parseService: ParseService,
+    public dataService: DataService,
     public motorService: MotorService,
     private router: Router,
     private toastr: ToastrService,
@@ -989,8 +991,18 @@ export class MotorKycComponent {
       payment.set('installments', this.installments);
       payment.set('installment_type', this.paymentData.installment_type);
 
+      payment.set('business_status', 'NEW');
+      payment.set('risk_code', this.dataService.generateNumber('RC'));
+      payment.set('risk_note_no', this.dataService.generateNumber('RNN'));
+      payment.set('debit_note_no', this.dataService.generateNumber('DBN'));
+      payment.set('endorsement_no', this.dataService.generateNumber('EDN'));
+      payment.set('endorsement_date', new Date());
+      // payment.set('old_policy_no', 'XXX');
+      
+    
       if (client) {
         payment.set('client', client);
+        payment.set('client_code', client.code);
         payment.set('client_email', client.email);
         payment.set('client_phone_number', client.phone);
         payment.set('client_name', client.name);
@@ -1018,6 +1030,7 @@ export class MotorKycComponent {
         payment.set('loggedInUser', this.authService.currentUser.toJSON());
         payment.set('userId', this.authService.currentUser.id);
         payment.set('user_id', this.authService.currentUser.id);
+        payment.set('agent_code', this.authService.currentAgentCode);
       }
 
       this.parseService.fetching = true;

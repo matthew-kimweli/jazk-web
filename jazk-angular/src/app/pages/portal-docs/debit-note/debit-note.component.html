@@ -41,7 +41,7 @@
                 <p class="col-md-4 mx-0 my-0"
                     style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;"></p>
                 <p class="col-md-4 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;">
-                    <b>Debit Note No&nbsp;:</b>&nbsp;XXX
+                    <b>Debit Note No&nbsp;:</b>&nbsp;{{sale.get('debit_note_no') || 'XXX'}}
                 </p>
                 <p class="col-md-4 mx-0 my-0"
                     style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: left;">
@@ -59,7 +59,7 @@
                     style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
                     {{sale.get('agent_name')}}</p>
                 <p class="col-md-4 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;">
-                    <b>Business&nbsp;:&nbsp;</b>XXX
+                    <b>Business&nbsp;:&nbsp;</b>{{sale.get('business_status') || 'XXX'}}
                 </p>
                 <p class="col-md-4 mx-0 my-0"
                     style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: left;">
@@ -90,12 +90,12 @@
                 </p>
                 <p class="col-md-6 mx-0 my-0 py-1"
                     style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
-                    <b>Policy No&nbsp;:&nbsp;</b>XXX
+                    <b>Policy No&nbsp;:&nbsp;</b>{{sale.get('policy_no') || 'XXX'}}
                 </p>
                 <p class="col-md-2 mx-0 my-0 py-1" style="font-size: 13px; margin: 0.18rem; text-align: left;"></p>
                 <p class="col-md-4 mx-0 my-0 py-1"
                     style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: left;">
-                    <b>Agent Code&nbsp;:&nbsp;</b>
+                    <b>Agent Code&nbsp;:&nbsp;</b>{{sale.get('agent_code') || 'XXX'}}
                 </p>
                 <p class="col-md-6 mx-0 my-0 py-1"
                     style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
@@ -104,7 +104,7 @@
                 <p class="col-md-2 mx-0 my-0 py-1" style="font-size: 13px; margin: 0.18rem; text-align: left;"></p>
                 <p class="col-md-4 mx-0 my-0 py-1"
                     style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: left;">
-                    <b>Insured Code&nbsp;:&nbsp;</b>XXX
+                    <b>Insured Code&nbsp;:&nbsp;</b>{{sale.get('customer_code') || 'XXX'}}
                 </p>
                 <p class="col-md-6 mx-0 my-0 py-1"
                     style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; text-align: left;">
@@ -113,11 +113,11 @@
                 <p class="col-md-2 mx-0 my-0 py-1" style="font-size: 13px; margin: 0.18rem; text-align: left;"></p>
                 <p class="col-md-4 mx-0 my-0 py-1"
                     style="font-size: 13px; margin: 0.18rem; border-right: 1px solid black; text-align: left;">
-                    <b>Risk Code&nbsp;:&nbsp;</b>XXX
+                    <b>Risk Code&nbsp;:&nbsp;</b>{{sale.get('risk_code') || 'XXX'}}
                 </p>
                 <p class="col-md-6 mx-0 my-0"
                     style="font-size: 13px; margin: 0.18rem; border-left: 1px solid black; border-bottom: 1px solid black; text-align: left;">
-                    <b>Risk Note No&nbsp;:&nbsp;</b>
+                    <b>Risk Note No&nbsp;:&nbsp;</b>{{sale.get('risk_note_no') || 'XXX'}}
                 </p>
                 <p class="col-md-2 mx-0 my-0"
                     style="font-size: 13px; margin: 0.18rem; text-align: left; border-bottom: 1px solid black;">

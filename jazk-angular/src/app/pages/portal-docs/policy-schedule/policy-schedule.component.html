@@ -103,7 +103,7 @@
                 text-align: left;
               "
             >
-              <b>Policy Number&nbsp;:&nbsp;</b>XXX
+              <b>Policy Number&nbsp;:&nbsp;</b>{{sale.get('policy_no') || 'XXX'}}
             </p>
             <p
               class="col-md-6 mx-0 my-0"
@@ -114,7 +114,7 @@
                 text-align: left;
               "
             >
-              <b>Endorsement No&nbsp;:&nbsp;</b>
+              <b>Endorsement No&nbsp;:&nbsp;</b>{{sale.get('endorsement_no') || 'XXX'}}
             </p>
             <p
               class="col-md-2 mx-0 my-0"
@@ -129,7 +129,7 @@
                 text-align: left;
               "
             >
-              <b>Endorsement Date&nbsp;:&nbsp;</b>
+              <b>Endorsement Date&nbsp;:&nbsp;</b>{{sale.get('endorsement_date') || 'XXX'}}
             </p>
             <p
               class="col-md-6 mx-0 my-0"
@@ -156,7 +156,7 @@
                 text-align: left;
               "
             >
-              <b>Old Policy Number&nbsp;:&nbsp;</b>XXX
+              <b>Old Policy Number&nbsp;:&nbsp;</b>{{sale.get('old_policy_no') || 'XXX'}}
             </p>
             <p
               class="col-md-6 mx-0 my-0"
@@ -167,7 +167,7 @@
                 text-align: left;
               "
             >
-              <b>Debit Note No&nbsp;:&nbsp;</b>XXX
+              <b>Debit Note No&nbsp;:&nbsp;</b>{{sale.get('debit_note_no') || 'XXX'}}
             </p>
             <p
               class="col-md-2 mx-0 my-0"
@@ -194,7 +194,7 @@
                 text-align: left;
               "
             >
-              <b>Business&nbsp;:&nbsp;</b>XXX
+              <b>Business&nbsp;:&nbsp;</b>{{sale.get('business_status') || 'XXX'}}
             </p>
             <p
               class="col-md-12 mx-0 my-0"
@@ -231,7 +231,7 @@
                 text-align: left;
               "
             >
-              <b>Remarks&nbsp;:&nbsp;</b>
+              <b>Remarks&nbsp;:&nbsp;</b>{{sale.get('remarks') || 'XXX'}}
             </p>
             <p
               class="col-md-6 mx-0 my-0"
@@ -856,7 +856,7 @@
                 text-align: center;
               "
             >
-              {{ sale.get("insurance_data")?.vehicle?.cc || "" }}
+              {{ sale.get("insurance_data")?.vehicle?.cc || "---" }}
             </p>
             <p
               class="col-md-1 mx-0 my-0"
@@ -882,7 +882,7 @@
                 text-align: center;
               "
             >
-              {{ sale.get("insurance_data")?.vehicle?.seatingCapacity || "" }}
+              {{ sale.get("insurance_data")?.vehicle?.seatingCapacity || "---" }}
             </p>
             <p
               class="col-md-2 mx-0 my-0"

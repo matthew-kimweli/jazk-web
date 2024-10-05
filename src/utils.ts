@@ -154,7 +154,8 @@ export class Utils {
         if (url) {
           const response = await axios.get(url, { responseType: "stream" });
           // formData.append('attachment', response.data, { filename: filename });
-          formData.append("attachment", response.data, name);
+          const blob = new Blob([response.data], { type: 'application/pdf' });
+          formData.append("attachment", blob, name);
         } else if (content) {
           const blob = new Blob([content], { type: 'application/pdf' });
           // const base64PDF = content.toString('base64');

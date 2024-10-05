@@ -378,7 +378,7 @@ export class AppService {
       const browser = await puppeteer.launch({
         headless: true,
         // executablePath: "./google-chrome", //path.join(__dirname, "../google-chrome"), // Path to the Chrome binary
-        executablePath: "/usr/bin/google-chrome-stable",
+        // executablePath: "/usr/bin/google-chrome-stable",
         args: ["--no-sandbox", "--disable-setuid-sandbox"],
       });
 
@@ -693,11 +693,7 @@ export class AppService {
           ] = "02";
           proposalRisk["proposalmotorcerts"][0]["prai_flexi"]["cert_type"][
             "prai_code_14"
-          ] = this.getAnyKeyValue(
-            newData.quotation.quoteData.makeModel,
-            "cert_class",
-            certificateClass
-          );
+          ] = certificateClass || "";
           proposalRisk["proposalmotorcerts"][0]["prai_flexi"]["book_id"][
             "prai_data_09"
           ] = "DIGI_CERT";
@@ -926,19 +922,19 @@ export class AppService {
       let post_body = params.body;
 
       try {
-        // const response = await axios.get(tokenUrl, {
-        //   headers: {
-        //     Authorization:
-        //       "Basic S3FUNDk2V1c1V09LMmxjT3AwdnRzQjZxVWFYaHl0UXhwbUdzS2FWS1kza0xNTzA4OlVyaU1lT0NQamVlMDNuaFo0SDZhTlZsNkU0ZWJ2TEExQWNWbnFnRnUxb08yZmJ3c0FkSU1vN2VTWEdXMmRERWM=",
-        //   },
-        // });
+        const response = await axios.get(tokenUrl, {
+          headers: {
+            Authorization:
+              "Basic S3FUNDk2V1c1V09LMmxjT3AwdnRzQjZxVWFYaHl0UXhwbUdzS2FWS1kza0xNTzA4OlVyaU1lT0NQamVlMDNuaFo0SDZhTlZsNkU0ZWJ2TEExQWNWbnFnRnUxb08yZmJ3c0FkSU1vN2VTWEdXMmRERWM=",
+          },
+        });
 
-        // let tokenData = response.data;
+        let tokenData = response.data;
 
         // console.log("access token", response.data);
-        let tokenData: any = {
-          access_token: `eyJhbGciOiJSUzI1NiIsImtpZCI6IjVCQjRFNjE4NzdGNTMxRUJDQUZCOEIwMEFGRjkzMkU5QkI2Qjc0NjQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiSU5TQVBJVVNFUiIsInByaW1hcnlzaWQiOiI4MUI4RkJBMi0yRjA3LTRDRjAtOEZEQi0zQzYwMDE1ODMyNUUiLCJwcmltYXJ5Z3JvdXBzaWQiOiIyNiIsImxvZ2luaGlzdG9yeSI6IjQyNTI5NCIsIm5iZiI6MTcyODEwODAwNSwiZXhwIjoxNzI4NzEyODA1LCJpYXQiOjE3MjgxMDgwMDUsImlzcyI6Imh0dHBzOi8vdWF0LWFwaS5kbXZpYy5jb20iLCJhdWQiOiJodHRwczovL3VhdC1hcGkuZG12aWMuY29tIn0.Ydfs3naRz9JTs-ebls1_In5TxjHhswTlCTDDo378091tN3NgaHYZ9SVqinretYtynot2rQLRQQgcmpfKvmpr3714xFLfR8w95lnnj8qY4_rsHJi8SEVkaBWiZlufe2YKeU7RubHSxYelWB8ZXId71m3hbYJby2DCVdG7F_-Iml-dFm1AOl1Mouv4LgnPGAMl03535DadWTR6b5XAJkevoJg3rSw-9asCJOxtWObPaBsRgQFBBFBdS44Ic5vk-e6pHE04rnShtCVdNFpeqoRzliP7RLyfvbunveyWP988ky9rqweIe1i8T43zh6j6VWhGd3UIXJ6f3O3n0dGZ67G3tA`,
-        };
+        // let tokenData: any = {
+        //   access_token: `eyJhbGciOiJSUzI1NiIsImtpZCI6IjVCQjRFNjE4NzdGNTMxRUJDQUZCOEIwMEFGRjkzMkU5QkI2Qjc0NjQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiSU5TQVBJVVNFUiIsInByaW1hcnlzaWQiOiI4MUI4RkJBMi0yRjA3LTRDRjAtOEZEQi0zQzYwMDE1ODMyNUUiLCJwcmltYXJ5Z3JvdXBzaWQiOiIyNiIsImxvZ2luaGlzdG9yeSI6IjQyNTI5NCIsIm5iZiI6MTcyODEwODAwNSwiZXhwIjoxNzI4NzEyODA1LCJpYXQiOjE3MjgxMDgwMDUsImlzcyI6Imh0dHBzOi8vdWF0LWFwaS5kbXZpYy5jb20iLCJhdWQiOiJodHRwczovL3VhdC1hcGkuZG12aWMuY29tIn0.Ydfs3naRz9JTs-ebls1_In5TxjHhswTlCTDDo378091tN3NgaHYZ9SVqinretYtynot2rQLRQQgcmpfKvmpr3714xFLfR8w95lnnj8qY4_rsHJi8SEVkaBWiZlufe2YKeU7RubHSxYelWB8ZXId71m3hbYJby2DCVdG7F_-Iml-dFm1AOl1Mouv4LgnPGAMl03535DadWTR6b5XAJkevoJg3rSw-9asCJOxtWObPaBsRgQFBBFBdS44Ic5vk-e6pHE04rnShtCVdNFpeqoRzliP7RLyfvbunveyWP988ky9rqweIe1i8T43zh6j6VWhGd3UIXJ6f3O3n0dGZ67G3tA`,
+        // };
         
         if (tokenData && tokenData.access_token) {
           const response = await axios.post(
