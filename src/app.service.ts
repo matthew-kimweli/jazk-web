@@ -1,5 +1,4 @@
 import { Injectable } from "@nestjs/common";
-
 const nodemailer = require("nodemailer");
 // let unirest = require("unirest");
 const axios = require("axios");
@@ -11,6 +10,249 @@ const puppeteer = require("puppeteer");
 export class AppService {
   utils = new Utils();
   verificationCodes = {};
+  quotationObj = {
+    quot_ref: "5773197888",
+    quot_paymt_ref: "RIS1VW7M7H",
+    quot_paymt_date: "2023-09-26T09:53:00",
+    quot_assr_name: "John Doe",
+    quot_assr_nic: "3000211a",
+    quot_assr_pin: "P00892519Ya",
+    quot_assr_phone: "2547xxxxxxxx",
+    quot_assr_email: "test@maydenprema.co.ke",
+    quot_assr_gender: "M",
+    quot_assr_dob: "1999-01-26T00:00:00",
+    quot_assr_flexi: {
+      quot_assr_addr: {
+        pol_addr_01: "P. O. Box 12345-00100",
+      },
+    },
+    proposals: [
+      {
+        prop_sr_no: 1,
+        prop_paymt_ref: "RIS1VW7M7H",
+        prop_paymt_date: "2023-09-26T09:53:00",
+        pol_quot_sys_id: 0,
+        pol_quot_no: "5773197888-1",
+        pol_comp_code: "001",
+        pol_divn_code: "101",
+        pol_dept_code: "10",
+        pol_prod_code: "1002",
+        pol_type: "1002",
+        pol_cust_code: "K9999999",
+        pol_assr_code: "K9999999",
+        pol_fm_dt: "2023-09-26T00:00:00",
+        pol_to_dt: "2024-09-27T00:00:00",
+        pol_dflt_si_curr_code: "KES",
+        pol_prem_curr_code: "KES",
+        pol_flexi: {
+          payment_mode_code: {
+            pol_flex_10: "4",
+          },
+          payment_mode_desc: {
+            pol_flex_18: "Mpesa - RIS1VW7M7H - 10000",
+          },
+          cover_type_code: {
+            pol_flex_14: "01",
+          },
+          cover_type_desc: {
+            pol_flex_16: "Comprehensive",
+          },
+          issued_at_code: {
+            pol_flex_01: "101",
+          },
+          issued_at_desc: {
+            pol_flex_17: "JAZK HQ",
+          },
+          prev_policy_no: {
+            pol_flex_20: "",
+          },
+          territory: {
+            pol_flex_02: "KENYA",
+          },
+          broker_risk_note_no: {
+            pol_flex_08: "",
+          },
+        },
+        proposalsections: [
+          {
+            sec_sr_no: 1,
+            psec_sec_code: "100201",
+            proposalrisks: [
+              {
+                risk_sr_no: 1,
+                prai_flexi: {
+                  vehicle_cover_type: {
+                    prai_code_21: "01",
+                  },
+                  vehicle_make: {
+                    prai_code_04: "T009",
+                  },
+                  vehicle_model: {
+                    prai_code_05: "AXIO",
+                  },
+                  vehicle_body_type: {
+                    prai_code_01: "001",
+                  },
+                  vehicle_reg_no: {
+                    prai_data_03: "KDD 990Z",
+                  },
+                  vehicle_chassis_no: {
+                    prai_data_01: "chassis 001",
+                  },
+                  vehicle_engine_no: {
+                    prai_data_02: "Engine 001",
+                  },
+                  vehicle_yom: {
+                    prai_num_01: 2019,
+                  },
+                  vehicle_value: {
+                    prai_num_02: 1000000,
+                  },
+                  vehicle_cc: {
+                    prai_num_04: 1800,
+                  },
+                  seating_capacity: {
+                    prai_num_09: 5,
+                  },
+                  num_pax: {
+                    prai_num_03: 4,
+                  },
+                  vehicle_tonnage: {
+                    prai_num_14: 2500,
+                  },
+                },
+                proposalcovers: [
+                  {
+                    cvr_sr_no: 1,
+                    prc_code: "3101",
+                    prc_desc: "Own Damage",
+                    prc_rate: 1.75,
+                    prc_rate_per: 100,
+                    prc_si_curr_code: "KES",
+                    prc_prem_curr_code: "KES",
+                    prc_si_fc: 50000,
+                    prc_prem_fc: 875,
+                  },
+                  {
+                    cvr_sr_no: 2,
+                    prc_code: "3176",
+                    prc_desc: "Third Party Only",
+                    prc_rate: 7500,
+                    prc_rate_per: 1,
+                    prc_si_curr_code: "KES",
+                    prc_prem_curr_code: "KES",
+                    prc_si_fc: 0,
+                    prc_prem_fc: 7500,
+                  },
+                  {
+                    cvr_sr_no: 3,
+                    prc_code: "3109",
+                    prc_desc: "Windscreen",
+                    prc_rate: 0,
+                    prc_rate_per: 100,
+                    prc_si_curr_code: "KES",
+                    prc_prem_curr_code: "KES",
+                    prc_si_fc: 100000,
+                    prc_prem_fc: 0,
+                  },
+                  {
+                    cvr_sr_no: 4,
+                    prc_code: "3110",
+                    prc_desc: "Radio Casette",
+                    prc_rate: 0,
+                    prc_rate_per: 100,
+                    prc_si_curr_code: "KES",
+                    prc_prem_curr_code: "KES",
+                    prc_si_fc: 100000,
+                    prc_prem_fc: 0,
+                  },
+                  {
+                    cvr_sr_no: 5,
+                    prc_code: "3198",
+                    prc_desc: "Excess Protector",
+                    prc_rate: 0.25,
+                    prc_rate_per: 100,
+                    prc_si_curr_code: "KES",
+                    prc_prem_curr_code: "KES",
+                    prc_si_fc: 0,
+                    prc_prem_fc: 2500,
+                  },
+                  {
+                    cvr_sr_no: 6,
+                    prc_code: "3199",
+                    prc_desc: "Polictical Violence and Terrorism",
+                    prc_rate: 0.25,
+                    prc_rate_per: 100,
+                    prc_si_curr_code: "KES",
+                    prc_prem_curr_code: "KES",
+                    prc_si_fc: 0,
+                    prc_prem_fc: 2500,
+                  },
+                ],
+                proposalmotorcerts: [
+                  {
+                    motor_cert_sr_no: 1,
+                    prai_flexi: {
+                      cert_mode: {
+                        prai_data_08: "02",
+                      },
+                      cert_type: {
+                        prai_code_14: "Class C",
+                      },
+                      book_id: {
+                        prai_data_09: "DIGI_CERT",
+                      },
+                      cert_num: {
+                        prai_data_05: "C1349985",
+                      },
+                      cert_fm_dt: {
+                        prai_date_21: "2023-09-26T00:00:00",
+                      },
+                      cert_to_dt: {
+                        prai_date_22: "2023-10-25T00:00:00",
+                      },
+                      cert_name: {
+                        prai_data_10: "",
+                      },
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        proposalcharges: [
+          {
+            chg_sr_no: 1,
+            pchg_code: "2001",
+            pchg_type: "002",
+            pchg_perc: 40,
+            pchg_chg_fc: 40,
+            pchg_prem_curr_code: "KES",
+            pchg_rate_per: 1,
+          },
+          {
+            chg_sr_no: 2,
+            pchg_code: "1004",
+            pchg_type: "005",
+            pchg_perc: 0.25,
+            pchg_chg_fc: 12,
+            pchg_prem_curr_code: "KES",
+            pchg_rate_per: 100,
+          },
+          {
+            chg_sr_no: 3,
+            pchg_code: "2004",
+            pchg_type: "002",
+            pchg_perc: 0.2,
+            pchg_chg_fc: 11,
+            pchg_prem_curr_code: "KES",
+            pchg_rate_per: 100,
+          },
+        ],
+      },
+    ],
+  };
 
   onModuleInit() {
     this.initCloudFunctions();
@@ -161,7 +403,7 @@ export class AppService {
 
   async issueDMVICCertificate(params) {
     let phone = params.phone;
-    let cert_class = params.cert_class
+    let cert_class = params.cert_class;
     let quote_data = params.quote_data;
     let quote_id = params.quote_id;
     let quoteDB = params.quoteDB;
@@ -219,13 +461,283 @@ export class AppService {
 
     try {
       let query = new Parse.Query("JazkeSale");
+      query.include(["quotation"]);
       let saleDB = await query.get(sale_id);
 
       saleDB.set("dmvic_cert", res);
+
+      let paymentJson: any = saleDB.toJSON();
+      let premiaJson = this.createPremiaJson(paymentJson, params);
+      console.log("Final Mapping => ", premiaJson);
+      saleDB.set("premiaJson", premiaJson);
+
       await saleDB.save();
     } catch (error) {
       console.error(error);
     }
+  }
+
+  createPremiaJson(newData: any, params) {
+    let motorProductType = params.motorProductType;
+    let certificateClass = params.certificateClass;
+
+    function createEmptyTemplate(originalObj: any): { [key: string]: any } {
+      let template: { [key: string]: any } = {};
+
+      for (let key in originalObj) {
+        if (originalObj.hasOwnProperty(key)) {
+          if (Array.isArray(originalObj[key])) {
+            // Create an array of empty objects with the same structure for proposals
+            template[key] = originalObj[key].map((item: any) =>
+              createEmptyTemplate(item)
+            );
+          } else if (
+            typeof originalObj[key] === "object" &&
+            originalObj[key] !== null
+          ) {
+            // Create an empty object with the same keys
+            template[key] = createEmptyTemplate(originalObj[key]);
+          } else {
+            if (key == "prc_code") {
+              template[key] = originalObj[key];
+            } else {
+              template[key] = "";
+            }
+          }
+        }
+      }
+
+      return { ...originalObj };
+
+      // return template;
+    }
+
+    // Create a deep copy of the imported quotationObj to allow mutations
+    let updatedQuotationObj: any = createEmptyTemplate(this.quotationObj);
+    // let updatedQuotationObj: any = {...quotationObj}
+    console.log("quotationObj", updatedQuotationObj);
+
+    // Update personal details
+    updatedQuotationObj["quot_ref"] = newData.quotation.objectId || "";
+    updatedQuotationObj["quot_paymt_ref"] = newData.objectId || "";
+    updatedQuotationObj["quot_assr_name"] =
+      newData.insurance_data.kyc.name || "";
+    updatedQuotationObj["quot_assr_nic"] = newData.insurance_data.kyc.nin || "";
+    updatedQuotationObj["quot_paymt_date"] = newData.createdAt || "";
+    updatedQuotationObj["quot_assr_lic"] = "";
+    updatedQuotationObj["quot_assr_pin"] = newData.insurance_data.kyc.tin || "";
+    updatedQuotationObj["quot_assr_phone"] =
+      newData.insurance_data.kyc.phone || "";
+    updatedQuotationObj["quot_assr_email"] =
+      newData.insurance_data.kyc.email || "";
+    updatedQuotationObj["quot_assr_gender"] =
+      newData.insurance_data.kyc.gender || "";
+    updatedQuotationObj["quot_assr_dob"] = newData.insurance_data.kyc.dob || "";
+    if (!updatedQuotationObj["quot_assr_flexi"]) {
+      updatedQuotationObj["quot_assr_flexi"] = {
+        quot_assr_addr: {},
+      };
+    }
+    updatedQuotationObj["quot_assr_flexi"]["quot_assr_addr"]["pol_addr_01"] =
+      newData.insurance_data.kyc.address;
+
+    // Access proposals array
+    let proposals = updatedQuotationObj["proposals"];
+
+    if (proposals && proposals.length > 0) {
+      let proposal = proposals[0];
+      let newQuoteData = newData.quotation.quoteData;
+
+      // Safeguard to ensure proposal is valid
+      if (proposal) {
+        proposal["prop_sr_no"] = 1;
+        proposal["prop_paymt_ref"] = newData.objectId || "";
+        proposal["prop_paymt_date"] = newData.createdAt || "";
+        proposal["pol_quot_sys_id"] = 0;
+        proposal["pol_comp_code"] =
+          newData.quotation.quoteData.motorProductTypeCode || "";
+        proposal["pol_divn_code"] =
+          newData.insurance_data.companyDivision || "";
+        proposal["pol_dept_code"] =
+          newData.quotation.quoteData.motorClassCode || "";
+        proposal["pol_prod_code"] =
+          newData.quotation.quoteData.motorProductCode || "";
+        proposal["pol_type"] =
+          newData.quotation.quoteData.motorProductCode || "";
+        proposal["pol_cust_code"] = "";
+        proposal["pol_assr_code"] = "";
+        // Update proposal dates
+        proposal["pol_fm_dt"] = newData.insurance_data.coverStartDate || "";
+        proposal["pol_to_dt"] = newData.insurance_data.coverEndDate || "";
+
+        // Update policy info
+        proposal["pol_quot_no"] = newData.quotation.objectId + "-" + 1 || "";
+        proposal["pol_dflt_si_curr_code"] = "KES"; // Assuming currency remains the same
+        proposal["pol_prem_curr_code"] = "KES";
+
+        proposal["pol_flexi"]["payment_mode_code"]["pol_flex_10"] = "4";
+        proposal["pol_flexi"]["payment_mode_desc"][
+          "pol_flex_18"
+        ] = `Flutterwave - ${newData.txRef || ""} - ${newData.amount || 0}`;
+        proposal["pol_flexi"]["cover_type_code"]["pol_flex_14"] =
+          newData.quotation.quoteData.motorClassCode || "";
+        proposal["pol_flexi"]["cover_type_desc"]["pol_flex_16"] =
+          this.getAnyKeyValue(
+            newData.quotation.quoteData.motorClassCode,
+            "name",
+            motorProductType
+          );
+        proposal["pol_flexi"]["issued_at_code"]["pol_flex_01"] = 118;
+        proposal["pol_flexi"]["issued_at_desc"]["pol_flex_17"] =
+          "Portal Policies";
+        proposal["pol_flexi"]["prev_policy_no"]["pol_flex_20"] = "";
+        proposal["pol_flexi"]["territory"]["pol_flex_02"] = "KENYA";
+        proposal["pol_flexi"]["broker_risk_note_no"]["pol_flex_08"] = "";
+
+        proposal["proposalsections"][0]["sec_sr_no"] = "1";
+        proposal["proposalsections"][0]["psec_sec_code"] =
+          newData.quotation.quoteData.motorproductSectAssCode || "";
+
+        // Access proposal sections and risks
+        let proposalRisk =
+          proposal["proposalsections"]?.[0]?.["proposalrisks"]?.[0];
+        let vehicleData = newData.insurance_data.vehicle;
+
+        if (proposalRisk && vehicleData) {
+          // Update vehicle details
+          proposalRisk["prai_flexi"]["vehicle_cover_type"]["prai_code_21"] =
+            newData.quotation.quoteData.motorProductTypeCode || "";
+          proposalRisk["prai_flexi"]["vehicle_make"]["prai_code_04"] =
+            newQuoteData.vehicleMake || "";
+          proposalRisk["prai_flexi"]["vehicle_model"]["prai_code_05"] =
+            newQuoteData.vehicleModel || "";
+          proposalRisk["prai_flexi"]["vehicle_body_type"]["prai_code_01"] =
+            vehicleData.bodyType || "";
+          proposalRisk["prai_flexi"]["vehicle_reg_no"]["prai_data_03"] =
+            newQuoteData.vehicleRegNumber || "";
+          proposalRisk["prai_flexi"]["vehicle_chassis_no"]["prai_data_01"] =
+            vehicleData.chasisNumber || "";
+          proposalRisk["prai_flexi"]["vehicle_engine_no"]["prai_data_02"] =
+            vehicleData.EngineNumber || "";
+          proposalRisk["prai_flexi"]["vehicle_yom"]["prai_num_01"] =
+            newQuoteData.yearOfManufacture || 0;
+          proposalRisk["prai_flexi"]["vehicle_value"]["prai_num_02"] =
+            newQuoteData.sumInsured || 0;
+          proposalRisk["prai_flexi"]["vehicle_cc"]["prai_num_04"] =
+            newData.insurance_data.vehicle.cc || "";
+          proposalRisk["prai_flexi"]["seating_capacity"]["prai_num_09"] =
+            newData.insurance_data.vehicle.seatingCapacity || "";
+          proposalRisk["prai_flexi"]["num_pax"]["prai_num_03"] =
+            newData.insurance_data.vehicle.numPassengers || "";
+          proposalRisk["prai_flexi"]["vehicle_tonnage"]["prai_num_14"] =
+            newData.insurance_data.vehicle.tonnage || "";
+
+          // Update cover details in proposal
+          proposalRisk["proposalcovers"]?.forEach((cover: any) => {
+            switch (cover["prc_code"]) {
+              case "3101": // Own Damage
+                cover.prc_desc = "Own Damage";
+                cover.cvr_sr_no = 1;
+                cover["prc_rate"] = newQuoteData.excessProtectorBenefit || 0;
+                cover.prc_rate_per = 1;
+                cover["prc_si_fc"] = newQuoteData.sumInsured || 0;
+                cover["prc_prem_fc"] = newQuoteData.excessProtectorBenefit || 0;
+                break;
+              case "3176": // Third Party Only
+                cover.prc_desc = "Third Party Only";
+                cover.cvr_sr_no = 2;
+                cover["prc_rate"] = 0;
+                cover.prc_rate_per = 1;
+                cover["prc_si_fc"] = newQuoteData.sumInsured;
+                cover["prc_prem_fc"] = 0;
+                break;
+              case "3109": // Windscreen
+                cover.prc_desc = "Windscreen";
+                cover.cvr_sr_no = 3;
+                cover["prc_rate"] = newQuoteData.windScreenBenefit || 0;
+                cover.prc_rate_per = 1;
+                cover["prc_si_fc"] = newQuoteData.sumInsured || 0;
+                cover["prc_prem_fc"] = newQuoteData.windScreenBenefit || 0;
+                break;
+              case "3110": // Radio Cassette
+                cover.prc_desc = "Radio Cassette";
+                cover.cvr_sr_no = 4;
+                cover["prc_rate"] = newQuoteData.radioCassetteBenefit || 0;
+                cover.prc_rate_per = 1;
+                cover["prc_si_fc"] = newQuoteData.sumInsured;
+                cover["prc_prem_fc"] = newQuoteData.radioCassetteBenefit || 0;
+                break;
+              case "3198": // Excess Protector
+                cover.prc_desc = "Excess Protector";
+                cover.cvr_sr_no = 5;
+                cover["prc_rate"] = newQuoteData.excessProtectorBenefit || 0;
+                cover.prc_rate_per = 1;
+                cover["prc_si_fc"] = newQuoteData.sumInsured;
+                cover["prc_prem_fc"] = newQuoteData.excessProtectorBenefit || 0;
+                break;
+              case "3199": // Political Violence and Terrorism
+                cover.prc_desc = "Political Violence and Terrorism";
+                cover.cvr_sr_no = 6;
+                cover["prc_rate"] = newQuoteData.pvtBenefit || 0;
+                cover.prc_rate_per = 1;
+                cover["prc_si_fc"] = newQuoteData.sumInsured || 0;
+                cover["prc_prem_fc"] = newQuoteData.pvtBenefit || 0;
+                break;
+            }
+          });
+
+          // Update Certificate details
+          proposalRisk["proposalmotorcerts"][0]["cert_sr_no"] = 1;
+          proposalRisk["proposalmotorcerts"][0]["prai_flexi"]["cert_mode"][
+            "prai_data_08"
+          ] = "02";
+          proposalRisk["proposalmotorcerts"][0]["prai_flexi"]["cert_type"][
+            "prai_code_14"
+          ] = this.getAnyKeyValue(
+            newData.quotation.quoteData.makeModel,
+            "cert_class",
+            certificateClass
+          );
+          proposalRisk["proposalmotorcerts"][0]["prai_flexi"]["book_id"][
+            "prai_data_09"
+          ] = "DIGI_CERT";
+          if (
+            newData.dmvic_cert.callbackObj &&
+            newData.dmvic_cert.callbackObj.issueCertificate
+          ) {
+            proposalRisk["proposalmotorcerts"][0]["prai_flexi"]["cert_num"][
+              "prai_data_05"
+            ] = newData.dmvic_cert.callbackObj.issueCertificate.actualCNo;
+          }
+
+          proposalRisk["proposalmotorcerts"][0]["prai_flexi"]["cert_fm_dt"][
+            "prai_date_21"
+          ] = newData.insurance_data.coverStartDate || "";
+          proposalRisk["proposalmotorcerts"][0]["prai_flexi"]["cert_to_dt"][
+            "prai_date_22"
+          ] = newData.insurance_data.coverEndDate || "";
+          proposalRisk["proposalmotorcerts"][0]["prai_flexi"]["cert_name"][
+            "prai_data_10"
+          ] = "";
+        }
+      }
+    }
+
+    delete updatedQuotationObj.default;
+
+    // Return updated object
+    return updatedQuotationObj;
+  }
+
+  getAnyKeyValue(
+    inHandValue: any,
+    propertyOfInterest: keyof any,
+    objectInQuestion: any
+  ) {
+    const obj = objectInQuestion.find(
+      (pair: any) => pair.inHandValue === inHandValue
+    );
+    return obj ? obj[propertyOfInterest] : undefined;
   }
 
   initCloudFunctions() {
@@ -332,10 +844,14 @@ export class AppService {
               let debitnote_url = `${host}/debitnote/${sale_id}`;
               let policyschedule_url = `${host}/policyschedule/${sale_id}`;
 
-              let valuationLetterBuffer = await this.generateDocument(letter_url);
+              let valuationLetterBuffer = await this.generateDocument(
+                letter_url
+              );
               let receiptBuffer = await this.generateDocument(receipt_url);
               let debitNoteBuffer = await this.generateDocument(debitnote_url);
-              let policyScheduleBuffer = await this.generateDocument(policyschedule_url);
+              let policyScheduleBuffer = await this.generateDocument(
+                policyschedule_url
+              );
 
               let email_params: any = {
                 from: "saleske@allianz.com",
@@ -420,7 +936,7 @@ export class AppService {
         // console.log("access token", response.data);
         // let tokenData: any = {
         //   access_token: `eyJhbGciOiJSUzI1NiIsImtpZCI6IjVCQjRFNjE4NzdGNTMxRUJDQUZCOEIwMEFGRjkzMkU5QkI2Qjc0NjQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiSU5TQVBJVVNFUiIsInByaW1hcnlzaWQiOiI4MUI4RkJBMi0yRjA3LTRDRjAtOEZEQi0zQzYwMDE1ODMyNUUiLCJwcmltYXJ5Z3JvdXBzaWQiOiIyNiIsImxvZ2luaGlzdG9yeSI6IjQyNDQwNSIsIm5iZiI6MTcyNzg0ODgwNSwiZXhwIjoxNzI4NDUzNjA1LCJpYXQiOjE3Mjc4NDg4MDUsImlzcyI6Imh0dHBzOi8vdWF0LWFwaS5kbXZpYy5jb20iLCJhdWQiOiJodHRwczovL3VhdC1hcGkuZG12aWMuY29tIn0.RN0pJf-f1cpNwZqhr12BbPdnNkQKFHEYdM6QsXM1Ag6lTQvJz_BQrB_G_eQ2mI8Jwf5GkhxWR0shq1a59lS1M-gHI8icQwX0DwQ3yhAfjtBVn1_iJPN5PuANbLbqdWCHYZxrCpvqiAh3H1w0JNFRbdwymREuHtfQeVWn3P9bRhSbif47xGMegr_Vil4yv5IyY2lv0U3K27vbKsHBqVqhw64UGYKmdxeqm_qUtWwjAl2ysL-kEgnJkyVdL3sO1X-0fCWYMfKCwTHghXt4CKwQRwaH0FER3ttzqWRz-8jgx6lGMxHNZFP7_kETF-RUZJv_lWZYEzTPrlKUGsi9Slj0og`,
-        // }; 
+        // };
         let tokenData = response.data;
         if (tokenData && tokenData.access_token) {
           const response = await axios.post(
@@ -537,7 +1053,7 @@ export class AppService {
       let params = request.params;
       let p = params.phone;
 
-      let query = new Parse.Query("UserRegistry")
+      let query = new Parse.Query("UserRegistry");
       // query.equalTo('phones', p)
       query.equalTo("phone", Number(p).toString());
       let first = await query.first({ useMasterKey: true });

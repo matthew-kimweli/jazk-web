@@ -625,7 +625,7 @@ export class MotorKycComponent {
         return;
       }
 
-      if (res.Error.length) {
+      if (res.Error && res.Error.length) {
         this.vehicle.hasDoubleInsurance = false;
       } else {
         this.toastr.error(
@@ -1020,13 +1020,6 @@ export class MotorKycComponent {
         payment.set('user_id', this.authService.currentUser.id);
       }
 
-      
-      let paymentJson = payment.toJSON();
-      let premiaJson = this.motorService.createPremiaJson(paymentJson);
-      console.log('Yes', data);
-      console.log('Final Mapping => ', premiaJson);
-      payment.set('premiaJson', premiaJson)
-      
       await payment.save();
 
       this.parseService.fetching = true;
@@ -1042,13 +1035,16 @@ export class MotorKycComponent {
       console.log('host', pdfHost);
       console.log('saleId', payment.id);
 
-      let cert_class = ''; //this.utilsService.getAnyKeyValue(this.motorService.motorQuotation.makeModel, 'cert_class', this.motorService.certificateClass);
-
+      let cert_class = this.utilsService.getAnyKeyValue(
+        this.motorService.motorQuotation.makeModel,
+        'cert_class',
+        this.motorService.certificateClass
+      );
 
       let res = await Parse.Cloud.run('paympesa', {
         phone: phone,
-        cert_class: cert_class,
-        premiaJson: premiaJson,
+        certificateClass: cert_class,
+        motorProductType: this.motorService.motorProductType,
         sale_id: payment.id,
         sale_data: payment.toJSON(),
         quote_id: this.quote.id,
