@@ -1020,10 +1020,11 @@ export class MotorKycComponent {
         payment.set('user_id', this.authService.currentUser.id);
       }
 
-      await payment.save();
-
       this.parseService.fetching = true;
 
+      await payment.save();
+
+      
       let phone = String(this.paymentData.mmNumber).replace('+', '');
       if (phone.includes('254')) {
       } else {

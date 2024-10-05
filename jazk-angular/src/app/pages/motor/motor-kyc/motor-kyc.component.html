@@ -874,7 +874,9 @@
         >
           Cancel
         </a>
-        <a (click)="startPayment()" class="btn btn-primary ms-auto">
+        <button (click)="startPayment()" class="btn btn-primary ms-auto"
+        [disabled]="parseService.fetching"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -892,7 +894,7 @@
             <path d="M5 12l14 0"></path>
           </svg>
           Make Payment
-        </a>
+        </button>
       </div>
     </div>
   </div>
