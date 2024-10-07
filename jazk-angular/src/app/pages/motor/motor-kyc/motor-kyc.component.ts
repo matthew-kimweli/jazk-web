@@ -1049,11 +1049,12 @@ export class MotorKycComponent {
       console.log('host', pdfHost);
       console.log('saleId', payment.id);
 
-      let cert_class = this.utilsService.getAnyKeyValue(
-        this.motorService.motorQuotation.makeModel,
-        'cert_class',
-        this.motorService.certificateClass
-      );
+      let cert_class = this.motorService.certificateClass.find(c=>{
+        if(c.label == this.motorService.motorQuotation.makeModel){
+          return true;
+        }
+        return false
+      })
 
       let res = await Parse.Cloud.run('paympesa', {
         phone: phone,

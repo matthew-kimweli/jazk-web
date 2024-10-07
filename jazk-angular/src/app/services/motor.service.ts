@@ -85,7 +85,7 @@ export class MotorService {
     },
   ];
 
-  certificateClass: any = [
+  certificateClass = [
     {
       class: 'private',
       label: 'SubaruProboxEtc',

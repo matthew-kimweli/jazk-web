@@ -403,7 +403,7 @@ export class AppService {
 
   async issueDMVICCertificate(params) {
     let phone = params.phone;
-    let cert_class = params.cert_class;
+    let certificateClass = params.certificateClass;
     let quote_data = params.quote_data;
     let quote_id = params.quote_id;
     let quoteDB = params.quoteDB;
@@ -412,9 +412,20 @@ export class AppService {
     let agent_email = params.agent_email;
     let client_email = params.client_email;
     let client = params.client || {};
+    let endpoint = "Integration/IssuanceTypeCCertificate";
+
+    if(certificateClass == 'Class A'){
+      endpoint = "Integration/IssuanceTypeACertificate";
+    } else if(certificateClass == 'Class B'){
+      endpoint = "Integration/IssuanceTypeBCertificate";
+    } else if(certificateClass == 'Class C'){
+      endpoint = "Integration/IssuanceTypeCCertificate";
+    } else if(certificateClass == 'Class D'){
+      endpoint = "Integration/IssuanceTypeDCertificate";
+    }
 
     let cert_params = {
-      endpoint: "Integration/IssuanceTypeCCertificate",
+      endpoint: endpoint,
       body: {
         IntermediaryIRANumber: "",
         Typeofcover: 100,
