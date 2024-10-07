@@ -974,53 +974,75 @@ export class AppService {
       let token = "";
       let sale_id = params.sale_id;
 
-      let query = new Parse.Query("JazkeSale");
-      query.include(["quotation"]);
-      let saleDB = await query.get(sale_id);
-      let insurance_data = saleDB.get("insurance_data");
-      let kyc = insurance_data.kyc
-      let vehicle = insurance_data.vehicle
-      let valuer = insurance_data.vehicle.valuer;
-      saleDB.set("valuer", valuer);
+      try {
+        let query = new Parse.Query("JazkeSale");
+        query.include(["quotation"]);
+        let saleDB = await query.get(sale_id);
+        let insurance_data = saleDB.get("insurance_data");
+        let kyc = insurance_data.kyc;
+        let vehicle = insurance_data.vehicle;
+        let valuer = insurance_data.vehicle.valuer;
+        saleDB.set("valuer", valuer);
 
-      if (valuer == "SOLVIT LIMITED") {
-        baseUrl = "https://solvit.staging9.com";
-        tokenUrl = `${baseUrl}/api/insurance-login`;
-        const data = {
-          email: "ahabweemma@gmail.com",
-          password: "5VWXhpvg7@62J",
-        };
-        const tokenResponse = axios.post(tokenUrl, data);
-        let result = tokenResponse.data;
-        console.log("Response:", result);
-        if (result && result.token) {
-          token = result.token;
-          console.log("solvit token:", token);
+        if (valuer == "SOLVIT LIMITED") {
+          baseUrl = "https://solvit.staging9.com";
+          tokenUrl = `${baseUrl}/api/insurance-login`;
+          const data = {
+            email: "ahabweemma@gmail.com",
+            password: "5VWXhpvg7@62J",
+          };
+          const tokenResponse = axios.post(tokenUrl, data);
+          let result = tokenResponse.data;
+          console.log("Response:", result);
+          if (result && result.token) {
+            token = result.token;
+            console.log("solvit token:", token);
 
-          let nameParts = kyc.name.split(' ')
-          
+            let nameParts = kyc.name.split(" ");
 
-          let endpoint = `${baseUrl}/api/request/insurance-initiate-request`;
+            let endpoint = `${baseUrl}/api/request/insurance-initiate-request`;
+            let post_body = {
+              customerMobile: kyc.phone,
+              vehicleRegNo: vehicle.registrationNumber,
+              firstName: nameParts[0],
+              lastName: nameParts[1],
+              email: kyc.email,
+              type: "2",
+              siteType: "2",
+              insuranceCompanyRequestId: "a0T5E000002O1UYUA0",
+              paymentType: "1",
+              autoAssign: "0",
+              latitude: "",
+              longitude: "",
+            };
+
+            const response = await axios.post(endpoint, post_body, {
+              headers: {
+                "Content-Type": "application/json",
+                // ClientID: "99EA05B9-7515-4338-A7A2-B8515BD712E8",
+                Authorization: token,
+              },
+            });
+            let valuationResponse = response.data;
+            console.log("Response:", valuationResponse);
+
+            saleDB.set("valuation_req_result", valuationResponse);
+            saleDB.save();
+            return valuationResponse;
+          }
+        } else if (valuer == "REGENT VALUERS") {
+          let endpoint = `https://mobi.regentautovaluers.co.ke/app-api/jubilee/reg-request/`;
           let post_body = {
-            customerMobile: kyc.phone,
-            vehicleRegNo: vehicle.registrationNumber,
-            firstName: nameParts[0],
-            lastName: nameParts[1],
-            email: kyc.email,
-            type: "2",
-            siteType: "2",
-            insuranceCompanyRequestId: "a0T5E000002O1UYUA0",
-            paymentType: "1",
-            autoAssign: "0",
-            latitude: "",
-            longitude: "",
+            reg_no: vehicle.registrationNumber,
+            username: "jubilee",
+            api_key: "1acc641a-659f-476f-9de3-b04350021921",
           };
 
           const response = await axios.post(endpoint, post_body, {
             headers: {
               "Content-Type": "application/json",
               // ClientID: "99EA05B9-7515-4338-A7A2-B8515BD712E8",
-              Authorization: token,
+              // Authorization: token,
             },
           });
           let valuationResponse = response.data;
@@ -1030,27 +1052,8 @@ export class AppService {
           saleDB.save();
           return valuationResponse;
         }
-      } else if (valuer == "REGENT VALUERS") {
-        let endpoint = `https://mobi.regentautovaluers.co.ke/app-api/jubilee/reg-request/`;
-        let post_body = {
-          reg_no: vehicle.registrationNumber,
-          username: "jubilee",
-          api_key: "1acc641a-659f-476f-9de3-b04350021921",
-        };
-
-        const response = await axios.post(endpoint, post_body, {
-          headers: {
-            "Content-Type": "application/json",
-            // ClientID: "99EA05B9-7515-4338-A7A2-B8515BD712E8",
-            // Authorization: token,
-          },
-        });
-        let valuationResponse = response.data;
-        console.log("Response:", valuationResponse);
-
-        saleDB.set("valuation_req_result", valuationResponse);
-        saleDB.save();
-        return valuationResponse;
+      } catch (error) {
+        console.error(error);
       }
     });
 
