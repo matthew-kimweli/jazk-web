@@ -80,6 +80,20 @@ export class AppController {
     }
   }
 
+  @Post("receivevaluation")
+  async receivevaluation(@Req() req, @Res() res): Promise<any> {
+    const body = req.body;
+    console.log("valuation notfication", body);
+    let Payment = Parse.Object.extend('JazkeValuation')
+    let p = new Payment()
+    try {
+      await p.save(body)
+      console.log("payment saved");
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   
 
 }

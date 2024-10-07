@@ -92,26 +92,26 @@ export class RegisterAgentComponent {
         return;
       }
 
-      let result = await Parse.Cloud.run('getUser2', {
-        phone: phone
-      });
+      // let result = await Parse.Cloud.run('getUser2', {
+      //   phone: phone
+      // });
 
-      console.log('user resp', result);
+      // console.log('user resp', result);
 
-      if (!result.user) {
-        console.log('agent not allowed');
-        this.toastr.error(
-          'Not Allowed',
-          'You are not allowed to login. Please contact system administrator'
-        );
-        this.saving = false;
-        return;
-      }
+      // if (!result.user) {
+      //   console.log('agent not allowed');
+      //   this.toastr.error(
+      //     'Not Allowed',
+      //     'You are not allowed to login. Please contact system administrator'
+      //   );
+      //   this.saving = false;
+      //   return;
+      // }
 
 
       this.toastr.info('Signing up...');
       this.user = await Parse.User.signUp(this.email, this.password, {
-        name: this.customerCode,
+        name: agent.get('name'),
         customerCode: this.customerCode,
         userType: 'agent',
         phone: phone,
@@ -163,12 +163,14 @@ export class RegisterAgentComponent {
 
   
   async checkUser(){
+    console.log('email', this.email)
+    console.log('customercode', this.customerCode)
     let Agent = Parse.Object.extend('user')
     let query = new Parse.Query('user')
     query.equalTo('cust_code', this.customerCode)
     query.equalTo('email', this.email)
     let first = await query.first()
+    console.log('agent', first)
     return first
-
   }
 }
