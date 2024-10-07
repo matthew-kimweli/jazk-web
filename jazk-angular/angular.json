@@ -27,12 +27,14 @@
             "styles": [
               "src/styles.css",
               "node_modules/@tabler/core/dist/css/tabler.min.css",
+              "node_modules/@tabler/core/dist/css/tabler-vendors.min.css",
               "node_modules/ngx-toastr/toastr.css"
 
             ],
             "scripts": [
               "node_modules/@popperjs/core/dist/umd/popper.min.js",
-              "node_modules/@tabler/core/dist/js/tabler.min.js"
+              "node_modules/@tabler/core/dist/js/tabler.min.js",
+              "node_modules/@tabler/core/dist/libs/tom-select/dist/js/tom-select.base.min.js"
             ]
           },
           "configurations": {
