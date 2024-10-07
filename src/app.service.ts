@@ -378,7 +378,7 @@ export class AppService {
       const browser = await puppeteer.launch({
         headless: true,
         // executablePath: "./google-chrome", //path.join(__dirname, "../google-chrome"), // Path to the Chrome binary
-        // executablePath: "/usr/bin/google-chrome-stable",
+        executablePath: "/usr/bin/google-chrome-stable",
         args: ["--no-sandbox", "--disable-setuid-sandbox"],
       });
 
@@ -935,7 +935,7 @@ export class AppService {
         // let tokenData: any = {
         //   access_token: `eyJhbGciOiJSUzI1NiIsImtpZCI6IjVCQjRFNjE4NzdGNTMxRUJDQUZCOEIwMEFGRjkzMkU5QkI2Qjc0NjQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiSU5TQVBJVVNFUiIsInByaW1hcnlzaWQiOiI4MUI4RkJBMi0yRjA3LTRDRjAtOEZEQi0zQzYwMDE1ODMyNUUiLCJwcmltYXJ5Z3JvdXBzaWQiOiIyNiIsImxvZ2luaGlzdG9yeSI6IjQyNTI5NCIsIm5iZiI6MTcyODEwODAwNSwiZXhwIjoxNzI4NzEyODA1LCJpYXQiOjE3MjgxMDgwMDUsImlzcyI6Imh0dHBzOi8vdWF0LWFwaS5kbXZpYy5jb20iLCJhdWQiOiJodHRwczovL3VhdC1hcGkuZG12aWMuY29tIn0.Ydfs3naRz9JTs-ebls1_In5TxjHhswTlCTDDo378091tN3NgaHYZ9SVqinretYtynot2rQLRQQgcmpfKvmpr3714xFLfR8w95lnnj8qY4_rsHJi8SEVkaBWiZlufe2YKeU7RubHSxYelWB8ZXId71m3hbYJby2DCVdG7F_-Iml-dFm1AOl1Mouv4LgnPGAMl03535DadWTR6b5XAJkevoJg3rSw-9asCJOxtWObPaBsRgQFBBFBdS44Ic5vk-e6pHE04rnShtCVdNFpeqoRzliP7RLyfvbunveyWP988ky9rqweIe1i8T43zh6j6VWhGd3UIXJ6f3O3n0dGZ67G3tA`,
         // };
-        
+
         if (tokenData && tokenData.access_token) {
           const response = await axios.post(
             `${baseUrl}/${endpoint}`,
