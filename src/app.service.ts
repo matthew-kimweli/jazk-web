@@ -832,7 +832,7 @@ export class AppService {
 
               let emails = [client.email, agent_email];
 
-              let sale_id = "A4QmZ1Vgel";
+              // let sale_id = "A4QmZ1Vgel";
               let host =
                 "https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io";
               let letter_url = `${host}/valuation-letter/${sale_id}`;
