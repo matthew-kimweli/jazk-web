@@ -140,7 +140,8 @@ export class RegisterAgentComponent {
       return true;
     } catch (error) {
       console.error(error);
-      this.toastr.error('Error signing up...');
+      // this.toastr.error('Error signing up...');
+      this.toastr.error(String(error));
       this.saving = false;
 
       return false;
