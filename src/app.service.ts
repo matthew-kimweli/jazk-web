@@ -937,7 +937,9 @@ export class AppService {
     Parse.Cloud.define("dmvic_request", async (request) => {
       let params = request.params;
       let baseUrl = "https://uat-api.dmvic.com/api/v5";
-      let tokenUrl = "http://10.158.2.21:8080/api/get-aki-token";
+      // let tokenUrl = "http://10.158.2.21:8080/api/get-aki-token";
+      let tokenUrl = "http://10.212.0.6:8080/api/get-aki-token";
+      
       let endpoint = params.endpoint;
       let post_body = params.body;
 
