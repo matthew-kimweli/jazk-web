@@ -12,7 +12,7 @@ import * as Parse from 'parse';
   templateUrl: './receipt.component.html',
   styleUrl: './receipt.component.css',
 })
-export class ReceiptComponent implements OnInit {
+export class ReceiptComponent {
   data: any;
   pdf_date: Date = new Date();
 
@@ -53,10 +53,10 @@ export class ReceiptComponent implements OnInit {
       let sale = await query.get(id);
       console.log('sale', sale);
       this.sale = sale;
-      if (sale) {
+      this.parseService.fetching = false;
+      if (sale && sale.get('insurance_data')) {
         this.valuer = sale.get('insurance_data').vehicle.valuer;
       }
-      this.parseService.fetching = false;
     } catch (error) {
       console.error(error);
       this.parseService.fetching = true;

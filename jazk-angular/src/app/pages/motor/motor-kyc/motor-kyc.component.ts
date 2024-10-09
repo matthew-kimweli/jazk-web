@@ -1041,6 +1041,16 @@ export class MotorKycComponent {
         payment.set('agent_code', this.authService.currentAgentCode);
       }
 
+      
+      let cert_class = this.motorService.certificateClass.find(c=>{
+        if(c.label == this.motorService.motorQuotation.makeModel){
+          return true;
+        }
+        return false
+      })
+
+      payment.set('cert_class', cert_class);
+
       this.parseService.fetching = true;
 
       await payment.save();
@@ -1057,12 +1067,6 @@ export class MotorKycComponent {
       console.log('host', pdfHost);
       console.log('saleId', payment.id);
 
-      let cert_class = this.motorService.certificateClass.find(c=>{
-        if(c.label == this.motorService.motorQuotation.makeModel){
-          return true;
-        }
-        return false
-      })
 
       let res = await Parse.Cloud.run('paympesa', {
         phone: phone,

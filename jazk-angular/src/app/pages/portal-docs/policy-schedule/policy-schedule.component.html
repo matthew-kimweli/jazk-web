@@ -833,8 +833,7 @@
               "
             >
               {{
-                sale.get("quotation")?.get("quoteData")?.vehicleRegNumber
-                  | uppercase
+                sale.get("insurance_data")?.vehicle?.registrationNumber | uppercase
               }}
             </p>
             <p

@@ -412,22 +412,34 @@ export class AppService {
     let agent_email = params.agent_email;
     let client_email = params.client_email;
     let client = params.client || {};
-    let endpoint = "Integration/IssuanceTypeCCertificate";
+    let endpoint = "Integration/IssuanceTypeACertificate";
+    let cert_class = certificateClass.cert_class
 
-    if(certificateClass == 'Class A'){
+    let vehicle_type
+    let Licensedtocarry
+
+    if(cert_class == 'Class A'){
       endpoint = "Integration/IssuanceTypeACertificate";
-    } else if(certificateClass == 'Class B'){
+      Licensedtocarry = sale_data.insurance_data.vehicle.numPassengers
+    } else if(cert_class == 'Class B'){
+      vehicle_type = 1
+      Licensedtocarry = sale_data.insurance_data.vehicle.numPassengers
       endpoint = "Integration/IssuanceTypeBCertificate";
-    } else if(certificateClass == 'Class C'){
+    } else if(cert_class == 'Class C'){
       endpoint = "Integration/IssuanceTypeCCertificate";
-    } else if(certificateClass == 'Class D'){
+    } else if(cert_class == 'Class D'){
       endpoint = "Integration/IssuanceTypeDCertificate";
     }
+
+    console.log('certficate class', cert_class)
+    console.log('endpoint', endpoint)
 
     let cert_params = {
       endpoint: endpoint,
       body: {
         IntermediaryIRANumber: "",
+        vehicle_type: vehicle_type,
+        Licensedtocarry: Licensedtocarry,
         Typeofcover: 100,
         Policyholder: sale_data.insurance_data.kyc.name,
         InsuredPIN: sale_data.insurance_data.vehicle.pTin,
@@ -440,7 +452,7 @@ export class AppService {
         Expiringdate: this.formatDateSlash(
           sale_data.insurance_data.coverEndDate
         ),
-        Registrationnumber: "",
+        Registrationnumber: sale_data.insurance_data.vehicle.registrationNumber,
         Vehiclemake: sale_data.insurance_data.vehicle.vehicleMake,
         Vehiclemodel: sale_data.insurance_data.vehicle.vehicleModel,
         Chassisnumber: sale_data.insurance_data.vehicle.chasisNumber,
@@ -997,7 +1009,10 @@ export class AppService {
         let valuer = insurance_data.vehicle.valuer;
         saleDB.set("valuer", valuer);
 
+        console.log('valuer is', valuer)
+
         if (valuer == "SOLVIT LIMITED") {
+          console.log('sending solvit valuation request')
           baseUrl = "https://solvit.staging9.com";
           tokenUrl = `${baseUrl}/api/insurance-login`;
           const data = {
@@ -1037,13 +1052,14 @@ export class AppService {
               },
             });
             let valuationResponse = response.data;
-            console.log("Response:", valuationResponse);
+            console.log("Solvit valuation Response:", valuationResponse);
 
             saleDB.set("valuation_req_result", valuationResponse);
             saleDB.save();
             return valuationResponse;
           }
         } else if (valuer == "REGENT VALUERS") {
+          console.log('sending regent valuation request')
           let endpoint = `https://mobi.regentautovaluers.co.ke/app-api/jubilee/reg-request/`;
           let post_body = {
             reg_no: vehicle.registrationNumber,
@@ -1059,7 +1075,7 @@ export class AppService {
             },
           });
           let valuationResponse = response.data;
-          console.log("Response:", valuationResponse);
+          console.log("Regent valuation Response:", valuationResponse);
 
           saleDB.set("valuation_req_result", valuationResponse);
           saleDB.save();
