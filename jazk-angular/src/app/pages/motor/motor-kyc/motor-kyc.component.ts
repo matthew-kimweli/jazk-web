@@ -330,7 +330,7 @@ export class MotorKycComponent {
   disclaimers = [
     {
       declarationYes: false,
-      text: 'I have read and accept the intermediary terms and conditions.',
+      text: 'I have read and accept the <a href="/assets/data/Insurance_Agent_contract_JAZ.pdf" target="_blank">intermediary terms and conditions</a>.',
     },
     {
       declarationYes: false,
@@ -460,6 +460,14 @@ export class MotorKycComponent {
       this.searching.nin = false;
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  onClientNameChanged(event:any){
+    let value: string = event.target.value;
+    this.vehicle.pname = value;
+    if(value.includes('*')){
+      this.vehicle.pname = this.vehicle.pfname
     }
   }
 
@@ -818,7 +826,7 @@ export class MotorKycComponent {
     let userData = {
       fname: this.vehicle.pfname,
       lname: this.vehicle.plname,
-      name: `${this.vehicle.pfname}`,
+      name: `${this.vehicle.pname}`,
       age: this.vehicle.pAge,
       DoB: this.vehicle.pDob,
       phone: this.vehicle.pphone,

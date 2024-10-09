@@ -143,12 +143,14 @@
                 >
                 <input
                   [(ngModel)]="vehicle.pfnameMasked"
+                  (input)="onClientNameChanged($event)"
                   type="text"
                   name="firstname"
                   class="form-control"
                   id="firstname"
                   placeholder="Enter Name"
                 />
+                
                 <div class="validate"></div>
               </div>
 
@@ -345,6 +347,7 @@
                 <input
                   type="number"
                   [(ngModel)]="vehicle.tonnage"
+                  min="1"
                   name="tonnage"
                   class="form-control"
                   id="tonnage"
@@ -359,6 +362,7 @@
                 <input
                   type="number"
                   [(ngModel)]="vehicle.seatingCapacity"
+                  min="1"
                   name="seating"
                   class="form-control"
                   id="seating"
@@ -373,6 +377,7 @@
                 <input
                   type="number"
                   [(ngModel)]="vehicle.numPassengers"
+                  min="1"
                   name="passengers"
                   class="form-control"
                   id="passengers"
@@ -388,6 +393,7 @@
                 <input
                   type="number"
                   [(ngModel)]="vehicle.cc"
+                  min="1"
                   name="cc"
                   class="form-control"
                   id="cc"
@@ -484,7 +490,7 @@
               </div>
             </div>
             <br />
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-md-4 form-group mb-3">
                 <label class="form-label" for="companyDivision">
                   <small>Select the Insurance Company branch</small>
@@ -497,7 +503,21 @@
                 </option>
               </select>
               </div>
-            </div>
+            </div> -->
+            <!-- <div class="row">
+              <div class="col-md-4 form-group mb-3">
+                <label class="form-label" for="companyDivision">
+                  <small>Select town</small>
+                </label>
+                <select title="select" [(ngModel)]="vehicle.town"
+                name="companyDivision" id="companyDivision" class="form-select">
+                <option value="" disabled class="text-left">Company Branch</option>
+                <option *ngFor="let item of motorService.companyDivision" [value]="item.divn_code">
+                  {{ item.divn_name }}
+                </option>
+              </select>
+              </div>
+            </div> -->
           </div>
 
           <br />
@@ -556,12 +576,15 @@
                       id="flexRadioDefaultownership"
                     />
                     <label
+                    [innerHTML]="d.text"
                       class="form-label"
                       class="form-check-label"
                       for="flexRadioDefaultownership"
                     >
-                      {{d.text}}
+                      
+                      
                     </label>
+                    
                   </div>
                 </div>
               </div>

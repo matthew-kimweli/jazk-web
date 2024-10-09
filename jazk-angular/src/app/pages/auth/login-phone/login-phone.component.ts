@@ -16,7 +16,7 @@ import { ParseService } from '../../../services/parse.service';
 export class LoginPhoneComponent {
   returnUrl: string | null;
   phoneNumber: any;
-  status = ''
+  status:any = ''
   verificationCode: any;
   isPhoneVerified: boolean = false;
   cleanPhone: String = '';
@@ -69,9 +69,14 @@ export class LoginPhoneComponent {
         console.log('Phone number is valid');
       }
 
+      this.toastr.info('Validating, please wait...');
+      this.parseService.fetching = true;
+
       let result = await Parse.Cloud.run('getUser', {
         phone: phone
       });
+
+      this.parseService.fetching = false;
 
       console.log('user resp', result);
 
@@ -110,10 +115,13 @@ export class LoginPhoneComponent {
     console.log('Verifying code:', this.verificationCode);
     // You may use an API call or any other method to verify the code
     this.toastr.info('Verifying please wait...');
+    this.parseService.fetching = true;
     let resp = await Parse.Cloud.run('verifyOTP', {
       phone: this.cleanPhone,
       code: this.verificationCode,
     });
+
+    this.parseService.fetching = false;
 
     var status = resp['status'];
 
@@ -164,13 +172,18 @@ export class LoginPhoneComponent {
 
       this.toastr.info('Logging in', 'Please wait...');
       this.loading = true;
+      this.parseService.fetching = true;
+      
 
       this.user = await Parse.User.logIn(username, this.password);
+      
 
       setTimeout(() => {
         this.ngZone.run(async () => {
           let user = Parse.User.current();
           this.loading = false;
+
+          this.parseService.fetching = false;
 
           this.toastr.success('Logged in', 'Successfull...');
 

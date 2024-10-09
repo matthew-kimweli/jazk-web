@@ -111,6 +111,7 @@
         <div class="form-footer">
           <button *ngIf="status == ''"
             type="button"
+            [disabled]='parseService.fetching'
             (click)="requestVerificationCode()"
             class="btn btn-primary w-100"
           >
@@ -118,6 +119,7 @@
           </button>
           <button *ngIf="status == 'codesent'"
             type="button"
+            [disabled]='parseService.fetching'
             (click)="verifyCode()"
             class="btn btn-primary w-100"
           >
@@ -125,6 +127,7 @@
           </button>
           <button *ngIf="status == 'verified'"
             type="button"
+            [disabled]='parseService.fetching'
             (click)="onLogin()"
             class="btn btn-primary w-100"
           >
