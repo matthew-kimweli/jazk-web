@@ -413,26 +413,26 @@ export class AppService {
     let client_email = params.client_email;
     let client = params.client || {};
     let endpoint = "Integration/IssuanceTypeACertificate";
-    let cert_class = certificateClass.cert_class
+    let cert_class = certificateClass.cert_class;
 
-    let vehicle_type
-    let Licensedtocarry
+    let vehicle_type;
+    let Licensedtocarry;
 
-    if(cert_class == 'Class A'){
+    if (cert_class == "Class A") {
       endpoint = "Integration/IssuanceTypeACertificate";
-      Licensedtocarry = sale_data.insurance_data.vehicle.numPassengers
-    } else if(cert_class == 'Class B'){
-      vehicle_type = 1
-      Licensedtocarry = sale_data.insurance_data.vehicle.numPassengers
+      Licensedtocarry = sale_data.insurance_data.vehicle.numPassengers;
+    } else if (cert_class == "Class B") {
+      vehicle_type = 1;
+      Licensedtocarry = sale_data.insurance_data.vehicle.numPassengers;
       endpoint = "Integration/IssuanceTypeBCertificate";
-    } else if(cert_class == 'Class C'){
+    } else if (cert_class == "Class C") {
       endpoint = "Integration/IssuanceTypeCCertificate";
-    } else if(cert_class == 'Class D'){
+    } else if (cert_class == "Class D") {
       endpoint = "Integration/IssuanceTypeDCertificate";
     }
 
-    console.log('certficate class', cert_class)
-    console.log('endpoint', endpoint)
+    console.log("certficate class", cert_class);
+    console.log("endpoint", endpoint);
 
     let cert_params = {
       endpoint: endpoint,
@@ -496,6 +496,7 @@ export class AppService {
 
       await saleDB.save();
     } catch (error) {
+      this.registerError(error)
       console.error(error);
     }
   }
@@ -759,6 +760,16 @@ export class AppService {
     return obj ? obj[propertyOfInterest] : undefined;
   }
 
+  registerError(error) {
+    let Err = Parse.Object.extend("JazkeError");
+    let err = new Err();
+    err.set('response', error.response);
+    err.set('message', error.message);
+    err.set('json', error.toJSON());
+    err.save()
+    console.log('error json', )
+  }
+
   initCloudFunctions() {
     Parse.Cloud.define("paympesa", async (request) => {
       let params = request.params;
@@ -937,6 +948,7 @@ export class AppService {
         }
       } catch (error) {
         console.error("Request failed:", error);
+        this.registerError(error)
         return String(error).toString();
       }
     });
@@ -951,7 +963,7 @@ export class AppService {
       let baseUrl = "https://uat-api.dmvic.com/api/v5";
       // let tokenUrl = "http://10.158.2.21:8080/api/get-aki-token";
       let tokenUrl = "http://10.212.0.6:8080/api/get-aki-token";
-      
+
       let endpoint = params.endpoint;
       let post_body = params.body;
 
@@ -988,6 +1000,7 @@ export class AppService {
         }
       } catch (error) {
         console.error("Request failed:", error);
+        this.registerError(error)
         return String(error).toString();
       }
     });
@@ -1009,10 +1022,10 @@ export class AppService {
         let valuer = insurance_data.vehicle.valuer;
         saleDB.set("valuer", valuer);
 
-        console.log('valuer is', valuer)
+        console.log("valuer is", valuer);
 
         if (valuer == "SOLVIT LIMITED") {
-          console.log('sending solvit valuation request')
+          console.log("sending solvit valuation request");
           baseUrl = "https://solvit.staging9.com";
           tokenUrl = `${baseUrl}/api/insurance-login`;
           const data = {
@@ -1059,7 +1072,7 @@ export class AppService {
             return valuationResponse;
           }
         } else if (valuer == "REGENT VALUERS") {
-          console.log('sending regent valuation request')
+          console.log("sending regent valuation request");
           let endpoint = `https://mobi.regentautovaluers.co.ke/app-api/jubilee/reg-request/`;
           let post_body = {
             reg_no: vehicle.registrationNumber,
@@ -1082,6 +1095,7 @@ export class AppService {
           return valuationResponse;
         }
       } catch (error) {
+        this.registerError(error)
         console.error(error);
       }
     });
@@ -1117,6 +1131,7 @@ export class AppService {
 
         console.log("Response:", response.data);
       } catch (error) {
+        this.registerError(error)
         console.error(error);
       }
     });
