@@ -767,7 +767,7 @@ export class AppService {
     err.set('message', error.message);
     err.set('json', error.toJSON());
     err.save()
-    console.log('error json', )
+    // console.log('error json', )
   }
 
   initCloudFunctions() {

@@ -1,0 +1,88 @@
+{
+    "Kenya": {
+      "Cities": [
+        {
+          "name": "Nairobi",
+          "population": 4397073
+        },
+        {
+          "name": "Mombasa",
+          "population": 1208333
+        },
+        {
+          "name": "Kisumu",
+          "population": 397957
+        },
+        {
+          "name": "Nakuru",
+          "population": 570674
+        },
+        {
+          "name": "Eldoret",
+          "population": 475716
+        },
+        {
+          "name": "Thika",
+          "population": 279429
+        },
+        {
+          "name": "Nyeri",
+          "population": 225357
+        },
+        {
+          "name": "Machakos",
+          "population": 150041
+        },
+        {
+          "name": "Kakamega",
+          "population": 998987
+        },
+        {
+          "name": "Meru",
+          "population": 240900
+        }
+      ,
+        {
+          "name": "Voi",
+          "population": 52349
+        },
+        {
+          "name": "Naivasha",
+          "population": 181966
+        },
+        {
+          "name": "Kericho",
+          "population": 170063
+        },
+        {
+          "name": "Kitale",
+          "population": 162174
+        },
+        {
+          "name": "Malindi",
+          "population": 207253
+        },
+        {
+          "name": "Garissa",
+          "population": 119696
+        },
+        {
+          "name": "Kilifi",
+          "population": 122899
+        },
+        {
+          "name": "Narok",
+          "population": 49384
+        },
+        {
+          "name": "Nanyuki",
+          "population": 49892
+        },
+        {
+          "name": "Lamu",
+          "population": 29562
+        }
+      ]
+    }
+  }
+  

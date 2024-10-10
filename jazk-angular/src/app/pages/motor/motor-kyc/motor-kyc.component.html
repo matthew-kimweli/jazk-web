@@ -490,20 +490,20 @@
               </div>
             </div>
             <br />
-            <!-- <div class="row">
+            <div class="row">
               <div class="col-md-4 form-group mb-3">
                 <label class="form-label" for="companyDivision">
-                  <small>Select the Insurance Company branch</small>
+                  <small>Select your Physical address</small>
                 </label>
-                <select title="select" [(ngModel)]="companyDivision"
-                name="companyDivision" id="companyDivision" class="form-select">
-                <option value="" disabled class="text-left">Company Branch</option>
-                <option *ngFor="let item of motorService.companyDivision" [value]="item.divn_code">
-                  {{ item.divn_name }}
+                <select title="select" [(ngModel)]="vehicle.city_town"
+                name="city_town" id="city_town" class="form-select">
+                <option value="" disabled class="text-left">City/Town</option>
+                <option *ngFor="let item of cities" [value]="item.name">
+                  {{ item.name }}
                 </option>
               </select>
               </div>
-            </div> -->
+            </div>
             <!-- <div class="row">
               <div class="col-md-4 form-group mb-3">
                 <label class="form-label" for="companyDivision">

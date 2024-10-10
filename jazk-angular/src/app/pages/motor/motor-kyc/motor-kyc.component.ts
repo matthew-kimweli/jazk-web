@@ -7,6 +7,7 @@ import { UtilsService } from '../../../services/utils.service';
 import { ToastrService } from 'ngx-toastr';
 import vehicleData from '../../../_helpers/vehicleMake.json';
 import bodyTypeData from '../../../_helpers/bodyType.json';
+import citiesData from '../../../_helpers/cities.json';
 import { HeaderComponent } from '../../_components/header/header.component';
 import * as Parse from 'parse';
 import { ParseService } from '../../../services/parse.service';
@@ -42,6 +43,7 @@ export class MotorKycComponent {
   vehicleMakes: any = Object.keys(vehicleData);
   vehicleModels: any = vehicleData;
   bodyTypes: any = bodyTypeData.VEHICLE_BODY_TYPES;
+  cities = citiesData.Kenya.Cities
   tYears: any = [];
 
   today: any;
