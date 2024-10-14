@@ -176,6 +176,11 @@ export class LoginPhoneComponent {
       
 
       this.user = await Parse.User.logIn(username, this.password);
+
+      let result = await Parse.Cloud.run('getPremiaToken', {
+        phone: this.cleanPhone,
+        email: this.em
+      });
       
 
       setTimeout(() => {

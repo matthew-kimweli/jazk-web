@@ -5,6 +5,7 @@ const axios = require("axios");
 
 import { Utils } from "./utils";
 const puppeteer = require("puppeteer");
+const qs = require("qs");
 
 @Injectable()
 export class AppService {
@@ -496,7 +497,7 @@ export class AppService {
 
       await saleDB.save();
     } catch (error) {
-      this.registerError(error)
+      this.registerError(error);
       console.error(error);
     }
   }
@@ -763,11 +764,99 @@ export class AppService {
   registerError(error) {
     let Err = Parse.Object.extend("JazkeError");
     let err = new Err();
-    err.set('response', error.response);
-    err.set('message', error.message);
-    err.set('json', error.toJSON());
-    err.save()
+    err.set("response", error.response);
+    err.set("message", error.message);
+    // err.set("json", error.toJSON());
+    err.save();
     // console.log('error json', )
+  }
+
+  async registerAgentInPremia(params) {
+    try {
+      const url =
+        "https://jazk-api-app2.victoriousriver-e1958513.northeurope.azurecontainerapps.io/auth/register_agent";
+
+      const headers = {
+        accept: "application/json",
+        "Content-Type": "application/json",
+      };
+
+      const data = {
+        password: this.utils.stringToHex(params.cust_code),
+        email: params.email,
+        phone: params.email,
+        cust_code: params.cust_code,
+      };
+
+      const response = await axios.post(url, data, { headers });
+      console.log("Response:", response.data);
+    } catch (error) {
+      if (error.response) {
+        console.error("Error Response:", error.response.data);
+      } else {
+        console.error("Error:", error.message);
+      }
+    }
+  }
+
+  async loginAgentInPremia(params) {
+    try {
+      const url =
+        "https://jazk-api-app2.victoriousriver-e1958513.northeurope.azurecontainerapps.io/auth/login/access-token";
+
+      const headers = {
+        accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      };
+
+      // Form data as an object
+      const data = {
+        grant_type: "",
+        username: params,
+        password: "string",
+        scope: "",
+        client_id: "",
+        client_secret: "",
+      };
+
+      // Convert form data to x-www-form-urlencoded format
+      const formData = qs.stringify(data);
+
+      const response = await axios.post(url, formData, { headers });
+
+      console.log("Response:", response.data);
+    } catch (error) {
+      if (error.response) {
+        console.error("Error Response:", error.response.data);
+      } else {
+        console.error("Error:", error.message);
+      }
+    }
+  }
+
+  async createQuoteInPremia(params) {
+    try {
+      const url =
+        "https://jazk-api-app2.victoriousriver-e1958513.northeurope.azurecontainerapps.io/quotes/quote";
+
+      const headers = {
+        accept: "application/json",
+        Authorization: `Bearer ${params.access_token}`,
+        "Content-Type": "application/json",
+      };
+
+      const data = params.payload;
+
+      const response = await axios.post(url, data, { headers });
+
+      console.log("Response:", response.data);
+    } catch (error) {
+      if (error.response) {
+        console.error("Error Response:", error.response.data);
+      } else {
+        console.error("Error:", error.message);
+      }
+    }
   }
 
   initCloudFunctions() {
@@ -948,7 +1037,7 @@ export class AppService {
         }
       } catch (error) {
         console.error("Request failed:", error);
-        this.registerError(error)
+        this.registerError(error);
         return String(error).toString();
       }
     });
@@ -956,6 +1045,21 @@ export class AppService {
     Parse.Cloud.define("sendMail", async (request) => {
       let params = request.params;
       return await this.utils.sendEmail(params);
+    });
+
+    Parse.Cloud.define("registerAgentPremia", async (request) => {
+      let params = request.params;
+      return await this.registerAgentInPremia(params);
+    });
+
+    Parse.Cloud.define("loginAgentPremia", async (request) => {
+      let params = request.params;
+      return await this.loginAgentInPremia(params);
+    });
+
+    Parse.Cloud.define("createPolicyInPremia", async (request) => {
+      let params = request.params;
+      return await this.loginAgentInPremia(params);
     });
 
     Parse.Cloud.define("dmvic_request", async (request) => {
@@ -1000,7 +1104,7 @@ export class AppService {
         }
       } catch (error) {
         console.error("Request failed:", error);
-        this.registerError(error)
+        this.registerError(error);
         return String(error).toString();
       }
     });
@@ -1095,7 +1199,7 @@ export class AppService {
           return valuationResponse;
         }
       } catch (error) {
-        this.registerError(error)
+        this.registerError(error);
         console.error(error);
       }
     });
@@ -1131,7 +1235,7 @@ export class AppService {
 
         console.log("Response:", response.data);
       } catch (error) {
-        this.registerError(error)
+        this.registerError(error);
         console.error(error);
       }
     });
