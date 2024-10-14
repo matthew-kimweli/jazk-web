@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ParseService } from '../../../services/parse.service';
 import { CommonModule } from '@angular/common';
@@ -37,8 +37,8 @@ export class RatesComponent {
 
   myForm!: FormGroup;
   editForm!: FormGroup;
-  data: any = { name: "", email: "", phone: "", address: "", city: "", country: "", tin: "", premiaCode: "", pvt: '', excessProtector: '', lossOfUse: '' };
-  editData: any = { id: "", name: "", email: "", phone: "", address: "", city: "", country: "", tin: "", premiaCode: "", pvt: '', excessProtector: '', lossOfUse: '' };
+  data: any = { name: "", email: "", phone: "", address: "", city: "", country: "", tin: "", premiaCode: "", pvt: '', excessProtector: '', lossOfUse: '', rates: [{minVV: 0, maxVV: 0, rate: 0}] };
+  editData: any = { id: "", name: "", email: "", phone: "", address: "", city: "", country: "", tin: "", premiaCode: "", pvt: '', excessProtector: '', lossOfUse: '', rates: [{minVV: 0, maxVV: 0, rate: 0}] };
   selectedObject: any;
   saving: any;
   db: any;
@@ -136,7 +136,7 @@ export class RatesComponent {
     normalizeZeros: true,
     min: 500000,
   };
-  ageControl! : FormControl
+  ageControl!: FormControl
   ageMask = {
     mask: Number,
     scale: 0,
@@ -150,6 +150,9 @@ export class RatesComponent {
   pvtMiniControl!: FormControl;
   excessProtectorMiniControl!: FormControl;
   lossOfUseBDControl!: FormControl;
+  minVVControl!: FormControl;
+  maxVVControl!: FormControl;
+
   premiumMask = {
     mask: Number,
     scale: 0,
@@ -161,6 +164,8 @@ export class RatesComponent {
   };
 
   rateControl!: FormControl;
+  rateRangeControl!: FormControl;
+
   rateMask = {
     mask: Number,
     scale: 0,
@@ -200,21 +205,12 @@ export class RatesComponent {
       coverType: [this.data.coverType, [Validators.required]],
       intermediary: [this.data.intermediary, Validators.required],
       intermediaries: [[]],
-      makes: [[]],
+      vehicleMakes: [[]],
       rate: [this.data.rate, Validators.required],
       makeInterest: [this.data.makeInterest, Validators.required],
-      vehicleMake: [this.data.vehicleMake, Validators.required],
-      vehicleMakes: this.fb.array(
-        (this.data.vehicleMakes || []).map((d: any) =>
-          this.fb.group({
-            vehicleMake: [this.data.vehicleMake, Validators.required],
-          })
-        )
-      ),
       maxVehicleAge: [this.data.maxVehicleAge, Validators.required],
       maxVehicleValue: [this.data.maxVehicleValue, Validators.required],
       miniPremium: [this.data.miniPremium, Validators.required],
-      items: [[]],
       vehicleUsage: [this.data.vehicleUsage, Validators.required],
       pvt: [this.data.pvt, Validators.required],
       pvtMini: [this.data.pvtMini],
@@ -224,7 +220,8 @@ export class RatesComponent {
       excessProtectorRate: [this.data.excessProtectorRate],
       lossOfUse: [this.data.lossOfUse, Validators.required],
       lossOfUseBD: [this.data.lossOfUseBD],
-      lossOfUseRate: [this.data.lossOfUseRate]
+      lossOfUseRate: [this.data.lossOfUseRate],
+      rates: this.fb.array((this.data.rates || []).map((r: any) => this.fb.group({ minVV: [r?.minVV || 0], maxVV: [r?.maxVV || 0], rate: [r?.rate || 0] })))
 
     });
 
@@ -234,6 +231,9 @@ export class RatesComponent {
     this.pvtMiniControl = new FormControl<number>(this.data.pvtMini);
     this.excessProtectorMiniControl = new FormControl<number>(this.data.excessProtectorMini);
     this.lossOfUseBDControl = new FormControl<number>(this.data.lossOfUseBD);
+    this.rateRangeControl = new FormControl<number>(this.data.rates.rate);
+    this.minVVControl = new FormControl<number>(this.data.rates.minVV);
+    this.maxVVControl = new FormControl<number>(this.data.rates.maxVV);
 
     this.fetch();
     this.fetchUsers()
@@ -242,38 +242,30 @@ export class RatesComponent {
       name: [this.editData.name, Validators.required],
       coverType: [this.editData.coverType, [Validators.required]],
       intermediary: [this.editData.intermediary, Validators.required],
-      intermediaries: [[]],
-      makes: [[]],
+      intermediaries: [this.editData.intermediaries],
       rate: [this.editData.rate, Validators.required],
       makeInterest: [this.editData.makeInterest, Validators.required],
-      vehicleMake: [this.editData.vehicleMake, Validators.required],
       maxVehicleAge: [this.editData.maxVehicleAge, Validators.required],
       maxVehicleValue: [this.editData.maxVehicleValue, Validators.required],
-      miniPremium: [this.data.miniPremium, Validators.required],
-      items: [[]],
-      vehicleUsage: [this.data.vehicleUsage, Validators.required],
-      pvt: [this.data.pvt, Validators.required],
-      pvtMini: [this.data.pvtMini],
-      pvtRate: [this.data.pvtRate],
-      excessProtector: [this.data.excessProtector, Validators.required],
-      excessProtectorMini: [this.data.excessProtectorMini],
-      excessProtectorRate: [this.data.excessProtectorRate],
-      lossOfUse: [this.data.lossOfUse, Validators.required],
-      lossOfUseBD: [this.data.lossOfUseBD],
-      lossOfUseRate: [this.data.lossOfUseRate]
+      miniPremium: [this.editData.miniPremium, Validators.required],
+      vehicleMakes: [this.editData.vehicleMakes],
+      vehicleUsage: [this.editData.vehicleUsage, Validators.required],
+      pvt: [this.editData.pvt, Validators.required],
+      pvtMini: [this.editData.pvtMini],
+      pvtRate: [this.editData.pvtRate],
+      excessProtector: [this.editData.excessProtector, Validators.required],
+      excessProtectorMini: [this.editData.excessProtectorMini],
+      excessProtectorRate: [this.editData.excessProtectorRate],
+      lossOfUse: [this.editData.lossOfUse, Validators.required],
+      lossOfUseBD: [this.editData.lossOfUseBD],
+      lossOfUseRate: [this.editData.lossOfUseRate],
+      rates: this.fb.array((this.editData.rates || []).map((r: any) => this.fb.group({ minVV: [r?.minVV || 0], maxVV: [r?.maxVV || 0], rate: [r?.rate || 0] })))
+
 
     });
   }
 
   ngAfterViewInit() {
-    // const selectElement = this.multiSelect.nativeElement;
-
-
-    // new TomSelect(selectElement, {
-    //   onChange: (values: any) => {
-    //     this.myForm.controls['items'].setValue(values);
-    //   }
-    // });
 
     const selectElement1 = this.multiSelectAgent.nativeElement;
 
@@ -287,29 +279,31 @@ export class RatesComponent {
 
     new TomSelect(selectElement2, {
       onChange: (values: any) => {
-        this.myForm.controls['makes'].setValue(values);
+        this.myForm.controls['vehicleMakes'].setValue(values);
       }
     });
   }
 
   submitMulti() {
-    console.log(this.myForm.value.items);
+    console.log('Form Output => ', this.myForm);
   }
 
   selectVehicleMake() {
     this.allVehicleMakes = false
   }
 
-  // addVehicleMake() {
-  //   const fg = this.fb.group({
-  //     vehicleMake: [""]
-  //   });
-  //   this.data.vehicleMakes.push(fg);
-  // }
+  addRate() {
+    const fg = this.fb.group({
+      minVV: [0],
+      maxVV: [0],
+      rate: [0],
+    });
+    this.rates.push(fg);
+  }
 
-  // removeVehicleMake(i: any) {
-  //   this.data.vehicleMakes.removeAt(i);
-  // }
+  removeRate(i: any) {
+    this.rates.removeAt(i);
+  }
 
   async fetch() {
     let query = new Parse.Query("JazkeRate");
@@ -367,13 +361,14 @@ export class RatesComponent {
     this.editData.coverType = item.get("coverType")
     this.editData.intermediary = item.get("intermediary")
     this.editData.intermediaries = item.get("intermediaries")
-    this.editData.makes = item.get("makes")
+    this.editData.VehicleMakes = item.get("VehicleMakes")
     this.editData.rate = item.get("rate")
     this.editData.makeInterest = item.get("makeInterest")
     this.editData.maxVehicleAge = item.get("maxVehicleAge")
     this.editData.maxVehicleValue = item.get("maxVehicleValue")
     this.editData.items = item.get("items")
     this.editData.vehicleUsage = item.get("vehicleUsage")
+    this.editData.rates = item.get("rates")
     this.selectedObject = this.list?.at(index)
   }
 
@@ -412,5 +407,9 @@ export class RatesComponent {
     if (deleted) {
       this.fetch();
     }
+  }
+
+  get rates(): FormArray {
+    return this.myForm.get('rates') as FormArray;
   }
 }

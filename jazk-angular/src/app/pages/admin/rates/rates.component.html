@@ -151,15 +151,7 @@
             </div>
             <div class="form-group mb-3 col-lg-6">
               <label class="form-label">Select the Intermediaries.</label>
-              <!-- <select class="form-select" id="intermediary" [(ngModel)]="data.intermediary"
-                formControlName="intermediary">
-                <option value="">Select</option>
-                <option [value]="d.id" *ngFor="let d of users">
-                  {{ d.get('name') }}
-                </option>
-              </select> -->
               <select #multiSelectAgent id="multiSelectAgent" name="Intermediaries" multiple>
-                <!-- <option [value]="d.id" *ngFor="let d of users">{{ d.get('name') }}</option> -->
                 <option [value]="d.id" *ngFor="let d of users">{{ d.name }}</option>
               </select>
               <div *ngIf="
@@ -171,7 +163,8 @@
               </div>
             </div>
 
-            <div class="form-group mb-3 col-lg-6" [ngClass]="{'hidden': (data.coverType === 'Motor Commercial' || data.coverType === 'Motor Private')}">
+            <div class="form-group mb-3 col-lg-6"
+              [ngClass]="{'hidden': (data.coverType === 'Motor Commercial' || data.coverType === 'Motor Private')}">
               <label class="form-label">Basic Rate</label>
               <input type="number" [(ngModel)]="data.rate" class="form-control" formControlName="rate" />
               <div *ngIf="
@@ -191,11 +184,6 @@
                 <option *ngFor="let item of makes" [value]="item.id">{{ item.make }}</option>
               </select>
             </div>
-
-            <!-- <select #multiSelect id="multiSelect" name="state[]" multiple placeholder="Select ">
-              <option value="">Select a state...</option>
-              <option *ngFor="let state of states" [value]="state.code">{{ state.name }}</option>
-            </select> -->
 
             <!-- <button type="submit" (click)="submitMulti()">Submit</button> -->
 
@@ -227,7 +215,7 @@
               </div>
             </div>
 
-            <div class="form-group mb-3 col-lg-6"
+            <!-- <div class="form-group mb-3 col-lg-6"
               *ngIf="data.coverType == 'Motor Commercial' || data.coverType == 'Motor Private'">
               <label class="form-label">Maximum Vehicle value for this rate?</label>
               <input [(ngModel)]="data.maxVehicleValue" class="form-control" formControlName="maxVehicleValue"
@@ -240,7 +228,7 @@
                 " class="text-danger">
                 Maximum Value of the Vehicle is required.
               </div>
-            </div>
+            </div> -->
 
             <div class="form-group mb-3 col-lg-6" *ngIf="data.coverType == 'Motor Commercial'">
               <label class="form-label">Determine the Vehicle Usage for this rate</label>
@@ -265,35 +253,21 @@
               <label class="form-label mb-3 text-center">Political Violence & Terrorism Benefit</label>
               <div class="my-0 mt-2 mb-2 text-center">
                 <label class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    [(ngModel)]="data.pvt"
-                    name="pvtCheck"
-                    id="pvt1"
-                    type="radio"
-                    value="Inclusive"
-                    formControlName="pvt"
-                    
-                  />
+                  <input class="form-check-input" [(ngModel)]="data.pvt" name="pvtCheck" id="pvt1" type="radio"
+                    value="Inclusive" formControlName="pvt" />
                   <span class="form-check-label">Inclusive</span>
                 </label>
                 <label class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    value="Not Inclusive"
-                    [(ngModel)]="data.pvt"
-                    name="pvtCheck"
-                    id="pvt2"
-                    type="radio"
-                    formControlName="pvt"
-                  />
+                  <input class="form-check-input" value="Not Inclusive" [(ngModel)]="data.pvt" name="pvtCheck" id="pvt2"
+                    type="radio" formControlName="pvt" />
                   <span class="form-check-label">Not Inclusive</span>
                 </label>
               </div>
               <div class="row">
                 <div class="form-group mb-3 col-lg-8" *ngIf="data.pvt === 'Not Inclusive'">
                   <label class="form-label">Minimum Premium</label>
-                  <input [formControl]="pvtMiniControl" class="form-control" [(ngModel)]="data.pvtMini" formControlName="pvtMini" [imask]="premiumMask" unmask="typed" />
+                  <input [formControl]="pvtMiniControl" class="form-control" [(ngModel)]="data.pvtMini"
+                    formControlName="pvtMini" [imask]="premiumMask" unmask="typed" />
                   <div *ngIf="
                     this.parseService.submitting &&
                     myForm.get('pvtMini')!.invalid &&
@@ -319,52 +293,40 @@
               <label class="form-label mb-3 text-center">Excess Protector Benefit</label>
               <div class="my-0 mt-2 mb-2 text-center">
                 <label class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    [(ngModel)]="data.excessProtector"
-                    name="excessProtectorCheck"
-                    id="excessProtector1"
-                    type="radio"
-                    value="Inclusive"
-                    formControlName="excessProtector"
-                    
-                  />
+                  <input class="form-check-input" [(ngModel)]="data.excessProtector" name="excessProtectorCheck"
+                    id="excessProtector1" type="radio" value="Inclusive" formControlName="excessProtector" />
                   <span class="form-check-label">Inclusive</span>
                 </label>
                 <label class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    value="Not Inclusive"
-                    [(ngModel)]="data.excessProtector"
-                    name="excessProtectorCheck"
-                    id="excessProtector2"
-                    type="radio"
-                    formControlName="excessProtector"
-                  />
+                  <input class="form-check-input" value="Not Inclusive" [(ngModel)]="data.excessProtector"
+                    name="excessProtectorCheck" id="excessProtector2" type="radio" formControlName="excessProtector" />
                   <span class="form-check-label">Not Inclusive</span>
                 </label>
               </div>
               <div class="row">
                 <div class="form-group mb-3 col-lg-8" *ngIf="data.excessProtector === 'Not Inclusive'">
                   <label class="form-label">Minimum Premium</label>
-                  <input [formControl]="excessProtectorMiniControl" class="form-control" [(ngModel)]="data.excessProtectorMini" formControlName="excessProtectorMini" [imask]="premiumMask" unmask="typed" />
+                  <input [formControl]="excessProtectorMiniControl" class="form-control"
+                    [(ngModel)]="data.excessProtectorMini" formControlName="excessProtectorMini" [imask]="premiumMask"
+                    unmask="typed" />
                   <div *ngIf="
                     this.parseService.submitting &&
                     myForm.get('excessProtectorMini')!.invalid &&
                     myForm.get('excessProtectorMini')!.touched
                   " class="text-danger">
-                  Excess Protector Minimum premium is required.
+                    Excess Protector Minimum premium is required.
                   </div>
                 </div>
                 <div class="form-group mb-3 col-lg-4" *ngIf="data.excessProtector === 'Not Inclusive'">
                   <label class="form-label">Benefit Rate</label>
-                  <input class="form-control" [(ngModel)]="data.excessProtectorRate" formControlName="excessProtectorRate" />
+                  <input class="form-control" [(ngModel)]="data.excessProtectorRate"
+                    formControlName="excessProtectorRate" />
                   <div *ngIf="
                     this.parseService.submitting &&
                     myForm.get('excessProtectorRate')!.invalid &&
                     myForm.get('excessProtectorRate')!.touched
                   " class="text-danger">
-                  Excess Protector Rate is required.
+                    Excess Protector Rate is required.
                   </div>
                 </div>
               </div>
@@ -372,59 +334,92 @@
           </div>
           <div class="row" *ngIf="data.coverType == 'Motor Private'">
             <label class="form-label mb-3 text-center">Loss of Use Benefit</label>
-              <div class="my-0 mt-2 mb-2 text-center">
-                <label class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    [(ngModel)]="data.lossOfUse"
-                    name="lossOfUseCheck"
-                    id="lossOfUse1"
-                    type="radio"
-                    value="Inclusive"
-                    formControlName="lossOfUse"
-                    
-                  />
-                  <span class="form-check-label">Inclusive</span>
-                </label>
-                <label class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    value="Not Inclusive"
-                    [(ngModel)]="data.lossOfUse"
-                    name="lossOfUseCheck"
-                    id="lossOfUse2"
-                    type="radio"
-                    formControlName="lossOfUse"
-                  />
-                  <span class="form-check-label">Not Inclusive</span>
-                </label>
-              </div>
-              <div class="row">
-                <div class="form-group mb-3 col-lg-2"></div>
-                <div class="form-group mb-3 col-lg-5" *ngIf="data.lossOfUse === 'Not Inclusive'">
-                  <label class="form-label">Benefit Amount per day</label>
-                  <input [formControl]="lossOfUseBDControl" class="form-control" [(ngModel)]="data.lossOfUseBD" formControlName="lossOfUseBD" [imask]="premiumMask" unmask="typed" />
-                  <div *ngIf="
+            <div class="my-0 mt-2 mb-2 text-center">
+              <label class="form-check form-check-inline">
+                <input class="form-check-input" [(ngModel)]="data.lossOfUse" name="lossOfUseCheck" id="lossOfUse1"
+                  type="radio" value="Inclusive" formControlName="lossOfUse" />
+                <span class="form-check-label">Inclusive</span>
+              </label>
+              <label class="form-check form-check-inline">
+                <input class="form-check-input" value="Not Inclusive" [(ngModel)]="data.lossOfUse" name="lossOfUseCheck"
+                  id="lossOfUse2" type="radio" formControlName="lossOfUse" />
+                <span class="form-check-label">Not Inclusive</span>
+              </label>
+            </div>
+            <div class="row">
+              <div class="form-group mb-3 col-lg-2"></div>
+              <div class="form-group mb-3 col-lg-5" *ngIf="data.lossOfUse === 'Not Inclusive'">
+                <label class="form-label">Benefit Amount per day</label>
+                <input [formControl]="lossOfUseBDControl" class="form-control" [(ngModel)]="data.lossOfUseBD"
+                  formControlName="lossOfUseBD" [imask]="premiumMask" unmask="typed" />
+                <div *ngIf="
                     this.parseService.submitting &&
                     myForm.get('lossOfUseBD')!.invalid &&
                     myForm.get('lossOfUseBD')!.touched
                   " class="text-danger">
                   lossOfUse Minimum premium is required.
-                  </div>
                 </div>
-                <div class="form-group mb-3 col-lg-3" *ngIf="data.lossOfUse === 'Not Inclusive'">
-                  <label class="form-label">Benefit Rate</label>
-                  <input class="form-control" [(ngModel)]="data.lossOfUseRate" formControlName="lossOfUseRate" />
-                  <div *ngIf="
+              </div>
+              <div class="form-group mb-3 col-lg-3" *ngIf="data.lossOfUse === 'Not Inclusive'">
+                <label class="form-label">Benefit Rate</label>
+                <input class="form-control" [(ngModel)]="data.lossOfUseRate" formControlName="lossOfUseRate" />
+                <div *ngIf="
                     this.parseService.submitting &&
                     myForm.get('lossOfUseRate')!.invalid &&
                     myForm.get('lossOfUseRate')!.touched
                   " class="text-danger">
                   lossOfUse Rate is required.
+                </div>
+              </div>
+              <div class="form-group mb-3 col-lg-2"></div>
+            </div>
+          </div>
+
+          <div [ngClass]="{'hidden': !(data.coverType === 'Motor Commercial' || data.coverType === 'Motor Private')}">
+            <div class="hr-text">Basic Rate</div>
+            <div formArrayName="rates">
+              <div *ngFor="let tx of rates.controls; let i = index" [formGroupName]="i" class="card p-2 mb-3">
+                <div class="row card-header">
+                  <div class="col">
+                    <h5 class="card-title text-muted">
+                      Rate ({{ i + 1 }})
+                    </h5>
+                  </div>
+                  <div class="col-auto">
+                    <button type="button" class="btn btn-danger btn-sm" (click)="removeRate(i)">
+                      Remove Rate
+                    </button>
                   </div>
                 </div>
-                <div class="form-group mb-3 col-lg-2"></div>
+
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4 mb-3 me-1">
+                      <label class="form-label">Minimum Vehicle Value</label>
+                      <input [formControl]="minVVControl" class="form-control"
+                        formControlName="minVV"
+                        [imask]="premiumMask" unmask="typed" />
+                    </div>
+
+                    <div class="col-md-4 mb-3 me-1">
+                      <label class="form-label">Maximum Vehicle Value</label>
+                      <input [formControl]="maxVVControl" class="form-control"
+                        formControlName="maxVV"
+                        [imask]="premiumMask" unmask="typed" />
+                    </div>
+                    <div class="col-md-2 mb-3">
+                      <label class="form-label">Basic Rate</label>
+                      <input [formControl]="rateRangeControl" class="form-control"
+                        formControlName="rate"
+                        [imask]="rateMask" unmask="typed" />
+                    </div>
+                  </div>
+                </div>
               </div>
+            </div>
+            <button type="button" class="btn btn-secondary" (click)="addRate()">
+              Add Rate
+            </button>
           </div>
         </div>
 
