@@ -1071,22 +1071,67 @@ export class AppService {
       let endpoint = params.endpoint;
       let post_body = params.body;
 
+      const login = async () => {
+        try {
+          const url = "https://uat-api.dmvic.com/api/V1/Account/Login";
+
+          const headers = {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjVCQjRFNjE4NzdGNTMxRUJDQUZCOEIwMEFGRjkzMkU5QkI2Qjc0NjQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiSU5TQVBJVVNFUiIsInByaW1hcnlzaWQiOiI4MUI4RkJBMi0yRjA3LTRDRjAtOEZEQi0zQzYwMDE1ODMyNUUiLCJwcmltYXJ5Z3JvdXBzaWQiOiIyNiIsImxvZ2luaGlzdG9yeSI6IjgwMTc5IiwibmJmIjoxNjk5MjUwNDA0LCJleHAiOjE2OTk4NTUyMDQsImlhdCI6MTY5OTI1MDQwNCwiaXNzIjoiaHR0cHM6Ly91YXQtbW90b3IuZG12aWMuY29tIiwiYXVkIjoiaHR0cHM6Ly91YXQtbW90b3IuZG12aWMuY29tIn0.ua_ZLBBL_VDRscLC-pE9Mku_rHko72eMqWwR4itzGUreGhpRAE1mz7Lx9lRf5hdcsZK8bmmw5aAL-N9mbusI73ex28oUJnBjt4_6XaE-gd_SjCFnIp4k2xueIYdYzKnNCULegECvk7MAw9j_zVl7nA8H2JpFan8RLi0C3rDkgxOgUgO7LcWmcpx5IjGejy-Mi7hjV5n6RP80F-HTJHnaIEaopsc2-DIq2HKHQcRV4IfJZoKbJrbf29N_ndemVqsa20GTFANFk5-ww31JPnbAJ-kb22gWPd3E6mzjnaJaGWRV88Bxu2lBkNFsh8EAQSitR58aiu_73XpgJma5VVE3QQ",
+          };
+
+          const data = {
+            Username: "jubileeapiuser@dmvic.info",
+            Password: "J$U!leeU$R@",
+            ClientID: "99EA05B9-7515-4338-A7A2-B8515BD712E8",
+          };
+
+          const response = await axios.post(url, data, { headers });
+
+          console.log("Response:", response.data);
+          return response.data;
+        } catch (error) {
+          if (error.response) {
+            console.error("Error Response:", error.response.data);
+          } else {
+            console.error("Error:", error.message);
+          }
+        }
+      };
+
+      // let tokenData = await login();
+
+      //   let tokenData = {
+      //     "token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjVCQjRFNjE4NzdGNTMxRUJDQUZCOEIwMEFGRjkzMkU5QkI2Qjc0NjQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiSU5TQVBJVVNFUiIsInByaW1hcnlzaWQiOiI4MUI4RkJBMi0yRjA3LTRDRjAtOEZEQi0zQzYwMDE1ODMyNUUiLCJwcmltYXJ5Z3JvdXBzaWQiOiIyNiIsImxvZ2luaGlzdG9yeSI6IjQ3NTQ1OCIsIm5iZiI6MTcyODkwNzk0OSwiZXhwIjoxNzI5NTEyNzQ5LCJpYXQiOjE3Mjg5MDc5NDksImlzcyI6Imh0dHBzOi8vdWF0LWFwaS5kbXZpYy5jb20iLCJhdWQiOiJodHRwczovL3VhdC1hcGkuZG12aWMuY29tIn0.tY4dvbA_tPnrGJfVv2r1lwIkinYWnCMWyXMrJ0r8s4KSeqNn5vT-QeEznzIhx0rcbZoAlt28lvacGOD9WnQfjkKgqadSk5oy1GllA9dIfzKleHKtJM1OkpDgwA2OGU6tmEgRGBtu_BM4FcsRO7XUmq9n8Tcu53XtKVhDj7BgDGy3OdqmhFGCZt-GzTywOMTEowu0vgZz9CekOZjsFrAccHTs_hmpH7Muw2HlqQpu7k3pIqdOkb-7WQrhY-7Z9Zl2kVit1WHuFcJyvvajaWAExJ-dS3FZrVujLDfai9qNtWmrOfZtT6LlWrikSX37HUCiephs_vFuIziCARE3dxR1pg",
+      //     "loginUserId": "81B8FBA2-2F07-4CF0-8FDB-3C600158325E",
+      //     "issueAt": "2024-10-14T12:07:29.4096404Z",
+      //     "expires": "2024-10-21T12:12:29.390373Z",
+      //     "code": 1,
+      //     "LoginHistoryId": 475458,
+      //     "firstName": "Jubilee",
+      //     "lastName": "apiuser",
+      //     "loggedinEntityId": 26,
+      //     "ApimSubscriptionKey": null,
+      //     "IndustryTypeId": 2
+      // }
+
       try {
-        // const response = await axios.get(tokenUrl, {
-        //   headers: {
-        //     Authorization:
-        //       "Basic S3FUNDk2V1c1V09LMmxjT3AwdnRzQjZxVWFYaHl0UXhwbUdzS2FWS1kza0xNTzA4OlVyaU1lT0NQamVlMDNuaFo0SDZhTlZsNkU0ZWJ2TEExQWNWbnFnRnUxb08yZmJ3c0FkSU1vN2VTWEdXMmRERWM=",
-        //   },
-        // });
+        const response = await axios.get(tokenUrl, {
+          headers: {
+            Authorization:
+              "Basic S3FUNDk2V1c1V09LMmxjT3AwdnRzQjZxVWFYaHl0UXhwbUdzS2FWS1kza0xNTzA4OlVyaU1lT0NQamVlMDNuaFo0SDZhTlZsNkU0ZWJ2TEExQWNWbnFnRnUxb08yZmJ3c0FkSU1vN2VTWEdXMmRERWM=",
+          },
+        });
+        let tokenData = response.data;
+        console.log("access token", response.data);
 
-        // let tokenData = response.data;
+        // let tokenData = {
+        //   access_token: `eyJhbGciOiJSUzI1NiIsImtpZCI6IjVCQjRFNjE4NzdGNTMxRUJDQUZCOEIwMEFGRjkzMkU5QkI2Qjc0NjQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiSU5TQVBJVVNFUiIsInByaW1hcnlzaWQiOiI4MUI4RkJBMi0yRjA3LTRDRjAtOEZEQi0zQzYwMDE1ODMyNUUiLCJwcmltYXJ5Z3JvdXBzaWQiOiIyNiIsImxvZ2luaGlzdG9yeSI6IjQzMTY3NyIsIm5iZiI6MTcyODQ2NzM2MiwiZXhwIjoxNzI5MDcyMTYxLCJpYXQiOjE3Mjg0NjczNjIsImlzcyI6Imh0dHBzOi8vdWF0LWFwaS5kbXZpYy5jb20iLCJhdWQiOiJodHRwczovL3VhdC1hcGkuZG12aWMuY29tIn0.eRcZa5eD6YBmnKMnUm8WTvI0RulhrUgMIVuuidBWodUZux0C_8flXuGUghl-F3qlozS3zGB7giz8oq1sUmGKmLA5LB1pkjW_RHBqodXZU5RVWqNBP6rCUsg5nZ87r5WNXP1GfSIgJRXJw-4JzU-nEpi6yKRdOJMAI1cvS55sELS9QxDjyt5JLYFPUoxEopYIhPCxC23tDBtQi5D63h7DOyOB5lIf2e2pT3Mk79bgGDCz2gjH7JX4OksYU3resMOv_4qx7O59y4NPzMbhzzZFp6ZlTC0_tQPyKR4BYb_japu1mnp-M8BhU9-AxhJoYZohuNLzaDnl1J2F5UhHZCaJZA`,
+        // };
 
-        // console.log("access token", response.data);
-        let tokenData = {
-          access_token: `eyJhbGciOiJSUzI1NiIsImtpZCI6IjVCQjRFNjE4NzdGNTMxRUJDQUZCOEIwMEFGRjkzMkU5QkI2Qjc0NjQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiSU5TQVBJVVNFUiIsInByaW1hcnlzaWQiOiI4MUI4RkJBMi0yRjA3LTRDRjAtOEZEQi0zQzYwMDE1ODMyNUUiLCJwcmltYXJ5Z3JvdXBzaWQiOiIyNiIsImxvZ2luaGlzdG9yeSI6IjQzMTY3NyIsIm5iZiI6MTcyODQ2NzM2MiwiZXhwIjoxNzI5MDcyMTYxLCJpYXQiOjE3Mjg0NjczNjIsImlzcyI6Imh0dHBzOi8vdWF0LWFwaS5kbXZpYy5jb20iLCJhdWQiOiJodHRwczovL3VhdC1hcGkuZG12aWMuY29tIn0.eRcZa5eD6YBmnKMnUm8WTvI0RulhrUgMIVuuidBWodUZux0C_8flXuGUghl-F3qlozS3zGB7giz8oq1sUmGKmLA5LB1pkjW_RHBqodXZU5RVWqNBP6rCUsg5nZ87r5WNXP1GfSIgJRXJw-4JzU-nEpi6yKRdOJMAI1cvS55sELS9QxDjyt5JLYFPUoxEopYIhPCxC23tDBtQi5D63h7DOyOB5lIf2e2pT3Mk79bgGDCz2gjH7JX4OksYU3resMOv_4qx7O59y4NPzMbhzzZFp6ZlTC0_tQPyKR4BYb_japu1mnp-M8BhU9-AxhJoYZohuNLzaDnl1J2F5UhHZCaJZA`,
-        };
-
-        if (tokenData && tokenData.access_token) {
+        if (tokenData && tokenData.token) {
           const response = await axios.post(
             `${baseUrl}/${endpoint}`,
             post_body,
@@ -1095,7 +1140,7 @@ export class AppService {
               headers: {
                 "Content-Type": "application/json",
                 ClientID: "99EA05B9-7515-4338-A7A2-B8515BD712E8",
-                Authorization: `Bearer ${tokenData.access_token}`,
+                Authorization: `Bearer ${tokenData.token}`,
               },
             }
           );
