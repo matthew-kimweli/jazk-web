@@ -21,6 +21,7 @@
     "build-angular": "cd jazk-angular && ng build",
     "copy-build-files": "cp -r jazk-angular/dist/jazk/browser/* public/",
     "build-angular-copy": "npm run build-angular && npm run copy-build-files",
+    "build2": "npm run build-angular && npm run copy-build-files",
     "start-node": "npm run build && npm run start:prod",
     "build-and-start": "npm run install-all && npm run build-angular && npm run copy-build-files && npm run build",
     "build-start-deploy": "npm run install-all && npm run build-angular && npm run copy-build-files && npm run build && start-node"
