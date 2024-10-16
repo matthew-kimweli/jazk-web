@@ -421,6 +421,49 @@
               Add Rate
             </button>
           </div>
+          <div [ngClass]="{'hidden': !(data.coverType === 'Motor Commercial' || data.coverType === 'Motor Private')}">
+            <div class="hr-text">Limits of Liabilities</div>
+            <div formArrayName="limitLiabilities">
+              <div *ngFor="let tx of limitLiabilities.controls; let i = index" [formGroupName]="i" class="card p-2 mb-3">
+                <div class="row card-header">
+                  <div class="col">
+                    <h5 class="card-title text-muted">
+                      Limit of Liability ({{ i + 1 }})
+                    </h5>
+                  </div>
+                  <div class="col-auto">
+                    <button type="button" class="btn btn-danger btn-sm" (click)="removelimitLiabilitiy(i)">
+                      Remove Limit of Liability
+                    </button>
+                  </div>
+                </div>
+
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6 mb-3 me-2">
+                      <label class="form-label">Limit of Liability</label>
+                      <select class="form-select" id="limitLiability" formControlName="name">
+                          <option value="">Select</option>
+                          <option [value]="l" *ngFor="let l of limitLiabilityList">
+                            {{ l.name }}
+                          </option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                      <label class="form-label">Limit</label>
+                      <input [formControl]="limitLiabilityControl" class="form-control"
+                        formControlName="limit"
+                        [imask]="premiumMask" unmask="typed" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-secondary" (click)="addlimitLiabilitiy()">
+              Add Limit of Liability
+            </button>
+          </div>
         </div>
 
         <div class="modal-footer">

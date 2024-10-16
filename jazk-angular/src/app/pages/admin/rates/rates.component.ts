@@ -37,8 +37,8 @@ export class RatesComponent {
 
   myForm!: FormGroup;
   editForm!: FormGroup;
-  data: any = { name: "", email: "", phone: "", address: "", city: "", country: "", tin: "", premiaCode: "", pvt: '', excessProtector: '', lossOfUse: '', rates: [{minVV: 0, maxVV: 0, rate: 0}] };
-  editData: any = { id: "", name: "", email: "", phone: "", address: "", city: "", country: "", tin: "", premiaCode: "", pvt: '', excessProtector: '', lossOfUse: '', rates: [{minVV: 0, maxVV: 0, rate: 0}] };
+  data: any = { name: "", email: "", phone: "", address: "", city: "", country: "", tin: "", premiaCode: "", pvt: '', excessProtector: '', lossOfUse: '', rates: [{minVV: 0, maxVV: 0, rate: 0}], limitLiabilities: [{name: '', limit: 0}] };
+  editData: any = { id: "", name: "", email: "", phone: "", address: "", city: "", country: "", tin: "", premiaCode: "", pvt: '', excessProtector: '', lossOfUse: '', rates: [{minVV: 0, maxVV: 0, rate: 0}], limitLiabilities: [{name: '', limit: 0}] };
   selectedObject: any;
   saving: any;
   db: any;
@@ -176,6 +176,8 @@ export class RatesComponent {
     min: 0,
   };
 
+  limitLiabilityControl!: FormControl;
+
   makes = [
     { id: 1, make: "AIBIS" },
     { id: 2, make: "AKERMAN" },
@@ -189,7 +191,24 @@ export class RatesComponent {
     { id: 10, make: "AUSTIN" },
     { id: 11, make: "AXLE" },
   ];
-  limitLiabilities = [];
+
+  limitLiabilityList = [
+  { name: "Windscreen & Window Glass" },
+  { name: "Entertainment Unit" },
+  { name: "Repair Authority" },
+  { name: "Towing & Recovery Expenses" },
+  { name: "Emergency Medical Expenses" },
+  { name: "Third Party Property Damage" },
+  { name: "Third Party Bodily Injuries" },
+  { name: "Passenger Legal Liability" },
+  { name: "Riot Strike & Civil Commotion" },
+  { name: "Geographical Area" },
+  { name: "No blame No Excess" },
+  { name: "Forced ATM Withdrawal" },
+  { name: "Out of station Accommodation" },
+  { name: "Personal Effects & Loss of car keys" },
+  { name: "Personal Accident for Driver" },
+];
 
   constructor(
     public parseService: ParseService,
@@ -207,6 +226,7 @@ export class RatesComponent {
       intermediary: [this.data.intermediary, Validators.required],
       intermediaries: [[]],
       vehicleMakes: [[]],
+      limitLiabilities: this.fb.array((this.data.limitLiabilities || []).map((l: any) => this.fb.group({name: [l?.name || ''], limit: [l?.limit || 0] }))),
       rate: [this.data.rate, Validators.required],
       makeInterest: [this.data.makeInterest, Validators.required],
       maxVehicleAge: [this.data.maxVehicleAge, Validators.required],
@@ -235,6 +255,7 @@ export class RatesComponent {
     this.rateRangeControl = new FormControl<number>(this.data.rates.rate);
     this.minVVControl = new FormControl<number>(this.data.rates.minVV);
     this.maxVVControl = new FormControl<number>(this.data.rates.maxVV);
+    this.limitLiabilityControl = new FormControl<number>(this.data.limitLiabilities.limit);
 
     this.fetch();
     this.fetchUsers()
@@ -244,6 +265,7 @@ export class RatesComponent {
       coverType: [this.editData.coverType, [Validators.required]],
       intermediary: [this.editData.intermediary, Validators.required],
       intermediaries: [this.editData.intermediaries],
+      limitLiabilities: this.fb.array((this.editData.limitLiabilities || []).map((l: any) => this.fb.group({name: [l?.name || ''], limit: [l?.limit || 0] }))),
       rate: [this.editData.rate, Validators.required],
       makeInterest: [this.editData.makeInterest, Validators.required],
       maxVehicleAge: [this.editData.maxVehicleAge, Validators.required],
@@ -303,6 +325,17 @@ export class RatesComponent {
 
   removeRate(i: any) {
     this.rates.removeAt(i);
+  }
+
+  addlimitLiabilitiy() {
+    this.limitLiabilities.push(this.fb.group({
+      name: [''],
+      limit: [0]
+    }));
+  }
+
+  removelimitLiabilitiy(i: any) {
+    this.limitLiabilities.removeAt(i);
   }
 
   async fetch() {
@@ -369,6 +402,7 @@ export class RatesComponent {
     this.editData.items = item.get("items")
     this.editData.vehicleUsage = item.get("vehicleUsage")
     this.editData.rates = item.get("rates")
+    this.editData.limitLiabilities = item.get("limitLiabilities")
     this.selectedObject = this.list?.at(index)
   }
 
@@ -411,5 +445,9 @@ export class RatesComponent {
 
   get rates(): FormArray {
     return this.myForm.get('rates') as FormArray;
+  }
+
+  get limitLiabilities(): FormArray {
+    return this.myForm.get('limitLiabilities') as FormArray;
   }
 }
