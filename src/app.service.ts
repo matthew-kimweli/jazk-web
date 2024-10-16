@@ -1101,7 +1101,40 @@ export class AppService {
         }
       };
 
-      // let tokenData = await login();
+      // Main function to get a valid token (either from cache or by logging in)
+      async function getToken() {
+        let tokenData = getCachedToken(); // Retrieve cached token if available
+
+        if (tokenData && !isTokenExpired(tokenData.expires)) {
+          console.log("Using cached valid token.");
+          return tokenData;
+        }
+
+        console.log("Cached token expired or not found. Logging in...");
+        tokenData = await login(); // Fetch new token
+        cacheToken(tokenData); // Cache the new token
+
+        return tokenData;
+      }
+
+      // Helper function to check if the token is expired
+      function isTokenExpired(expirationTime) {
+        const now = new Date();
+        const expiresAt = new Date(expirationTime);
+        return now >= expiresAt;
+      }
+
+      // Cache the token (replace with actual logic if needed)
+      function cacheToken(tokenData) {
+        global.cachedToken = tokenData;
+      }
+
+      // Retrieve cached token (replace with actual retrieval logic if needed)
+      function getCachedToken() {
+        return global.cachedToken || null;
+      }
+
+      let tokenData = await getToken();
 
       //   let tokenData = {
       //     "token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjVCQjRFNjE4NzdGNTMxRUJDQUZCOEIwMEFGRjkzMkU5QkI2Qjc0NjQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiSU5TQVBJVVNFUiIsInByaW1hcnlzaWQiOiI4MUI4RkJBMi0yRjA3LTRDRjAtOEZEQi0zQzYwMDE1ODMyNUUiLCJwcmltYXJ5Z3JvdXBzaWQiOiIyNiIsImxvZ2luaGlzdG9yeSI6IjQ3NTQ1OCIsIm5iZiI6MTcyODkwNzk0OSwiZXhwIjoxNzI5NTEyNzQ5LCJpYXQiOjE3Mjg5MDc5NDksImlzcyI6Imh0dHBzOi8vdWF0LWFwaS5kbXZpYy5jb20iLCJhdWQiOiJodHRwczovL3VhdC1hcGkuZG12aWMuY29tIn0.tY4dvbA_tPnrGJfVv2r1lwIkinYWnCMWyXMrJ0r8s4KSeqNn5vT-QeEznzIhx0rcbZoAlt28lvacGOD9WnQfjkKgqadSk5oy1GllA9dIfzKleHKtJM1OkpDgwA2OGU6tmEgRGBtu_BM4FcsRO7XUmq9n8Tcu53XtKVhDj7BgDGy3OdqmhFGCZt-GzTywOMTEowu0vgZz9CekOZjsFrAccHTs_hmpH7Muw2HlqQpu7k3pIqdOkb-7WQrhY-7Z9Zl2kVit1WHuFcJyvvajaWAExJ-dS3FZrVujLDfai9qNtWmrOfZtT6LlWrikSX37HUCiephs_vFuIziCARE3dxR1pg",
@@ -1118,14 +1151,14 @@ export class AppService {
       // }
 
       try {
-        const response = await axios.get(tokenUrl, {
-          headers: {
-            Authorization:
-              "Basic S3FUNDk2V1c1V09LMmxjT3AwdnRzQjZxVWFYaHl0UXhwbUdzS2FWS1kza0xNTzA4OlVyaU1lT0NQamVlMDNuaFo0SDZhTlZsNkU0ZWJ2TEExQWNWbnFnRnUxb08yZmJ3c0FkSU1vN2VTWEdXMmRERWM=",
-          },
-        });
-        let tokenData = response.data;
-        console.log("access token", response.data);
+        // const response = await axios.get(tokenUrl, {
+        //   headers: {
+        //     Authorization:
+        //       "Basic S3FUNDk2V1c1V09LMmxjT3AwdnRzQjZxVWFYaHl0UXhwbUdzS2FWS1kza0xNTzA4OlVyaU1lT0NQamVlMDNuaFo0SDZhTlZsNkU0ZWJ2TEExQWNWbnFnRnUxb08yZmJ3c0FkSU1vN2VTWEdXMmRERWM=",
+        //   },
+        // });
+        // let tokenData = response.data;
+        // console.log("access token", response.data);
 
         // let tokenData = {
         //   access_token: `eyJhbGciOiJSUzI1NiIsImtpZCI6IjVCQjRFNjE4NzdGNTMxRUJDQUZCOEIwMEFGRjkzMkU5QkI2Qjc0NjQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoiSU5TQVBJVVNFUiIsInByaW1hcnlzaWQiOiI4MUI4RkJBMi0yRjA3LTRDRjAtOEZEQi0zQzYwMDE1ODMyNUUiLCJwcmltYXJ5Z3JvdXBzaWQiOiIyNiIsImxvZ2luaGlzdG9yeSI6IjQzMTY3NyIsIm5iZiI6MTcyODQ2NzM2MiwiZXhwIjoxNzI5MDcyMTYxLCJpYXQiOjE3Mjg0NjczNjIsImlzcyI6Imh0dHBzOi8vdWF0LWFwaS5kbXZpYy5jb20iLCJhdWQiOiJodHRwczovL3VhdC1hcGkuZG12aWMuY29tIn0.eRcZa5eD6YBmnKMnUm8WTvI0RulhrUgMIVuuidBWodUZux0C_8flXuGUghl-F3qlozS3zGB7giz8oq1sUmGKmLA5LB1pkjW_RHBqodXZU5RVWqNBP6rCUsg5nZ87r5WNXP1GfSIgJRXJw-4JzU-nEpi6yKRdOJMAI1cvS55sELS9QxDjyt5JLYFPUoxEopYIhPCxC23tDBtQi5D63h7DOyOB5lIf2e2pT3Mk79bgGDCz2gjH7JX4OksYU3resMOv_4qx7O59y4NPzMbhzzZFp6ZlTC0_tQPyKR4BYb_japu1mnp-M8BhU9-AxhJoYZohuNLzaDnl1J2F5UhHZCaJZA`,

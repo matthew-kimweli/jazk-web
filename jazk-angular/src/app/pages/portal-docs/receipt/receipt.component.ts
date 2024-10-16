@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NumberToWordsPipe } from '../../../pipes/numberToWords.pipe';
 import { ActivatedRoute } from '@angular/router';
 import { ParseService } from '../../../services/parse.service';
 import * as Parse from 'parse';
@@ -8,7 +7,7 @@ import * as Parse from 'parse';
 @Component({
   selector: 'app-receipt',
   standalone: true,
-  imports: [CommonModule, NumberToWordsPipe],
+  imports: [CommonModule],
   templateUrl: './receipt.component.html',
   styleUrl: './receipt.component.css',
 })
@@ -25,6 +24,13 @@ export class ReceiptComponent {
     public parseService: ParseService
   ) {
     this.getToday();
+    this.activatedRoute.params.subscribe((parameter) => {
+      let id = parameter['id'];
+
+      if (id) {
+        this.fetchSale(id);
+      }
+    });
   }
 
   getToday() {
@@ -35,13 +41,13 @@ export class ReceiptComponent {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((parameter) => {
-      let id = parameter['id'];
+    // this.activatedRoute.params.subscribe((parameter) => {
+    //   let id = parameter['id'];
 
-      if (id) {
-        this.fetchSale(id);
-      }
-    });
+    //   if (id) {
+    //     this.fetchSale(id);
+    //   }
+    // });
   }
 
   async fetchSale(id: any) {

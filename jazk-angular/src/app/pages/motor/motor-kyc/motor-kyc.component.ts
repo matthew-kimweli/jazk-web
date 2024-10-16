@@ -391,6 +391,7 @@ export class MotorKycComponent {
   }
 
   async onSearchNIN(event: any) {
+    return;
     let d = {
       nationalID: '12345678',
       firstName: 'John',
@@ -466,11 +467,12 @@ export class MotorKycComponent {
   }
 
   onClientNameChanged(event:any){
+    
     let value: string = event.target.value;
-    this.vehicle.pname = value;
-    if(value.includes('*')){
-      this.vehicle.pname = this.vehicle.pfname
-    }
+    this.vehicle.pfname = value;
+    // if(value.includes('*')){
+    //   this.vehicle.pname = this.vehicle.pfname
+    // }
   }
 
   ngOnInit(): void {
@@ -828,7 +830,7 @@ export class MotorKycComponent {
     let userData = {
       fname: this.vehicle.pfname,
       lname: this.vehicle.plname,
-      name: `${this.vehicle.pname}`,
+      name: this.vehicle.pname || this.vehicle.pfname,
       age: this.vehicle.pAge,
       DoB: this.vehicle.pDob,
       phone: this.vehicle.pphone,
