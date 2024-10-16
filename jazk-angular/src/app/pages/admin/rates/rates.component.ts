@@ -189,6 +189,7 @@ export class RatesComponent {
     { id: 10, make: "AUSTIN" },
     { id: 11, make: "AXLE" },
   ];
+  limitLiabilities = [];
 
   constructor(
     public parseService: ParseService,
@@ -293,12 +294,11 @@ export class RatesComponent {
   }
 
   addRate() {
-    const fg = this.fb.group({
+    this.rates.push(this.fb.group({
       minVV: [0],
       maxVV: [0],
-      rate: [0],
-    });
-    this.rates.push(fg);
+      rate: [0]
+    }));
   }
 
   removeRate(i: any) {
