@@ -225,6 +225,7 @@
                   [(ngModel)]="vehicle.dob"
                   type="date"
                   name="dob"
+                  [max]="maxDateOfBirth"
                   class="form-control"
                   id="dob"
                   placeholder="dob"
@@ -239,15 +240,21 @@
                 <label class="form-label" for="city"
                   ><small>Gender</small></label
                 >
-                <input
-                  disabled
+                <select class="form-select"
+                name="gender" id="gender"
+                [(ngModel)]="vehicle.gender">
+                <option value="undefined" disabled>Select</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+                <!-- <input
                   [(ngModel)]="vehicle.gender"
                   type="text"
                   name="gender"
                   class="form-control"
                   id="gender"
                   placeholder="Gender"
-                />
+                /> -->
                 <div class="validate"></div>
               </div>
             </div>

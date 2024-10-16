@@ -347,6 +347,7 @@ export class MotorKycComponent {
       text: 'I declare that the information I have entered is as provided by the customer',
     },
   ];
+  maxDateOfBirth: string = '';
 
   constructor(
     public utilsService: UtilsService,
@@ -378,6 +379,9 @@ export class MotorKycComponent {
     console.log(formattedDate); // output the formatted date
     this.today = formattedDate;
     this.minDate = formattedDate;
+    const today = new Date();
+    const minDateOfBirth = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+    this.maxDateOfBirth = minDateOfBirth.toISOString().split('T')[0]; // Format to YYYY-MM-DD
 
     var minDobDate = new Date();
     minDobDate.setFullYear(date.getFullYear() - 16);
@@ -1005,6 +1009,8 @@ export class MotorKycComponent {
 
       payment.set('business_status', 'NEW');
       payment.set('risk_code', this.dataService.generateNumber('RC'));
+      
+      
       payment.set('risk_note_no', this.dataService.generateNumber('RNN'));
       payment.set('debit_note_no', this.dataService.generateNumber('DBN'));
       payment.set('endorsement_no', this.dataService.generateNumber('EDN'));
@@ -1019,9 +1025,11 @@ export class MotorKycComponent {
         payment.set('client_phone_number', client.phone);
         payment.set('client_name', client.name);
         payment.set('vehicle_reg_number', client.registrationNumber);
+        
       }
 
       payment.set('insurance_data', this.motorData);
+      payment.set('risk_id', `1/${this.motorData?.vehicle?.registrationNumber}`);
 
       let agent_email;
 

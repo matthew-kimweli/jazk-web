@@ -962,6 +962,7 @@ export class AppService {
               let receipt_url = `${host}/receipt/${sale_id}`;
               let debitnote_url = `${host}/debitnote/${sale_id}`;
               let policyschedule_url = `${host}/policyschedule/${sale_id}`;
+              receipt_url ='https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/receipt/fUsfMniQEU'
 
               let valuationLetterBuffer = await this.generateDocument(
                 letter_url
