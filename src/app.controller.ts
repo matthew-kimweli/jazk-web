@@ -80,27 +80,71 @@ export class AppController {
     }
   }
 
+  // @Post("receivevaluation")
+  // async receivevaluation(@Req() req, @Res() res): Promise<any> {
+  //   const body = req.body;
+  //   const clientId = req.headers["client_id"]; // Get client_id from headers
+  //   const apiKey = req.headers["api_key"]; // Get api_key from headers
+
+  //   console.log("valuation notfication", body);
+  //   let Payment = Parse.Object.extend("JazkeValuation");
+  //   let p = new Payment();
+  //   try {
+  //     p.set("client_id", clientId);
+  //     p.set("apiKey", apiKey);
+  //     await p.save(body);
+  //     console.log("valuation saved", body);
+  //     console.log("valuation client_id", clientId);
+  //     return {success: true, response_id: p.id, message:'Valuation payload received successfully'}
+
+  //   } catch (error) {
+  //     console.error(error);
+  //     return {success: false, message:'Valuation payload not saved'}
+  //   }
+
+  // }
+
   @Post("receivevaluation")
   async receivevaluation(@Req() req, @Res() res): Promise<any> {
     const body = req.body;
     const clientId = req.headers["client_id"]; // Get client_id from headers
     const apiKey = req.headers["api_key"]; // Get api_key from headers
 
-    console.log("valuation notfication", body);
-    let Payment = Parse.Object.extend("JazkeValuation");
-    let p = new Payment();
+    if (!clientId || !apiKey) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing client_id or api_key in headers",
+      });
+    }
+
+    console.log("valuation notification", body);
+
+    const Payment = Parse.Object.extend("JazkeValuation");
+    const p = new Payment();
+
     try {
       p.set("client_id", clientId);
       p.set("apiKey", apiKey);
-      await p.save(body); 
+      // Object.entries(body).forEach(([key, value]) => p.set(key, value));
+
+      await p.save(body);
       console.log("valuation saved", body);
       console.log("valuation client_id", clientId);
-      return {success: true, response_id: p.id, message:'Valuation payload received successfully'}
-      
+
+      let r = {
+        success: true,
+        response_id: p.id,
+        message: "Valuation payload received successfully",
+      };
+      res.status(201).json(r);
     } catch (error) {
-      console.error(error);
-      return {success: false, message:'Valuation payload not saved'}
+      console.error("Error saving valuation:", error);
+
+      return res.status(500).json({
+        success: false,
+        message: "Valuation payload not saved",
+        error: error.message,
+      });
     }
-    
   }
 }
