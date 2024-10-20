@@ -962,7 +962,8 @@ export class AppService {
               let receipt_url = `${host}/receipt/${sale_id}`;
               let debitnote_url = `${host}/debitnote/${sale_id}`;
               let policyschedule_url = `${host}/policyschedule/${sale_id}`;
-              receipt_url ='https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/receipt/fUsfMniQEU'
+              receipt_url =
+                "https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/receipt/fUsfMniQEU";
 
               let valuationLetterBuffer = await this.generateDocument(
                 letter_url
@@ -1102,18 +1103,18 @@ export class AppService {
         }
       };
 
-      // Main function to get a valid token (either from cache or by logging in)
+      // Main function to get a valid token (either from Parse or by logging in)
       async function getToken() {
-        let tokenData = getCachedToken(); // Retrieve cached token if available
+        let tokenData = await getCachedToken(); // Retrieve cached token from Parse
 
         if (tokenData && !isTokenExpired(tokenData.expires)) {
-          console.log("Using cached valid token.");
+          console.log("Using cached valid token from Parse.");
           return tokenData;
         }
 
         console.log("Cached token expired or not found. Logging in...");
-        tokenData = await login(); // Fetch new token
-        cacheToken(tokenData); // Cache the new token
+        tokenData = await login(); // Fetch new token from server
+        await cacheToken(tokenData); // Cache the new token in Parse
 
         return tokenData;
       }
@@ -1123,16 +1124,59 @@ export class AppService {
         const now = new Date();
         const expiresAt = new Date(expirationTime);
         return now >= expiresAt;
+        
       }
 
-      // Cache the token (replace with actual logic if needed)
-      function cacheToken(tokenData) {
-        global.cachedToken = tokenData;
+      // Cache the token in Parse Server
+      async function cacheToken(tokenData) {
+        const Token = Parse.Object.extend("DMVICToken"); // 'Token' class in Parse
+        const query = new Parse.Query(Token);
+
+        try {
+          const existingToken = await query.first(); // Check if a token already exists
+          let tokenObject;
+
+          if (existingToken) {
+            console.log("Updating existing token in Parse.");
+            tokenObject = existingToken;
+          } else {
+            console.log("Creating new token entry in Parse.");
+            tokenObject = new Token();
+          }
+
+          tokenObject.set("token", tokenData.token);
+          tokenObject.set("expires", tokenData.expires);
+          tokenObject.set("issueAt", tokenData.issueAt);
+          tokenObject.set("loginUserId", tokenData.loginUserId);
+          tokenObject.set("data", tokenData);
+
+          await tokenObject.save();
+          console.log("Token cached successfully in Parse.");
+        } catch (error) {
+          console.error("Error caching token in Parse:", error.message);
+        }
       }
 
-      // Retrieve cached token (replace with actual retrieval logic if needed)
-      function getCachedToken() {
-        return global.cachedToken || null;
+      // Retrieve cached token from Parse Server
+      async function getCachedToken() {
+        const Token = Parse.Object.extend("Token"); // 'Token' class in Parse
+        const query = new Parse.Query(Token);
+
+        try {
+          const tokenObject = await query.first(); // Get the first token entry
+          if (tokenObject) {
+            return {
+              token: tokenObject.get("token"),
+              expires: tokenObject.get("expires"),
+              issueAt: tokenObject.get("issueAt"),
+              loginUserId: tokenObject.get("loginUserId"),
+            };
+          }
+          return null;
+        } catch (error) {
+          console.error("Error retrieving token from Parse:", error.message);
+          return null;
+        }
       }
 
       let tokenData = await getToken();
