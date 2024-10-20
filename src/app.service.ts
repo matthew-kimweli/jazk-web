@@ -311,6 +311,10 @@ export class AppService {
     return "Hello World!";
   }
 
+  async delay(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
   getFormattedDate() {
     var date = new Date();
     var formattedDate = date.toISOString().substring(0, 10).replace(/-/g, "");
@@ -772,6 +776,24 @@ export class AppService {
   }
 
   async registerAgentInPremia(params) {
+    async function activateAccount(url) {
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            accept: "application/json",
+          },
+        });
+
+        console.log("Account activated successfully:", response.data);
+        return response.data;
+      } catch (error) {
+        console.error(
+          "Error activating account:",
+          error.response?.data || error.message
+        );
+      }
+    }
+
     try {
       const url =
         "https://jazk-api-app2.victoriousriver-e1958513.northeurope.azurecontainerapps.io/auth/register_agent";
@@ -782,14 +804,49 @@ export class AppService {
       };
 
       const data = {
-        password: this.utils.stringToHex(params.cust_code),
+        password: "string", //this.utils.stringToHex(params.cust_code),
         email: params.email,
-        phone: params.email,
+        phone: params.phone,
         cust_code: params.cust_code,
       };
 
       const response = await axios.post(url, data, { headers });
       console.log("Response:", response.data);
+      let d = response.data;
+      if (
+        d &&
+        d.detail == "Agent already registered as portal user. Please log in"
+      ) {
+        await this.delay(1000);
+        //   {
+        //     "detail": "Agent already registered as portal user. Please log in"
+        // }
+        d.login_result = await this.loginAgentInPremia({
+          username: data.phone,
+        });
+
+        return d;
+      } else if (
+        d &&
+        d.detail ==
+          "Your details do not match any of our records. Please contact the Agents Administrator"
+      ) {
+
+        return d;
+      } else if (d && d.activation_url) {
+        // Call the function with the provided token
+        d.activation_result = await activateAccount(d.activation_url);
+        await this.delay(1000);
+        d.login_result = await this.loginAgentInPremia({
+          username: data.phone,
+        });
+      }
+
+      return d;
+      //   {
+      //     "message": "Portal user registered Please send activation email",
+      //     "activation_url": "http://jazk-api-app2.victoriousriver-e1958513.northeurope.azurecontainerapps.io/auth/activate?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzAxMzkxNzYsInN1YiI6IjA3MjIyMDczMDQifQ._lO1WvHtDcBiikL24QuHGtJ1AYhYRK3vjH8IqfnImO8"
+      // }
     } catch (error) {
       if (error.response) {
         console.error("Error Response:", error.response.data);
@@ -812,8 +869,8 @@ export class AppService {
       // Form data as an object
       const data = {
         grant_type: "",
-        username: params,
-        password: "string",
+        username: params.username,
+        password: "string", //this.utils.stringToHex(params.cust_code),
         scope: "",
         client_id: "",
         client_secret: "",
@@ -825,6 +882,17 @@ export class AppService {
       const response = await axios.post(url, formData, { headers });
 
       console.log("Response:", response.data);
+      let d = response.data;
+      //   {
+      //     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzAxMzg5NTcsInN1YiI6IjY0In0.XFJ1wdt2iQWPp6U9rhMgA6dSsF_JnMKsof8w8ZKU50k",
+      //     "token_type": "bearer"
+      // }
+
+      //   {
+      //     "detail": "Incorrect email or password"
+      // }
+
+      return d;
     } catch (error) {
       if (error.response) {
         console.error("Error Response:", error.response.data);
@@ -1059,6 +1127,7 @@ export class AppService {
       return await this.loginAgentInPremia(params);
     });
 
+
     Parse.Cloud.define("createPolicyInPremia", async (request) => {
       let params = request.params;
       return await this.loginAgentInPremia(params);
@@ -1124,7 +1193,6 @@ export class AppService {
         const now = new Date();
         const expiresAt = new Date(expirationTime);
         return now >= expiresAt;
-        
       }
 
       // Cache the token in Parse Server

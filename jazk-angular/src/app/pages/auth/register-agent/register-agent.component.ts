@@ -23,7 +23,6 @@ export class RegisterAgentComponent {
   returnUrl: any;
   saving: boolean = false;
   passwordType: any = 'password';
-  
 
   constructor(
     private toastr: ToastrService,
@@ -82,15 +81,16 @@ export class RegisterAgentComponent {
         phone = `+254${Number(phone)}`;
       }
 
-      phone = Number(phone).toString()
+      phone = Number(phone).toString();
+      phone = phone.replace('254', '');
+      phone = `0${phone}`;
 
-      
-      let agent = await this.checkUser()
-      if(!agent){
-        this.toastr.error('Your are not authorised to register. Please contact system administrator')
-        this.saving = false;
-        return;
-      }
+      // let agent = await this.checkUser()
+      // if(!agent){
+      //   this.toastr.error('Your are not authorised to register. Please contact system administrator')
+      //   this.saving = false;
+      //   return;
+      // }
 
       // let result = await Parse.Cloud.run('getUser2', {
       //   phone: phone
@@ -108,10 +108,30 @@ export class RegisterAgentComponent {
       //   return;
       // }
 
-
       this.toastr.info('Signing up...');
+
+      let result = await Parse.Cloud.run('registerAgentPremia', {
+        phone: phone,
+        email: this.email,
+        cust_code: this.customerCode,
+      });
+
+      if (!result) {
+        this.toastr.error('Unable to Signup', 'Please try again');
+        return;
+      }
+
+      if (!result.login_result) {
+        if (result.detail) {
+          this.toastr.error(result.detail);
+        } else {
+          this.toastr.error('Unable to Signup', 'Please try again');
+        }
+        return;
+      }
+
       this.user = await Parse.User.signUp(this.email, this.password, {
-        name: agent.get('name'),
+        name: this.customerCode,
         customerCode: this.customerCode,
         userType: 'agent',
         phone: phone,
@@ -123,17 +143,11 @@ export class RegisterAgentComponent {
       acl.setRoleWriteAccess('Admin', true);
       this.user.setACL(acl);
 
-      setTimeout(() => {
-        this.ngZone.run(async () => {
-          this.toastr.info('Signed up...');
+      this.user.set('premia_access_token', result.login_result.access_token);
+      await this.user.save();
 
-          if (this.returnUrl) {
-            this.router.navigateByUrl(this.returnUrl);
-          } else {
-            this.router.navigateByUrl('/home');
-          }
-        });
-      }, 1000);
+      this.toastr.info('Signed up...');
+      this.router.navigateByUrl('/home');
 
       this.saving = false;
 
@@ -162,16 +176,15 @@ export class RegisterAgentComponent {
     }
   }
 
-  
-  async checkUser(){
-    console.log('email', this.email)
-    console.log('customercode', this.customerCode)
-    let Agent = Parse.Object.extend('user')
-    let query = new Parse.Query('user')
-    query.equalTo('cust_code', this.customerCode)
-    query.equalTo('email', this.email)
-    let first = await query.first()
-    console.log('agent', first)
-    return first
+  async checkUser() {
+    console.log('email', this.email);
+    console.log('customercode', this.customerCode);
+    let Agent = Parse.Object.extend('user');
+    let query = new Parse.Query('user');
+    query.equalTo('cust_code', this.customerCode);
+    query.equalTo('email', this.email);
+    let first = await query.first();
+    console.log('agent', first);
+    return first;
   }
 }

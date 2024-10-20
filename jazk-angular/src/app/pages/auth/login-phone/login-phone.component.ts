@@ -16,7 +16,7 @@ import { ParseService } from '../../../services/parse.service';
 export class LoginPhoneComponent {
   returnUrl: string | null;
   phoneNumber: any;
-  status:any = ''
+  status: any = '';
   verificationCode: any;
   isPhoneVerified: boolean = false;
   cleanPhone: String = '';
@@ -25,6 +25,7 @@ export class LoginPhoneComponent {
   passwordType: string = 'password';
   loading: boolean = false;
   user: any;
+  premia_result: any;
 
   constructor(
     private toastr: ToastrService,
@@ -58,11 +59,13 @@ export class LoginPhoneComponent {
         phone = `+254${Number(phone)}`;
       }
 
-      phone = Number(phone).toString()
+      phone = Number(phone).toString();
+      phone = phone.replace('254', '');
+      phone = `0${phone}`;
 
       console.log('phone2', phone);
 
-      if (phone.length < 8) {
+      if (phone.length < 7) {
         console.log('Invalid phone number');
         return;
       } else {
@@ -72,22 +75,32 @@ export class LoginPhoneComponent {
       this.toastr.info('Validating, please wait...');
       this.parseService.fetching = true;
 
-      let result = await Parse.Cloud.run('getUser', {
-        phone: phone
+      let result = await Parse.Cloud.run('loginAgentPremia', {
+        phone: phone,
       });
+
+      if (!result) {
+        this.toastr.error('Unable to Signup', 'Please try again');
+        return;
+      }
+
+      if (!result.login_result) {
+        if (result.detail) {
+          this.toastr.error(result.detail);
+        } else {
+          this.toastr.error(
+            'Not Allowed',
+            'You are not allowed to login. Please contact system administrator'
+          );
+        }
+        return;
+      }
+
+      this.premia_result = result.login_result;
 
       this.parseService.fetching = false;
 
       console.log('user resp', result);
-
-      if (!result.user) {
-        console.log('agent not allowed');
-        this.toastr.error(
-          'Not Allowed',
-          'You are not allowed to login. Please contact system administrator'
-        );
-        return;
-      }
 
       this.status = 'codesent';
       this.phoneUser = result.user;
@@ -173,32 +186,23 @@ export class LoginPhoneComponent {
       this.toastr.info('Logging in', 'Please wait...');
       this.loading = true;
       this.parseService.fetching = true;
-      
 
       this.user = await Parse.User.logIn(username, this.password);
+      if (!this.user) {
+        this.toastr.error('Error: Unable to login', 'Please try again');
+        return;
+      }
 
-      // let result = await Parse.Cloud.run('getPremiaToken', {
-      //   phone: this.cleanPhone,
-      //   email: this.em
-      // });
-      
+      this.user.set('premia_access_token', this.premia_result.access_token);
+      await this.user.save();
 
-      setTimeout(() => {
-        this.ngZone.run(async () => {
-          let user = Parse.User.current();
-          this.loading = false;
+      this.loading = false;
 
-          this.parseService.fetching = false;
+      this.parseService.fetching = false;
 
-          this.toastr.success('Logged in', 'Successfull...');
+      this.toastr.success('Logged in', 'Successfull...');
 
-          if (this.returnUrl) {
-            this.router.navigateByUrl(this.returnUrl);
-          } else {
-            this.router.navigateByUrl('/home');
-          }
-        });
-      }, 1000);
+      this.router.navigateByUrl('/home');
 
       console.log(this.user);
     } catch (error: any) {
