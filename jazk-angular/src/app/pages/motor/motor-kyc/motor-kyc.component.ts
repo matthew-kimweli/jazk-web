@@ -682,6 +682,11 @@ export class MotorKycComponent {
   }
 
   buyNow() {
+    if(!this.motorService.motorQuotation.vehicleRegNumber){
+      this.toastr.error('Vehicle Registration Number is required')
+      return;
+    }
+    
     this.vehicle.registrationNumber =
       this.motorService.motorQuotation.vehicleRegNumber;
     this.vehicle.vehicleMake = this.motorService.motorQuotation.vehicleMake;

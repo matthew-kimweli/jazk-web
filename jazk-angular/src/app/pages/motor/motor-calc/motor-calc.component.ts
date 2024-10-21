@@ -388,7 +388,7 @@ export class MotorCalcComponent implements OnInit {
 
   calculate() {
     this.motorService.motorQuotation.motorClass = this.motorClass;
-    this.motorService.motorQuotation.vehicleRegNumber = this.vehicleRegNumber;
+    // this.motorService.motorQuotation.vehicleRegNumber = this.vehicleRegNumber;
     
     this.motorService.motorQuotation.makeModel = this.makeModel;
     this.motorService.motorQuotation.vehicleMake = this.vehicleMake;
@@ -501,7 +501,7 @@ export class MotorCalcComponent implements OnInit {
     }
 
     console.log('Result: ', this.motorService.motorQuotation);
-    this.motorService.motorQuotation.vehicleRegNumber = this.vehicleRegNumber
+    // this.motorService.motorQuotation.vehicleRegNumber = this.vehicleRegNumber
 
     let JazkeQuotation = Parse.Object.extend('JazkeQuotation');
     let quote = new JazkeQuotation();
@@ -551,10 +551,10 @@ export class MotorCalcComponent implements OnInit {
   }
 
   async purchase() {
-    if(!this.vehicleRegNumber){
-      this.toastr.error('Vehicle Registration Number is required')
-      return;
-    }
+    // if(!this.vehicleRegNumber){
+    //   this.toastr.error('Vehicle Registration Number is required')
+    //   return;
+    // }
 
     if (this.motorClass == 'commercial') {
       if (
@@ -583,10 +583,10 @@ export class MotorCalcComponent implements OnInit {
   }
 
   async onSubmitEmailDownload() {
-    if(!this.vehicleRegNumber){
-      this.toastr.error('Vehicle Registration Number is required')
-      return;
-    }
+    // if(!this.vehicleRegNumber){
+    //   this.toastr.error('Vehicle Registration Number is required')
+    //   return;
+    // }
     if (this.motorClass == 'commercial') {
       if (
         this.makeModel == 'Tankers' ||
@@ -630,10 +630,10 @@ export class MotorCalcComponent implements OnInit {
   }
   
   downloadQuote() {
-    if(!this.vehicleRegNumber){
-      this.toastr.error('Vehicle Registration Number is required')
-      return;
-    }
+    // if(!this.vehicleRegNumber){
+    //   this.toastr.error('Vehicle Registration Number is required')
+    //   return;
+    // }
     if (this.motorClass == 'commercial') {
       if (
         this.makeModel == 'Tankers' ||
