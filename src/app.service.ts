@@ -500,6 +500,15 @@ export class AppService {
       saleDB.set("premiaJson", premiaJson);
 
       await saleDB.save();
+
+      let quote_res = await this.createQuoteInPremia({
+        access_token: saleDB.get('premia_access_token'),
+        payload: premiaJson
+      })
+
+      saleDB.set('premiaQuoteResponse', quote_res)
+      await saleDB.save();
+
     } catch (error) {
       this.registerError(error);
       console.error(error);
@@ -918,6 +927,7 @@ export class AppService {
       const response = await axios.post(url, data, { headers });
 
       console.log("Response:", response.data);
+      return response.data
     } catch (error) {
       if (error.response) {
         console.error("Error Response:", error.response.data);
@@ -1130,7 +1140,7 @@ export class AppService {
 
     Parse.Cloud.define("createPolicyInPremia", async (request) => {
       let params = request.params;
-      return await this.loginAgentInPremia(params);
+      return await this.createQuoteInPremia(params);
     });
 
     Parse.Cloud.define("dmvic_request", async (request) => {

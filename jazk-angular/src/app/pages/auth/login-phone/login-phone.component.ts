@@ -81,6 +81,7 @@ export class LoginPhoneComponent {
 
       if (!result) {
         this.toastr.error('Unable to Signup', 'Please try again');
+        this.parseService.fetching = false;
         return;
       }
 
@@ -93,6 +94,7 @@ export class LoginPhoneComponent {
             'You are not allowed to login. Please contact system administrator'
           );
         }
+        this.parseService.fetching = false;
         return;
       }
 

@@ -1048,9 +1048,12 @@ export class MotorKycComponent {
         payment.set('agent_username', this.authService.currentLoginUserName);
         payment.set('agent_name', this.authService.currentUserName);
         payment.set('loggedInUser', this.authService.currentUser.toJSON());
+        payment.set('loggedInUserPointer', this.authService.currentUser.toPointer());
         payment.set('userId', this.authService.currentUser.id);
         payment.set('user_id', this.authService.currentUser.id);
         payment.set('agent_code', this.authService.currentAgentCode);
+        payment.set('premia_access_token', this.authService.currentUser.get('premia_access_token'));
+
       }
 
       
