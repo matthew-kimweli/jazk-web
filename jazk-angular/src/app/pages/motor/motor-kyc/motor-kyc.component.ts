@@ -43,7 +43,7 @@ export class MotorKycComponent {
   vehicleMakes: any = Object.keys(vehicleData);
   vehicleModels: any = vehicleData;
   bodyTypes: any = bodyTypeData.VEHICLE_BODY_TYPES;
-  cities = citiesData.Kenya.Cities
+  cities = citiesData.Kenya.Cities;
   tYears: any = [];
 
   today: any;
@@ -380,7 +380,11 @@ export class MotorKycComponent {
     this.today = formattedDate;
     this.minDate = formattedDate;
     const today = new Date();
-    const minDateOfBirth = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+    const minDateOfBirth = new Date(
+      today.getFullYear() - 18,
+      today.getMonth(),
+      today.getDate()
+    );
     this.maxDateOfBirth = minDateOfBirth.toISOString().split('T')[0]; // Format to YYYY-MM-DD
 
     var minDobDate = new Date();
@@ -470,8 +474,7 @@ export class MotorKycComponent {
     }
   }
 
-  onClientNameChanged(event:any){
-    
+  onClientNameChanged(event: any) {
     let value: string = event.target.value;
     this.vehicle.pfname = value;
     // if(value.includes('*')){
@@ -682,11 +685,11 @@ export class MotorKycComponent {
   }
 
   buyNow() {
-    if(!this.motorService.motorQuotation.vehicleRegNumber){
-      this.toastr.error('Vehicle Registration Number is required')
+    if (!this.motorService.motorQuotation.vehicleRegNumber) {
+      this.toastr.error('Vehicle Registration Number is required');
       return;
     }
-    
+
     this.vehicle.registrationNumber =
       this.motorService.motorQuotation.vehicleRegNumber;
     this.vehicle.vehicleMake = this.motorService.motorQuotation.vehicleMake;
@@ -1005,6 +1008,7 @@ export class MotorKycComponent {
       let payment: Parse.Object = new PaymentRequest();
       payment.set('type', 'flutterwave');
       payment.set('amount', amount);
+      payment.set('outstandingPremium', amount);
       payment.set('txRef', txRef);
       payment.set('quotation_id', this.quote.id);
       payment.set('quotation', this.quote);
@@ -1014,15 +1018,13 @@ export class MotorKycComponent {
 
       payment.set('business_status', 'NEW');
       payment.set('risk_code', this.dataService.generateNumber('RC'));
-      
-      
+
       payment.set('risk_note_no', this.dataService.generateNumber('RNN'));
       payment.set('debit_note_no', this.dataService.generateNumber('DBN'));
       payment.set('endorsement_no', this.dataService.generateNumber('EDN'));
       payment.set('endorsement_date', new Date());
       // payment.set('old_policy_no', 'XXX');
-      
-    
+
       if (client) {
         payment.set('client', client);
         payment.set('client_code', client.code);
@@ -1030,11 +1032,13 @@ export class MotorKycComponent {
         payment.set('client_phone_number', client.phone);
         payment.set('client_name', client.name);
         payment.set('vehicle_reg_number', client.registrationNumber);
-        
       }
 
       payment.set('insurance_data', this.motorData);
-      payment.set('risk_id', `1/${this.motorData?.vehicle?.registrationNumber}`);
+      payment.set(
+        'risk_id',
+        `1/${this.motorData?.vehicle?.registrationNumber}`
+      );
 
       let agent_email;
 
@@ -1053,21 +1057,25 @@ export class MotorKycComponent {
         payment.set('agent_username', this.authService.currentLoginUserName);
         payment.set('agent_name', this.authService.currentUserName);
         payment.set('loggedInUser', this.authService.currentUser.toJSON());
-        payment.set('loggedInUserPointer', this.authService.currentUser.toPointer());
+        payment.set(
+          'loggedInUserPointer',
+          this.authService.currentUser.toPointer()
+        );
         payment.set('userId', this.authService.currentUser.id);
         payment.set('user_id', this.authService.currentUser.id);
         payment.set('agent_code', this.authService.currentAgentCode);
-        payment.set('premia_access_token', this.authService.currentUser.get('premia_access_token'));
-
+        payment.set(
+          'premia_access_token',
+          this.authService.currentUser.get('premia_access_token')
+        );
       }
 
-      
-      let cert_class = this.motorService.certificateClass.find(c=>{
-        if(c.label == this.motorService.motorQuotation.makeModel){
+      let cert_class = this.motorService.certificateClass.find((c) => {
+        if (c.label == this.motorService.motorQuotation.makeModel) {
           return true;
         }
-        return false
-      })
+        return false;
+      });
 
       payment.set('cert_class', cert_class);
 
@@ -1075,7 +1083,6 @@ export class MotorKycComponent {
 
       await payment.save();
 
-      
       let phone = String(this.paymentData.mmNumber).replace('+', '');
       if (phone.includes('254')) {
       } else {
@@ -1086,7 +1093,6 @@ export class MotorKycComponent {
       let pdfHost = `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io`;
       console.log('host', pdfHost);
       console.log('saleId', payment.id);
-
 
       let res = await Parse.Cloud.run('paympesa', {
         phone: phone,
@@ -1110,18 +1116,22 @@ export class MotorKycComponent {
       let CheckoutRequestID = json['CheckoutRequestID'];
 
       payment.set('payment_response', json);
+      payment.set('responseDescription', ResponseDescription);
+      payment.set('checkoutRequestID', CheckoutRequestID);
+
+      this.listenForChanges(payment);
 
       if (ResponseDescription == 'Success. Request accepted for processing') {
         this.router.navigate(['/motor-payment-success', payment.id]);
-        payment.set('paymentStatus', 'Paid');
-        payment.set('outstandingPremium', 0);
-        if (this.paymentData.installment_type == '1') {
-          payment.set('outstandingPremium', 0);
-        } else if (this.paymentData.installment_type == '2') {
-          payment.set('outstandingPremium', 0);
-        } else if (this.paymentData.installment_type == '3') {
-          payment.set('outstandingPremium', 0);
-        }
+        payment.set('paymentStatus', 'Processing-Payment');
+        // payment.set('outstandingPremium', 0);
+        // if (this.paymentData.installment_type == '1') {
+        //   payment.set('outstandingPremium', 0);
+        // } else if (this.paymentData.installment_type == '2') {
+        //   payment.set('outstandingPremium', 0);
+        // } else if (this.paymentData.installment_type == '3') {
+        //   payment.set('outstandingPremium', 0);
+        // }
       } else {
       }
 
@@ -1141,5 +1151,38 @@ export class MotorKycComponent {
       console.error(error);
       this.toastr.error('Error while creating order. Please try again.');
     }
+  }
+
+  async listenForChanges(payment: any) {
+    let query = new Parse.Query('JazkeSale');
+    query.equalTo('checkoutRequestID', payment.get('checkoutRequestID'));
+    query.equalTo('responseDescription', payment.get('responseDescription'));
+
+    let subscription = await query.subscribe();
+
+    subscription.on('open', () => {
+      console.log('subscription opened');
+    });
+
+    subscription.on('create', (object) => {
+      console.log('object created', object);
+    });
+
+    subscription.on('update', (object) => {
+      console.log('object updated', object);
+      let status = object.get('paymentStatus') || '';
+      if (status) {
+        this.toastr.info(status);
+      }
+
+      if (object.get('paid')) {
+        this.router.navigate(['/motor-payment-success', payment.id]);
+      }
+    });
+
+    // let object = await query.first()
+    // if (object) {
+
+    // }
   }
 }

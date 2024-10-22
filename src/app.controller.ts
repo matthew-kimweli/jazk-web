@@ -119,10 +119,14 @@ export class AppController {
         sale.addUnique("jazkeSaleIds", p.id);
         sale.addUnique("mpesaNotifications", d);
         if (d.Body.stkCallback.ResultCode == 0) {
+          sale.set("paid", true);
+          sale.set('paymentStatus', 'Paid');
           let list = d.Body.stkCallback.CallbackMetadata.Item;
           for (const e of list) {
             if (e.Name == "Amount") {
-              sale.increment("paid_amount", Number(e.Value));
+              let paidAmount = Number(e.Value)
+              sale.increment("paid_amount", paidAmount);
+              sale.decrement('outstandingPremium', paidAmount)
             } else {
               sale.set(e.Name, e.Value);
             }
