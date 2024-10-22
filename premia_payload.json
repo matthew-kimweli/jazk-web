@@ -29,6 +29,7 @@
         "prop_paymt_ref": "a1boF0sI7I",
         "pol_quot_sys_id": 0,
         "prop_paymt_date": "2024-10-05T13:05:32.461Z",
+        "prop_paymt_amt": 0,
         "proposalcharges": [
           {
             "chg_sr_no": 1,
@@ -181,6 +182,7 @@
     "quot_assr_flexi": { "quot_assr_addr": { "pol_addr_01": "Port bell road" } },
     "quot_assr_phone": "773314578",
     "quot_paymt_date": "2024-10-05T13:05:32.461Z",
+    "quot_paymt_amt": 0,
     "quot_assr_gender": ""
   }
   

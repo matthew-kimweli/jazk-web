@@ -123,7 +123,7 @@
         any of the following approved centers:
       </div>
 
-      <div *ngIf="isRegent" class="row mt-4 ms-0">
+      <!-- <div *ngIf="isRegent" class="row mt-4 ms-0">
         <p
           class="col-md-3 mx-0 my-0"
           style="
@@ -286,7 +286,89 @@
           Email <a href="mailto">info&#64;linksvaluers.com</a><br />
           All other Regions: <b>Mobile 0722388260</b>
         </p>
-      </div>
+      </div> -->
+
+      <div class="row mt-4 ms-0">
+        <p
+          class="col-md-3 mx-0 my-0"
+          style="
+            margin: 0.18rem;
+            border: 1px solid black;
+            border-right: none;
+            text-align: left;
+          "
+        >
+          <b>
+            {{ isRegent
+              ? 'REGENT VALUERS'
+              : isAUTOMOBILEASSOCIATION
+              ? 'AUTOMOBILE ASSOCIATION OF KENYA'
+              : isSOLVITLIMITED
+              ? 'SOLVIT LIMITED'
+              : isCAPITALALLIANCEVALUERS
+              ? 'CAPITAL ALLIANCE VALUERS AND ASSESSORS'
+              : isLINKSVALUERS
+              ? 'LINKS VALUERS & ASSESSORS'
+              : '' }}
+          </b>
+        </p>
+        <p
+          class="col-md-9 mx-0 my-0"
+          style="
+            margin: 0.18rem;
+            border: 1px solid black;
+            text-align: left;
+            font-size: 13px;
+          "
+        >
+          <span *ngIf="isRegent">
+            Head office situated at TRV Plaza 2nd Floor Muthithi road Westlands<br />
+            <ul class="mb-0" style="list-style: disc">
+              <li>Customer care <b>0111010292/0722 608210</b></li>
+              <a class="text-underline" href="mailto"
+                >customercare&#64;regentautovaluers.co.ke</a
+              >
+              <li>
+                TRV head office <b>020 2632578 </b>
+                <a href="mailto">info&#64;regentautovaluers.co.ke</a>
+              </li>
+            </ul>
+          </span>
+      
+          <span *ngIf="isAUTOMOBILEASSOCIATION">
+            Situated at Embakasi Nairobi <b>Tel No. 0709 933000/0725 524145</b>.<br />
+            Ensure that you carry this letter with you to avoid being charged. No
+            booking required; clients are served on first come, first serve basis.
+          </span>
+      
+          <span *ngIf="isSOLVITLIMITED">
+            Block E Springette Business Park Spring Valley Lower Kabete Rd Westlands
+            Nairobi<br />
+            <b>
+              SMS 48 to 23624 to have the vehicle valued at your convenient place and
+              time or contact Dorcas Bwosi by email at
+              <a href="mailto">dbwosi&#64;solvit.co.ke</a> or call 0794 680 975.
+            </b>
+          </span>
+      
+          <span *ngIf="isCAPITALALLIANCEVALUERS">
+            Nairobi and all other upcountry regions<br />
+            <b>Mobile +254 700 298 666 / +254 731747311</b><br />
+            Email <a href="mailto">admin2&#64;capitalalliance-kenya.com</a>,
+            <a href="mailto">admin&#64;capitalalliance-kenya.com</a><br />
+            Mombasa and all other Coastal Regions:<br />
+            <b>Mobile +254 0796-360952</b> Email:
+            <a href="mailto">mombasa&#64;capitalalliance-kenya.com</a>
+          </span>
+      
+          <span *ngIf="isLINKSVALUERS">
+            Pamstech House Woodvale Groove - 3rd floor<br />
+            <b>Mobile 0722388260/0707798383</b><br />
+            Email <a href="mailto">info&#64;linksvaluers.com</a><br />
+            All other Regions: <b>Mobile 0722388260</b>
+          </span>
+        </p>
+      </div>      
 
       <div class="important">
         <strong>Important:</strong><br />

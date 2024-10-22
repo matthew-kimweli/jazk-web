@@ -15,6 +15,7 @@ export class AppService {
     quot_ref: "5773197888",
     quot_paymt_ref: "RIS1VW7M7H",
     quot_paymt_date: "2023-09-26T09:53:00",
+    quot_paymt_amt: 0,
     quot_assr_name: "John Doe",
     quot_assr_nic: "3000211a",
     quot_assr_pin: "P00892519Ya",
@@ -32,6 +33,7 @@ export class AppService {
         prop_sr_no: 1,
         prop_paymt_ref: "RIS1VW7M7H",
         prop_paymt_date: "2023-09-26T09:53:00",
+        prop_paymt_amt: 0,
         pol_quot_sys_id: 0,
         pol_quot_no: "5773197888-1",
         pol_comp_code: "001",
@@ -562,6 +564,7 @@ export class AppService {
       newData.insurance_data.kyc.name || "";
     updatedQuotationObj["quot_assr_nic"] = newData.insurance_data.kyc.nin || "";
     updatedQuotationObj["quot_paymt_date"] = newData.createdAt || "";
+    updatedQuotationObj["quot_paymt_amt"] = newData.amount || 0;
     updatedQuotationObj["quot_assr_lic"] = "";
     updatedQuotationObj["quot_assr_pin"] = newData.insurance_data.kyc.tin || "";
     updatedQuotationObj["quot_assr_phone"] =
@@ -591,7 +594,8 @@ export class AppService {
         proposal["prop_sr_no"] = 1;
         proposal["prop_paymt_ref"] = newData.objectId || "";
         proposal["prop_paymt_date"] = newData.createdAt || "";
-        proposal["pol_quot_sys_id"] = 0;
+        proposal["prop_paymt_date"] = newData.createdAt || 0;
+        proposal["prop_paymt_amt"] = newData.amount || 0;
         proposal["pol_comp_code"] =
           newData.quotation.quoteData.motorProductTypeCode || "";
         proposal["pol_divn_code"] =

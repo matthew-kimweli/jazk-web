@@ -1,12 +1,9 @@
 <div class="page-wrapper">
   <div class="page-body">
     <div class="container-xl">
-      <div
-        class="mb-3"
-        *ngIf="
+      <div class="mb-3" *ngIf="
           parseService.fetching || parseService.saving || parseService.deleting
-        "
-      >
+        ">
         <div class="progress">
           <div class="progress-bar progress-bar-indeterminate bg-green"></div>
         </div>
@@ -14,139 +11,91 @@
       <div *ngIf="sale" class="container" id="policySchedule">
         <div class="row">
           <div class="col-md-4 mt-3 mb-3 px-5" id="logo">
-            <img
-              src="https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/assets/images/jaz-logo.png"
-              height="37px"
-              width="200px"
-              alt="Jubilee Allianz"
-            />
+            <img src="https://jazk-web-fgefcwaabpdbchbr.northeurope-01.azurewebsites.net/assets/images/jaz-logo.png"
+              height="37px" width="200px" alt="Jubilee Allianz" />
           </div>
           <div class="col-md-4 mt-3 mb-3"></div>
           <div class="col-md-4 mt-3 mb-3" id="insurance-type">
             <b>
-              <p style="font-size: 13px; margin: 0.18rem">
-                JUBILEE ALLIANZ GENERAL INSURANCE LTD
-              </p>
+              <p style="font-size: 13px; margin: 0.18rem;"><b>JUBILEE ALLIANZ GENERAL INSURANCE (K) LTD</b></p>
             </b>
-            <p style="font-size: 13px; margin: 0.18rem">
-              Po Box - 6685 00100 GPO,
+            <p style="font-size: 13px; margin: 0.18rem;">P.O. Box 66257-00800 Nairobi, Kenya</p>
+            <p style="font-size: 13px; margin: 0.18rem;"><b>Phone&nbsp;</b>:+254 (0) 70 994 9000</p>
+            <p style="font-size: 13px; margin: 0.18rem;">
+              <b>Email&nbsp;</b>:talk2us&#64;allianz.com
             </p>
-            <p style="font-size: 13px; margin: 0.18rem">NAIROBI, KENYA</p>
-            <p style="font-size: 13px; margin: 0.18rem">
-              <b>Phone&nbsp;&nbsp;</b>:‭+254 (0) 20 3281000‬,
-            </p>
-            <p style="font-size: 13px; margin: 0.18rem">
-              <b>Fax&nbsp;&nbsp;&nbsp;&nbsp;</b>:‭+254 (0) 20 3281150‬
-            </p>
-            <p style="font-size: 13px; margin: 0.18rem">
-              <b>Email&nbsp;&nbsp;&nbsp;&nbsp;</b>:info&#64;jubileekenya.com
-            </p>
-            <p style="font-size: 13px; margin: 0.18rem">
-              <b>Website&nbsp;</b>: http://www.jubileeinsurance.com/ke/
+            <p style="font-size: 13px; margin: 0.18rem;">
+              <b>Website&nbsp;</b>:&nbsp;http://www.jubilee-allianz.com
             </p>
           </div>
           <div class="row mt-0 px-5">
-            <p
-              class="col-md-12 mx-0 my-0"
-              style="
+            <p class="col-md-12 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 text-align: center;
                 background-color: rgb(207, 207, 207);
-              "
-            >
-              <b
-                >{{
-                  sale.get("insurance_type").replace("-", " ") | titlecase
+              ">
+              <b>{{
+                sale.get("insurance_type").replace("-", " ") | titlecase
                 }}
-                Insurance Policy Schedule</b
-              >
+                Insurance Policy Schedule</b>
             </p>
           </div>
           <div class="row mt-4 px-5">
-            <p
-              class="col-md-12 mx-0 my-0"
-              style="
+            <p class="col-md-12 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 border-bottom: none;
                 text-align: center;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>Client Details</b>
             </p>
-            <p
-              class="col-md-6 mx-0 my-0"
-              style="
+            <p class="col-md-6 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 text-align: left;
-              "
-            >
-              <b>Insured Name /Bank Interest&nbsp;:&nbsp;</b
-              >{{ sale.get("client_name") }}
+              ">
+              <b>Insured Name /Bank Interest&nbsp;:&nbsp;</b>{{ sale.get("client_name") }}
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="font-size: 13px; margin: 0.18rem; text-align: left"
-            ></p>
-            <p
-              class="col-md-4 mx-0 my-0"
-              style="
+            <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left"></p>
+            <p class="col-md-4 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-right: 1px solid black;
                 text-align: left;
-              "
-            >
+              ">
               <b>Policy Number&nbsp;:&nbsp;</b>{{sale.get('policy_no') || 'XXX'}}
             </p>
-            <p
-              class="col-md-6 mx-0 my-0"
-              style="
+            <p class="col-md-6 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 text-align: left;
-              "
-            >
+              ">
               <b>Endorsement No&nbsp;:&nbsp;</b>{{sale.get('endorsement_no') || 'XXX'}}
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="font-size: 13px; margin: 0.18rem; text-align: left"
-            ></p>
-            <p
-              class="col-md-4 mx-0 my-0"
-              style="
+            <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left"></p>
+            <p class="col-md-4 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-right: 1px solid black;
                 text-align: left;
-              "
-            >
+              ">
               <b>Endorsement Date&nbsp;:&nbsp;</b>{{sale.get('endorsement_date') || 'XXX'}}
             </p>
-            <p
-              class="col-md-6 mx-0 my-0"
-              style="
+            <p class="col-md-6 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 text-align: left;
-              "
-            >
-              <b>Postal Address&nbsp;:&nbsp;</b
-              >{{ sale.get("client")?.address }}
+              ">
+              <b>Postal Address&nbsp;:&nbsp;</b>{{ sale.get("client")?.address }}
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="font-size: 13px; margin: 0.18rem; text-align: left"
-            ></p>
+            <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left"></p>
             <!-- <p
               class="col-md-4 mx-0 my-0"
               style="
@@ -158,32 +107,23 @@
             >
               <b>Old Policy Number&nbsp;:&nbsp;</b>{{sale.get('old_policy_no') || 'XXX'}}
             </p> -->
-            <p
-              class="col-md-4 mx-0 my-0"
-              style="
+            <p class="col-md-4 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-right: 1px solid black;
                 text-align: left;
-              "
-            >
+              ">
               <b>Business Channel&nbsp;:&nbsp;</b>Online
             </p>
-            <p
-              class="col-md-6 mx-0 my-0"
-              style="
+            <p class="col-md-6 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 text-align: left;
-              "
-            >
+              ">
               <b>Debit Note No&nbsp;:&nbsp;</b>{{sale.get('debit_note_no') || 'XXX'}}
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="font-size: 13px; margin: 0.18rem; text-align: left"
-            ></p>
+            <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left"></p>
             <!-- <p
               class="col-md-4 mx-0 my-0"
               style="
@@ -195,1059 +135,777 @@
             >
               <b>Business Channel&nbsp;:&nbsp;</b>Online
             </p> -->
-            <p
-              class="col-md-12 mx-0 my-0"
-              style="
+            <p class="col-md-12 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 border-right: 1px solid black;
                 text-align: left;
-              "
-            >
+              ">
               <b>Business&nbsp;:&nbsp;</b>{{sale.get('business_status') || 'XXX'}}
             </p>
-            <p
-              class="col-md-12 mx-0 my-0"
-              style="
+            <p class="col-md-12 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 border-right: 1px solid black;
                 text-align: left;
-              "
-            >
-              <b>KRA PIN&nbsp;:&nbsp;</b
-              >{{ sale.get("insurance_data")?.kyc?.tin }}
+              ">
+              <b>KRA PIN&nbsp;:&nbsp;</b>{{ sale.get("insurance_data")?.kyc?.tin }}
             </p>
-            <p
-              class="col-md-12 mx-0 my-0"
-              style="
+            <p class="col-md-12 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 border-right: 1px solid black;
                 text-align: left;
-              "
-            >
+              ">
               <b>Email&nbsp;:&nbsp;</b>{{ sale.get("client")?.email }}
             </p>
-            <p
-              class="col-md-12 mx-0 my-0"
-              style="
+            <p class="col-md-12 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 border-right: 1px solid black;
                 text-align: left;
-              "
-            >
+              ">
               <b>Remarks&nbsp;:&nbsp;</b>{{sale.get('remarks') || 'XXX'}}
             </p>
-            <p
-              class="col-md-6 mx-0 my-0"
-              style="
+            <p class="col-md-6 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 text-align: left;
-              "
-            >
-              <b
-                >Period of
-                Insurance&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b
-              >
+              ">
+              <b>Period of
+                Insurance&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="font-size: 13px; margin: 0.18rem; text-align: left"
-            ></p>
-            <p
-              class="col-md-4 mx-0 my-0"
-              style="
+            <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left"></p>
+            <p class="col-md-4 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-right: 1px solid black;
                 text-align: left;
-              "
-            >
+              ">
               <b>Broker/Agent Name&nbsp;:&nbsp;</b>{{ sale.get("agent_name") }}
             </p>
-            <p
-              class="col-md-6 mx-0 my-0"
-              style="
+            <p class="col-md-6 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 text-align: left;
-              "
-            >
-              <b>From&nbsp;:&nbsp;</b
-              >{{ sale.get("insurance_data")?.coverEndDate }}
+              ">
+              <b>From&nbsp;:&nbsp;</b>{{ sale.get("insurance_data")?.coverEndDate }}
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="font-size: 13px; margin: 0.18rem; text-align: left"
-            ></p>
-            <p
-              class="col-md-4 mx-0 my-0"
-              style="
+            <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left"></p>
+            <p class="col-md-4 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-right: 1px solid black;
                 text-align: left;
-              "
-            ></p>
-            <p
-              class="col-md-6 mx-0 my-0"
-              style="
+              "></p>
+            <p class="col-md-6 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 text-align: left;
-              "
-            >
-              <b>To&nbsp;:&nbsp;</b
-              >{{ sale.get("insurance_data")?.coverStartDate }}
+              ">
+              <b>To&nbsp;:&nbsp;</b>{{ sale.get("insurance_data")?.coverStartDate }}
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="font-size: 13px; margin: 0.18rem; text-align: left"
-            ></p>
-            <p
-              class="col-md-4 mx-0 my-0"
-              style="
+            <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left"></p>
+            <p class="col-md-4 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-right: 1px solid black;
                 text-align: left;
-              "
-            ></p>
-            <p
-              class="col-md-12 pt-3 my-0 mx-0"
-              style="
+              "></p>
+            <p class="col-md-12 pt-3 my-0 mx-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 border-right: 1px solid black;
                 border-bottom: 1px solid black;
                 text-align: left;
-              "
-            >
+              ">
               Any subsequent period for which the Insured shall pay and the
               Company shall agree to accept renewal premium
             </p>
           </div>
           <div class="row mt-4 px-5">
-            <p
-              class="col-md-6 mx-0 my-0"
-              style="
+            <p class="col-md-6 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 border-top: 1px solid black;
                 text-align: left;
                 background-color: rgb(207, 207, 207);
-              "
-            ></p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="
+              "></p>
+            <p class="col-md-2 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 border-top: 1px solid black;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>Premium</b>
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 border-top: 1px solid black;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b></b>
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 border-top: 1px solid black;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>KES</b>
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="
+            <p class="col-md-2 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-top: 1px solid black;
                 border-right: 1px solid black;
                 text-align: right;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>{{
                 sale.get("quotation")?.get("quoteData")?.netPremium
-                  | number : "1.2-2"
-              }}</b>
+                | number : "1.2-2"
+                }}</b>
             </p>
-            <p
-              class="col-md-6 mx-0 my-0"
-              style="
+            <p class="col-md-6 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 text-align: left;
                 background-color: rgb(207, 207, 207);
-              "
-            ></p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="
+              "></p>
+            <p class="col-md-2 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>T/Levy</b>
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>0.20%</b>
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>KES</b>
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="
+            <p class="col-md-2 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-right: 1px solid black;
                 text-align: right;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>{{
                 0.2 * sale.get("quotation")?.get("quoteData")?.netPremium
-                  | number : "1.2-2"
-              }}</b>
+                | number : "1.2-2"
+                }}</b>
             </p>
-            <p
-              class="col-md-6 mx-0 my-0"
-              style="
+            <p class="col-md-6 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 text-align: left;
                 background-color: rgb(207, 207, 207);
-              "
-            ></p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="
+              "></p>
+            <p class="col-md-2 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>IP Funds</b>
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>0.25%</b>
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>KES</b>
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="
+            <p class="col-md-2 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-right: 1px solid black;
                 text-align: right;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>{{
                 0.25 * sale.get("quotation")?.get("quoteData")?.netPremium
-                  | number : "1.2-2"
-              }}</b>
+                | number : "1.2-2"
+                }}</b>
             </p>
-            <p
-              class="col-md-6 mx-0 my-0"
-              style="
+            <p class="col-md-6 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 text-align: left;
                 background-color: rgb(207, 207, 207);
-              "
-            >
-              <b
-                >{{
-                  sale.get("insurance_type").replace("-", " ") | titlecase
-                }}:</b
-              >
+              ">
+              <b>{{
+                sale.get("insurance_type").replace("-", " ") | titlecase
+                }}:</b>
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="
+            <p class="col-md-2 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>Stamp Duty</b>
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>40.00</b>
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>KES</b>
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="
+            <p class="col-md-2 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-right: 1px solid black;
                 text-align: right;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>40.00</b>
             </p>
-            <p
-              class="col-md-6 mx-0 my-0"
-              style="
+            <p class="col-md-6 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 text-align: left;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b></b>
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="
+            <p class="col-md-2 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>JAZK Assist</b>
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>450.00</b>
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>KES</b>
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="
+            <p class="col-md-2 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-right: 1px solid black;
                 text-align: right;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>450.00</b>
             </p>
-            <p
-              class="col-md-6 mx-0 my-0"
-              style="
+            <p class="col-md-6 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 text-align: left;
                 border-bottom: 1px solid black;
                 background-color: rgb(207, 207, 207);
-              "
-            ></p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="
+              "></p>
+            <p class="col-md-2 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 border-bottom: 1px solid black;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>Total</b>
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 border-bottom: 1px solid black;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b></b>
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 border-bottom: 1px solid black;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>KES</b>
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="
+            <p class="col-md-2 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-right: 1px solid black;
                 text-align: right;
                 border-bottom: 1px solid black;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>{{
                 sale.get("quotation")?.get("quoteData")?.grossPremium
-                  | number : "1.2-2"
-              }}</b>
+                | number : "1.2-2"
+                }}</b>
             </p>
           </div>
           <div class="row mt-4 px-5">
-            <p
-              class="col-md-12 mx-0 my-0"
-              style="
+            <p class="col-md-12 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 text-align: left;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>Vehicle Details</b>
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 border-right: none;
                 border-top: none;
                 text-align: center;
-              "
-            >
+              ">
               <b>Reg. No.</b>
             </p>
-            <p
-              class="col-md-3 mx-0 my-0"
-              style="
+            <p class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 border-right: none;
                 border-top: none;
                 text-align: center;
-              "
-            >
+              ">
               <b>Model/Body Type</b>
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 border-right: none;
                 border-top: none;
                 text-align: center;
-              "
-            >
+              ">
               <b>CC</b>
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 border-right: none;
                 border-top: none;
                 text-align: center;
-              "
-            >
+              ">
               <b>Year of Mfg</b>
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 border-right: none;
                 border-top: none;
                 text-align: center;
-              "
-            >
+              ">
               <b>Seating Cap.</b>
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="
+            <p class="col-md-2 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 border-right: none;
                 border-top: none;
                 text-align: center;
-              "
-            >
-              <b
-                >Insured's Estimate of Value Including Accessories and Spare
-                Parts</b
-              >
+              ">
+              <b>Insured's Estimate of Value Including Accessories and Spare
+                Parts</b>
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="
+            <p class="col-md-2 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 border-right: none;
                 border-top: none;
                 text-align: center;
-              "
-            >
+              ">
               <b>Windscreen Amount</b>
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 border-top: none;
                 text-align: center;
-              "
-            >
+              ">
               <b>Radio Casette</b>
             </p>
             <!-- <ng-container *ngFor="let pair of autoMobile?.vehicleDetailList; let i = index" [style.page-break-after]="(i + 1) % 6 === 0 ? 'always' : 'auto'">
             </ng-container> -->
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 border-right: none;
                 border-top: none;
                 text-align: center;
-              "
-            >
+              ">
               {{
-                sale.get("insurance_data")?.vehicle?.registrationNumber | uppercase
+              sale.get("insurance_data")?.vehicle?.registrationNumber | uppercase
               }}
             </p>
-            <p
-              class="col-md-3 mx-0 my-0"
-              style="
+            <p class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 border-right: none;
                 border-top: none;
                 text-align: center;
-              "
-            >
+              ">
               {{
-                sale.get("insurance_data")?.vehicle?.vehicleMake | uppercase
+              sale.get("insurance_data")?.vehicle?.vehicleMake | uppercase
               }}
               {{
-                sale.get("insurance_data")?.vehicle?.vehicleModel | uppercase
+              sale.get("insurance_data")?.vehicle?.vehicleModel | uppercase
               }}
               {{ sale.get("insurance_data")?.vehicle?.bodyType | uppercase }}
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 border-right: none;
                 border-top: none;
                 text-align: center;
-              "
-            >
+              ">
               {{ sale.get("insurance_data")?.vehicle?.cc || "---" }}
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 border-right: none;
                 border-top: none;
                 text-align: center;
-              "
-            >
+              ">
               {{ sale.get("quotation")?.get("quoteData")?.yearOfManufacture }}
             </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+            <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 border-right: none;
                 border-top: none;
                 text-align: center;
-              "
-            >
+              ">
               {{ sale.get("insurance_data")?.vehicle?.seatingCapacity || "---" }}
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="
+            <p class="col-md-2 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 border-right: none;
                 border-top: none;
                 text-align: center;
-              "
-            >
+              ">
               {{ sale.get("quotation")?.get("quoteData")?.sumInsured | number }}
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="
+            <p class="col-md-2 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 border-right: none;
                 border-top: none;
                 text-align: center;
-              "
-            >
+              ">
               {{
-                (sale.get("quotation")?.get("quoteData")?.sumInsured <= 2500000
-                  ? 50000
-                  : 100000
-                ) | number
-              }}
-            </p>
-            <p
-              class="col-md-1 mx-0 my-0"
-              style="
+              (sale.get("quotation")?.get("quoteData")?.sumInsured <= 2500000 ? 50000 : 100000 ) | number }} </p>
+                <p class="col-md-1 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border: 1px solid black;
                 border-top: none;
                 text-align: center;
-              "
-            >
-              {{
-                (sale.get("quotation")?.get("quoteData")?.sumInsured <= 2500000
-                  ? 50000
-                  : 100000
-                ) | number
-              }}
-            </p>
+              ">
+                  {{
+                  (sale.get("quotation")?.get("quoteData")?.sumInsured <= 2500000 ? 50000 : 100000 ) | number }} </p>
           </div>
           <div class="row mt-3 px-5">
-            <p
-              class="col-md-12 mx-0 my-0"
-              style="
+            <p class="col-md-12 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 border: 1px solid black;
                 background-color: rgb(207, 207, 207);
-              "
-            >
+              ">
               <b>Cover Details</b>
             </p>
-            <p
-              class="col-md-12 mx-0 my-0"
-              style="
+            <p class="col-md-12 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 border: 1px solid black;
                 border-top: none;
-              "
-            >
+              ">
               <b>Risk Id - {{sale.get("risk_id")}}</b>
             </p>
-            <p
-              class="col-md-3 mx-0 my-0"
-              style="
+            <p class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 border-right: 1px solid black;
                 border-bottom: 1px solid black;
                 text-align: left;
-              "
-            >
+              ">
               <b>Sr. No.</b>
             </p>
-            <p
-              class="col-md-3 mx-0 my-0"
-              style="
+            <p class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 border-bottom: 1px solid black;
                 border-right: 1px solid black;
-              "
-            >
+              ">
               <b>Cover Description</b>
             </p>
-            <p
-              class="col-md-3 mx-0 my-0"
-              style="
+            <p class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: right;
                 border-right: 1px solid black;
                 border-bottom: 1px solid black;
-              "
-            >
+              ">
               <b>Sum Insured(KES)</b>
             </p>
-            <p
-              class="col-md-3 mx-0 my-0"
-              style="
+            <p class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: right;
                 border-right: 1px solid black;
                 border-bottom: 1px solid black;
-              "
-            >
+              ">
               <b>Premium(KES)</b>
             </p>
-            <p
-              class="col-md-3 mx-0 my-0"
-              style="
+            <p class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 border-right: 1px solid black;
                 text-align: left;
                 border-bottom: 1px solid black;
-              "
-            >
+              ">
               1
             </p>
-            <p
-              class="col-md-3 mx-0 my-0"
-              style="
+            <p class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 border-right: 1px solid black;
                 border-bottom: 1px solid black;
-              "
-            >
+              ">
               Own Damage
             </p>
-            <p
-              class="col-md-3 mx-0 my-0"
-              style="
+            <p class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: right;
                 border-right: 1px solid black;
                 border-bottom: 1px solid black;
-              "
-            >
+              ">
               {{ sale.get("quotation")?.get("quoteData")?.sumInsured | number }}
             </p>
-            <p
-              class="col-md-3 mx-0 my-0"
-              style="
+            <p class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: right;
                 border-right: 1px solid black;
                 border-bottom: 1px solid black;
-              "
-            >
+              ">
               {{
-                sale.get("quotation")?.get("quoteData")
-                  ?.excessProtectorBenefit == "Inclusive"
-                  ? (sale.get("quotation")?.get("quoteData")
-                      ?.excessProtectorBenefit | titlecase)
-                  : (sale.get("quotation")?.get("quoteData")
-                      ?.excessProtectorBenefit | number)
+              sale.get("quotation")?.get("quoteData")
+              ?.excessProtectorBenefit == "Inclusive"
+              ? (sale.get("quotation")?.get("quoteData")
+              ?.excessProtectorBenefit | titlecase)
+              : (sale.get("quotation")?.get("quoteData")
+              ?.excessProtectorBenefit | number)
               }}
             </p>
-            <p
-              class="col-md-3 mx-0 my-0"
-              style="
+            <p class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 border-right: 1px solid black;
                 border-bottom: 1px solid black;
                 text-align: left;
-              "
-            >
+              ">
               2
             </p>
-            <p
-              class="col-md-3 mx-0 my-0"
-              style="
+            <p class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 border-right: 1px solid black;
                 border-bottom: 1px solid black;
-              "
-            >
+              ">
               Wind Screen
             </p>
-            <p
-              class="col-md-3 mx-0 my-0"
-              style="
+            <p class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: right;
                 border-right: 1px solid black;
                 border-bottom: 1px solid black;
-              "
-            >
+              ">
               {{
-                (sale.get("quotation")?.get("quoteData")?.sumInsured <= 2500000
-                  ? 50000
-                  : 100000
-                ) | number
-              }}
-            </p>
-            <p
-              class="col-md-3 mx-0 my-0"
-              style="
+              (sale.get("quotation")?.get("quoteData")?.sumInsured <= 2500000 ? 50000 : 100000 ) | number }} </p>
+                <p class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-right: 1px solid black;
                 text-align: right;
                 border-bottom: 1px solid black;
-              "
-            >
-              {{
-                sale.get("quotation")?.get("quoteData")?.windScreenBenefit
+              ">
+                  {{
+                  sale.get("quotation")?.get("quoteData")?.windScreenBenefit
                   | number
-              }}
-            </p>
-            <p
-              class="col-md-3 mx-0 my-0"
-              style="
+                  }}
+                </p>
+                <p class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 border-right: 1px solid black;
                 border-bottom: 1px solid black;
                 text-align: left;
-              "
-            >
-              3
-            </p>
-            <p
-              class="col-md-3 mx-0 my-0"
-              style="
+              ">
+                  3
+                </p>
+                <p class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 border-right: 1px solid black;
                 border-bottom: 1px solid black;
-              "
-            >
-              Radio Casette
-            </p>
-            <p
-              class="col-md-3 mx-0 my-0"
-              style="
+              ">
+                  Radio Casette
+                </p>
+                <p class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: right;
                 border-right: 1px solid black;
                 border-bottom: 1px solid black;
-              "
-            >
-              {{
-                (sale.get("quotation")?.get("quoteData")?.sumInsured <= 2500000
-                  ? 50000
-                  : 100000
-                ) | number
-              }}
-            </p>
-            <p
-              class="col-md-3 mx-0 my-0"
-              style="
+              ">
+                  {{
+                  (sale.get("quotation")?.get("quoteData")?.sumInsured <= 2500000 ? 50000 : 100000 ) | number }} </p>
+                    <p class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-right: 1px solid black;
                 text-align: right;
                 border-bottom: 1px solid black;
-              "
-            >
-              {{
-                sale.get("quotation")?.get("quoteData")?.radioCassetteBenefit
-                  | number
-              }}
-            </p>
-            <p
-              *ngIf="
+              ">
+                      {{
+                      sale.get("quotation")?.get("quoteData")?.radioCassetteBenefit
+                      | number
+                      }}
+                    </p>
+                    <p *ngIf="
                 sale.get('quotation')?.get('quoteData')?.pvtInterest == 'yes'
-              "
-              class="col-md-3 mx-0 my-0"
-              style="
+              " class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-left: 1px solid black;
                 border-right: 1px solid black;
                 border-bottom: 1px solid black;
                 text-align: left;
-              "
-            >
-              4
-            </p>
-            <p
-              *ngIf="
+              ">
+                      4
+                    </p>
+                    <p *ngIf="
                 sale.get('quotation')?.get('quoteData')?.pvtInterest == 'yes'
-              "
-              class="col-md-3 mx-0 my-0"
-              style="
+              " class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: left;
                 border-right: 1px solid black;
                 border-bottom: 1px solid black;
-              "
-            >
-              Terrorism, Sabotage & Political Risks
-            </p>
-            <p
-              *ngIf="
+              ">
+                      Terrorism, Sabotage & Political Risks
+                    </p>
+                    <p *ngIf="
                 sale.get('quotation')?.get('quoteData')?.pvtInterest == 'yes'
-              "
-              class="col-md-3 mx-0 my-0"
-              style="
+              " class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 text-align: right;
                 border-right: 1px solid black;
                 border-bottom: 1px solid black;
-              "
-            >
-              {{ sale.get("quotation")?.get("quoteData")?.sumInsured | number }}
-            </p>
-            <p
-              *ngIf="
+              ">
+                      {{ sale.get("quotation")?.get("quoteData")?.sumInsured | number }}
+                    </p>
+                    <p *ngIf="
                 sale.get('quotation')?.get('quoteData')?.pvtInterest == 'yes'
-              "
-              class="col-md-3 mx-0 my-0"
-              style="
+              " class="col-md-3 mx-0 my-0" style="
                 font-size: 13px;
                 margin: 0.18rem;
                 border-right: 1px solid black;
                 text-align: right;
                 border-bottom: 1px solid black;
-              "
-            >
-              {{ sale.get("quotation")?.get("quoteData")?.pvtBenefit | number }}
-            </p>
+              ">
+                      {{ sale.get("quotation")?.get("quoteData")?.pvtBenefit | number }}
+                    </p>
           </div>
           <!-- <div class="row mt-2 mb-5 px-4" *ngIf="motorClass == 'private'">
             <p class="col-md-12 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left;">
@@ -1280,38 +938,20 @@
         </div> -->
           <div class="row mt-5">
             <div class="col-md-4"></div>
-            <div
-              class="col-md-4 d-flex justify-content-center align-items-center"
-            >
-              <img
-                src="assets/images/JazkeStamp.png"
-                height="100px"
-                width="100px"
-                alt="Jubilee Allianz"
-              />
+            <div class="col-md-4 d-flex justify-content-center align-items-center">
+              <img src="assets/images/JazkeStamp.png" height="100px" width="100px" alt="Jubilee Allianz" />
             </div>
             <div class="col-md-4"></div>
           </div>
           <div class="row mt-2 mb-4 px-5">
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="font-size: 13px; margin: 0.18rem; text-align: left"
-            >
+            <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left">
               <b></b>
             </p>
-            <p
-              class="col-md-8 mx-0 my-0"
-              style="font-size: 13px; margin: 0.18rem; text-align: center"
-            >
-              <b
-                >Signed for and on behalf of JUBILEE ALLIANZ GENERAL INSURANCE
-                LIMITED</b
-              >
+            <p class="col-md-8 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: center">
+              <b>Signed for and on behalf of JUBILEE ALLIANZ GENERAL INSURANCE
+                LIMITED</b>
             </p>
-            <p
-              class="col-md-2 mx-0 my-0"
-              style="font-size: 13px; margin: 0.18rem; text-align: left"
-            >
+            <p class="col-md-2 mx-0 my-0" style="font-size: 13px; margin: 0.18rem; text-align: left">
               <b></b>
             </p>
           </div>
