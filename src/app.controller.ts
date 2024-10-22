@@ -75,8 +75,8 @@ export class AppController {
     try {
       await p.save(body);
 
-      let d = body
-      
+      let d = body;
+
       // {
       //   Body: {
       //     stkCallback: {
@@ -110,6 +110,7 @@ export class AppController {
 
       let MerchantRequestID = d.Body.stkCallback.MerchantRequestID;
       let CheckoutRequestID = d.Body.stkCallback.CheckoutRequestID;
+      let ResultCode = d.Body.stkCallback.ResultCode;
 
       let query = new Parse.Query("JazkeSale");
       query.equalTo("merchantRequestID", MerchantRequestID);
@@ -118,17 +119,19 @@ export class AppController {
       if (sale) {
         sale.addUnique("jazkeSaleIds", p.id);
         sale.addUnique("mpesaNotifications", d);
-        if (d.Body.stkCallback.ResultCode == 0) {
+        if (ResultCode == 0 || ResultCode == 2001) {
           sale.set("paid", true);
-          sale.set('paymentStatus', 'Paid');
-          let list = d.Body.stkCallback.CallbackMetadata.Item;
-          for (const e of list) {
-            if (e.Name == "Amount") {
-              let paidAmount = Number(e.Value)
-              sale.increment("paid_amount", paidAmount);
-              sale.decrement('outstandingPremium', paidAmount)
-            } else {
-              sale.set(e.Name, e.Value);
+          sale.set("paymentStatus", "Paid");
+          if (ResultCode == 0) {
+            let list = d.Body.stkCallback.CallbackMetadata.Item;
+            for (const e of list) {
+              if (e.Name == "Amount") {
+                let paidAmount = Number(e.Value);
+                sale.increment("paid_amount", paidAmount);
+                sale.decrement("outstandingPremium", paidAmount);
+              } else {
+                sale.set(e.Name, e.Value);
+              }
             }
           }
         }

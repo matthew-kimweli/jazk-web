@@ -1121,9 +1121,11 @@ export class MotorKycComponent {
 
       this.listenForChanges(payment);
 
+      payment.set('paymentStatus', ResponseDescription);
+      
       if (ResponseDescription == 'Success. Request accepted for processing') {
-        this.router.navigate(['/motor-payment-success', payment.id]);
-        payment.set('paymentStatus', 'Processing-Payment');
+        // this.router.navigate(['/motor-payment-success', payment.id]);
+        
         // payment.set('outstandingPremium', 0);
         // if (this.paymentData.installment_type == '1') {
         //   payment.set('outstandingPremium', 0);
