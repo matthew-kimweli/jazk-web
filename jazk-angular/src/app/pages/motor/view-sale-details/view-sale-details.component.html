@@ -1,0 +1,229 @@
+<app-header></app-header>
+
+<div class="page-wrapper">
+  <div
+    class="mb-3"
+    *ngIf="
+      parseService.fetching || parseService.saving || parseService.deleting
+    "
+  >
+    <div class="progress">
+      <div class="progress-bar progress-bar-indeterminate bg-green"></div>
+    </div>
+  </div>
+
+  <div class="container-xl" *ngIf="data">
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <!-- Page pre-title -->
+            <div class="page-pretitle">Overview</div>
+            <h2 class="page-title">Insurance Quotation Details</h2>
+          </div>
+
+          <div class="col-auto ms-auto d-print-none">
+            <div class="btn-list">
+              <a
+                [routerLink]="['/make-payment-installment', sale.id]"
+                routerLinkActive="router-link-active"
+                class="btn btn-primary d-none d-sm-inline-block"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icons-tabler-outline icon-tabler-plus"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M12 5l0 14" />
+                  <path d="M5 12l14 0" />
+                </svg>
+                Make a payment
+              </a>
+              <a
+                href="#"
+                class="btn btn-primary d-sm-none btn-icon"
+                data-bs-toggle="modal"
+                data-bs-target="#modal-report"
+                aria-label="Create new report"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icons-tabler-outline icon-tabler-printer"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"
+                  />
+                  <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
+                  <path
+                    d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quotation Information -->
+    <div class="row row-cards">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h3>Quotation Info</h3>
+            <p><strong>ID:</strong> {{ data.quotation_id }}</p>
+            <p><strong>Type:</strong> {{ data.insurance_type }}</p>
+            <p><strong>Status:</strong> {{ data.paymentStatus || "---" }}</p>
+            <p>
+              <strong>Total Amount:</strong>
+              {{ data.amount | currency : "KES " }}
+            </p>
+            <p>
+              <strong>Outstanding Premium:</strong>
+              {{ data.outstandingPremium | currency : "KES " }}
+            </p>
+            <p><strong>Business Status:</strong> {{ data.business_status }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Client Information -->
+      <div class="col-md-6" *ngIf="data.client">
+        <div class="card">
+          <div class="card-body">
+            <h3>Client Information</h3>
+            <p><strong>Name:</strong> {{ data.client.name }}</p>
+            <p><strong>Email:</strong> {{ data.client.email }}</p>
+            <p><strong>Phone:</strong> {{ data.client.phone }}</p>
+            <p><strong>City:</strong> {{ data.client.city }}</p>
+            <p><strong>Address:</strong> {{ data.client.address }}</p>
+            <p><strong>TIN:</strong> {{ data.client.tin }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Installments -->
+    <div class="card mt-4">
+      <div class="card-header">
+        <h3 class="card-title">Installments</h3>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let installment of data.installments; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ installment.date.iso | date : "medium" }}</td>
+              <td>{{ installment.amount | currency : "USD" }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Vehicle Information -->
+    <div class="card mt-4">
+      <div class="card-header">
+        <h3 class="card-title">Vehicle Information</h3>
+      </div>
+      <div class="card-body">
+        <p>
+          <strong>Make:</strong> {{ data.insurance_data.vehicle.vehicleMake }}
+        </p>
+        <p>
+          <strong>Model:</strong> {{ data.insurance_data.vehicle.vehicleModel }}
+        </p>
+        <p>
+          <strong>Registration Number:</strong>
+          {{ data.insurance_data.vehicle.registrationNumber }}
+        </p>
+        <p>
+          <strong>Engine Number:</strong>
+          {{ data.insurance_data.vehicle.EngineNumber }}
+        </p>
+        <p>
+          <strong>Chassis Number:</strong>
+          {{ data.insurance_data.vehicle.chasisNumber }}
+        </p>
+        <p>
+          <strong>Tonnage:</strong>
+          {{ data.insurance_data.vehicle.tonnage }} tons
+        </p>
+        <p>
+          <strong>Seating Capacity:</strong>
+          {{ data.insurance_data.vehicle.seatingCapacity }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Payment Response -->
+    <div class="card mt-4" *ngIf="data.payment_response">
+      <div class="card-header">
+        <h3 class="card-title">Payment Response</h3>
+      </div>
+      <div class="card-body">
+        <p>
+          <strong>Response Code:</strong>
+          {{ data.payment_response.ResponseCode }}
+        </p>
+        <p>
+          <strong>Message:</strong> {{ data.payment_response.CustomerMessage }}
+        </p>
+        <p>
+          <strong>Merchant Request ID:</strong>
+          {{ data.payment_response.MerchantRequestID }}
+        </p>
+      </div>
+    </div>
+
+    <!-- DMVIC -->
+    <div class="card mt-4" *ngIf="data.dmvic_cert">
+      <div class="card-header">
+        <h3 class="card-title">DMVIC Response</h3>
+      </div>
+      <div class="card-body">
+        <pre>
+            {{ data.dmvic_cert }}
+          </pre
+        >
+      </div>
+    </div>
+
+    <!-- Premia Response -->
+    <div class="card mt-4" *ngIf="data.premiaQuoteResponse">
+      <div class="card-header">
+        <h3 class="card-title">Premia Response</h3>
+      </div>
+      <div class="card-body">
+        <pre>
+              {{ data.premiaQuoteResponse }}
+            </pre
+        >
+      </div>
+    </div>
+  </div>
+</div>

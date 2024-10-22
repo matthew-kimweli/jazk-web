@@ -245,7 +245,7 @@
                             <th>Client</th>
                             <th>What is Insured</th>
                             <th>Premium</th>
-                            <th>Premium outstanding</th>
+                            <th>Premium balance</th>
                             <th class="w-1"></th>
                           </tr>
                         </thead>
@@ -285,7 +285,7 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end">
                                   <a
-                                    routerLinkActive="router-link-active"
+                                  [routerLink]="['/view-motor-sale', item.id]" routerLinkActive="router-link-active"
                                     class="dropdown-item text-green"
                                   >
                                     View
@@ -296,6 +296,40 @@
                                   >
                                     Sale
                                   </a>
+
+                                  <a
+                                      [routerLink]="['/receipt', item.id]" routerLinkActive="router-link-active" 
+                                      class="dropdown-item text-green"
+                                    >
+                                      Receipt
+                                    </a>
+                                    <a
+                                    [routerLink]="['/valuation-letter', item.id]" routerLinkActive="router-link-active" 
+                                      class="dropdown-item text-green"
+                                    >
+                                      Valuation Letter
+                                    </a>
+                                    <a
+                                    [routerLink]="['/debitnote', item.id]" routerLinkActive="router-link-active" 
+                                      class="dropdown-item text-green"
+                                    >
+                                      Debit Note
+                                    </a>
+                                    <a
+                                    [routerLink]="['/policyschedule', item.id]" routerLinkActive="router-link-active" 
+                                      class="dropdown-item text-green"
+                                    >
+                                      Policy Schedule
+                                    </a>
+
+                                    <a
+                                    
+                                    [routerLink]="['/payment-installment', item.id]" routerLinkActive="router-link-active"
+                                      class="dropdown-item text-green"
+                                    >
+                                      Make Payment
+                                    </a>
+
 
                                   <!-- <a [hidden]="item.get('status') == 'Completed'" *ngIf="auth.isAdmin"
                                   (click)="deleteItem(item)"

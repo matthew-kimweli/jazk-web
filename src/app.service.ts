@@ -14,14 +14,15 @@ export class AppService {
   quotationObj = {
     quot_ref: "5773197888",
     quot_paymt_ref: "RIS1VW7M7H",
-    quot_paymt_date: "2023-09-26T09:53:00",
-    quot_paymt_amt: 0,
+    quot_paymt_date: "2023-10-26T09:53:00",
+    quot_paymt_amt: 13375,
     quot_assr_name: "John Doe",
     quot_assr_nic: "3000211a",
     quot_assr_pin: "P00892519Ya",
+    quot_assr_lic: "LIC1231240",
     quot_assr_phone: "2547xxxxxxxx",
     quot_assr_email: "test@maydenprema.co.ke",
-    quot_assr_gender: "M",
+    quot_assr_gender: "1",
     quot_assr_dob: "1999-01-26T00:00:00",
     quot_assr_flexi: {
       quot_assr_addr: {
@@ -32,19 +33,20 @@ export class AppService {
       {
         prop_sr_no: 1,
         prop_paymt_ref: "RIS1VW7M7H",
-        prop_paymt_date: "2023-09-26T09:53:00",
-        prop_paymt_amt: 0,
+        prop_paymt_date: "2024-10-26T09:53:00",
+        prop_paymt_amt: 13375,
         pol_quot_sys_id: 0,
         pol_quot_no: "5773197888-1",
         pol_comp_code: "001",
-        pol_divn_code: "101",
-        pol_dept_code: "10",
-        pol_prod_code: "1002",
-        pol_type: "1002",
+        pol_divn_code: "118",
+        pol_dept_code: "11",
+        pol_prod_code: "1001",
+        pol_type: "1001",
         pol_cust_code: "K9999999",
         pol_assr_code: "K9999999",
-        pol_fm_dt: "2023-09-26T00:00:00",
-        pol_to_dt: "2024-09-27T00:00:00",
+        pol_hypothecation_yn: "0",
+        pol_fm_dt: "2024-10-26T14:57:00",
+        pol_to_dt: "2025-10-27T23:59:59",
         pol_dflt_si_curr_code: "KES",
         pol_prem_curr_code: "KES",
         pol_flexi: {
@@ -60,11 +62,17 @@ export class AppService {
           cover_type_desc: {
             pol_flex_16: "Comprehensive",
           },
+          usage_type_code: {
+            pol_flex_13: "002",
+          },
+          usage_type_desc: {
+            pol_flex_09: "OWN GOODS",
+          },
           issued_at_code: {
-            pol_flex_01: "101",
+            pol_flex_01: "118",
           },
           issued_at_desc: {
-            pol_flex_17: "JAZK HQ",
+            pol_flex_17: "Portal Policies",
           },
           prev_policy_no: {
             pol_flex_20: "",
@@ -79,13 +87,19 @@ export class AppService {
         proposalsections: [
           {
             sec_sr_no: 1,
-            psec_sec_code: "100201",
+            psec_srno: 1,
+            psec_sec_code: "100101",
             proposalrisks: [
               {
                 risk_sr_no: 1,
+                prai_risk_id: "1",
+                prai_data_09: "risk",
                 prai_flexi: {
                   vehicle_cover_type: {
                     prai_code_21: "01",
+                  },
+                  vehicle_usage_type: {
+                    prai_code_03: "002",
                   },
                   vehicle_make: {
                     prai_code_04: "T009",
@@ -108,6 +122,9 @@ export class AppService {
                   vehicle_yom: {
                     prai_num_01: 2019,
                   },
+                  vehicle_age: {
+                    prai_num_08: 5,
+                  },
                   vehicle_value: {
                     prai_num_02: 1000000,
                   },
@@ -127,6 +144,7 @@ export class AppService {
                 proposalcovers: [
                   {
                     cvr_sr_no: 1,
+                    prc_sr_no: 1,
                     prc_code: "3101",
                     prc_desc: "Own Damage",
                     prc_rate: 1.75,
@@ -138,6 +156,7 @@ export class AppService {
                   },
                   {
                     cvr_sr_no: 2,
+                    prc_sr_no: 2,
                     prc_code: "3176",
                     prc_desc: "Third Party Only",
                     prc_rate: 7500,
@@ -149,6 +168,7 @@ export class AppService {
                   },
                   {
                     cvr_sr_no: 3,
+                    prc_sr_no: 3,
                     prc_code: "3109",
                     prc_desc: "Windscreen",
                     prc_rate: 0,
@@ -160,6 +180,7 @@ export class AppService {
                   },
                   {
                     cvr_sr_no: 4,
+                    prc_sr_no: 4,
                     prc_code: "3110",
                     prc_desc: "Radio Casette",
                     prc_rate: 0,
@@ -171,6 +192,7 @@ export class AppService {
                   },
                   {
                     cvr_sr_no: 5,
+                    prc_sr_no: 5,
                     prc_code: "3198",
                     prc_desc: "Excess Protector",
                     prc_rate: 0.25,
@@ -182,6 +204,7 @@ export class AppService {
                   },
                   {
                     cvr_sr_no: 6,
+                    prc_sr_no: 6,
                     prc_code: "3199",
                     prc_desc: "Polictical Violence and Terrorism",
                     prc_rate: 0.25,
@@ -195,24 +218,25 @@ export class AppService {
                 proposalmotorcerts: [
                   {
                     motor_cert_sr_no: 1,
+                    prai_risk_id: "2",
                     prai_flexi: {
                       cert_mode: {
                         prai_data_08: "02",
                       },
                       cert_type: {
-                        prai_code_14: "Class C",
+                        prai_code_14: "Class B",
                       },
                       book_id: {
                         prai_data_09: "DIGI_CERT",
                       },
                       cert_num: {
-                        prai_data_05: "C1349985",
+                        prai_data_05: "C999999",
                       },
                       cert_fm_dt: {
-                        prai_date_21: "2023-09-26T00:00:00",
+                        prai_date_21: "2023-10-26T00:00:00",
                       },
                       cert_to_dt: {
-                        prai_date_22: "2023-10-25T00:00:00",
+                        prai_date_22: "2023-11-25T00:00:00",
                       },
                       cert_name: {
                         prai_data_10: "",
@@ -227,6 +251,7 @@ export class AppService {
         proposalcharges: [
           {
             chg_sr_no: 1,
+            pchg_sr_no: 1,
             pchg_code: "2001",
             pchg_type: "002",
             pchg_perc: 40,
@@ -236,6 +261,7 @@ export class AppService {
           },
           {
             chg_sr_no: 2,
+            pchg_sr_no: 2,
             pchg_code: "1004",
             pchg_type: "005",
             pchg_perc: 0.25,
@@ -245,6 +271,7 @@ export class AppService {
           },
           {
             chg_sr_no: 3,
+            pchg_sr_no: 3,
             pchg_code: "2004",
             pchg_type: "002",
             pchg_perc: 0.2,
@@ -504,13 +531,12 @@ export class AppService {
       await saleDB.save();
 
       let quote_res = await this.createQuoteInPremia({
-        access_token: saleDB.get('premia_access_token'),
-        payload: premiaJson
-      })
+        access_token: saleDB.get("premia_access_token"),
+        payload: premiaJson,
+      });
 
-      saleDB.set('premiaQuoteResponse', quote_res)
+      saleDB.set("premiaQuoteResponse", quote_res);
       await saleDB.save();
-
     } catch (error) {
       this.registerError(error);
       console.error(error);
@@ -844,7 +870,6 @@ export class AppService {
         d.detail ==
           "Your details do not match any of our records. Please contact the Agents Administrator"
       ) {
-
         return d;
       } else if (d && d.activation_url) {
         // Call the function with the provided token
@@ -931,13 +956,44 @@ export class AppService {
       const response = await axios.post(url, data, { headers });
 
       console.log("Response:", response.data);
-      return response.data
+      return response.data;
     } catch (error) {
       if (error.response) {
         console.error("Error Response:", error.response.data);
       } else {
         console.error("Error:", error.message);
       }
+    }
+  }
+
+  async checkVehicleStatus(params) {
+    const url =
+      "https://jazk-api-app2.victoriousriver-e1958513.northeurope.azurecontainerapps.io/quotes/check_veh_status";
+
+    const token = params.access_token;
+
+    const payload = {
+      vehicle_reg_no: params.vehicle_reg_no, //"KDD 990Z",
+      vehicle_chassis_no: params.vehicle_chassis_no, //"CHASSIS 001",
+      vehicle_engine_no: params.vehicle_engine_no, //"ENGINE 001",
+    };
+
+    try {
+      const response = await axios.post(url, payload, {
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log("Vehicle status:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error(
+        "Error checking vehicle status:",
+        error.response?.data || error.message
+      );
     }
   }
 
@@ -1141,10 +1197,14 @@ export class AppService {
       return await this.loginAgentInPremia(params);
     });
 
-
     Parse.Cloud.define("createPolicyInPremia", async (request) => {
       let params = request.params;
       return await this.createQuoteInPremia(params);
+    });
+
+    Parse.Cloud.define("checkVehicleStatus", async (request) => {
+      let params = request.params;
+      return await this.checkVehicleStatus(params);
     });
 
     Parse.Cloud.define("dmvic_request", async (request) => {

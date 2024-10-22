@@ -1179,6 +1179,7 @@ export class MotorKycComponent {
 
       if (object.get('paid')) {
         this.router.navigate(['/motor-payment-success', payment.id]);
+        subscription.unsubscribe()
       }
     });
 

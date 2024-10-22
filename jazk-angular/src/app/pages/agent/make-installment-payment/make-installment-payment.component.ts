@@ -11,6 +11,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import * as Parse from 'parse';
 
 @Component({
   selector: 'app-make-installment-payment',
