@@ -1,0 +1,91 @@
+<div class="page-wrapper">
+  <app-header></app-header>
+  <!-- Page header -->
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <!-- Page pre-title -->
+          <div class="page-pretitle">Installments</div>
+          <h2 class="page-title text-capitalize">Make Payment</h2>
+        </div>
+
+        <div class="col-auto ms-auto d-print-none"></div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="mb-3 mt-3"
+    *ngIf="
+      parseService.fetching || parseService.saving || parseService.deleting
+    "
+  >
+    <div class="progress">
+      <div class="progress-bar progress-bar-indeterminate bg-green"></div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="container-xl">
+      <div class="page-header d-print-none">
+        <h2 class="page-title">Payment Overview</h2>
+      </div>
+
+      <!-- Overview Cards -->
+      <div class="row row-cards">
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body text-center">
+              <h3>Total Amount</h3>
+              <p class="display-6">{{ totalAmount | currency : "USD" }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body text-center">
+              <h3>Current Balance</h3>
+              <p class="display-6">{{ currentBalance | currency : "USD" }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body text-center">
+              <h3>Paid Installments</h3>
+              <p class="display-6">{{ paidInstallments | currency : "USD" }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Make a Payment Section -->
+      <div class="card mt-4">
+        <div class="card-header">
+          <h3 class="card-title">Make a Payment</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="paymentForm" (ngSubmit)="makePayment()">
+            <div class="mb-3">
+              <label class="form-label">Amount to Pay</label>
+              <input
+                type="number"
+                formControlName="amount"
+                class="form-control"
+                placeholder="Enter amount"
+              />
+            </div>
+            <div class="mb-3">
+              <button
+                type="submit"
+                class="btn btn-primary w-100"
+                [disabled]="!paymentForm.valid"
+              >
+                Submit Payment
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

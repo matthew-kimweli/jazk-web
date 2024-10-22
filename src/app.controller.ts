@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, Res } from "@nestjs/common";
+import { Controller, Get, Post, Query, Req, Res } from "@nestjs/common";
 import { AppService } from "./app.service";
 const puppeteer = require("puppeteer");
 const fs = require("fs");
@@ -74,6 +74,64 @@ export class AppController {
     let p = new Payment();
     try {
       await p.save(body);
+
+      let d = body
+      
+      // {
+      //   Body: {
+      //     stkCallback: {
+      //       MerchantRequestID: "29115-34620561-1",
+      //       CheckoutRequestID: "ws_CO_191220191020363925",
+      //       ResultCode: 0,
+      //       ResultDesc: "The service request is processed successfully.",
+      //       CallbackMetadata: {
+      //         Item: [
+      //           {
+      //             Name: "Amount",
+      //             Value: 1.0,
+      //           },
+      //           {
+      //             Name: "MpesaReceiptNumber",
+      //             Value: "NLJ7RT61SV",
+      //           },
+      //           {
+      //             Name: "TransactionDate",
+      //             Value: 20191219102115,
+      //           },
+      //           {
+      //             Name: "PhoneNumber",
+      //             Value: 254708374149,
+      //           },
+      //         ],
+      //       },
+      //     },
+      //   },
+      // };
+
+      let MerchantRequestID = d.Body.stkCallback.MerchantRequestID;
+      let CheckoutRequestID = d.Body.stkCallback.CheckoutRequestID;
+
+      let query = new Parse.Query("JazkeSale");
+      query.equalTo("merchantRequestID", MerchantRequestID);
+      query.equalTo("checkoutRequestID", CheckoutRequestID);
+      let sale = await query.first();
+      if (sale) {
+        sale.addUnique("jazkeSaleIds", p.id);
+        sale.addUnique("mpesaNotifications", d);
+        if (d.Body.stkCallback.ResultCode == 0) {
+          let list = d.Body.stkCallback.CallbackMetadata.Item;
+          for (const e of list) {
+            if (e.Name == "Amount") {
+              sale.increment("paid_amount", Number(e.Value));
+            } else {
+              sale.set(e.Name, e.Value);
+            }
+          }
+        }
+
+        await sale.save();
+      }
+
       console.log("payment saved");
     } catch (error) {
       console.error(error);

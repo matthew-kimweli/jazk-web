@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import Parse from 'parse';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './services/auth.service';
+import { UtilsService } from './services/utils.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,9 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   title = 'JAZKE';
 
-  constructor(public auth: AuthService, private toastr: ToastrService) {
+  constructor(public auth: AuthService, 
+    private utilsService: UtilsService,
+    private toastr: ToastrService) {
     
 
     // if(debugging){
@@ -24,7 +27,7 @@ export class AppComponent {
     //   serverURL2 = `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/parse`;
     // }
     let serverURL2 = `https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/parse`;
-    // let serverURL2 = `${this.getHostName()}/parse`;
+    // let serverURL2 = `${this.utilsService.getHostName()}/parse`;
     console.log('serverurl', serverURL2);
 
     var keyApplicationId = 'debunkbot';
@@ -41,16 +44,6 @@ export class AppComponent {
   ngOnInit(): void {
     this.checkLoader();
     this.listenForPaymentChanges();
-  }
-
-  getHostName(): string {
-    let host = window.location.hostname;
-    console.log('host', host);
-    if (host.includes('localhost')) {
-      return `http://localhost:3100`;
-    } else {
-      return `https://${host}`;
-    }
   }
 
   checkLoader() {

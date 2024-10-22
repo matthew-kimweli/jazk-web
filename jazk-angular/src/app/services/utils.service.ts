@@ -307,4 +307,15 @@ export class UtilsService {
     return obj ? obj[propertyOfInterest] : undefined;
   }
 
+  getHostName(): string {
+    let host = window.location.hostname;
+    console.log('host', host);
+    if (host.includes('localhost')) {
+      return `http://localhost:3100`;
+    } else {
+      return `https://${host}`;
+    }
+  }
+  
+
 }

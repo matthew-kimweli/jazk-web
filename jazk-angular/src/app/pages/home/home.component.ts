@@ -32,6 +32,7 @@ import { MotorService } from '../../services/motor.service';
   ],
 })
 export class HomeComponent {
+
   form: FormGroup | any;
   fetching: boolean = false;
   count: number = 0;
@@ -139,6 +140,18 @@ export class HomeComponent {
     console.log('quotes', this.quotations);
     this.dataService.recent.quotations = this.quotations;
   }
+
+  shareCopyQuotationLink(item: any) {
+    let hostname = this.utilsService.getHostName();
+    let link = `${hostname}/motor-kyc/${item.id}`
+    navigator.clipboard.writeText(link);
+    this.toastr.info('Link has been copied to clipboard')
+
+  }
+
+  makePayment(item:any){
+    
+  } 
 
   get isUserApproved() {
     return this.auth.currentUserApprovalStatus == true

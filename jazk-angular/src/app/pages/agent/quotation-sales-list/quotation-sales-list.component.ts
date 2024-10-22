@@ -1,21 +1,27 @@
-import { Component, Input, input, OnInit } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { ActivatedRoute, Router, RouterModule } from "@angular/router";
-import { ToastrService } from "ngx-toastr";
+import { Component, Input, input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import * as Parse from 'parse';
-import { HeaderComponent } from "../../_components/header/header.component";
-import { TextSlicePipe } from "../../../pipes/text-slice.pipe";
-import { AuthService } from "../../../services/auth.service";
-import { ParseService } from "../../../services/parse.service";
-import { SideMenuComponent } from "../../_components/side-menu/side-menu.component";
-
+import { HeaderComponent } from '../../_components/header/header.component';
+import { TextSlicePipe } from '../../../pipes/text-slice.pipe';
+import { AuthService } from '../../../services/auth.service';
+import { ParseService } from '../../../services/parse.service';
+import { SideMenuComponent } from '../../_components/side-menu/side-menu.component';
+import { UtilsService } from '../../../services/utils.service';
 
 @Component({
   selector: 'app-quotation-sales-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderComponent, SideMenuComponent, TextSlicePipe],
+  imports: [
+    CommonModule,
+    RouterModule,
+    HeaderComponent,
+    SideMenuComponent,
+    TextSlicePipe,
+  ],
   templateUrl: './quotation-sales-list.component.html',
-  styleUrl: './quotation-sales-list.component.css'
+  styleUrl: './quotation-sales-list.component.css',
 })
 export class QuotationSalesListComponent implements OnInit {
   insuranceType: any = '';
@@ -25,55 +31,62 @@ export class QuotationSalesListComponent implements OnInit {
   constructor(
     public parseService: ParseService,
     private toastr: ToastrService,
+    private utilsService: UtilsService,
     public auth: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {}
 
-
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((parameter) => {
-      let id = parameter["insurance"];
-      
+      let id = parameter['insurance'];
+
       if (id) {
-        this.insuranceType = id
+        this.insuranceType = id;
         this.fetchSales(id);
         this.fetchQuotations(id);
       }
     });
   }
 
-  async fetchSales(id:any) {
+  async fetchSales(id: any) {
     let user: any = this.auth.currentUser;
 
-    let query = new Parse.Query("JazkeSale");
-    query.equalTo('insurance_type', id)
-    query.equalTo('user_id', user.id)
-    query.include(['quotation'])
-    
+    let query = new Parse.Query('JazkeSale');
+    query.equalTo('insurance_type', id);
+    query.equalTo('user_id', user.id);
+    query.include(['quotation']);
+
     this.sales = await this.parseService.find(query);
-    console.log('sales', this.sales)
+    console.log('sales', this.sales);
   }
 
-  async fetchQuotations(id:any) {
+  async fetchQuotations(id: any) {
     let user: any = this.auth.currentUser;
 
-    let query = new Parse.Query("JazkeQuotation");
-    query.equalTo('insurance_type', id)
-    query.equalTo('user_id', user.id)
-    
+    let query = new Parse.Query('JazkeQuotation');
+    query.equalTo('insurance_type', id);
+    query.equalTo('user_id', user.id);
+
     this.quotations = await this.parseService.find(query);
-    console.log('quotes', this.quotations)
+    console.log('quotes', this.quotations);
   }
 
-  gotoNewQuotation(){
-    if(this.insuranceType == 'motor-private'){
-      this.router.navigate(['/motor'])
-    } else if(this.insuranceType == 'motor-commercial'){
-      this.router.navigate(['/motor'])
+  gotoNewQuotation() {
+    if (this.insuranceType == 'motor-private') {
+      this.router.navigate(['/motor']);
+    } else if (this.insuranceType == 'motor-commercial') {
+      this.router.navigate(['/motor']);
     } else {
-      this.router.navigate(['/welcome'])
+      this.router.navigate(['/welcome']);
     }
+  }
+
+  shareCopyQuotationLink(item: any) {
+    let hostname = this.utilsService.getHostName();
+    let link = `${hostname}/motor-kyc/${item.id}`;
+    navigator.clipboard.writeText(link);
+    this.toastr.info('Link has been copied to clipboard');
   }
 
   // async deleteItem(mine: any) {
@@ -82,5 +95,4 @@ export class QuotationSalesListComponent implements OnInit {
   //     // this.fetch();
   //   }
   // }
-
 }

@@ -26,6 +26,7 @@ import { ListUsersComponent } from './pages/admin/users/list-users/list-users.co
 import { BanksComponent } from './pages/admin/banks/banks.component';
 import { RatesComponent } from './pages/admin/rates/rates.component';
 import { RegisterAgentComponent } from './pages/auth/register-agent/register-agent.component';
+import { MakeInstallmentPaymentComponent } from './pages/agent/make-installment-payment/make-installment-payment.component';
 
 export const routes: Routes = [
   {
@@ -87,6 +88,12 @@ export const routes: Routes = [
     path: 'motor-kyc/:id',
     component: MotorKycComponent,
   },
+  {
+    path: 'payment-installment/:id',
+    component: MakeInstallmentPaymentComponent,
+  },
+  
+
   {
     path: 'motor',
     component: MotorCalcComponent,
