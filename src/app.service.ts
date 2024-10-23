@@ -1375,7 +1375,7 @@ export class AppService {
 
       // Retrieve cached token from Parse Server
       async function getCachedToken() {
-        const Token = Parse.Object.extend("Token"); // 'Token' class in Parse
+        const Token = Parse.Object.extend("DMVICToken"); // 'Token' class in Parse
         const query = new Parse.Query(Token);
 
         try {
