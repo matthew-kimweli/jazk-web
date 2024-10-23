@@ -360,6 +360,9 @@ export class MotorKycComponent {
     private activatedRoute: ActivatedRoute
   ) {
     this.getToday();
+    if(this.authService.currentUser){
+      this.authService.currentUser.fetch()
+    }
   }
 
   // Validator function for template-driven forms

@@ -477,7 +477,7 @@ export class AppService {
         Typeofcover: 100,
         Policyholder: sale_data.insurance_data.kyc.name,
         InsuredPIN: sale_data.insurance_data.vehicle.pTin,
-        policynumber: "P/109/1002/2023/000064",
+        policynumber: "P/109/1002/2024/000065",
         Email: client_email,
         Phonenumber: sale_data.insurance_data.kyc.phone,
         Commencingdate: this.formatDateSlash(
@@ -807,6 +807,7 @@ export class AppService {
   registerError(error) {
     let Err = Parse.Object.extend("JazkeError");
     let err = new Err();
+    err.set("msg", error.toString());
     err.set("response", error.response);
     err.set("message", error.message);
     // err.set("json", error.toJSON());
