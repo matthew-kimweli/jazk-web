@@ -998,6 +998,79 @@ export class AppService {
   }
 
   initCloudFunctions() {
+
+    Parse.Cloud.define("paympesa_quick", async (request) => {
+      let params = request.params;
+      let phone = params.phone;
+      let sale_id = params.sale_id;
+      let amount = params.amount;
+      let agent_email = params.agent_email;
+
+      function getTimestamp() {
+        const now = new Date();
+
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, "0"); // getMonth() returns 0-11
+        const day = String(now.getDate()).padStart(2, "0");
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        const seconds = String(now.getSeconds()).padStart(2, "0");
+
+        return `${year}${month}${day}${hours}${minutes}${seconds}`;
+      }
+
+      let today = this.getFormattedDate();
+
+      try {
+        const response = await axios.get(
+          "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
+          {
+            headers: {
+              Authorization:
+                "Basic S3FUNDk2V1c1V09LMmxjT3AwdnRzQjZxVWFYaHl0UXhwbUdzS2FWS1kza0xNTzA4OlVyaU1lT0NQamVlMDNuaFo0SDZhTlZsNkU0ZWJ2TEExQWNWbnFnRnUxb08yZmJ3c0FkSU1vN2VTWEdXMmRERWM=",
+            },
+          }
+        );
+
+        console.log("access token", response.data);
+        let tokenData = response.data;
+        if (tokenData && tokenData.access_token) {
+          const response = await axios.post(
+            "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
+            {
+              BusinessShortCode: 174379,
+              Password:
+                "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQwOTA1MTAxNDM0",
+              Timestamp: "20240905101434",
+              TransactionType: "CustomerPayBillOnline",
+              Amount: amount,
+              PartyA: phone,
+              PartyB: 174379,
+              PhoneNumber: phone, //254708374149,
+              CallBackURL:
+                "https://jazk-web-ca.victoriousriver-e1958513.northeurope.azurecontainerapps.io/receivepayment",
+              AccountReference: "CompanyXLTD",
+              TransactionDesc: "Payment of Motor Insurance",
+            },
+
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${tokenData.access_token}`,
+              },
+            }
+          );
+          console.log(response.data);
+
+          return response.data;
+        }
+      } catch (error) {
+        console.error("Request failed:", error);
+        this.registerError(error);
+        return String(error).toString();
+      }
+    });
+
     Parse.Cloud.define("paympesa", async (request) => {
       let params = request.params;
       let phone = params.phone;

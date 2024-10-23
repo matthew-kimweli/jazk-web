@@ -684,7 +684,7 @@ export class MotorKycComponent {
     }
   }
 
-  buyNow() {
+  async buyNow() {
     if (!this.motorService.motorQuotation.vehicleRegNumber) {
       this.toastr.error('Vehicle Registration Number is required');
       return;
@@ -863,6 +863,27 @@ export class MotorKycComponent {
     let data = this.motorData;
 
     console.log('data', this.motorData);
+
+    let access_token = ''
+    if(this.authService.currentUser){
+      access_token = this.authService.currentUser.get('premia_access_token')
+    }
+
+    if(!access_token){
+      this.toastr.error('Unable to get access token from premia');
+      return;
+    }
+
+    let vehicleStatus = await Parse.Cloud.run('checkVehicleStatus', {
+      vehicle_reg_no: v.registrationNumber,
+      vehicle_chassis_no: v.chasisNumber,
+      vehicle_engine_no: v.EngineNumber,
+      access_token: access_token
+    });
+    if (vehicleStatus && vehicleStatus.Info == 'Error') {
+      this.toastr.error('Vehicle is already insured in Premia', 'Unable to proceed');
+      return;
+    }
 
     document.getElementById('showPaymentModal')?.click();
   }
@@ -1122,10 +1143,9 @@ export class MotorKycComponent {
       this.listenForChanges(payment);
 
       payment.set('paymentStatus', ResponseDescription);
-      
+
       if (ResponseDescription == 'Success. Request accepted for processing') {
         // this.router.navigate(['/motor-payment-success', payment.id]);
-        
         // payment.set('outstandingPremium', 0);
         // if (this.paymentData.installment_type == '1') {
         //   payment.set('outstandingPremium', 0);
@@ -1178,8 +1198,9 @@ export class MotorKycComponent {
       }
 
       if (object.get('paid')) {
+        this.parseService.fetching = false;
         this.router.navigate(['/motor-payment-success', payment.id]);
-        subscription.unsubscribe()
+        subscription.unsubscribe();
       }
     });
 
