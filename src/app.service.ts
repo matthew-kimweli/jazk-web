@@ -92,7 +92,7 @@ export class AppService {
             proposalrisks: [
               {
                 risk_sr_no: 1,
-                prai_risk_id: "1",
+                prai_risk_id: 1,
                 prai_data_09: "risk",
                 prai_flexi: {
                   vehicle_cover_type: {
@@ -218,7 +218,7 @@ export class AppService {
                 proposalmotorcerts: [
                   {
                     motor_cert_sr_no: 1,
-                    prai_risk_id: "2",
+                    prai_risk_id: 2,
                     prai_flexi: {
                       cert_mode: {
                         prai_data_08: "02",
@@ -658,20 +658,22 @@ export class AppService {
         ] = `Flutterwave - ${newData.txRef || ""} - ${newData.amount || 0}`;
         proposal["pol_flexi"]["cover_type_code"]["pol_flex_14"] =
           newData.quotation.quoteData.motorClassCode || "";
-        proposal["pol_flexi"]["cover_type_desc"]["pol_flex_16"] =
-          this.getAnyKeyValue(
-            newData.quotation.quoteData.motorClassCode,
-            "name",
-            motorProductType
-          );
-        proposal["pol_flexi"]["issued_at_code"]["pol_flex_01"] = 118;
+        // proposal["pol_flexi"]["cover_type_desc"]["pol_flex_16"] =
+        //   this.getAnyKeyValue(
+        //     newData.quotation.quoteData.motorClassCode,
+        //     "name",
+        //     motorProductType
+        //   );
+        proposal["pol_flexi"]["cover_type_desc"]["pol_flex_16"] = "Comprehensive"
+
+        proposal["pol_flexi"]["issued_at_code"]["pol_flex_01"] = "118";
         proposal["pol_flexi"]["issued_at_desc"]["pol_flex_17"] =
           "Portal Policies";
         proposal["pol_flexi"]["prev_policy_no"]["pol_flex_20"] = "";
         proposal["pol_flexi"]["territory"]["pol_flex_02"] = "KENYA";
         proposal["pol_flexi"]["broker_risk_note_no"]["pol_flex_08"] = "";
 
-        proposal["proposalsections"][0]["sec_sr_no"] = "1";
+        proposal["proposalsections"][0]["sec_sr_no"] = 1;
         proposal["proposalsections"][0]["psec_sec_code"] =
           newData.quotation.quoteData.motorproductSectAssCode || "";
 
@@ -696,8 +698,9 @@ export class AppService {
             vehicleData.chasisNumber || "";
           proposalRisk["prai_flexi"]["vehicle_engine_no"]["prai_data_02"] =
             vehicleData.EngineNumber || "";
-          proposalRisk["prai_flexi"]["vehicle_yom"]["prai_num_01"] =
-            Number(newQuoteData.yearOfManufacture || 0) ;
+          proposalRisk["prai_flexi"]["vehicle_yom"]["prai_num_01"] = Number(
+            newQuoteData.yearOfManufacture || 0
+          );
           proposalRisk["prai_flexi"]["vehicle_value"]["prai_num_02"] =
             newQuoteData.sumInsured || 0;
           proposalRisk["prai_flexi"]["vehicle_cc"]["prai_num_04"] =
@@ -1454,9 +1457,19 @@ export class AppService {
       }
 
       // Helper function to check if the token is expired
+      // function isTokenExpired(expirationTime) {
+      //   const now = new Date();
+      //   const expiresAt = new Date(expirationTime);
+      //   return now >= expiresAt;
+      // }
+
       function isTokenExpired(expirationTime) {
         const now = new Date();
         const expiresAt = new Date(expirationTime);
+
+        // Subtract 4 hours (4 * 60 * 60 * 1000 milliseconds) from the expiration time
+        expiresAt.setHours(expiresAt.getHours() - 4);
+
         return now >= expiresAt;
       }
 
