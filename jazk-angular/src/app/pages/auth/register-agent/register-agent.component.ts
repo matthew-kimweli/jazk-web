@@ -117,7 +117,7 @@ export class RegisterAgentComponent {
       });
 
       if (!result) {
-        this.toastr.error('Unable to Signup', 'Please try again');
+        this.toastr.error('No result. Unable to Signup', 'Please try again');
         return;
       }
 
@@ -125,7 +125,7 @@ export class RegisterAgentComponent {
         if (result.detail) {
           this.toastr.error(result.detail);
         } else {
-          this.toastr.error('Unable to Signup', 'Please try again');
+          this.toastr.error('Login failed. Unable to Signup', 'Please try again');
         }
         return;
       }

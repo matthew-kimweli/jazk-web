@@ -360,8 +360,8 @@ export class MotorKycComponent {
     private activatedRoute: ActivatedRoute
   ) {
     this.getToday();
-    if(this.authService.currentUser){
-      this.authService.currentUser.fetch()
+    if (this.authService.currentUser) {
+      this.authService.currentUser.fetch();
     }
   }
 
@@ -674,8 +674,7 @@ export class MotorKycComponent {
     if (this.paymentData.installment_type == '1') {
       this.installments = [];
       this.installments.push({ date: now, amount: amount });
-    }
-    else if (this.paymentData.installment_type == '2') {
+    } else if (this.paymentData.installment_type == '2') {
       let partAmount = amount / 2;
       this.installments = [];
       this.installments.push({ date: now, amount: partAmount });
@@ -688,6 +687,7 @@ export class MotorKycComponent {
       this.installments.push({ date: thirdMonth, amount: partAmount });
     } else {
       this.installments = [];
+      this.installments.push({ date: now, amount: amount });
     }
   }
 
@@ -1022,6 +1022,7 @@ export class MotorKycComponent {
     }
 
     this.toastr.info('Please wait...');
+    this.parseService.fetching = true;
 
     try {
       let txRef = `jazke__${Date.now()}`;
@@ -1044,7 +1045,7 @@ export class MotorKycComponent {
       payment.set('type', 'mpesa');
       payment.set('amount', amount);
       payment.set('outstandingPremium', amount);
-      
+
       payment.set('txRef', txRef);
       payment.set('quotation_id', this.quote.id);
       payment.set('quotation', this.quote);
@@ -1115,7 +1116,7 @@ export class MotorKycComponent {
 
       payment.set('cert_class', cert_class);
 
-      this.parseService.fetching = true;
+      
 
       await payment.save();
 
@@ -1156,7 +1157,6 @@ export class MotorKycComponent {
       payment.set('responseDescription', ResponseDescription);
       payment.set('checkoutRequestID', CheckoutRequestID);
       payment.set('merchantRequestID', MerchantRequestID);
-      
 
       this.listenForChanges(payment);
 

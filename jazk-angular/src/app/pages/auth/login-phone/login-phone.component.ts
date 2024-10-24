@@ -76,7 +76,7 @@ export class LoginPhoneComponent {
       this.parseService.fetching = true;
 
       let result = await Parse.Cloud.run('loginAgentPremia', {
-        phone: phone,
+        username: phone,
       });
 
       if (!result) {
