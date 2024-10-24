@@ -697,7 +697,7 @@ export class AppService {
           proposalRisk["prai_flexi"]["vehicle_engine_no"]["prai_data_02"] =
             vehicleData.EngineNumber || "";
           proposalRisk["prai_flexi"]["vehicle_yom"]["prai_num_01"] =
-            newQuoteData.yearOfManufacture || 0;
+            Number(newQuoteData.yearOfManufacture || 0) ;
           proposalRisk["prai_flexi"]["vehicle_value"]["prai_num_02"] =
             newQuoteData.sumInsured || 0;
           proposalRisk["prai_flexi"]["vehicle_cc"]["prai_num_04"] =
@@ -770,7 +770,7 @@ export class AppService {
           ] = "02";
           proposalRisk["proposalmotorcerts"][0]["prai_flexi"]["cert_type"][
             "prai_code_14"
-          ] = certificateClass || "";
+          ] = certificateClass.cert_class || "";
           proposalRisk["proposalmotorcerts"][0]["prai_flexi"]["book_id"][
             "prai_data_09"
           ] = "DIGI_CERT";
@@ -1104,13 +1104,23 @@ export class AppService {
     }
   }
 
+  async getSaleById(sale_id: any) {
+    try {
+      let query = new Parse.Query("JazkeSale");
+      query.include(["quotation"]);
+      let saleDB = await query.get(sale_id);
+      return saleDB;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   initCloudFunctions() {
     Parse.Cloud.define("paympesa_quick", async (request) => {
       let params = request.params;
       let phone = params.phone;
       let sale_id = params.sale_id;
       let amount = params.amount;
-      let agent_email = params.agent_email;
 
       function getTimestamp() {
         const now = new Date();
@@ -1201,8 +1211,6 @@ export class AppService {
         return `${year}${month}${day}${hours}${minutes}${seconds}`;
       }
 
-      // this.issueDMVICCertificate(params);
-
       let today = this.getFormattedDate();
 
       try {
@@ -1232,6 +1240,10 @@ export class AppService {
         console.log("access token", response.data);
         let tokenData = response.data;
         if (tokenData && tokenData.access_token) {
+          let saleDB = await this.getSaleById(sale_id);
+          let installments = saleDB.get("installments");
+          let amountToPay = installments[0].amount;
+
           const response = await axios.post(
             "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
             {
@@ -1240,7 +1252,7 @@ export class AppService {
                 "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQwOTA1MTAxNDM0",
               Timestamp: "20240905101434",
               TransactionType: "CustomerPayBillOnline",
-              Amount: 1,
+              Amount: amountToPay,
               PartyA: phone,
               PartyB: 174379,
               PhoneNumber: phone, //254708374149,

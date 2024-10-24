@@ -119,6 +119,7 @@ export class AppController {
       if (sale) {
         sale.addUnique("jazkeSaleIds", p.id);
         sale.addUnique("mpesaNotifications", d);
+        sale.addUnique("payments", d);
         if (ResultCode == 0 || ResultCode == 2001) {
           sale.set("paid", true);
           sale.set("paymentStatus", "Paid");

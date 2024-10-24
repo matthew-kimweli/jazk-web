@@ -671,7 +671,11 @@ export class MotorKycComponent {
     let data = this.motorService.motorQuotation;
     let amount = data.grossPremium;
 
-    if (this.paymentData.installment_type == '2') {
+    if (this.paymentData.installment_type == '1') {
+      this.installments = [];
+      this.installments.push({ date: now, amount: amount });
+    }
+    else if (this.paymentData.installment_type == '2') {
       let partAmount = amount / 2;
       this.installments = [];
       this.installments.push({ date: now, amount: partAmount });
@@ -1037,9 +1041,10 @@ export class MotorKycComponent {
       this.toastr.info('Please wait. Connecting...');
       let PaymentRequest = Parse.Object.extend('JazkeSale');
       let payment: Parse.Object = new PaymentRequest();
-      payment.set('type', 'flutterwave');
+      payment.set('type', 'mpesa');
       payment.set('amount', amount);
       payment.set('outstandingPremium', amount);
+      
       payment.set('txRef', txRef);
       payment.set('quotation_id', this.quote.id);
       payment.set('quotation', this.quote);
@@ -1145,10 +1150,13 @@ export class MotorKycComponent {
 
       let ResponseDescription = json['ResponseDescription'];
       let CheckoutRequestID = json['CheckoutRequestID'];
+      let MerchantRequestID = json['MerchantRequestID'];
 
       payment.set('payment_response', json);
       payment.set('responseDescription', ResponseDescription);
       payment.set('checkoutRequestID', CheckoutRequestID);
+      payment.set('merchantRequestID', MerchantRequestID);
+      
 
       this.listenForChanges(payment);
 
@@ -1191,7 +1199,7 @@ export class MotorKycComponent {
   async listenForChanges(payment: any) {
     let query = new Parse.Query('JazkeSale');
     query.equalTo('checkoutRequestID', payment.get('checkoutRequestID'));
-    query.equalTo('responseDescription', payment.get('responseDescription'));
+    query.equalTo('merchantRequestID', payment.get('merchantRequestID'));
 
     let subscription = await query.subscribe();
 

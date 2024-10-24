@@ -15,7 +15,7 @@
   <div class="container-xl" *ngIf="data">
     <div class="page-header d-print-none">
       <div class="container-xl">
-        <div class="row g-2 align-items-center">
+        <div class="row g-2 mb-2 align-items-center">
           <div class="col">
             <!-- Page pre-title -->
             <div class="page-pretitle">Overview</div>
@@ -120,6 +120,100 @@
       </div>
     </div>
 
+    <div class="container-xl">
+      <div class="page-header d-print-none">
+        <h2 class="page-title">Payment Overview</h2>
+      </div>
+
+      <!-- Overview Cards -->
+      <div class="row row-cards">
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body text-center">
+              <h3>Total Amount</h3>
+              <p class="display-6">{{ totalAmount | currency : "USD" }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body text-center">
+              <h3>Current Balance</h3>
+              <p class="display-6">{{ currentBalance | currency : "USD" }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body text-center">
+              <h3>Paid Installments</h3>
+              <p class="display-6">{{ paidInstallments | currency : "USD" }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Make a Payment Section -->
+      <div class="card mt-4">
+        <div class="card-header">
+          <h3 class="card-title">Make a Payment</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="paymentForm" (ngSubmit)="makePayment()">
+            <div class="mb-3">
+              <label class="form-label">Amount to Pay</label>
+              <input
+                type="number"
+                formControlName="amount"
+                class="form-control"
+                placeholder="Enter amount"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Mobile Money Number</label>
+              <div class="input-group">
+                <span class="input-group-text">+254</span>
+                <input
+                  type="number"
+                  min="1"
+                  formControlName="phone"
+                  class="form-control"
+                  placeholder="Enter phone"
+                />
+              </div>
+            </div>
+            <div class="mb-3">
+              <button
+                type="submit"
+                class="btn btn-primary w-100"
+                [disabled]="!paymentForm.valid || this.parseService.fetching"
+              >
+                {{
+                  this.parseService.fetching
+                    ? "Please wait..."
+                    : "Submit Payment"
+                }}
+              </button>
+              <div
+                class="mb-3"
+                *ngIf="
+                  parseService.fetching ||
+                  parseService.saving ||
+                  parseService.deleting
+                "
+              >
+                <div class="progress">
+                  <div
+                    class="progress-bar progress-bar-indeterminate bg-green"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
     <!-- Installments -->
     <div class="card mt-4">
       <div class="card-header">
@@ -180,49 +274,68 @@
       </div>
     </div>
 
-    <!-- Payment Response -->
-    <div class="card mt-4" *ngIf="data.payment_response">
-      <div class="card-header">
-        <h3 class="card-title">Payment Response</h3>
+    <div class="row">
+      <div class="col-md-6" *ngIf="data.payment_response">
+        <!-- Payment Response -->
+        <div class="card mt-4">
+          <div class="card-header">
+            <h3 class="card-title">Payment Response</h3>
+          </div>
+          <div class="card-body">
+            <p>
+              <strong>Response Code:</strong>
+              {{ data.payment_response.ResponseCode }}
+            </p>
+            <p>
+              <strong>Message:</strong>
+              {{ data.payment_response.CustomerMessage }}
+            </p>
+            <p>
+              <strong>Merchant Request ID:</strong>
+              {{ data.payment_response.MerchantRequestID }}
+            </p>
+          </div>
+        </div>
       </div>
-      <div class="card-body">
-        <p>
-          <strong>Response Code:</strong>
-          {{ data.payment_response.ResponseCode }}
-        </p>
-        <p>
-          <strong>Message:</strong> {{ data.payment_response.CustomerMessage }}
-        </p>
-        <p>
-          <strong>Merchant Request ID:</strong>
-          {{ data.payment_response.MerchantRequestID }}
-        </p>
-      </div>
-    </div>
-
-    <!-- DMVIC -->
-    <div class="card mt-4" *ngIf="data.dmvic_cert">
-      <div class="card-header">
-        <h3 class="card-title">DMVIC Response</h3>
-      </div>
-      <div class="card-body">
-        <pre>
+      <div class="col-md-6" *ngIf="data.dmvic_cert">
+        <!-- DMVIC -->
+        <div class="card mt-4">
+          <div class="card-header">
+            <h3 class="card-title">DMVIC Response</h3>
+          </div>
+          <div class="card-body">
+            <pre>
             {{ data.dmvic_cert | json }}
           </pre
-        >
+            >
+          </div>
+        </div>
       </div>
-    </div>
-
-    <!-- Premia Response -->
-    <div class="card mt-4" *ngIf="data.premiaQuoteResponse">
-      <div class="card-header">
-        <h3 class="card-title">Premia Response</h3>
-      </div>
-      <div class="card-body">
-        <pre>
+      <div class="col-md-6" *ngIf="data.premiaQuoteResponse">
+        <!-- Premia Response -->
+        <div class="card mt-4">
+          <div class="card-header">
+            <h3 class="card-title">Premia Response</h3>
+          </div>
+          <div class="card-body">
+            <pre>
               {{ data.premiaQuoteResponse | json }}
-            </pre
-        >
+            </pre>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" *ngIf="data.premiaJson">
+        <!-- Premia Response -->
+        <div class="card mt-4">
+          <div class="card-header">
+            <h3 class="card-title">Premia Request</h3>
+          </div>
+          <div class="card-body">
+            <pre>
+              {{ data.premiaJson | json }}
+            </pre>
+          </div>
+        </div>
       </div>
     </div>
   </div>
