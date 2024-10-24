@@ -17,6 +17,12 @@ export class UtilsService {
   ads: any;
   currentResponse: any;
   selectedChunk: any;
+  popup = {
+    title: '',
+    message: '',
+    cancelButtonText: 'Close',
+    okButtonText: 'Ok',
+  };
   // motorData: any = {
 
   //   "autoMobiles": [
@@ -104,6 +110,23 @@ export class UtilsService {
     // return this.platform.is('desktop')
   }
 
+  showPopup(
+    title: string,
+    message: string,
+    okButtonText = 'OK',
+    cancelButtonText = 'Close'
+  ) {
+    this.popup.title = title;
+    this.popup.message = message;
+    this.popup.okButtonText = okButtonText;
+    this.popup.cancelButtonText = cancelButtonText;
+    document.getElementById('app-modal-popup-button')?.click();
+  }
+
+  closePopup() {
+    document.getElementById('app-modal-popup-close-button')?.click();
+  }
+
   formatDateToYYYYMMDD(date: Date) {
     var d = new Date(date),
       month = '' + (d.getMonth() + 1),
@@ -122,7 +145,7 @@ export class UtilsService {
     return formattedDate;
   }
 
-  formatDateSlash(date:Date) {
+  formatDateSlash(date: Date) {
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
     const year = date.getFullYear();
@@ -302,8 +325,14 @@ export class UtilsService {
     });
   }
 
-  getAnyKeyValue(inHandValue: any, propertyOfInterest: keyof any, objectInQuestion: any) {
-    const obj = objectInQuestion.find((pair: any) => pair.inHandValue === inHandValue);
+  getAnyKeyValue(
+    inHandValue: any,
+    propertyOfInterest: keyof any,
+    objectInQuestion: any
+  ) {
+    const obj = objectInQuestion.find(
+      (pair: any) => pair.inHandValue === inHandValue
+    );
     return obj ? obj[propertyOfInterest] : undefined;
   }
 
@@ -316,6 +345,4 @@ export class UtilsService {
       return `https://${host}`;
     }
   }
-  
-
 }

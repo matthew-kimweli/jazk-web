@@ -17,7 +17,7 @@ export class AppComponent {
   title = 'JAZKE';
 
   constructor(public auth: AuthService, 
-    private utilsService: UtilsService,
+    public utilsService: UtilsService,
     private toastr: ToastrService) {
     
 

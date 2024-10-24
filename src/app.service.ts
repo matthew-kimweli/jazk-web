@@ -92,7 +92,7 @@ export class AppService {
             proposalrisks: [
               {
                 risk_sr_no: 1,
-                prai_risk_id: 1,
+                prai_risk_id: "1",
                 prai_data_09: "risk",
                 prai_flexi: {
                   vehicle_cover_type: {
@@ -218,7 +218,7 @@ export class AppService {
                 proposalmotorcerts: [
                   {
                     motor_cert_sr_no: 1,
-                    prai_risk_id: 2,
+                    prai_risk_id: "2",
                     prai_flexi: {
                       cert_mode: {
                         prai_data_08: "02",
@@ -664,7 +664,8 @@ export class AppService {
         //     "name",
         //     motorProductType
         //   );
-        proposal["pol_flexi"]["cover_type_desc"]["pol_flex_16"] = "Comprehensive"
+        proposal["pol_flexi"]["cover_type_desc"]["pol_flex_16"] =
+          "Comprehensive";
 
         proposal["pol_flexi"]["issued_at_code"]["pol_flex_01"] = "118";
         proposal["pol_flexi"]["issued_at_desc"]["pol_flex_17"] =
@@ -718,10 +719,16 @@ export class AppService {
               case "3101": // Own Damage
                 cover.prc_desc = "Own Damage";
                 cover.cvr_sr_no = 1;
-                cover["prc_rate"] = newQuoteData.excessProtectorBenefit || 0;
+                cover["prc_rate"] =
+                  newQuoteData.excessProtectorBenefit == "Inclusive"
+                    ? 0
+                    : newQuoteData.excessProtectorBenefit || 0;
                 cover.prc_rate_per = 1;
                 cover["prc_si_fc"] = newQuoteData.sumInsured || 0;
-                cover["prc_prem_fc"] = newQuoteData.excessProtectorBenefit || 0;
+                cover["prc_prem_fc"] =
+                  newQuoteData.excessProtectorBenefit == "Inclusive"
+                    ? 0
+                    : newQuoteData.excessProtectorBenefit || 0;
                 break;
               case "3176": // Third Party Only
                 cover.prc_desc = "Third Party Only";
@@ -750,10 +757,16 @@ export class AppService {
               case "3198": // Excess Protector
                 cover.prc_desc = "Excess Protector";
                 cover.cvr_sr_no = 5;
-                cover["prc_rate"] = newQuoteData.excessProtectorBenefit || 0;
+                cover["prc_rate"] =
+                  newQuoteData.excessProtectorBenefit == "Inclusive"
+                    ? 0
+                    : newQuoteData.excessProtectorBenefit || 0;
                 cover.prc_rate_per = 1;
                 cover["prc_si_fc"] = newQuoteData.sumInsured;
-                cover["prc_prem_fc"] = newQuoteData.excessProtectorBenefit || 0;
+                cover["prc_prem_fc"] =
+                  newQuoteData.excessProtectorBenefit == "Inclusive"
+                    ? 0
+                    : newQuoteData.excessProtectorBenefit || 0;
                 break;
               case "3199": // Political Violence and Terrorism
                 cover.prc_desc = "Political Violence and Terrorism";
@@ -820,8 +833,8 @@ export class AppService {
     let Err = Parse.Object.extend("JazkeError");
     let err = new Err();
     err.set("msg", error.toString());
-    err.set("response", error.response);
-    err.set("message", error.message);
+    // err.set("response", error.response);
+    // err.set("message", error.message);
     // err.set("json", error.toJSON());
     err.save();
     // console.log('error json', )

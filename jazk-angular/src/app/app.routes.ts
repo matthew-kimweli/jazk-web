@@ -89,6 +89,7 @@ export const routes: Routes = [
     path: 'motor-kyc/:id',
     component: MotorKycComponent,
   },
+  
   {
     path: 'make-payment-installment/:id',
     component: MakeInstallmentPaymentComponent,

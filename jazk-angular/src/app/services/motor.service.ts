@@ -441,6 +441,7 @@ export class MotorService {
     SpecialVehiclesAmbulance: 50000,
     SpecialVehiclesFireFighters: 50000,
   };
+  motorPaymentParams: any;
 
   constructor() { }
 
